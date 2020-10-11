@@ -15,8 +15,7 @@ object RoleTestData {
     fun getRole(): Role {
         return Role(
                 id = 1L,
-                name = "SUPERUSER",
-                users = emptySet()
+                name = "SUPERUSER"
         )
     }
 }

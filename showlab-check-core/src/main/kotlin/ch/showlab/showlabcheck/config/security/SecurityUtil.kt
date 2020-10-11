@@ -24,7 +24,7 @@ object SecurityUtil {
         val grantedAuthorities = ArrayList<GrantedAuthority>()
 
         roles.forEach {
-            grantedAuthorities.add(SimpleGrantedAuthority(it))
+            grantedAuthorities.add(SimpleGrantedAuthority("ROLE_$it"))
         }
 
         return grantedAuthorities

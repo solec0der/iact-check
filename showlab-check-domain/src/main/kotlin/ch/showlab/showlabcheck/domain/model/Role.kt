@@ -8,8 +8,5 @@ data class Role(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
-        val name: String,
-
-        @ManyToMany(mappedBy = "roles")
-        val users: Set<User>
+        val name: String
 )
