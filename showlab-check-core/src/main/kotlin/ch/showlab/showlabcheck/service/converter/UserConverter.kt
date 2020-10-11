@@ -1,8 +1,6 @@
 package ch.showlab.showlabcheck.service.converter
 
-import ch.showlab.showlabcheck.domain.model.Role
 import ch.showlab.showlabcheck.domain.model.User
-import ch.showlab.showlabcheck.dto.RoleDTO
 import ch.showlab.showlabcheck.dto.UserDTO
 
 object UserConverter {
@@ -11,14 +9,7 @@ object UserConverter {
         return UserDTO(
                 id = user.id,
                 username = user.username,
-                roles = user.roles.map { convertRoleToDTO(it) }.toSet()
-        )
-    }
-
-    private fun convertRoleToDTO(role: Role): RoleDTO {
-        return RoleDTO(
-                id = role.id,
-                name = role.name
+                roles = user.roles.map { RoleConverter.convertRoleToDTO(it) }.toSet()
         )
     }
 }
