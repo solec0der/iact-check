@@ -11,6 +11,5 @@
     <modules>
         <module>showlab-check-core</module>
         <module>showlab-check-domain</module>
-        <module>showlab-check-security</module>
     </modules>
 </project>
