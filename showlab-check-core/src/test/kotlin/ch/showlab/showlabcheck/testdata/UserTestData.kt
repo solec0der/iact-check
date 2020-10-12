@@ -13,11 +13,28 @@ object UserTestData {
         )
     }
 
+    fun getUser2Dto(): UserDTO {
+        return UserDTO(
+                id = 2L,
+                username = "ef-admin",
+                roles = setOf(RoleTestData.getRoleDto())
+        )
+    }
+
     fun getUser(): User {
         return User(
                 id = 1L,
                 username = "superuser",
                 password = "superuser",
+                roles = setOf(RoleTestData.getRole())
+        )
+    }
+
+    fun getUser2(): User {
+        return User(
+                id = 2L,
+                username = "ef-admin",
+                password = "ef-admin",
                 roles = setOf(RoleTestData.getRole())
         )
     }

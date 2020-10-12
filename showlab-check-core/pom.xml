@@ -24,6 +24,7 @@
             **/*Application.*,
             **/ch/showlab/showlabcheck/config/security/**
         </sonar.coverage.exclusions>
+        <sonar.exclusions>ch/showlab/showlabcheck/infrastructure/**/*</sonar.exclusions>
     </properties>
 
     <dependencies>
