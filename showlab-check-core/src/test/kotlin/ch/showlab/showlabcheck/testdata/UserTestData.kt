@@ -20,7 +20,7 @@ object UserTestData {
         return UserDTO(
                 id = 2L,
                 username = "ef-admin",
-                roles = setOf(RoleTestData.getRoleDto()),
+                roles = setOf(RoleTestData.getRole2Dto()),
                 accessibleCustomers = listOf(
                         CustomerTestData.getCustomer2Dto()
                 )
@@ -42,7 +42,7 @@ object UserTestData {
                 id = 2L,
                 username = "ef-admin",
                 password = "ef-admin",
-                roles = setOf(RoleTestData.getRole()),
+                roles = setOf(RoleTestData.getRole2()),
                 accessibleCustomers = listOf(CustomerTestData.getCustomer2())
         )
     }
