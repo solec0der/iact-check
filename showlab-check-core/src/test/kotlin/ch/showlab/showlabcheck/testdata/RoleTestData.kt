@@ -12,10 +12,24 @@ object RoleTestData {
         )
     }
 
+    fun getRole2Dto(): RoleDTO {
+        return RoleDTO(
+                id = 2L,
+                name = "ORGANIZATION_ADMINISTRATOR"
+        )
+    }
+
     fun getRole(): Role {
         return Role(
                 id = 1L,
                 name = "SUPERUSER"
+        )
+    }
+
+    fun getRole2(): Role {
+        return Role(
+                id = 2L,
+                name = "ORGANIZATION_ADMINISTRATOR"
         )
     }
 }
