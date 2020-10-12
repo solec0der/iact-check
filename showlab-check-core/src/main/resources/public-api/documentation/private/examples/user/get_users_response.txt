@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "username": "superuser",
+        "roles": [
+            {
+                "id": 2,
+                "name": "SUPERUSER"
+            },
+            {
+                "id": 1,
+                "name": "ORGANIZATION_ADMINISTRATOR"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "username": "ef-admin",
+        "roles": [
+            {
+                "id": 2,
+                "name": "SUPERUSER"
+            }
+        ]
+    }
+]
