@@ -5,7 +5,6 @@ Show-Lab Check
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=solec0der_showlab_check&metric=alert_status&token=b41fa93397c7d1682168c5ff1d7f5bdd2f4a64fb)](https://sonarcloud.io/dashboard?id=solec0der_showlab_check)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=solec0der_showlab_check&metric=code_smells&token=b41fa93397c7d1682168c5ff1d7f5bdd2f4a64fb)](https://sonarcloud.io/dashboard?id=solec0der_showlab_check)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=solec0der_showlab_check&metric=coverage&token=b41fa93397c7d1682168c5ff1d7f5bdd2f4a64fb)](https://sonarcloud.io/dashboard?id=solec0der_showlab_check)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=solec0der_showlab_check&metric=coverage&token=b41fa93397c7d1682168c5ff1d7f5bdd2f4a64fb)](https://sonarcloud.io/dashboard?id=solec0der_showlab_check)
 
 Table of content
 ----------------
