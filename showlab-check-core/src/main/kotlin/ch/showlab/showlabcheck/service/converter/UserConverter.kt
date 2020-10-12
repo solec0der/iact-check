@@ -9,7 +9,10 @@ object UserConverter {
         return UserDTO(
                 id = user.id,
                 username = user.username,
-                roles = user.roles.map { RoleConverter.convertRoleToDTO(it) }.toSet()
+                roles = user.roles.map { RoleConverter.convertRoleToDTO(it) }.toSet(),
+                accessibleCustomers = user.accessibleCustomers.map {
+                    CustomerConverter.convertCustomerToDTO(it)
+                }.toList()
         )
     }
 }

@@ -1,5 +1,8 @@
-package ch.showlab.showlabcheck.config.security
+package ch.showlab.showlabcheck.config.security.filter
 
+import ch.showlab.showlabcheck.config.security.LoginRequest
+import ch.showlab.showlabcheck.config.security.SecurityConstants
+import ch.showlab.showlabcheck.config.security.SecurityUtil
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper

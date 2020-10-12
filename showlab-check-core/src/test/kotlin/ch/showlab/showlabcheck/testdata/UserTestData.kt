@@ -9,7 +9,10 @@ object UserTestData {
         return UserDTO(
                 id = 1L,
                 username = "superuser",
-                roles = setOf(RoleTestData.getRoleDto())
+                roles = setOf(RoleTestData.getRoleDto()),
+                accessibleCustomers = listOf(
+                        CustomerTestData.getCustomerDto()
+                )
         )
     }
 
@@ -17,7 +20,10 @@ object UserTestData {
         return UserDTO(
                 id = 2L,
                 username = "ef-admin",
-                roles = setOf(RoleTestData.getRoleDto())
+                roles = setOf(RoleTestData.getRoleDto()),
+                accessibleCustomers = listOf(
+                        CustomerTestData.getCustomer2Dto()
+                )
         )
     }
 
@@ -26,7 +32,8 @@ object UserTestData {
                 id = 1L,
                 username = "superuser",
                 password = "superuser",
-                roles = setOf(RoleTestData.getRole())
+                roles = setOf(RoleTestData.getRole()),
+                accessibleCustomers = listOf(CustomerTestData.getCustomer())
         )
     }
 
@@ -35,7 +42,8 @@ object UserTestData {
                 id = 2L,
                 username = "ef-admin",
                 password = "ef-admin",
-                roles = setOf(RoleTestData.getRole())
+                roles = setOf(RoleTestData.getRole()),
+                accessibleCustomers = listOf(CustomerTestData.getCustomer2())
         )
     }
 }

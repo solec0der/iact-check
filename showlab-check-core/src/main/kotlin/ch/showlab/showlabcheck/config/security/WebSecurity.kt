@@ -1,5 +1,7 @@
 package ch.showlab.showlabcheck.config.security
 
+import ch.showlab.showlabcheck.config.security.filter.JWTAuthenticationFilter
+import ch.showlab.showlabcheck.config.security.filter.JWTAuthorizationFilter
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

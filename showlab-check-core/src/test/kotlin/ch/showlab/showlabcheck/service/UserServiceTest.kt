@@ -1,14 +1,18 @@
 package ch.showlab.showlabcheck.service
 
 import ch.showlab.showlabcheck.ShowLabCheckApplication
+import ch.showlab.showlabcheck.domain.model.Customer
 import ch.showlab.showlabcheck.domain.model.Role
 import ch.showlab.showlabcheck.domain.model.User
+import ch.showlab.showlabcheck.domain.repository.CustomerRepository
 import ch.showlab.showlabcheck.domain.repository.RoleRepository
 import ch.showlab.showlabcheck.domain.repository.UserRepository
+import ch.showlab.showlabcheck.dto.CustomerDTO
 import ch.showlab.showlabcheck.dto.RoleDTO
 import ch.showlab.showlabcheck.dto.UserDTO
 import ch.showlab.showlabcheck.infrastructure.exception.UserAlreadyExistsException
 import ch.showlab.showlabcheck.infrastructure.exception.UserNotFoundException
+import ch.showlab.showlabcheck.testdata.CustomerTestData
 import ch.showlab.showlabcheck.testdata.RoleTestData
 import ch.showlab.showlabcheck.testdata.UserTestData
 import org.junit.Assert
@@ -38,6 +42,9 @@ class UserServiceTest {
     private val roleRepository: RoleRepository? = null
 
     @Mock
+    private val customerRepository: CustomerRepository? = null
+
+    @Mock
     private val bCryptPasswordEncoder: BCryptPasswordEncoder? = null
 
     @Test
@@ -46,9 +53,13 @@ class UserServiceTest {
                 id = -1L,
                 username = "superuser",
                 password = "superuser",
-                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER"))
+                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER")),
+                accessibleCustomers = listOf(
+                        CustomerDTO(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA")
+                )
         )
 
+        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.getCustomer()))
         `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
         `when`(userRepository!!.existsByUsername("superuser")).thenReturn(false)
         `when`(userRepository.save(any(User::class.java))).thenReturn(UserTestData.getUser())
@@ -65,7 +76,10 @@ class UserServiceTest {
                 id = -1L,
                 username = "superuser",
                 password = "superuser",
-                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER"))
+                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER")),
+                accessibleCustomers = listOf(
+                        CustomerDTO(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA")
+                )
         )
 
         `when`(userRepository!!.existsByUsername("superuser")).thenReturn(true)
@@ -110,22 +124,32 @@ class UserServiceTest {
                 id = 0,
                 username = "new-username",
                 password = "new-password",
-                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER"))
+                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER")),
+                accessibleCustomers = listOf(
+                        CustomerDTO(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA")
+                )
         )
 
         val updatedUser = User(
                 id = 1L,
                 username = "new-username",
                 password = "new-password",
-                roles = setOf(Role(id = 1L, name = "SUPERUSER"))
+                roles = setOf(Role(id = 1L, name = "SUPERUSER")),
+                accessibleCustomers = listOf(
+                        Customer(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA", users = emptyList())
+                )
         )
 
         val expected = UserDTO(
                 id = 1L,
                 username = "new-username",
-                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER"))
+                roles = setOf(RoleDTO(id = 1L, name = "SUPERUSER")),
+                accessibleCustomers = listOf(
+                        CustomerDTO(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA")
+                )
         )
 
+        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.getCustomer()))
         `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(UserTestData.getUser()))
         `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
         `when`(userRepository.save(any(User::class.java))).thenReturn(updatedUser)

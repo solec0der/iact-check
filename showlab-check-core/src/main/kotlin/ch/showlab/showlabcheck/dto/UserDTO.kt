@@ -7,5 +7,6 @@ data class UserDTO(
         val id: Long,
         val username: String,
         val password: String? = null,
-        val roles: Set<RoleDTO>
+        val roles: Set<RoleDTO>,
+        val accessibleCustomers: List<CustomerDTO>
 )

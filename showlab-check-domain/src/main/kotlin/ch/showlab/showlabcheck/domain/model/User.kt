@@ -17,5 +17,13 @@ data class User(
                 joinColumns = [JoinColumn(name = "user_id")],
                 inverseJoinColumns = [JoinColumn(name = "role_id")]
         )
-        val roles: Set<Role>
+        val roles: Set<Role>,
+
+        @ManyToMany(fetch = FetchType.LAZY)
+        @JoinTable(
+                name = "user_customer",
+                joinColumns = [JoinColumn(name = "user_id")],
+                inverseJoinColumns = [JoinColumn(name = "customer_id")]
+        )
+        val accessibleCustomers: List<Customer>
 )
