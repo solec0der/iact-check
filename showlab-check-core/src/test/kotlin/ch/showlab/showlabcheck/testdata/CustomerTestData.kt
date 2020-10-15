@@ -29,7 +29,8 @@ object CustomerTestData {
                 name = "EXPOFORMER",
                 primaryColour = "#FFFAAA",
                 accentColour = "#AAAFFF",
-                users = emptyList()
+                users = emptyList(),
+                logo = ByteArray(100)
         )
     }
 
@@ -39,7 +40,8 @@ object CustomerTestData {
                 name = "POLYPOINT",
                 primaryColour = "#FFFAAA",
                 accentColour = "#AAAFFF",
-                users = emptyList()
+                users = emptyList(),
+                logo = ByteArray(100)
         )
     }
 }
