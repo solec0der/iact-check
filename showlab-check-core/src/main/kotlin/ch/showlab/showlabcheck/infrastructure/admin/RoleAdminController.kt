@@ -16,7 +16,7 @@ import javax.annotation.security.RolesAllowed
 @RestController
 @RolesAllowed("SUPERUSER")
 @RequestMapping("/api/admin/roles")
-class RoleAdminController(
+internal class RoleAdminController(
         private val roleService: RoleService
 ) {
 

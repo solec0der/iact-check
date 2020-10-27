@@ -16,7 +16,7 @@ import javax.annotation.security.RolesAllowed
 
 @RestController
 @RequestMapping("/api/admin/customers")
-class CustomerAdminController(
+internal class CustomerAdminController(
         private val customerService: CustomerService
 ) {
 
