@@ -4,6 +4,7 @@ data class PossibleOutcomeDTO(
         val id: Long,
         val questionCategoryId: Long,
         val title: String,
+        val subtitle: String,
         val description: String,
         val possibleScores: List<PossibleScoreDTO>
 )
