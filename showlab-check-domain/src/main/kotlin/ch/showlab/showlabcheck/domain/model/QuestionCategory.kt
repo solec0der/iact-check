@@ -10,6 +10,10 @@ data class QuestionCategory(
         val id: Long,
         val title: String,
 
+        @Lob
+        @Basic(fetch = FetchType.LAZY)
+        val thumbnail: ByteArray = ByteArray(0),
+
         @ManyToOne
         val check: Check,
 

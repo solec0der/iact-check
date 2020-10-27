@@ -12,6 +12,10 @@ data class Question(
         val minScore: Int,
         val maxScore: Int,
 
+        @Lob
+        @Basic(fetch = FetchType.LAZY)
+        val icon: ByteArray = ByteArray(0),
+
         @ManyToOne
         val questionCategory: QuestionCategory
 )
