@@ -15,7 +15,10 @@ data class Customer(
         @Basic(fetch = FetchType.LAZY)
         val logo: ByteArray = ByteArray(0),
         @ManyToMany(mappedBy = "accessibleCustomers")
-        val users: List<User>
+        val users: List<User>,
+
+        @OneToMany(targetEntity = Check::class, mappedBy = "customer")
+        val checks: List<Check>
 ) {
     override fun toString(): String {
         return "Customer(id=$id, name='$name', primaryColour='$primaryColour', accentColour='$accentColour')"

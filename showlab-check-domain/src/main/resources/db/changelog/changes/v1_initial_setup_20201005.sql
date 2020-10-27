@@ -48,6 +48,8 @@ CREATE TABLE `check`
     id          bigint       NOT NULL AUTO_INCREMENT,
     customer_id bigint       NOT NULL,
     title       varchar(255) NOT NULL,
+    active_from datetime     NOT NULL,
+    active_to   datetime     NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (customer_id) REFERENCES customer (id)
 );
@@ -66,28 +68,28 @@ CREATE TABLE question
     id                   bigint       NOT NULL AUTO_INCREMENT,
     question_category_id bigint       NOT NULL,
     question_text        varchar(255) NOT NULL,
-    minScore             int(4)       NOT NULL,
-    maxScore             int(4)       NOT NULL,
+    min_score            int(4)       NOT NULL,
+    max_score            int(4)       NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (question_category_id) REFERENCES question_category (id)
 );
 
 CREATE TABLE possible_outcome
 (
-    id bigint NOT NULL AUTO_INCREMENT,
-    question_category_id bigint NOT NULL,
-    title varchar(255) NOT NULL,
-    subtitle varchar(255) NOT NULL,
-    description varchar(255) NOT NULL,
+    id                   bigint       NOT NULL AUTO_INCREMENT,
+    question_category_id bigint       NOT NULL,
+    title                varchar(255) NOT NULL,
+    subtitle             varchar(255) NOT NULL,
+    description          text         NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (question_category_id) REFERENCES question_category (id)
 );
 
 CREATE TABLE possible_score
 (
-    id bigint NOT NULL AUTO_INCREMENT,
+    id                  bigint NOT NULL AUTO_INCREMENT,
     possible_outcome_id bigint NOT NULL,
-    score int NOT NULL,
+    score               int    NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (possible_outcome_id) REFERENCES possible_outcome (id)
 );

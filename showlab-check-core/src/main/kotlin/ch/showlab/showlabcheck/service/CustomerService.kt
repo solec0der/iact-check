@@ -26,7 +26,8 @@ class CustomerService(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
                 accentColour = customerDTO.accentColour,
-                users = emptyList()
+                users = emptyList(),
+                checks = emptyList()
         )
 
         return CustomerConverter.convertCustomerToDTO(customerRepository.save(customer))

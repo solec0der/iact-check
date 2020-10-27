@@ -30,7 +30,8 @@ object CustomerTestData {
                 primaryColour = "#FFFAAA",
                 accentColour = "#AAAFFF",
                 users = emptyList(),
-                logo = ByteArray(100)
+                logo = ByteArray(100),
+                checks = emptyList()
         )
     }
 
@@ -41,7 +42,8 @@ object CustomerTestData {
                 primaryColour = "#FFFAAA",
                 accentColour = "#AAAFFF",
                 users = emptyList(),
-                logo = ByteArray(100)
+                logo = ByteArray(100),
+                checks = emptyList()
         )
     }
 }

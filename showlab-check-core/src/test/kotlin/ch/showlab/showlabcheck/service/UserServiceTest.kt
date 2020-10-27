@@ -136,7 +136,7 @@ class UserServiceTest {
                 password = "new-password",
                 roles = setOf(Role(id = 1L, name = "SUPERUSER")),
                 accessibleCustomers = listOf(
-                        Customer(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA", users = emptyList())
+                        Customer(id = 1L, name = "EXPOFORMER", accentColour = "#AAAFFF", primaryColour = "#FFFAAA", users = emptyList(), checks = emptyList())
                 )
         )
 
