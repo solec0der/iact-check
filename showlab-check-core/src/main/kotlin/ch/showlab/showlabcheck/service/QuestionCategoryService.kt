@@ -29,8 +29,30 @@ class QuestionCategoryService(
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))
     }
 
+    fun uploadThumbnailForQuestionCategory(questionCategoryId: Long, thumbnail: ByteArray) {
+        var questionCategory = questionCategoryRepository
+                .findById(questionCategoryId)
+                .orElseThrow { throw QuestionCategoryNotFoundException() }
+
+        questionCategory = questionCategory.copy(
+                thumbnail = thumbnail
+        )
+
+        questionCategoryRepository.save(questionCategory)
+    }
+
+    fun getThumbnailByQuestionCategoryId(questionCategoryId: Long): ByteArray {
+        val questionCategory = questionCategoryRepository
+                .findById(questionCategoryId)
+                .orElseThrow { throw QuestionCategoryNotFoundException() }
+
+        return questionCategory.thumbnail
+    }
+
     fun updateQuestionCategoryById(questionCategoryId: Long, questionCategoryDTO: QuestionCategoryDTO): QuestionCategoryDTO {
-        var questionCategory = questionCategoryRepository.findById(questionCategoryId).orElseThrow { throw QuestionCategoryNotFoundException() }
+        var questionCategory = questionCategoryRepository
+                .findById(questionCategoryId)
+                .orElseThrow { throw QuestionCategoryNotFoundException() }
 
         questionCategory = questionCategory.copy(title = questionCategory.title)
 

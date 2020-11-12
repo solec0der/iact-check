@@ -9,6 +9,11 @@ tmp/
 app/**/*.js
 app/**/*.js.map
 
+
+.project
+.settings/
+.classpath
+
 # dependencies
 node_modules/
 bower_components/

@@ -6,7 +6,7 @@ import ch.showlab.showlabcheck.dto.CustomerDTO
 import ch.showlab.showlabcheck.infrastructure.exception.CustomerAlreadyExistsException
 import ch.showlab.showlabcheck.infrastructure.exception.CustomerNotFoundException
 import ch.showlab.showlabcheck.infrastructure.exception.ForbiddenException
-import ch.showlab.showlabcheck.infrastructure.exception.LogoNotFoundException
+import ch.showlab.showlabcheck.infrastructure.exception.ImageNotFoundException
 import ch.showlab.showlabcheck.service.converter.CustomerConverter
 import org.springframework.stereotype.Service
 
@@ -59,7 +59,7 @@ class CustomerService(
         val customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
 
         if (customer.logo.isEmpty()) {
-            throw LogoNotFoundException()
+            throw ImageNotFoundException()
         }
 
         return customer.logo
