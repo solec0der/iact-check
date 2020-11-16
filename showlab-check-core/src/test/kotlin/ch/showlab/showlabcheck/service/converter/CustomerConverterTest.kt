@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class CustomerConverterTest {
 
     @Test
-    fun shouldReturnConvertedCustomerDto() {
+    fun shouldReturnConvertedCustomerDTO() {
         val actual = CustomerConverter.convertCustomerToDTO(CustomerTestData.customer)
 
         Assert.assertEquals(CustomerTestData.customerDTO, actual)

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class RoleConverterTest {
 
     @Test
-    fun shouldReturnConvertedRoleDto() {
+    fun shouldReturnConvertedRoleDTO() {
         val actual = RoleConverter.convertRoleToDTO(RoleTestData.role)
 
         Assert.assertEquals(RoleTestData.roleDTO, actual)

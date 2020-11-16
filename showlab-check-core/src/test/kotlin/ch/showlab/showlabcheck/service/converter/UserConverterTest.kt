@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class UserConverterTest {
 
     @Test
-    fun shouldReturnConvertedUserDto() {
+    fun shouldReturnConvertedUserDTO() {
         val actual = UserConverter.convertUserToDTO(UserTestData.user)
 
         Assert.assertEquals(UserTestData.userDTO, actual)
