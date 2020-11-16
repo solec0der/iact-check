@@ -5,45 +5,37 @@ import ch.showlab.showlabcheck.dto.UserDTO
 
 object UserTestData {
 
-    fun getUserDto(): UserDTO {
-        return UserDTO(
-                id = 1L,
-                username = "superuser",
-                roles = setOf(RoleTestData.getRoleDto()),
-                accessibleCustomers = listOf(
-                        CustomerTestData.getCustomerDto()
-                )
-        )
-    }
+    val user = User(
+            id = 1L,
+            username = "superuser",
+            password = "superuser",
+            roles = setOf(RoleTestData.role),
+            accessibleCustomers = listOf(CustomerTestData.customer)
+    )
 
-    fun getUser2Dto(): UserDTO {
-        return UserDTO(
-                id = 2L,
-                username = "ef-admin",
-                roles = setOf(RoleTestData.getRole2Dto()),
-                accessibleCustomers = listOf(
-                        CustomerTestData.getCustomer2Dto()
-                )
-        )
-    }
+    val user2 = User(
+            id = 2L,
+            username = "ef-admin",
+            password = "ef-admin",
+            roles = setOf(RoleTestData.role2),
+            accessibleCustomers = listOf(CustomerTestData.customer2)
+    )
 
-    fun getUser(): User {
-        return User(
-                id = 1L,
-                username = "superuser",
-                password = "superuser",
-                roles = setOf(RoleTestData.getRole()),
-                accessibleCustomers = listOf(CustomerTestData.getCustomer())
-        )
-    }
+    val userDTO = UserDTO(
+            id = 1L,
+            username = "superuser",
+            roles = setOf(RoleTestData.roleDTO),
+            accessibleCustomers = listOf(
+                    CustomerTestData.customerDTO
+            )
+    )
 
-    fun getUser2(): User {
-        return User(
-                id = 2L,
-                username = "ef-admin",
-                password = "ef-admin",
-                roles = setOf(RoleTestData.getRole2()),
-                accessibleCustomers = listOf(CustomerTestData.getCustomer2())
-        )
-    }
+    val user2DTO = UserDTO(
+            id = 2L,
+            username = "ef-admin",
+            roles = setOf(RoleTestData.role2DTO),
+            accessibleCustomers = listOf(
+                    CustomerTestData.customer2DTO
+            )
+    )
 }

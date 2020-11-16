@@ -59,15 +59,15 @@ class UserServiceTest {
                 )
         )
 
-        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.getCustomer()))
-        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
+        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.customer))
+        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.role))
         `when`(userRepository!!.existsByUsername("superuser")).thenReturn(false)
-        `when`(userRepository.save(any(User::class.java))).thenReturn(UserTestData.getUser())
+        `when`(userRepository.save(any(User::class.java))).thenReturn(UserTestData.user)
         `when`(bCryptPasswordEncoder!!.encode(ArgumentMatchers.eq("superuser"))).thenReturn("superuser")
 
         val actual = userService!!.createUser(input)
 
-        Assert.assertEquals(UserTestData.getUserDto(), actual)
+        Assert.assertEquals(UserTestData.userDTO, actual)
     }
 
     @Test
@@ -91,9 +91,9 @@ class UserServiceTest {
 
     @Test
     fun shouldReturnListOfUsers() {
-        `when`(userRepository!!.findAll()).thenReturn(listOf(UserTestData.getUser(), UserTestData.getUser2()))
+        `when`(userRepository!!.findAll()).thenReturn(listOf(UserTestData.user, UserTestData.user2))
 
-        val expected = listOf(UserTestData.getUserDto(), UserTestData.getUser2Dto())
+        val expected = listOf(UserTestData.userDTO, UserTestData.user2DTO)
         val actual = userService!!.getUsers()
 
         Assert.assertEquals(expected, actual)
@@ -101,9 +101,9 @@ class UserServiceTest {
 
     @Test
     fun shouldReturnUserById() {
-        `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(UserTestData.getUser()))
+        `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(UserTestData.user))
 
-        val expected = UserTestData.getUserDto()
+        val expected = UserTestData.userDTO
         val actual = userService!!.getUserById(1L)
 
         Assert.assertEquals(expected, actual)
@@ -149,9 +149,9 @@ class UserServiceTest {
                 )
         )
 
-        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.getCustomer()))
-        `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(UserTestData.getUser()))
-        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
+        `when`(customerRepository!!.findById(anyLong())).thenReturn(Optional.of(CustomerTestData.customer))
+        `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(UserTestData.user))
+        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.role))
         `when`(userRepository.save(any(User::class.java))).thenReturn(updatedUser)
         `when`(bCryptPasswordEncoder!!.encode(ArgumentMatchers.eq("new-password"))).thenReturn("new-password")
 
@@ -165,7 +165,7 @@ class UserServiceTest {
         `when`(userRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<UserNotFoundException> {
-            userService!!.updateUserById(1L, UserTestData.getUserDto())
+            userService!!.updateUserById(1L, UserTestData.userDTO)
         }
     }
 }

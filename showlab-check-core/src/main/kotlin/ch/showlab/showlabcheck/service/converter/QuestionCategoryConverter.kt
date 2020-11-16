@@ -8,9 +8,9 @@ object QuestionCategoryConverter {
     fun convertQuestionCategoryToDTO(questionCategory: QuestionCategory): QuestionCategoryDTO {
         return QuestionCategoryDTO(
                 id = questionCategory.id,
-                checkId = questionCategory.id,
+                checkId = questionCategory.check.id,
                 title = questionCategory.title,
-                possibleOutcomes = questionCategory.possibleOutComes.map {
+                possibleOutcomes = questionCategory.possibleOutcomes.map {
                     PossibleOutcomeConverter.convertPossibleOutcomeToDTO(it)
                 }.toList(),
                 questions = questionCategory.questions.map {

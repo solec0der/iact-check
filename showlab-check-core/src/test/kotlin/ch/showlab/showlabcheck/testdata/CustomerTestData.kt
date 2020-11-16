@@ -5,45 +5,37 @@ import ch.showlab.showlabcheck.dto.CustomerDTO
 
 object CustomerTestData {
 
-    fun getCustomerDto(): CustomerDTO {
-        return CustomerDTO(
-                id = 1L,
-                name = "EXPOFORMER",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF"
-        )
-    }
+    val customer = Customer(
+            id = 1L,
+            name = "EXPOFORMER",
+            primaryColour = "#FFFAAA",
+            accentColour = "#AAAFFF",
+            users = emptyList(),
+            logo = ByteArray(100),
+            checks = emptyList()
+    )
 
-    fun getCustomer2Dto(): CustomerDTO {
-        return CustomerDTO(
-                id = 2L,
-                name = "POLYPOINT",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF"
-        )
-    }
+    val customer2 = Customer(
+            id = 2L,
+            name = "POLYPOINT",
+            primaryColour = "#FFFAAA",
+            accentColour = "#AAAFFF",
+            users = emptyList(),
+            logo = ByteArray(100),
+            checks = emptyList()
+    )
 
-    fun getCustomer(): Customer {
-        return Customer(
-                id = 1L,
-                name = "EXPOFORMER",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
-                users = emptyList(),
-                logo = ByteArray(100),
-                checks = emptyList()
-        )
-    }
+    val customerDTO = CustomerDTO(
+            id = 1L,
+            name = "EXPOFORMER",
+            primaryColour = "#FFFAAA",
+            accentColour = "#AAAFFF"
+    )
 
-    fun getCustomer2(): Customer {
-        return Customer(
-                id = 2L,
-                name = "POLYPOINT",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
-                users = emptyList(),
-                logo = ByteArray(100),
-                checks = emptyList()
-        )
-    }
+    val customer2DTO = CustomerDTO(
+            id = 2L,
+            name = "POLYPOINT",
+            primaryColour = "#FFFAAA",
+            accentColour = "#AAAFFF"
+    )
 }

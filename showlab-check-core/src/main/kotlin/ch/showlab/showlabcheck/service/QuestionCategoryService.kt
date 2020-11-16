@@ -23,7 +23,7 @@ class QuestionCategoryService(
                 check = check,
                 title = questionCategoryDTO.title,
                 questions = emptyList(),
-                possibleOutComes = emptyList()
+                possibleOutcomes = emptyList()
         )
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))

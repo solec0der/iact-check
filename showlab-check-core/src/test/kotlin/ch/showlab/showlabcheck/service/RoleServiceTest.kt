@@ -14,7 +14,8 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.any
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.*
@@ -36,9 +37,9 @@ class RoleServiceTest {
                 name = "VIEWER"
         )
 
-        `when`(roleRepository!!.save(any(Role::class.java))).thenReturn(RoleTestData.getRole())
+        `when`(roleRepository!!.save(any(Role::class.java))).thenReturn(RoleTestData.role)
 
-        val expected = RoleTestData.getRoleDto()
+        val expected = RoleTestData.roleDTO
         val actual = roleService!!.createRole(input)
 
         Assert.assertEquals(expected, actual)
@@ -60,9 +61,9 @@ class RoleServiceTest {
 
     @Test
     fun shouldReturnListOfRoles() {
-        `when`(roleRepository!!.findAll()).thenReturn(listOf(RoleTestData.getRole(), RoleTestData.getRole2()))
+        `when`(roleRepository!!.findAll()).thenReturn(listOf(RoleTestData.role, RoleTestData.role2))
 
-        val expected = listOf(RoleTestData.getRoleDto(), RoleTestData.getRole2Dto())
+        val expected = listOf(RoleTestData.roleDTO, RoleTestData.role2DTO)
         val actual = roleService!!.getRoles()
 
         Assert.assertEquals(expected, actual)
@@ -70,9 +71,9 @@ class RoleServiceTest {
 
     @Test
     fun shouldReturnRoleById() {
-        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
+        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.role))
 
-        val expected = RoleTestData.getRoleDto()
+        val expected = RoleTestData.roleDTO
         val actual = roleService!!.getRoleById(1L)
 
         Assert.assertEquals(expected, actual)
@@ -104,7 +105,7 @@ class RoleServiceTest {
                 name = "NEW_ROLE"
         )
 
-        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.getRole()))
+        `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RoleTestData.role))
         `when`(roleRepository.save(any(Role::class.java))).thenReturn(updatedRole)
 
         val actual = roleService!!.updateRoleById(1L, input)
@@ -117,7 +118,7 @@ class RoleServiceTest {
         `when`(roleRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<RoleNotFoundException> {
-            roleService!!.updateRoleById(1L, RoleTestData.getRoleDto())
+            roleService!!.updateRoleById(1L, RoleTestData.roleDTO)
         }
     }
 }

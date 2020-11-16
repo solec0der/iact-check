@@ -21,5 +21,5 @@ data class QuestionCategory(
         val questions: List<Question>,
 
         @OneToMany(targetEntity = PossibleOutcome::class, mappedBy = "questionCategory")
-        val possibleOutComes: List<PossibleOutcome>
+        val possibleOutcomes: List<PossibleOutcome>
 )

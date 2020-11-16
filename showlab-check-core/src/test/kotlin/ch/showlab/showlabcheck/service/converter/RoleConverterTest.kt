@@ -8,8 +8,8 @@ class RoleConverterTest {
 
     @Test
     fun shouldReturnConvertedRoleDto() {
-        val actual = RoleConverter.convertRoleToDTO(RoleTestData.getRole())
+        val actual = RoleConverter.convertRoleToDTO(RoleTestData.role)
 
-        Assert.assertEquals(RoleTestData.getRoleDto(), actual)
+        Assert.assertEquals(RoleTestData.roleDTO, actual)
     }
 }

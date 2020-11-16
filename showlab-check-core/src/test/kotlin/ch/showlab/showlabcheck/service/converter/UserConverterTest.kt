@@ -8,8 +8,8 @@ class UserConverterTest {
 
     @Test
     fun shouldReturnConvertedUserDto() {
-        val actual = UserConverter.convertUserToDTO(UserTestData.getUser())
+        val actual = UserConverter.convertUserToDTO(UserTestData.user)
 
-        Assert.assertEquals(UserTestData.getUserDto(), actual)
+        Assert.assertEquals(UserTestData.userDTO, actual)
     }
 }
