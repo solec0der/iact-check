@@ -26,7 +26,7 @@ class CustomerService(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
                 accentColour = customerDTO.accentColour,
-                users = emptyList(),
+                usersWithAccess = emptySet(),
                 checks = emptyList()
         )
 
@@ -37,17 +37,21 @@ class CustomerService(
         val customers = customerRepository.findAll()
 
         return customers
-                .map { CustomerConverter.convertCustomerToDTO(it) }
+                .map { CustomerConverter.convertCustomerToDTO(it.copy(usersWithAccess = emptySet())) }
                 .toList()
     }
 
     fun getAccessibleCustomers(): List<CustomerDTO> {
         val loggedInUser = userService.getLoggedInUser()
 
-        val customers = if (loggedInUser.roles.any { it.name == "SUPERUSER" }) {
+        var customers = if (loggedInUser.roles.any { it == "SUPERUSER" }) {
             customerRepository.findAll()
         } else {
-            customerRepository.findAllByUserId(loggedInUser.id)
+            customerRepository.findAllByUsersWithAccess(loggedInUser.userId)
+        }
+
+        if (!userService.isLoggedInUserSuperUser()) {
+            customers = customers.map { it.copy(usersWithAccess = emptySet()) }.toList()
         }
 
         return customers
@@ -84,17 +88,24 @@ class CustomerService(
             throw ForbiddenException()
         }
 
-        if (customerRepository.existsByName(customerDTO.name)) {
+        if (customer.name != customerDTO.name && customerRepository.existsByName(customerDTO.name)) {
             throw CustomerAlreadyExistsException()
         }
 
         customer = customer.copy(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
-                accentColour = customerDTO.accentColour
+                accentColour = customerDTO.accentColour,
+                usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess
         )
 
-        return CustomerConverter.convertCustomerToDTO(customerRepository.save(customer))
+        customer = customerRepository.save(customer)
+
+        if (!userService.isLoggedInUserSuperUser()) {
+            customer = customer.copy(usersWithAccess = emptySet())
+        }
+
+        return CustomerConverter.convertCustomerToDTO(customer)
     }
 
     fun deleteCustomerById(customerId: Long) {
@@ -104,6 +115,6 @@ class CustomerService(
     private fun isLoggedInUserAllowedToModifyCustomer(customer: Customer): Boolean {
         val loggedInUser = userService.getLoggedInUser()
 
-        return !loggedInUser.roles.any { it.name == "SUPERUSER" } && !customer.users.any { it.id == loggedInUser.id }
+        return userService.isLoggedInUserSuperUser() || customer.usersWithAccess.any { it == loggedInUser.userId }
     }
 }

@@ -10,7 +10,7 @@ object CustomerTestData {
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
             accentColour = "#AAAFFF",
-            users = emptyList(),
+            usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
     )
@@ -20,7 +20,7 @@ object CustomerTestData {
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
             accentColour = "#AAAFFF",
-            users = emptyList(),
+            usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
     )
@@ -29,13 +29,15 @@ object CustomerTestData {
             id = 1L,
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
-            accentColour = "#AAAFFF"
+            accentColour = "#AAAFFF",
+            usersWithAccess = emptySet()
     )
 
     val customer2DTO = CustomerDTO(
             id = 2L,
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
-            accentColour = "#AAAFFF"
+            accentColour = "#AAAFFF",
+            usersWithAccess = emptySet()
     )
 }
