@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.showlab</groupId>
-    <artifactId>showlab-check</artifactId>
+    <groupId>ch.iact</groupId>
+    <artifactId>iact-check</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>showlab-check-core</module>
-        <module>showlab-check-domain</module>
+        <module>iact-check-core</module>
+        <module>iact-check-domain</module>
     </modules>
 </project>

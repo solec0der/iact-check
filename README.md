@@ -1,4 +1,4 @@
-Show-Lab Check
+Iact Check
 ==============
 
 [![Build Status](https://travis-ci.com/solec0der/showlab-check.svg?token=vkmRsouCARmuqQsURWV5&branch=master)](https://travis-ci.com/solec0der/showlab-check)
