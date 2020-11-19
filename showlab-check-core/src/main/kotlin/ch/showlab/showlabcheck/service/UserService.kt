@@ -26,7 +26,7 @@ class UserService {
         return UserDTO(
                 userId = accessToken.subject,
                 preferredUsername = accessToken.preferredUsername,
-                email = accessToken.email,
+                email = accessToken.email ?: "",
                 roles = accessToken.realmAccess.roles
         )
     }

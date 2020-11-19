@@ -8,22 +8,14 @@ CREATE TABLE customer
     name           varchar(255) NOT NULL,
     primary_colour varchar(10)  NOT NULL,
     accent_colour  varchar(10)  NOT NULL,
-    logo           blob,
+    logo           longblob,
     primary key (id)
 );
 
 CREATE TABLE user_customer_access
 (
     customer_id bigint NOT NULL,
-    user_id bigint NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customer (id)
-);
-
-CREATE TABLE user_customer
-(
-    user_id     bigint NOT NULL,
-    customer_id bigint NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id),
+    user_id varchar(255) NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customer (id)
 );
 

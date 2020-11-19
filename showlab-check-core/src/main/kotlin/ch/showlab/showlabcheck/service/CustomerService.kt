@@ -104,6 +104,6 @@ class CustomerService(
     private fun isLoggedInUserAllowedToModifyCustomer(customer: Customer): Boolean {
         val loggedInUser = userService.getLoggedInUser()
 
-        return !loggedInUser.roles.any { it == "SUPERUSER" } && !customer.usersWithAccess.any { it == loggedInUser.userId }
+        return loggedInUser.roles.any { it == "SUPERUSER" } || customer.usersWithAccess.any { it == loggedInUser.userId }
     }
 }
