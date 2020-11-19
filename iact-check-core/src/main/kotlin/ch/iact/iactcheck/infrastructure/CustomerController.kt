@@ -36,7 +36,7 @@ internal class CustomerController(
                                     examples = [
                                         ExampleObject(
                                                 name = "200 OK Response",
-                                                externalValue = "/showlab-check-core/public-api/documentation/private/examples/customer/get_customers_response.txt")
+                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/get_customers_response.txt")
                                     ]
                             )
                         ]

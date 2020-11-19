@@ -39,7 +39,7 @@ internal class CustomerAdminController(
                                     examples = [
                                         ExampleObject(
                                                 name = "201 Created Response",
-                                                externalValue = "/showlab-check-core/public-api/documentation/private/examples/customer/create_customer_response.txt")
+                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/create_customer_response.txt")
                                     ]
                             )
                         ]
@@ -80,7 +80,7 @@ internal class CustomerAdminController(
                                     examples = [
                                         ExampleObject(
                                                 name = "200 OK Response",
-                                                externalValue = "/showlab-check-core/public-api/documentation/private/examples/customer/get_accessible_customers_response.txt")
+                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/get_accessible_customers_response.txt")
                                     ]
                             )
                         ]
@@ -107,7 +107,7 @@ internal class CustomerAdminController(
                                     examples = [
                                         ExampleObject(
                                                 name = "200 OK Response",
-                                                externalValue = "/showlab-check-core/public-api/documentation/private/examples/customer/update_customer_response.txt")
+                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/update_customer_response.txt")
                                     ]
                             )
                         ]

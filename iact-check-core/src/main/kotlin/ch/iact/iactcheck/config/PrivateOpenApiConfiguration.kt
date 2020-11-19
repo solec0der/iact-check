@@ -14,15 +14,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 @OpenAPIDefinition(info = Info(
-        title = "Balloon-Mail Private API Documentation"
+        title = "Iact-Check Private API Documentation"
 ))
 class PrivateOpenApiConfiguration {
 
     @Value("\${info.app.version:?}")
     private val version: String = ""
 
-    private val title = "Showlab-Check Private API"
-    private val basePackage = "ch.showlab.showlabcheck"
+    private val title = "Iact-Check Private API"
+    private val basePackage = "ch.iact.iactcheck"
 
     @Bean
     fun privateApi(): GroupedOpenApi {
