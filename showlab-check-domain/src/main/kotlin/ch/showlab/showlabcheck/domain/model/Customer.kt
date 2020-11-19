@@ -16,8 +16,8 @@ data class Customer(
         val logo: ByteArray = ByteArray(0),
 
         @ElementCollection
-        @Column(name = "userId")
-        @CollectionTable(name = "users_customer_access", joinColumns = [JoinColumn(name = "customer_id")])
+        @Column(name = "user_id")
+        @CollectionTable(name = "user_customer_access", joinColumns = [JoinColumn(name = "customer_id")])
         val usersWithAccess: Set<String>,
 
         @OneToMany(targetEntity = Check::class, mappedBy = "customer")

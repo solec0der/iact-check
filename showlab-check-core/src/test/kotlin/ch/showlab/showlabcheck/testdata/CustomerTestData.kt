@@ -10,7 +10,7 @@ object CustomerTestData {
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
             accentColour = "#AAAFFF",
-            users = emptyList(),
+            usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
     )
@@ -20,7 +20,7 @@ object CustomerTestData {
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
             accentColour = "#AAAFFF",
-            users = emptyList(),
+            usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
     )
