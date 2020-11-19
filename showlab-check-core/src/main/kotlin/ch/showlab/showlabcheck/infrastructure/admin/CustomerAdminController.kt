@@ -122,6 +122,7 @@ internal class CustomerAdminController(
     }
 
     @DeleteMapping("/{customerId}")
+    @RolesAllowed("SUPERUSER")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(
             summary = "deleteCustomerById",

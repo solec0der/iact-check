@@ -37,7 +37,8 @@ class CustomerServiceTest {
                 id = 0L,
                 name = "EXPOFORMER",
                 primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF"
+                accentColour = "#AAAFFF",
+                usersWithAccess = emptySet()
         )
 
         `when`(customerRepository!!.existsByName("EXPOFORMER")).thenReturn(false)

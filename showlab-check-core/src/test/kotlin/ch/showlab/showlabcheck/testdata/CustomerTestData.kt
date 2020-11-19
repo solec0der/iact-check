@@ -29,13 +29,15 @@ object CustomerTestData {
             id = 1L,
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
-            accentColour = "#AAAFFF"
+            accentColour = "#AAAFFF",
+            usersWithAccess = emptySet()
     )
 
     val customer2DTO = CustomerDTO(
             id = 2L,
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
-            accentColour = "#AAAFFF"
+            accentColour = "#AAAFFF",
+            usersWithAccess = emptySet()
     )
 }

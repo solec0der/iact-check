@@ -22,6 +22,10 @@ class UserService {
         throw UserNotLoggedInException()
     }
 
+    fun isLoggedInUserSuperUser(): Boolean {
+        return getLoggedInUser().roles.any { it == "SUPERUSER" }
+    }
+
     private fun createUserFromAccessToken(accessToken: AccessToken): UserDTO {
         return UserDTO(
                 userId = accessToken.subject,
