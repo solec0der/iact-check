@@ -1,18 +1,20 @@
 package ch.showlab.showlabcheck.config.security
 
-import ch.showlab.showlabcheck.config.security.filter.JWTAuthenticationFilter
-import ch.showlab.showlabcheck.config.security.filter.JWTAuthorizationFilter
-import com.fasterxml.jackson.databind.ObjectMapper
+import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents
+import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper
+import org.springframework.security.core.session.SessionRegistryImpl
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy
 
 @Configuration
 @EnableWebSecurity
@@ -21,14 +23,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
         securedEnabled = true,
         jsr250Enabled = true
 )
-class WebSecurity(
-        private val objectMapper: ObjectMapper,
-        private val userDetailsServiceImpl: UserDetailsServiceImpl
-) : WebSecurityConfigurerAdapter() {
+@ComponentScan(basePackageClasses = [KeycloakSecurityComponents::class])
+class WebSecurity : KeycloakWebSecurityConfigurerAdapter() {
+
+    @Autowired
+    fun configureGlobal(builder: AuthenticationManagerBuilder) {
+        val keycloakAuthenticationProvider = keycloakAuthenticationProvider()
+        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(SimpleAuthorityMapper())
+        builder.authenticationProvider(keycloakAuthenticationProvider)
+    }
 
     @Bean
-    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
+    override fun sessionAuthenticationStrategy(): SessionAuthenticationStrategy {
+        return RegisterSessionAuthenticationStrategy(SessionRegistryImpl())
     }
 
     override fun configure(httpSecurity: HttpSecurity) {
@@ -41,16 +48,6 @@ class WebSecurity(
                 .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/api/admin/**").hasAnyRole("SUPERUSER", "ORGANIZATION_ADMINISTRATOR")
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(JWTAuthenticationFilter(objectMapper, authenticationManager()))
-                .addFilter(JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .anyRequest().authenticated();
     }
-
-    override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder())
-    }
-
-
 }

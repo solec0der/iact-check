@@ -26,7 +26,7 @@ class CustomerService(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
                 accentColour = customerDTO.accentColour,
-                users = emptyList(),
+                usersWithAccess = emptySet(),
                 checks = emptyList()
         )
 
@@ -44,10 +44,10 @@ class CustomerService(
     fun getAccessibleCustomers(): List<CustomerDTO> {
         val loggedInUser = userService.getLoggedInUser()
 
-        val customers = if (loggedInUser.roles.any { it.name == "SUPERUSER" }) {
+        val customers = if (loggedInUser.roles.any { it == "SUPERUSER" }) {
             customerRepository.findAll()
         } else {
-            customerRepository.findAllByUserId(loggedInUser.id)
+            customerRepository.findAllByUsersWithAccess(loggedInUser.userId)
         }
 
         return customers
@@ -104,6 +104,6 @@ class CustomerService(
     private fun isLoggedInUserAllowedToModifyCustomer(customer: Customer): Boolean {
         val loggedInUser = userService.getLoggedInUser()
 
-        return !loggedInUser.roles.any { it.name == "SUPERUSER" } && !customer.users.any { it.id == loggedInUser.id }
+        return !loggedInUser.roles.any { it == "SUPERUSER" } && !customer.usersWithAccess.any { it == loggedInUser.userId }
     }
 }

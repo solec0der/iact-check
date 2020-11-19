@@ -14,8 +14,11 @@ data class Customer(
         @Lob
         @Basic(fetch = FetchType.LAZY)
         val logo: ByteArray = ByteArray(0),
-        @ManyToMany(mappedBy = "accessibleCustomers")
-        val users: List<User>,
+
+        @ElementCollection
+        @Column(name = "userId")
+        @CollectionTable(name = "users_customer_access", joinColumns = [JoinColumn(name = "customer_id")])
+        val usersWithAccess: Set<String>,
 
         @OneToMany(targetEntity = Check::class, mappedBy = "customer")
         val checks: List<Check>
