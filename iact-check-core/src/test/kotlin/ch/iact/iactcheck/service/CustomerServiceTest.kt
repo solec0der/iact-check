@@ -6,11 +6,11 @@ import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
 import ch.iact.iactcheck.testdata.CustomerTestData
+import ch.iact.iactcheck.testdata.UserTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -69,31 +69,20 @@ class CustomerServiceTest {
         Assert.assertEquals(expected, actual)
     }
 
-//    @Test
-//    fun shouldReturnAccessibleCustomersForSuperUser() {
-//        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
-//        `when`(customerRepository!!.findAll()).thenReturn(listOf(CustomerTestData.customer, CustomerTestData.customer2))
-//
-//        val expected = listOf(CustomerTestData.customerDTO, CustomerTestData.customer2DTO)
-//        val actual = customerService!!.getAccessibleCustomers()
-//
-//        Assert.assertEquals(expected, actual)
-//    }
-//
-//    @Test
-//    fun shouldReturnAccessibleCustomersForOrganizationAdministrator() {
-//        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.user2DTO)
-//        `when`(customerRepository!!.findAllByUserId(eq(2L))).thenReturn(listOf(CustomerTestData.customer2))
-//
-//        val expected = listOf(CustomerTestData.customer2DTO)
-//        val actual = customerService!!.getAccessibleCustomers()
-//
-//        Assert.assertEquals(expected, actual)
-//    }
+    @Test
+    fun shouldReturnAccessibleCustomersForSuperUser() {
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
+        `when`(customerRepository!!.findAll()).thenReturn(listOf(CustomerTestData.customer, CustomerTestData.customer2))
+
+        val expected = listOf(CustomerTestData.customerDTO, CustomerTestData.customer2DTO)
+        val actual = customerService!!.getAccessibleCustomers()
+
+        Assert.assertEquals(expected, actual)
+    }
 
     @Test
     fun shouldReturnCustomerLogoById() {
-        `when`(customerRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
 
         val expected = ByteArray(100)
         val actual = customerService!!.getCustomerLogoByCustomerId(1L)
