@@ -2,7 +2,9 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.PossibleOutcome
+import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
+import ch.iact.iactcheck.domain.repository.PossibleScoreRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
@@ -33,6 +35,9 @@ class PossibleOutcomeServiceTest {
 
     @Mock
     private val questionCategoryRepository: QuestionCategoryRepository? = null
+
+    @Mock
+    private val possibleScoreRepository: PossibleScoreRepository? = null
 
     @Test
     fun shouldCreatePossibleOutcomeAndReturnCreatedPossibleOutcome() {
