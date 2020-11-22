@@ -22,7 +22,10 @@
 
         <sonar.coverage.exclusions>
             **/*Application.*,
-            **/ch/iact/iactcheck/config/security/**
+            **/ch/iact/iactcheck/config/**,
+            **/ch/iact/iactcheck/config/security/**,
+            **/ch/iact/iactcheck/infrastructure/**,
+            **/ch/iact/iactcheck/infrastructure/admin/**,
         </sonar.coverage.exclusions>
         <sonar.exclusions>**/ch/iact/iactcheck/infrastructure/**</sonar.exclusions>
     </properties>

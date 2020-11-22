@@ -12,4 +12,11 @@ class QuestionCategoryConverterTest {
 
         Assert.assertEquals(QuestionCategoryTestData.questionCategoryDTO, actual)
     }
+
+    @Test
+    fun shouldReturnConvertedQuestionCategoryDTOWithPossibleOutcomesAndQuestions() {
+        val actual = QuestionCategoryConverter.convertQuestionCategoryToDTO(QuestionCategoryTestData.questionCategoryWithPossibleOutcomesAndQuestions)
+
+        Assert.assertEquals(QuestionCategoryTestData.questionCategoryDTOWithPossibleOutcomesAndQuestions, actual)
+    }
 }
