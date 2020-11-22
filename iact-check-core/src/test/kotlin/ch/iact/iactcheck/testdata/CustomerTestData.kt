@@ -25,6 +25,16 @@ object CustomerTestData {
             checks = emptyList()
     )
 
+    val customer3NoLogo = Customer(
+            id = 2L,
+            name = "POLYPOINT",
+            primaryColour = "#FFFAAA",
+            accentColour = "#AAAFFF",
+            usersWithAccess = setOf(UserTestData.userDTO2.userId),
+            logo = ByteArray(0),
+            checks = emptyList()
+    )
+
     val customerDTO = CustomerDTO(
             id = 1L,
             name = "EXPOFORMER",

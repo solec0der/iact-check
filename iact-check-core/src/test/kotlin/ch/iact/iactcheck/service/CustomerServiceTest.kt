@@ -5,12 +5,16 @@ import ch.iact.iactcheck.domain.model.Customer
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
+import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
+import ch.iact.iactcheck.infrastructure.exception.ForbiddenException
+import ch.iact.iactcheck.infrastructure.exception.ImageNotFoundException
 import ch.iact.iactcheck.testdata.CustomerTestData
 import ch.iact.iactcheck.testdata.UserTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -81,6 +85,17 @@ class CustomerServiceTest {
     }
 
     @Test
+    fun shouldReturnAccessibleCustomersForOrganizationAdministrator() {
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO2)
+        `when`(customerRepository!!.findAllByUsersWithAccess(anyString())).thenReturn(listOf(CustomerTestData.customer, CustomerTestData.customer2))
+
+        val expected = listOf(CustomerTestData.customerDTO, CustomerTestData.customer2DTO)
+        val actual = customerService!!.getAccessibleCustomers()
+
+        Assert.assertEquals(expected, actual)
+    }
+
+    @Test
     fun shouldReturnCustomerLogoById() {
         `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
 
@@ -88,5 +103,88 @@ class CustomerServiceTest {
         val actual = customerService!!.getCustomerLogoByCustomerId(1L)
 
         Assert.assertEquals(expected.size, actual.size)
+    }
+
+    @Test
+    fun shouldThrowImageNotFoundExceptionWhenNoLogoExistsOnCustomer() {
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer3NoLogo))
+
+        assertThrows<ImageNotFoundException> {
+            customerService!!.getCustomerLogoByCustomerId(1L)
+        }
+    }
+
+    @Test
+    fun shouldThrowCustomerNotFoundWhenFetchingLogoOfNonExistentCustomer() {
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.empty())
+
+        assertThrows<CustomerNotFoundException> {
+            customerService!!.getCustomerLogoByCustomerId(1L)
+        }
+    }
+
+    @Test
+    fun shouldThrowForbiddenExceptionWhenUploadingCustomerLogoWithoutAccess() {
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO2)
+        `when`(userService.isLoggedInUserSuperUser()).thenReturn(false)
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer2))
+
+        assertThrows<ForbiddenException> {
+            customerService!!.uploadCustomerLogo(1L, ByteArray(100))
+        }
+    }
+
+    @Test
+    fun shouldUpdateCustomerById() {
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
+        `when`(userService.isLoggedInUserSuperUser()).thenReturn(true)
+
+        val updatedCustomerDTO = CustomerTestData.customerDTO.copy(
+                name = "New name",
+                primaryColour = "#FFFAAA",
+                accentColour = "#AAAFFF",
+                usersWithAccess = emptySet()
+        )
+
+        val updatedCustomer = CustomerTestData.customer.copy(
+                name = "New name",
+                primaryColour = "#FFFAAA",
+                accentColour = "#AAAFFF",
+                usersWithAccess = emptySet()
+        )
+
+        `when`(customerRepository.save(eq(updatedCustomer))).thenReturn(updatedCustomer)
+
+        val actual = customerService!!.updateCustomerById(1L, updatedCustomerDTO)
+
+        Assert.assertEquals(updatedCustomerDTO, actual)
+    }
+
+    @Test
+    fun shouldThrowForbiddenExceptionWhenUpdatingCustomerWithoutAccess() {
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer2))
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO2)
+        `when`(userService.isLoggedInUserSuperUser()).thenReturn(false)
+
+        assertThrows<ForbiddenException> {
+            customerService!!.updateCustomerById(1L, CustomerTestData.customerDTO)
+        }
+    }
+
+    @Test
+    fun shouldThrowCustomerAlreadyExistsExceptionWhenNewNameAlreadyExists() {
+        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
+        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
+        `when`(userService.isLoggedInUserSuperUser()).thenReturn(true)
+        `when`(customerRepository.existsByName(anyString())).thenReturn(true)
+
+        val updatedCustomer = CustomerTestData.customerDTO.copy(
+                name = "New Name"
+        )
+
+        assertThrows<CustomerAlreadyExistsException> {
+            customerService!!.updateCustomerById(1L, updatedCustomer)
+        }
     }
 }
