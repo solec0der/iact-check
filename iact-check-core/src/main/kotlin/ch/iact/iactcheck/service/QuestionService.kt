@@ -5,6 +5,7 @@ import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.domain.repository.QuestionRepository
 import ch.iact.iactcheck.dto.QuestionDTO
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.infrastructure.exception.QuestionNotFoundException
 import ch.iact.iactcheck.service.converter.QuestionConverter
 import org.springframework.stereotype.Service
 
@@ -22,11 +23,41 @@ class QuestionService(
         val question = Question(
                 id = -1,
                 questionText = questionDTO.questionText,
-                minScore =  questionDTO.minScore,
+                minScore = questionDTO.minScore,
                 maxScore = questionDTO.maxScore,
                 questionCategory = questionCategory
         )
 
         return QuestionConverter.convertQuestionToDTO(questionRepository.save(question))
+    }
+
+    fun updateQuestionById(questionId: Long, questionDTO: QuestionDTO): QuestionDTO {
+        var question = questionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+
+        question = question.copy(
+                questionText = questionDTO.questionText,
+                minScore = questionDTO.minScore,
+                maxScore = questionDTO.maxScore
+        )
+
+        return QuestionConverter.convertQuestionToDTO(questionRepository.save(question))
+    }
+
+    fun uploadIconForQuestion(questionId: Long, icon: ByteArray) {
+        var question = questionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+
+        question = question.copy(icon = icon)
+
+        questionRepository.save(question)
+    }
+
+    fun getIconByQuestionId(questionId: Long): ByteArray {
+        val question = questionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+
+        return question.icon
+    }
+
+    fun deleteQuestionById(questionId: Long) {
+        questionRepository.deleteById(questionId)
     }
 }

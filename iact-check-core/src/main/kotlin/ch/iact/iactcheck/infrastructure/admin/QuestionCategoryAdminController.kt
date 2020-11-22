@@ -2,6 +2,7 @@ package ch.iact.iactcheck.infrastructure.admin
 
 import ch.iact.iactcheck.dto.QuestionCategoryDTO
 import ch.iact.iactcheck.service.QuestionCategoryService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -12,6 +13,7 @@ internal class QuestionCategoryAdminController(
 ) {
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     fun createQuestionCategory(@RequestBody questionCategoryDTO: QuestionCategoryDTO): QuestionCategoryDTO {
         return questionCategoryService.createQuestionCategory(questionCategoryDTO)
     }
@@ -32,6 +34,7 @@ internal class QuestionCategoryAdminController(
         return questionCategoryService.updateQuestionCategoryById(questionCategoryId, questionCategoryDTO)
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{questionCategoryId}")
     fun deleteQuestionCategoryById(@PathVariable("questionCategoryId") questionCategoryId: Long) {
         questionCategoryService.deleteQuestionCategoryById(questionCategoryId)

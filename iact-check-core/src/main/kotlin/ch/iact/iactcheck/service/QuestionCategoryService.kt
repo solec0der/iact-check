@@ -54,7 +54,7 @@ class QuestionCategoryService(
                 .findById(questionCategoryId)
                 .orElseThrow { throw QuestionCategoryNotFoundException() }
 
-        questionCategory = questionCategory.copy(title = questionCategory.title)
+        questionCategory = questionCategory.copy(title = questionCategoryDTO.title)
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))
     }

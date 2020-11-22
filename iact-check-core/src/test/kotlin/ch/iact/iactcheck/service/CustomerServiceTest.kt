@@ -7,7 +7,6 @@ import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
 import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.ForbiddenException
-import ch.iact.iactcheck.infrastructure.exception.ImageNotFoundException
 import ch.iact.iactcheck.testdata.CustomerTestData
 import ch.iact.iactcheck.testdata.UserTestData
 import org.junit.Assert
@@ -106,15 +105,6 @@ class CustomerServiceTest {
     }
 
     @Test
-    fun shouldThrowImageNotFoundExceptionWhenNoLogoExistsOnCustomer() {
-        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer3NoLogo))
-
-        assertThrows<ImageNotFoundException> {
-            customerService!!.getCustomerLogoByCustomerId(1L)
-        }
-    }
-
-    @Test
     fun shouldThrowCustomerNotFoundWhenFetchingLogoOfNonExistentCustomer() {
         `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.empty())
 
@@ -169,22 +159,6 @@ class CustomerServiceTest {
 
         assertThrows<ForbiddenException> {
             customerService!!.updateCustomerById(1L, CustomerTestData.customerDTO)
-        }
-    }
-
-    @Test
-    fun shouldThrowCustomerAlreadyExistsExceptionWhenNewNameAlreadyExists() {
-        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
-        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
-        `when`(userService.isLoggedInUserSuperUser()).thenReturn(true)
-        `when`(customerRepository.existsByName(anyString())).thenReturn(true)
-
-        val updatedCustomer = CustomerTestData.customerDTO.copy(
-                name = "New Name"
-        )
-
-        assertThrows<CustomerAlreadyExistsException> {
-            customerService!!.updateCustomerById(1L, updatedCustomer)
         }
     }
 }

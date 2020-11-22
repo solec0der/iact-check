@@ -6,7 +6,6 @@ import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
 import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.ForbiddenException
-import ch.iact.iactcheck.infrastructure.exception.ImageNotFoundException
 import ch.iact.iactcheck.service.converter.CustomerConverter
 import org.springframework.stereotype.Service
 
@@ -61,10 +60,6 @@ class CustomerService(
 
     fun getCustomerLogoByCustomerId(customerId: Long): ByteArray {
         val customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
-
-        if (customer.logo.isEmpty()) {
-            throw ImageNotFoundException()
-        }
 
         return customer.logo
     }
