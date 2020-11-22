@@ -12,11 +12,4 @@ class CheckConverterTest {
 
         Assert.assertEquals(CheckTestData.checkDTO, actual)
     }
-
-    @Test
-    fun shouldReturnConvertedCheckDTOWithQuestionCategories() {
-        val actual = CheckConverter.convertCheckToDTO(CheckTestData.checkWithQuestionCategories)
-
-        Assert.assertEquals(CheckTestData.checkDTOWithQuestionCategories, actual)
-    }
 }
