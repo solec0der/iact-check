@@ -13,7 +13,6 @@ object PossibleScoreTestData {
 
     val possibleScoreDTO = PossibleScoreDTO(
             id = 1L,
-            score = 10,
-            possibleOutcomeId = 1L
+            score = 10
     )
 }
