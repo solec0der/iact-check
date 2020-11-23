@@ -15,6 +15,6 @@ data class PossibleOutcome(
         @ManyToOne
         val questionCategory: QuestionCategory,
 
-        @OneToMany(targetEntity = PossibleScore::class, mappedBy = "possibleOutcome", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+        @OneToMany(targetEntity = PossibleScore::class, mappedBy = "possibleOutcome", cascade = [CascadeType.ALL], orphanRemoval = true)
         val possibleScores: List<PossibleScore>
 )

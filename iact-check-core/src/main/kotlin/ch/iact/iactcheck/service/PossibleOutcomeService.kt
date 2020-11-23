@@ -22,14 +22,19 @@ class PossibleOutcomeService(
                 .findById(possibleOutcomeDTO.questionCategoryId)
                 .orElseThrow { throw QuestionCategoryNotFoundException() }
 
-        val possibleOutcome = PossibleOutcome(
+        var possibleOutcome = PossibleOutcome(
                 id = -1,
                 title = possibleOutcomeDTO.title,
                 subtitle = possibleOutcomeDTO.subtitle,
                 description = possibleOutcomeDTO.description,
                 questionCategory = questionCategory,
+                possibleScores = emptyList()
+        )
+
+        possibleOutcome = possibleOutcomeRepository.save(possibleOutcome)
+        possibleOutcome = possibleOutcome.copy(
                 possibleScores = possibleOutcomeDTO.possibleScores.map {
-                    PossibleScore(id = -1, score = it.score)
+                    PossibleScore(id = -1, possibleOutcome = possibleOutcome, score = it.score)
                 }
         )
 
@@ -46,10 +51,14 @@ class PossibleOutcomeService(
                 subtitle = possibleOutcomeDTO.subtitle,
                 description = possibleOutcomeDTO.description,
                 possibleScores = possibleOutcomeDTO.possibleScores.map {
-                    PossibleScore(-1, score = it.score)
+                    PossibleScore(id = -1, possibleOutcome = possibleOutcome, score = it.score)
                 }
         )
 
         return PossibleOutcomeConverter.convertPossibleOutcomeToDTO(possibleOutcomeRepository.save(possibleOutcome))
+    }
+
+    fun deletePossibleOutcomeById(possibleOutcomeId: Long) {
+        possibleOutcomeRepository.deleteById(possibleOutcomeId)
     }
 }
