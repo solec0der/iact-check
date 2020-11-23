@@ -8,6 +8,7 @@ import ch.iact.iactcheck.domain.repository.PossibleScoreRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
+import ch.iact.iactcheck.testdata.PossibleScoreTestData
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
 import ch.iact.iactcheck.testdata.QuestionTestData
 import org.junit.Assert
@@ -43,6 +44,7 @@ class PossibleOutcomeServiceTest {
     fun shouldCreatePossibleOutcomeAndReturnCreatedPossibleOutcome() {
         `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
         `when`(possibleOutcomeRepository!!.save(any(PossibleOutcome::class.java))).thenReturn(PossibleOutcomeTestData.possibleOutcome)
+        `when`(possibleScoreRepository!!.save(any(PossibleScore::class.java))).thenReturn(PossibleScoreTestData.possibleScore)
 
         val actual = possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTO)
 
