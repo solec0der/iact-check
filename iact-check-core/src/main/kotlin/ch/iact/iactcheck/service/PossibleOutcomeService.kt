@@ -3,7 +3,6 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.domain.model.PossibleOutcome
 import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
-import ch.iact.iactcheck.domain.repository.PossibleScoreRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.PossibleOutcomeDTO
 import ch.iact.iactcheck.dto.PossibleScoreDTO
@@ -15,8 +14,7 @@ import org.springframework.stereotype.Service
 @Service
 class PossibleOutcomeService(
         private val possibleOutcomeRepository: PossibleOutcomeRepository,
-        private val questionCategoryRepository: QuestionCategoryRepository,
-        private val possibleScoreRepository: PossibleScoreRepository
+        private val questionCategoryRepository: QuestionCategoryRepository
 ) {
 
     fun createPossibleOutcome(possibleOutcomeDTO: PossibleOutcomeDTO): PossibleOutcomeDTO {
@@ -24,21 +22,16 @@ class PossibleOutcomeService(
                 .findById(possibleOutcomeDTO.questionCategoryId)
                 .orElseThrow { throw QuestionCategoryNotFoundException() }
 
-        var possibleOutcome = PossibleOutcome(
+        val possibleOutcome = PossibleOutcome(
                 id = -1,
                 title = possibleOutcomeDTO.title,
                 subtitle = possibleOutcomeDTO.subtitle,
                 description = possibleOutcomeDTO.description,
                 questionCategory = questionCategory,
-                possibleScores = emptyList()
+                possibleScores = possibleOutcomeDTO.possibleScores.map {
+                    PossibleScore(id = -1, score = it.score)
+                }
         )
-
-        possibleOutcome = possibleOutcomeRepository.save(possibleOutcome)
-
-        possibleOutcome = possibleOutcome.copy(possibleScores = createPossibleScoreEntitiesFromDTOs(
-                possibleOutcomeDTO.possibleScores,
-                possibleOutcome
-        ))
 
         return PossibleOutcomeConverter.convertPossibleOutcomeToDTO(possibleOutcomeRepository.save(possibleOutcome))
     }
@@ -52,24 +45,11 @@ class PossibleOutcomeService(
                 title = possibleOutcomeDTO.title,
                 subtitle = possibleOutcomeDTO.subtitle,
                 description = possibleOutcomeDTO.description,
-                possibleScores = createPossibleScoreEntitiesFromDTOs(possibleOutcomeDTO.possibleScores, possibleOutcome)
+                possibleScores = possibleOutcomeDTO.possibleScores.map {
+                    PossibleScore(-1, score = it.score)
+                }
         )
 
         return PossibleOutcomeConverter.convertPossibleOutcomeToDTO(possibleOutcomeRepository.save(possibleOutcome))
-    }
-
-    private fun createPossibleScoreEntitiesFromDTOs(
-            possibleScoreDTOs: List<PossibleScoreDTO>,
-            possibleOutcome: PossibleOutcome
-    ): List<PossibleScore> {
-        val possibleScores = mutableListOf<PossibleScore>()
-
-        possibleScoreDTOs.forEach {
-            possibleScores.add(
-                    possibleScoreRepository.save(PossibleScore(id = -1, score = it.score, possibleOutcome = possibleOutcome))
-            )
-        }
-
-        return possibleScores
     }
 }

@@ -4,13 +4,11 @@ import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.PossibleOutcome
 import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
-import ch.iact.iactcheck.domain.repository.PossibleScoreRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
 import ch.iact.iactcheck.testdata.PossibleScoreTestData
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
-import ch.iact.iactcheck.testdata.QuestionTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -37,14 +35,10 @@ class PossibleOutcomeServiceTest {
     @Mock
     private val questionCategoryRepository: QuestionCategoryRepository? = null
 
-    @Mock
-    private val possibleScoreRepository: PossibleScoreRepository? = null
-
     @Test
     fun shouldCreatePossibleOutcomeAndReturnCreatedPossibleOutcome() {
         `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
         `when`(possibleOutcomeRepository!!.save(any(PossibleOutcome::class.java))).thenReturn(PossibleOutcomeTestData.possibleOutcome)
-        `when`(possibleScoreRepository!!.save(any(PossibleScore::class.java))).thenReturn(PossibleScoreTestData.possibleScore)
 
         val actual = possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTO)
 

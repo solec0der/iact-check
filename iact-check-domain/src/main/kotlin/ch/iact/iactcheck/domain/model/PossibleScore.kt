@@ -11,5 +11,5 @@ data class PossibleScore(
         val score: Int,
 
         @ManyToOne
-        val possibleOutcome: PossibleOutcome
+        val possibleOutcome: PossibleOutcome? = null
 )
