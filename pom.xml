@@ -11,5 +11,6 @@
     <modules>
         <module>iact-check-core</module>
         <module>iact-check-domain</module>
+        <module>iact-check-webapp</module>
     </modules>
 </project>
