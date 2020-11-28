@@ -14,7 +14,6 @@ export class AdminComponent implements OnInit {
       if (!isLoggedIn) {
         this.keycloakService.login().then();
       }
-      this.keycloakService.loadUserProfile().then();
     });
   }
 }

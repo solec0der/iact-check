@@ -1,0 +1,24 @@
+{
+  "HEADER": {
+    "LOGOUT": "Logout",
+    "WELCOME": "Welcome, "
+  },
+  "SIDEBAR": {
+    "CUSTOMERS": "Customers",
+    "ADD_CUSTOMER": "Add new customer",
+    "SETTINGS": "Settings",
+    "LANGUAGE": "Language"
+  },
+  "CUSTOMERS": {
+    "CUSTOMERS": "Customers",
+    "NAME": "Name",
+    "PRIMARY_COLOUR": "Primary colour",
+    "ACCENT_COLOUR": "Accent colour",
+    "USERS_WITH_ACCESS": "User(s) with access",
+    "ADD_CUSTOMER": "Add new customer"
+  },
+  "SHARED": {
+    "RELOAD": "Reload",
+    "ACTIONS": "Actions"
+  }
+}

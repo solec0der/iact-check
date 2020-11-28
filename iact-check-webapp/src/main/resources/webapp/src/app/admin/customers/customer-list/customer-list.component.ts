@@ -10,7 +10,7 @@ import {CustomerDTO} from "../../shared/dtos/customer-dto";
 export class CustomerListComponent implements OnInit {
 
   public customers: CustomerDTO[] = [];
-  public columnsCustomers = ['id', 'name', 'primaryColour', 'accentColour', 'actions'];
+  public columnsCustomers = ['id', 'name', 'primaryColour', 'accentColour', 'usersWithAccess', 'actions'];
 
   constructor(private customerService: CustomerService) {}
 

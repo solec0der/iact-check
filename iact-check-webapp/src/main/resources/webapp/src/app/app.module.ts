@@ -5,9 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializer } from './shared/keycloak/init-keycloak';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpLoaderFactory } from './shared/translation/http-loader-factory';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,13 @@ import { initializer } from './shared/keycloak/init-keycloak';
     MaterialModule,
     HttpClientModule,
     KeycloakAngularModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     {

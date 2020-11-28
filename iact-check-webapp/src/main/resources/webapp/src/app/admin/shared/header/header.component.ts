@@ -7,16 +7,20 @@ import { KeycloakService } from 'keycloak-angular';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  public username: string | undefined;
+
   constructor(private keycloakService: KeycloakService) {}
 
-  ngOnInit(): void {}
-
-  public getUsername(): string {
-    return this.keycloakService.getUsername();
+  ngOnInit(): void {
+    this.keycloakService.loadUserProfile().then((userProfile) => {
+      this.username = userProfile.username;
+    });
   }
 
-  public openAccountInKeycloak() {
-    window.location.href = this.keycloakService.getKeycloakInstance().createAccountUrl();
+  public openAccountInKeycloak(): void {
+    window.location.href = this.keycloakService
+      .getKeycloakInstance()
+      .createAccountUrl();
   }
 
   public logout(): void {

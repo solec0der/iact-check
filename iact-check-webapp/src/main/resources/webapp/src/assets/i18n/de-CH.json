@@ -1,0 +1,24 @@
+{
+  "HEADER": {
+    "LOGOUT": "Ausloggen",
+    "WELCOME": "Willkommen, "
+  },
+  "SIDEBAR": {
+    "CUSTOMERS": "Kunden",
+    "ADD_CUSTOMER": "Neuen Kunden erstellen",
+    "SETTINGS": "Einstellungen",
+    "LANGUAGE": "Sprache"
+  },
+  "CUSTOMERS": {
+    "CUSTOMERS": "Kunden",
+    "NAME": "Name",
+    "PRIMARY_COLOUR": "Primärfarbe",
+    "ACCENT_COLOUR": "Akzentfarbe",
+    "USERS_WITH_ACCESS": "Benutzer mit Zugriff",
+    "ADD_CUSTOMER": "Neuen Kunden erstellen"
+  },
+  "SHARED": {
+    "RELOAD": "Neu laden",
+    "ACTIONS": "Aktionen"
+  }
+}

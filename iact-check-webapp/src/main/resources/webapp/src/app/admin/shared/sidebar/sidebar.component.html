@@ -4,10 +4,10 @@
             [routerLink]="menuItem.routerLink">
       <mat-icon>{{menuItem.isSubMenuItem ? '' : menuItem.icon}}</mat-icon>
       <span style="margin-left: 10px;" *ngIf="!menuItem.isSubMenuItem">
-      {{menuItem.displayValue}}
+      {{menuItem.displayValue | translate}}
     </span>
       <span style="margin-left: 10px; font-weight: normal" *ngIf="menuItem.isSubMenuItem">
-      {{menuItem.displayValue}}
+      {{menuItem.displayValue | translate}}
     </span>
     </button>
   </div>
