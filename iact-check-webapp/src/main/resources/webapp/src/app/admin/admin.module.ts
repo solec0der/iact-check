@@ -8,6 +8,8 @@ import { MaterialModule } from '../material.module';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageComponent } from './settings/language/language.component';
+import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,8 +18,15 @@ import { LanguageComponent } from './settings/language/language.component';
     AdminComponent,
     CustomerListComponent,
     LanguageComponent,
+    CustomerDetailComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, MaterialModule, TranslateModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    MaterialModule,
+    TranslateModule.forChild({}),
+    ReactiveFormsModule,
+  ],
   bootstrap: [AdminComponent],
 })
 export class AdminModule {}

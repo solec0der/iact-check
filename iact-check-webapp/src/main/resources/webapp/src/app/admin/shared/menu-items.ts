@@ -9,12 +9,6 @@ export const MENU_ITEMS: MenuItem[] = [
     rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
   },
   {
-    displayValue: 'SIDEBAR.ADD_CUSTOMER',
-    routerLink: 'customers/add',
-    isSubMenuItem: true,
-    rolesNeededToAccess: ['SUPERUSER'],
-  },
-  {
     displayValue: 'SIDEBAR.SETTINGS',
     routerLink: 'settings',
     icon: 'settings',

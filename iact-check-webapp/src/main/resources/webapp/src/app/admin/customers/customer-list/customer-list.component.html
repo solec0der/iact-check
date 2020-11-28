@@ -3,7 +3,7 @@
     <h1>{{'CUSTOMERS.CUSTOMERS' | translate}}</h1>
   </div>
   <div>
-    <button mat-stroked-button style="margin-right: 10px;">
+    <button mat-stroked-button style="margin-right: 10px;" [routerLink]="[-1, 'add']">
       <mat-icon>create</mat-icon>
       {{'CUSTOMERS.ADD_CUSTOMER' | translate}}
     </button>

@@ -5,7 +5,6 @@
   },
   "SIDEBAR": {
     "CUSTOMERS": "Customers",
-    "ADD_CUSTOMER": "Add new customer",
     "SETTINGS": "Settings",
     "LANGUAGE": "Language"
   },
@@ -15,10 +14,15 @@
     "PRIMARY_COLOUR": "Primary colour",
     "ACCENT_COLOUR": "Accent colour",
     "USERS_WITH_ACCESS": "User(s) with access",
-    "ADD_CUSTOMER": "Add new customer"
+    "ADD_CUSTOMER": "Add customer",
+    "EDIT_CUSTOMER": "Edit customer",
+    "PLACEHOLDER": {
+      "NAME": "Please enter the name of the customer"
+    }
   },
   "SHARED": {
     "RELOAD": "Reload",
-    "ACTIONS": "Actions"
+    "ACTIONS": "Actions",
+    "SAVE": "Save"
   }
 }

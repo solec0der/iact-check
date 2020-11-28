@@ -1,0 +1,19 @@
+<div class="display-flex-space-between">
+  <div>
+    <h1 *ngIf="this.action === 'add'">{{'CUSTOMERS.ADD_CUSTOMER' | translate}}</h1>
+    <h1 *ngIf="this.action === 'edit'">{{'CUSTOMERS.EDIT_CUSTOMER' | translate}}</h1>
+  </div>
+  <div>
+    <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid">
+      <mat-icon>save</mat-icon>
+      {{'SHARED.SAVE' | translate}}
+    </button>
+  </div>
+</div>
+
+<form [formGroup]="this.customerFormGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>{{'CUSTOMERS.NAME' | translate}}</mat-label>
+    <input matInput [placeholder]="'CUSTOMERS.PLACEHOLDER.NAME' | translate" formControlName="name"/>
+  </mat-form-field>
+</form>
