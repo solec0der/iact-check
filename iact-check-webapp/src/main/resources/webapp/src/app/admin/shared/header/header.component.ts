@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  constructor(private keycloakService: KeycloakService) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  public getUsername(): string {
+    return this.keycloakService.getUsername();
   }
 
+  public logout(): void {
+    this.keycloakService.logout().then();
+  }
 }
