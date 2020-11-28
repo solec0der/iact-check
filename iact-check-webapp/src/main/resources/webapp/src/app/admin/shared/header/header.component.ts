@@ -15,6 +15,10 @@ export class HeaderComponent implements OnInit {
     return this.keycloakService.getUsername();
   }
 
+  public openAccountInKeycloak() {
+    window.location.href = this.keycloakService.getKeycloakInstance().createAccountUrl();
+  }
+
   public logout(): void {
     this.keycloakService.logout().then();
   }

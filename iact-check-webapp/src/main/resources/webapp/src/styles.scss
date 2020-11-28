@@ -19,3 +19,20 @@ h1 {
   color: #424e59;
 }
 
+.full-width {
+  width: 100%;
+}
+
+span.color-preview-dot {
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.display-flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
