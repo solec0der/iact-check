@@ -1,0 +1,9 @@
+<mat-toolbar style="height: 56px">
+  <img src="assets/img/iact-logo.png" style="height: 45px" alt="iact-logo"/>
+  <span class="spacer"></span>
+  <span class="welcome-user">Willkommen, <span class="username" (click)="this.openAccountInKeycloak()">{{this.getUsername()}}</span></span>
+  <button mat-stroked-button (click)="this.logout()">
+    <mat-icon>logout</mat-icon>
+    Ausloggen
+  </button>
+</mat-toolbar>
