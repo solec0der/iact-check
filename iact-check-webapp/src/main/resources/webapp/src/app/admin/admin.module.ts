@@ -4,10 +4,11 @@ import { AdminRoutingModule } from './admin.routing.module';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AdminComponent } from './admin.component';
+import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [SidebarComponent, HeaderComponent, AdminComponent],
-  imports: [CommonModule, AdminRoutingModule],
-  bootstrap: [AdminComponent]
+  imports: [CommonModule, AdminRoutingModule, MaterialModule],
+  bootstrap: [AdminComponent],
 })
 export class AdminModule {}
