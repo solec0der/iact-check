@@ -1,3 +1,14 @@
 <div class="full-height-sidebar">
-  <p>This is a sidebar</p>
+  <div *ngFor="let menuItem of MENU_ITEMS">
+    <button mat-button style="width: 100%; text-align: left;" *ngIf="this.hasUserRoles(menuItem.rolesNeededToAccess)"
+            [routerLink]="menuItem.routerLink">
+      <mat-icon>{{menuItem.isSubMenuItem ? '' : menuItem.icon}}</mat-icon>
+      <span style="margin-left: 10px;" *ngIf="!menuItem.isSubMenuItem">
+      {{menuItem.displayValue}}
+    </span>
+      <span style="margin-left: 10px; font-weight: normal" *ngIf="menuItem.isSubMenuItem">
+      {{menuItem.displayValue}}
+    </span>
+    </button>
+  </div>
 </div>

@@ -5,9 +5,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AdminComponent } from './admin.component';
 import { MaterialModule } from '../material.module';
+import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 
 @NgModule({
-  declarations: [SidebarComponent, HeaderComponent, AdminComponent],
+  declarations: [SidebarComponent, HeaderComponent, AdminComponent, CustomerListComponent],
   imports: [CommonModule, AdminRoutingModule, MaterialModule],
   bootstrap: [AdminComponent],
 })
