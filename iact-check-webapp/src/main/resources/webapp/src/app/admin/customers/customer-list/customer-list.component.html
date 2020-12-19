@@ -3,7 +3,7 @@
     <h1>{{'CUSTOMERS.CUSTOMERS' | translate}}</h1>
   </div>
   <div>
-    <button mat-stroked-button style="margin-right: 10px;" [routerLink]="[-1, 'create']">
+    <button mat-stroked-button style="margin-right: 10px;" [routerLink]="[-1, 'create']" *ngIf="this.isSuperUser">
       <mat-icon>create</mat-icon>
       {{'CUSTOMERS.ADD_CUSTOMER' | translate}}
     </button>

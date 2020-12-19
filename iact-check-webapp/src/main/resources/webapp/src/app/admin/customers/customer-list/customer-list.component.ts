@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../shared/services/customer.service';
 import { CustomerDTO } from '../../shared/dtos/customer-dto';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,7 +19,10 @@ export class CustomerListComponent implements OnInit {
     'actions',
   ];
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private userService: UserService,
+    private customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
     this.reload();
@@ -26,6 +30,10 @@ export class CustomerListComponent implements OnInit {
 
   public reload(): void {
     this.loadData();
+  }
+
+  get isSuperUser(): boolean {
+    return this.userService.isSuperUser();
   }
 
   private loadData(): void {
