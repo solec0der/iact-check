@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../shared/services/customer.service';
-import {CustomerDTO} from "../../shared/dtos/customer-dto";
+import { CustomerDTO } from '../../shared/dtos/customer-dto';
 
 @Component({
   selector: 'app-customer-list',
@@ -8,9 +8,15 @@ import {CustomerDTO} from "../../shared/dtos/customer-dto";
   styleUrls: ['./customer-list.component.scss'],
 })
 export class CustomerListComponent implements OnInit {
-
   public customers: CustomerDTO[] = [];
-  public columnsCustomers = ['id', 'name', 'primaryColour', 'accentColour', 'usersWithAccess', 'actions'];
+  public columnsCustomers = [
+    'id',
+    'name',
+    'primaryColour',
+    'accentColour',
+    'usersWithAccess',
+    'actions',
+  ];
 
   constructor(private customerService: CustomerService) {}
 

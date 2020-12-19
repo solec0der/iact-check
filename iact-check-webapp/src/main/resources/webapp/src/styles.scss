@@ -23,6 +23,10 @@ h1 {
   width: 100%;
 }
 
+.half-width {
+  width: 50%;
+}
+
 span.color-preview-dot {
   border-radius: 50%;
   width: 16px;
@@ -35,4 +39,8 @@ span.color-preview-dot {
   justify-content: space-between;
   align-content: center;
   align-items: center;
+}
+
+.margin-bottom-after-title {
+  margin-bottom: 20px;
 }

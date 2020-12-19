@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageComponent } from './settings/language/language.component';
 import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgxMatColorPickerModule} from '@angular-material-components/color-picker';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     MaterialModule,
     TranslateModule.forChild({}),
     ReactiveFormsModule,
+    NgxMatColorPickerModule,
   ],
   bootstrap: [AdminComponent],
 })

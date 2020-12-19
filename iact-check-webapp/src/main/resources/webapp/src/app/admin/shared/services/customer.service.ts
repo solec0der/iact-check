@@ -10,6 +10,11 @@ import { CORE_URL } from '../../../app.config';
 export class CustomerService {
   constructor(private httpClient: HttpClient) {}
 
+  public createCustomer(customerDTO: CustomerDTO): Observable<CustomerDTO> {
+    const body = JSON.stringify(customerDTO);
+    return this.httpClient.post<CustomerDTO>(CORE_URL + '/api/admin/customers', body);
+  }
+
   public getCustomers(): Observable<CustomerDTO[]> {
     return this.httpClient.get<CustomerDTO[]>(
       CORE_URL + '/api/admin/customers'
