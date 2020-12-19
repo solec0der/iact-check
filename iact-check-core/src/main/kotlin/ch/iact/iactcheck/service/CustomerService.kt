@@ -40,6 +40,12 @@ class CustomerService(
                 .toList()
     }
 
+    fun getCustomerById(customerId: Long): CustomerDTO {
+        return CustomerConverter.convertCustomerToDTO(
+                customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
+        )
+    }
+
     fun getAccessibleCustomers(): List<CustomerDTO> {
         val loggedInUser = userService.getLoggedInUser()
 

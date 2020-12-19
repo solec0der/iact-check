@@ -56,7 +56,7 @@
       {{'SHARED.ACTIONS' | translate}}
     </th>
     <td mat-cell *matCellDef="let element" style="text-align: right">
-      <button mat-icon-button>
+      <button mat-icon-button [routerLink]="[element.id, 'edit']">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button>

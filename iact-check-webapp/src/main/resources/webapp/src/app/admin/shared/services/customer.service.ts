@@ -15,6 +15,12 @@ export class CustomerService {
     return this.httpClient.post<CustomerDTO>(CORE_URL + '/api/admin/customers', body);
   }
 
+  public getCustomerById(customerId: number): Observable<CustomerDTO> {
+    return this.httpClient.get<CustomerDTO>(
+      CORE_URL + '/api/admin/customers/' + customerId
+    );
+  }
+
   public getCustomers(): Observable<CustomerDTO[]> {
     return this.httpClient.get<CustomerDTO[]>(
       CORE_URL + '/api/admin/customers'
