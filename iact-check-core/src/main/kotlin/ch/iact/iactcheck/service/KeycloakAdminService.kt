@@ -4,6 +4,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.keycloak.OAuth2Constants
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.admin.client.KeycloakBuilder
+import org.keycloak.admin.client.resource.RoleScopeResource
+import org.keycloak.admin.client.resource.UserResource
+import org.keycloak.representations.idm.RoleRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -31,5 +34,15 @@ class KeycloakAdminService(
 
     fun getUsers(): List<UserRepresentation> {
         return this.keycloak.realm(this.realm).users().list()
+    }
+
+    fun getRolesByUserId(userId: String): List<RoleRepresentation> {
+        return this.keycloak
+                .realm(this.realm)
+                .users()
+                .get(userId)
+                .roles()
+                .realmLevel()
+                .listAll()
     }
 }

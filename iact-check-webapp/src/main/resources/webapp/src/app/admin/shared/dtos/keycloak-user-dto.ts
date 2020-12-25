@@ -1,4 +1,4 @@
-export interface KeycloakUserDTO {
+export interface KeycloakUserDto {
   self?: any;
   id: string;
   origin?: any;

@@ -25,7 +25,7 @@ class CustomerService(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
                 accentColour = customerDTO.accentColour,
-                usersWithAccess = emptySet(),
+                usersWithAccess = customerDTO.usersWithAccess,
                 checks = emptyList()
         )
 

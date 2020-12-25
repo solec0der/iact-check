@@ -5,9 +5,13 @@
       <h1 *ngIf="this.action === 'edit'">{{'CUSTOMERS.EDIT_CUSTOMER' | translate}}</h1>
     </div>
     <div>
-      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid">
+      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid" style="margin-right: 10px;">
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
+      </button>
+      <button mat-stroked-button (click)="this.deleteCustomer()" *ngIf="this.action === 'edit'">
+        <mat-icon>delete</mat-icon>
+        {{'SHARED.DELETE' | translate}}
       </button>
     </div>
   </div>
@@ -49,18 +53,22 @@
       <ngx-mat-color-picker #accentColourPicker></ngx-mat-color-picker>
     </mat-form-field>
 
-    <div class="half-width" *ngIf="this.action === 'edit'">
-      <h3>Benutzer mit Zugriff</h3>
-      <table mat-table [dataSource]="this.usersWithAccessDataSource" class="full-width">
+    <div class="half-width" *ngIf="this.isSuperUser">
+      <h3>{{'CUSTOMERS.USERS_WITH_ACCESS' | translate}}</h3>
+      <table mat-table [dataSource]="this.keycloakUsersDatasource" class="full-width">
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef> Username</th>
+          <th mat-header-cell *matHeaderCellDef>{{'USER.USERNAME' | translate}}</th>
           <td mat-cell *matCellDef="let element"> {{element.username}} </td>
         </ng-container>
 
         <ng-container matColumnDef="hasAccess">
-          <th mat-header-cell *matHeaderCellDef> Hat Zugriff</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-checkbox [checked]="this.isUserInUsersWithAccess(element.id)" [disabled]="this.isUserLoggedInUser(element.username)"></mat-checkbox>
+          <th mat-header-cell *matHeaderCellDef style="text-align: right">{{'CUSTOMERS.HAS_ACCESS' | translate}}</th>
+          <td mat-cell *matCellDef="let element" style="text-align: right;">
+            <mat-checkbox [checked]="this.isUserInUsersWithAccess(element)"
+                          [disabled]="this.isUserSuperUser(element)"
+                          [matTooltip]="'CUSTOMERS.TOOLTIPS.USER_IS_SUPERUSER' | translate"
+                          [matTooltipDisabled]="!this.isUserSuperUser(element)"
+                          (change)="this.addOrRemoveUserFromUsersWithAccess(element)"></mat-checkbox>
           </td>
         </ng-container>
 
@@ -68,7 +76,8 @@
         <tr mat-row *matRowDef="let row; columns: this.displayedColumnsUsersWithAccess;"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                     (page)="this.getAdditionalUserInfoForVisibleUsers($event.pageIndex, $event.pageSize)"></mat-paginator>
     </div>
   </form>
 </div>

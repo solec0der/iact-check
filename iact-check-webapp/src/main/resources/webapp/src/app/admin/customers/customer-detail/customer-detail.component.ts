@@ -6,11 +6,12 @@ import { CustomerDTO } from '../../shared/dtos/customer-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakAdminService } from '../../shared/services/keycloak-admin.service';
-import { KeycloakUserDTO } from '../../shared/dtos/keycloak-user.dto';
+import { KeycloakUserDto } from '../../shared/dtos/keycloak-user-dto';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { KeycloakService } from 'keycloak-angular';
 import { UserService } from '../../../shared/services/user.service';
+import { RoleRepresentationDTO } from '../../shared/dtos/role-representation-dto';
+import { ColourUtility } from '../../../shared/utils/colour.utility';
 
 @Component({
   selector: 'app-customer-detail',
@@ -21,8 +22,10 @@ export class CustomerDetailComponent implements OnInit {
   public action: string = '';
   public customerId: number = -1;
   public displayedColumnsUsersWithAccess = ['username', 'hasAccess'];
-  public usersWithAccessDataSource!: MatTableDataSource<KeycloakUserDTO>;
+  public keycloakUsersDatasource!: MatTableDataSource<KeycloakUserDto>;
+  private usersRoleMappings!: Map<string, RoleRepresentationDTO[]>;
   private customerDTO!: CustomerDTO;
+  private usersWithAccess: string[] = [];
 
   public customerFormGroup!: FormGroup;
 
@@ -49,35 +52,100 @@ export class CustomerDetailComponent implements OnInit {
         .getCustomerById(this.customerId)
         .subscribe((customer) => {
           this.customerDTO = customer;
+          this.usersWithAccess = customer.usersWithAccess;
           this.createCustomerFromGroup();
         });
     } else if (this.action === 'create') {
       this.createCustomerFromGroup();
     }
+  }
 
-    this.keycloakAdminService.getKeycloakUsers().subscribe((keycloakUsers) => {
-      this.usersWithAccessDataSource = new MatTableDataSource<KeycloakUserDTO>(
-        keycloakUsers
-      );
-      this.usersWithAccessDataSource.paginator = this.usersWithAccessPaginator;
+  public getAdditionalUserInfoForVisibleUsers(
+    pageIndex: number,
+    pageSize: number
+  ): void {
+    const users = this.keycloakUsersDatasource.data.slice(
+      pageIndex * pageSize,
+      pageIndex * pageSize + pageSize
+    );
+
+    this.usersRoleMappings = new Map<string, RoleRepresentationDTO[]>();
+
+    users.forEach((user) => {
+      this.keycloakAdminService
+        .getRolesByUserId(user.id)
+        .subscribe((roleRepresentations) => {
+          this.usersRoleMappings.set(user.id, roleRepresentations);
+        });
     });
+  }
+
+  public addOrRemoveUserFromUsersWithAccess(user: KeycloakUserDto) {
+    if (this.usersWithAccess.includes(user.id)) {
+      const indexOfUserToBeRemoved = this.usersWithAccess.indexOf(user.id);
+      this.usersWithAccess.splice(indexOfUserToBeRemoved, 1);
+    } else {
+      this.usersWithAccess.push(user.id);
+    }
   }
 
   public save(): void {
     if (this.action === 'create') {
       this.createCustomer();
+    } else if (this.action === 'edit') {
+      this.updateCustomer();
     }
   }
 
-  public isUserInUsersWithAccess(userId: string): boolean {
-    return (
-      this.customerDTO.usersWithAccess.includes(userId) ||
-      this.userService.isSuperUser()
-    );
+  public isUserInUsersWithAccess(user: KeycloakUserDto): boolean {
+    return this.usersWithAccess.includes(user.id) || this.isUserSuperUser(user);
   }
 
-  public isUserLoggedInUser(username: string): boolean {
-    return this.userService.getUsername() === username;
+  public isUserSuperUser(user: KeycloakUserDto): boolean {
+    if (this.usersRoleMappings) {
+      const userRoleMappings = this.usersRoleMappings.get(user.id);
+
+      if (userRoleMappings) {
+        for (let userRoleMapping of userRoleMappings) {
+          if (userRoleMapping.name === 'SUPERUSER') {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  public deleteCustomer(): void {
+    this.customerService
+      .deleteCustomerById(<number>this.customerDTO.id)
+      .subscribe((_) => {
+        this.matSnackBar.open(
+          this.translateService.instant('CUSTOMERS.DELETED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.router.navigate(['admin', 'customers']).then();
+      });
+  }
+
+  get isSuperUser(): boolean {
+    return this.userService.isSuperUser();
+  }
+
+  private getKeycloakUsers(): void {
+    this.keycloakAdminService.getKeycloakUsers().subscribe((keycloakUsers) => {
+      this.keycloakUsersDatasource = new MatTableDataSource<KeycloakUserDto>(
+        keycloakUsers
+      );
+      this.keycloakUsersDatasource.paginator = this.usersWithAccessPaginator;
+      this.getAdditionalUserInfoForVisibleUsers(
+        this.usersWithAccessPaginator.pageIndex,
+        this.usersWithAccessPaginator.pageSize
+      );
+    });
   }
 
   private createCustomer(): void {
@@ -85,10 +153,11 @@ export class CustomerDetailComponent implements OnInit {
       name: this.customerFormGroup.value.name,
       primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
       accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
-      usersWithAccess: [],
+      usersWithAccess: this.usersWithAccess,
     };
 
     this.customerService.createCustomer(customerDTO).subscribe((response) => {
+      this.customerDTO = response;
       this.router
         .navigate(['admin', 'customers', response.id, 'edit'])
         .then(() => {
@@ -103,20 +172,53 @@ export class CustomerDetailComponent implements OnInit {
     });
   }
 
+  private updateCustomer(): void {
+    const customerDTO: CustomerDTO = {
+      name: this.customerFormGroup.value.name,
+      primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
+      accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
+      usersWithAccess: this.usersWithAccess,
+    };
+
+    this.customerService
+      .updateCustomerById(<number>this.customerDTO.id, customerDTO)
+      .subscribe((response) => {
+        this.customerDTO = response;
+        this.matSnackBar.open(
+          this.translateService.instant('CUSTOMERS.UPDATED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+      });
+  }
+
   private createCustomerFromGroup(): void {
+    const primaryColour = ColourUtility.convertHexToColor(
+      this.customerDTO ? this.customerDTO.primaryColour : null
+    );
+    const accentColour = ColourUtility.convertHexToColor(
+      this.customerDTO ? this.customerDTO.accentColour : null
+    );
+
     this.customerFormGroup = new FormGroup({
       name: new FormControl(
         this.action === 'edit' ? this.customerDTO?.name : '',
         Validators.required
       ),
       primaryColour: new FormControl(
-        this.action === 'edit' ? this.customerDTO?.primaryColour : '',
+        this.action === 'edit' ? primaryColour : '',
         Validators.required
       ),
       accentColour: new FormControl(
-        this.action === 'edit' ? this.customerDTO?.accentColour : '',
+        this.action === 'edit' ? accentColour : '',
         Validators.required
       ),
     });
+
+    if (this.isSuperUser) {
+      this.getKeycloakUsers();
+    }
   }
 }

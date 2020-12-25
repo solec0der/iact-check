@@ -26,4 +26,13 @@ export class CustomerService {
       CORE_URL + '/api/admin/customers'
     );
   }
+
+  public updateCustomerById(customerId: number, customerDTO: CustomerDTO): Observable<CustomerDTO> {
+    const body = JSON.stringify(customerDTO);
+    return this.httpClient.put<CustomerDTO>(CORE_URL + '/api/admin/customers/' + customerId, body);
+  }
+
+  public deleteCustomerById(customerId: number): Observable<void>{
+    return this.httpClient.delete<void>(CORE_URL + '/api/admin/customers/' + customerId);
+  }
 }
