@@ -3,10 +3,6 @@
     <h1>{{'CUSTOMERS.CUSTOMERS' | translate}}</h1>
   </div>
   <div>
-    <button mat-stroked-button style="margin-right: 10px;" [routerLink]="[-1, 'create']" *ngIf="this.isSuperUser">
-      <mat-icon>create</mat-icon>
-      {{'CUSTOMERS.ADD_CUSTOMER' | translate}}
-    </button>
     <button mat-stroked-button (click)="this.reload()">
       <mat-icon>refresh</mat-icon>
       {{'SHARED.RELOAD' | translate}}
@@ -51,13 +47,13 @@
       <button mat-icon-button [routerLink]="[element.id, 'edit']">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="this.deleteCustomerById(element.id)">
+      <button mat-icon-button (click)="this.showCustomerDeletionDialog(element.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="this.columnsCustomers"></tr>
-  <tr mat-row *matRowDef="let row; columns: this.columnsCustomers;"></tr>
+  <tr mat-header-row *matHeaderRowDef="this.displayedColumnsCustomers"></tr>
+  <tr mat-row *matRowDef="let row; columns: this.displayedColumnsCustomers;"></tr>
 </table>
 

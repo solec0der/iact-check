@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MENU_ITEMS } from '../menu-items';
+import { CUSTOMER_MENU_ITEMS, GENERAL_MENU_ITEMS } from '../menu-items';
 import { KeycloakService } from 'keycloak-angular';
+import { CustomerDTO } from '../dtos/customer-dto';
+import { ActiveCustomerService } from '../services/active-customer.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,11 +10,28 @@ import { KeycloakService } from 'keycloak-angular';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  public MENU_ITEMS = MENU_ITEMS;
+  public activeMenuItems = GENERAL_MENU_ITEMS;
 
-  constructor(private keycloakService: KeycloakService) {}
+  private activeCustomer!: CustomerDTO;
 
-  ngOnInit(): void {}
+  constructor(
+    private keycloakService: KeycloakService,
+    private activeCustomerService: ActiveCustomerService
+  ) {}
+
+  ngOnInit(): void {
+    this.activeCustomerService
+      .getActiveCustomer()
+      .subscribe((activeCustomer) => {
+        this.activeCustomer = activeCustomer;
+
+        if (this.activeCustomer) {
+          this.resolveCustomerIdInRouterLinks();
+        } else {
+          this.activeMenuItems = GENERAL_MENU_ITEMS;
+        }
+      });
+  }
 
   public hasUserRoles(roles: string[]): boolean {
     const userRoles = this.keycloakService.getUserRoles(true);
@@ -23,5 +42,20 @@ export class SidebarComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  private resolveCustomerIdInRouterLinks() {
+    this.activeMenuItems = [];
+    CUSTOMER_MENU_ITEMS.forEach((menuItem) =>
+      this.activeMenuItems.push(Object.assign({}, menuItem))
+    );
+
+    this.activeMenuItems.forEach((menuItem) => {
+      menuItem.routerLink = menuItem.routerLink.replace(
+        '{customerId}',
+        // @ts-ignore
+        this.activeCustomer.id.toString()
+      );
+    });
   }
 }

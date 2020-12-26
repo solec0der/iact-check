@@ -9,7 +9,7 @@
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
       </button>
-      <button mat-stroked-button (click)="this.deleteCustomer()" *ngIf="this.action === 'edit'">
+      <button mat-stroked-button (click)="this.showCustomerDeletionDialog()" *ngIf="this.action === 'edit'">
         <mat-icon>delete</mat-icon>
         {{'SHARED.DELETE' | translate}}
       </button>

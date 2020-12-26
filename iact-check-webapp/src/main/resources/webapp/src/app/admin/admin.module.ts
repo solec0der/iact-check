@@ -9,8 +9,10 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageComponent } from './settings/language/language.component';
 import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {NgxMatColorPickerModule} from '@angular-material-components/color-picker';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMatColorPickerModule } from '@angular-material-components/color-picker';
+import { CheckListComponent } from './customers/checks/check-list/check-list.component';
+import { CheckDetailComponent } from './customers/checks/check-detail/check-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {NgxMatColorPickerModule} from '@angular-material-components/color-picker
     CustomerListComponent,
     LanguageComponent,
     CustomerDetailComponent,
+    CheckListComponent,
+    CheckDetailComponent,
   ],
   imports: [
     CommonModule,

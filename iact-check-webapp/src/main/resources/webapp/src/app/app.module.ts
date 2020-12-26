@@ -23,9 +23,10 @@ import {
   NGX_MAT_COLOR_FORMATS,
 } from '@angular-material-components/color-picker';
 import {JsonInterceptor} from './shared/interceptors/json.interceptor';
+import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

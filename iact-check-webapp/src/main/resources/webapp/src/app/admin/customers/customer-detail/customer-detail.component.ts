@@ -12,6 +12,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from '../../../shared/services/user.service';
 import { RoleRepresentationDTO } from '../../shared/dtos/role-representation-dto';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
+import { ActiveCustomerService } from '../../shared/services/active-customer.service';
+import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-detail',
@@ -33,12 +36,14 @@ export class CustomerDetailComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private matDialog: MatDialog,
     private matSnackBar: MatSnackBar,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private translateService: TranslateService,
-    private keycloakAdminService: KeycloakAdminService
+    private keycloakAdminService: KeycloakAdminService,
+    private activeCustomerService: ActiveCustomerService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.action = String(params.get('action'));
@@ -51,6 +56,8 @@ export class CustomerDetailComponent implements OnInit {
       this.customerService
         .getCustomerById(this.customerId)
         .subscribe((customer) => {
+          this.activeCustomerService.setActiveCustomer(customer);
+
           this.customerDTO = customer;
           this.usersWithAccess = customer.usersWithAccess;
           this.createCustomerFromGroup();
@@ -116,7 +123,30 @@ export class CustomerDetailComponent implements OnInit {
     return false;
   }
 
-  public deleteCustomer(): void {
+  public showCustomerDeletionDialog(): void {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.translateService.instant('CUSTOMERS.DELETION_DIALOG.TITLE'),
+        message: this.translateService.instant(
+          'CUSTOMERS.DELETION_DIALOG.MESSAGE'
+        ),
+        buttonTextCancel: this.translateService.instant(
+          'CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
+        ),
+        buttonTextConfirm: this.translateService.instant(
+          'CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
+        ),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((hasConfirmed) => {
+      if (hasConfirmed) {
+        this.deleteCustomer();
+      }
+    });
+  }
+
+  private deleteCustomer() {
     this.customerService
       .deleteCustomerById(<number>this.customerDTO.id)
       .subscribe((_) => {
@@ -158,6 +188,9 @@ export class CustomerDetailComponent implements OnInit {
 
     this.customerService.createCustomer(customerDTO).subscribe((response) => {
       this.customerDTO = response;
+
+      this.activeCustomerService.setActiveCustomer(response);
+
       this.router
         .navigate(['admin', 'customers', response.id, 'edit'])
         .then(() => {
@@ -184,6 +217,9 @@ export class CustomerDetailComponent implements OnInit {
       .updateCustomerById(<number>this.customerDTO.id, customerDTO)
       .subscribe((response) => {
         this.customerDTO = response;
+
+        this.activeCustomerService.setActiveCustomer(customerDTO);
+
         this.matSnackBar.open(
           this.translateService.instant('CUSTOMERS.UPDATED_MESSAGE'),
           this.translateService.instant('SHARED.CLOSE'),

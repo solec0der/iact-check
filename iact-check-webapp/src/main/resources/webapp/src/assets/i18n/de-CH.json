@@ -5,8 +5,13 @@
   },
   "SIDEBAR": {
     "CUSTOMERS": "Kunden",
+    "CREATE_CUSTOMER": "Kunde erstellen",
     "SETTINGS": "Einstellungen",
-    "LANGUAGE": "Sprache"
+    "LANGUAGE": "Sprache",
+    "BACK_TO_OVERVIEW": "Zurück zur Übersicht",
+    "EDIT_CUSTOMER": "Kunde bearbeiten",
+    "CHECKS": "Checks",
+    "CREATE_CHECK": "Check erstellen"
   },
   "CUSTOMERS": {
     "CUSTOMERS": "Kunden",
@@ -32,7 +37,19 @@
     "DELETED_MESSAGE": "Der Kunde wurde erfolgreich gelöscht.",
     "TOOLTIPS": {
       "USER_IS_SUPERUSER": "Dieser Benutzer ist SuperUser, weshalb die Rechte nicht angepasst werden können."
+    },
+    "DELETION_DIALOG": {
+      "TITLE": "Sind Sie sicher, dass Sie diesen Kunden löschen möchten?",
+      "MESSAGE": "Wenn Sie diesen Kunden löschen, werden alle dazugehörigen Daten, wie Checks und Fragekategorieren gelöscht.¨",
+      "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
+      "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
+  },
+  "CHECKS": {
+    "CHECKS": "Checks",
+    "TITLE": "Titel",
+    "ACTIVE_FROM": "Aktiv von",
+    "ACTIVE_TO": "Aktiv bis"
   },
   "SHARED": {
     "RELOAD": "Neu laden",

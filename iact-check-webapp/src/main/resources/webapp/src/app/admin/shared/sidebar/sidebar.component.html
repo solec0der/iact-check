@@ -1,5 +1,5 @@
 <div class="full-height-sidebar">
-  <div *ngFor="let menuItem of MENU_ITEMS">
+  <div *ngFor="let menuItem of this.activeMenuItems">
     <button mat-button style="width: 100%; text-align: left;" *ngIf="this.hasUserRoles(menuItem.rolesNeededToAccess)"
             [routerLink]="menuItem.routerLink">
       <mat-icon>{{menuItem.isSubMenuItem ? '' : menuItem.icon}}</mat-icon>

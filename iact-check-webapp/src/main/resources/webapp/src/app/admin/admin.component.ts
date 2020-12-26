@@ -7,7 +7,9 @@ import { KeycloakService } from 'keycloak-angular';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  constructor(private keycloakService: KeycloakService) {}
+  constructor(
+    private keycloakService: KeycloakService
+  ) {}
 
   ngOnInit(): void {
     this.keycloakService.isLoggedIn().then((isLoggedIn) => {
