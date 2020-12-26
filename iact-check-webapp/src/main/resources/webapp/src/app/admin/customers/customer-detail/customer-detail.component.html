@@ -5,7 +5,8 @@
       <h1 *ngIf="this.action === 'edit'">{{'CUSTOMERS.EDIT_CUSTOMER' | translate}}</h1>
     </div>
     <div>
-      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid" style="margin-right: 10px;">
+      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid"
+              style="margin-right: 10px;">
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
       </button>

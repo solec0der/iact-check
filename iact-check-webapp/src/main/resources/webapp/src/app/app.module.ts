@@ -8,7 +8,8 @@ import { MaterialModule } from './material.module';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
-  HttpClientModule, JsonpInterceptor,
+  HttpClientModule,
+  JsonpInterceptor,
 } from '@angular/common/http';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializer } from './shared/keycloak/init-keycloak';
@@ -22,11 +23,17 @@ import {
   MAT_COLOR_FORMATS,
   NGX_MAT_COLOR_FORMATS,
 } from '@angular-material-components/color-picker';
-import {JsonInterceptor} from './shared/interceptors/json.interceptor';
+import { JsonInterceptor } from './shared/interceptors/json.interceptor';
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { HttpExceptionDialogComponent } from './shared/dialogs/http-exception-dialog/http-exception-dialog.component';
+import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmDialogComponent],
+  declarations: [
+    AppComponent,
+    ConfirmDialogComponent,
+    HttpExceptionDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,6 +67,11 @@ import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JsonInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptor,
       multi: true,
     },
     {

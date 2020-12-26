@@ -60,5 +60,14 @@
   },
   "USER": {
     "USERNAME": "Benutzername"
+  },
+  "ERROR_MESSAGES": {
+    "BAD_REQUEST": "Fehler 400 | Ungültige Anfrage",
+    "UNAUTHORIZED": "Fehler 401 | Nicht autorisiert",
+    "FORBIDDEN": "Fehler 403 | Verboten",
+    "NOT_FOUND": "Fehler 404 | Nicht gefunden",
+    "INTERNAL_SERVER_ERROR": "Fehler 500 | Interner Server Fehler",
+    "SERVICE_UNAVAILABLE_TITLE": "Fehler 502 | Verbindungsfehler",
+    "SERVICE_UNAVAILABLE_CONTENT": "Der Dienst ist vorübergehend nicht erreichbar. Bitte versuchen Sie es später erneut."
   }
 }

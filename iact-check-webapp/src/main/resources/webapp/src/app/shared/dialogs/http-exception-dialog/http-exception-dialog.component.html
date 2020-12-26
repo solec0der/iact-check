@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.title | translate}}</h1>
+<div mat-dialog-content>
+  <p>{{data.content | translate}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>
+    {{'SHARED.CLOSE' | translate}}
+  </button>
+  <button mat-raised-button (click)="reloadWebapp()" *ngIf="data.showReloadButton">
+    {{'SHARED.RELOAD' | translate}}
+  </button>
+</div>
