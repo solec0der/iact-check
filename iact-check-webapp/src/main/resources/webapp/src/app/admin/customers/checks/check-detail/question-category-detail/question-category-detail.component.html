@@ -40,7 +40,7 @@
       <mat-error>
         {{'QUESTION_CATEGORIES.ERRORS.MISSING_THUMBNAIL' | translate}}
       </mat-error>
-      <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*" required>
+      <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*" [required]="true">
       </ngx-mat-file-input>
       <mat-hint>{{'QUESTION_CATEGORIES.THUMBNAIL_HINT' | translate}}</mat-hint>
       <button mat-icon-button matSuffix (click)="this.showThumbnail()" *ngIf="this.thumbnail">

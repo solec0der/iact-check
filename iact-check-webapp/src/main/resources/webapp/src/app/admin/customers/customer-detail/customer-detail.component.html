@@ -59,7 +59,7 @@
       <mat-error>
         {{'CUSTOMERS.ERRORS.MISSING_LOGO' | translate}}
       </mat-error>
-      <ngx-mat-file-input color="accent" formControlName="logo" accept="image/*" required>
+      <ngx-mat-file-input color="accent" formControlName="logo" accept="image/*" [required]="true">
       </ngx-mat-file-input>
       <button mat-icon-button matSuffix (click)="this.showLogo()" *ngIf="this.logo">
         <mat-icon>visibility</mat-icon>
