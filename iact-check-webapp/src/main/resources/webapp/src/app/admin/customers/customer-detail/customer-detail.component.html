@@ -5,14 +5,14 @@
       <h1 *ngIf="this.action === 'edit'">{{'CUSTOMERS.EDIT_CUSTOMER' | translate}}</h1>
     </div>
     <div>
-      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid"
+      <button mat-stroked-button (click)="this.showCustomerDeletionDialog()" *ngIf="this.action === 'edit'"
               style="margin-right: 10px;">
-        <mat-icon>save</mat-icon>
-        {{'SHARED.SAVE' | translate}}
-      </button>
-      <button mat-stroked-button (click)="this.showCustomerDeletionDialog()" *ngIf="this.action === 'edit'">
         <mat-icon>delete</mat-icon>
         {{'SHARED.DELETE' | translate}}
+      </button>
+      <button mat-stroked-button (click)="this.save()" [disabled]="this.customerFormGroup.invalid">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
       </button>
     </div>
   </div>

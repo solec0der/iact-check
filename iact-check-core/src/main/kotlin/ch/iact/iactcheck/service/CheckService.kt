@@ -43,6 +43,12 @@ class CheckService(
         }.toList()
     }
 
+    fun getCheckById(checkId: Long): CheckDTO {
+        return CheckConverter.convertCheckToDTO(
+                checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
+        )
+    }
+
     fun updateCheckById(checkId: Long, checkDTO: CheckDTO): CheckDTO {
         if (checkDTO.activeFrom.isAfter(checkDTO.activeTo)) {
             throw FromDateAfterToDateException()

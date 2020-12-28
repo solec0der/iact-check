@@ -41,7 +41,7 @@
       <button mat-icon-button [routerLink]="[element.id, 'edit']">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="this.deleteCheckById(element.id)">
+      <button mat-icon-button (click)="this.showCheckDeletionDialog(element.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>

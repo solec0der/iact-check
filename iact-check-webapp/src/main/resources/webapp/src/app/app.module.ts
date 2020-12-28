@@ -27,6 +27,7 @@ import { JsonInterceptor } from './shared/interceptors/json.interceptor';
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { HttpExceptionDialogComponent } from './shared/dialogs/http-exception-dialog/http-exception-dialog.component';
 import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interceptor';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,6 @@ import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interce
     }),
     ReactiveFormsModule,
     NgxSpinnerModule,
-    NgxMatColorPickerModule,
   ],
   providers: [
     {
@@ -78,6 +78,7 @@ import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interce
       provide: MAT_COLOR_FORMATS,
       useValue: NGX_MAT_COLOR_FORMATS,
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'de-CH' },
   ],
   bootstrap: [AppComponent],
 })

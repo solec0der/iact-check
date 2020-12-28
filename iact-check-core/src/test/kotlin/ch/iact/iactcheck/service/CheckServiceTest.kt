@@ -19,6 +19,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
+import java.time.Instant
 import java.time.LocalDateTime
 import java.util.*
 
@@ -72,8 +73,8 @@ class CheckServiceTest {
     fun shouldUpdateCheckByIdAndReturnUpdatedCheck() {
         val updatedCheck = CheckTestData.check.copy(
                 title = "New title",
-                activeFrom = LocalDateTime.parse("2020-02-02T10:00:00"),
-                activeTo = LocalDateTime.parse("2020-02-04T10:00:00")
+                activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
+                activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
 
         `when`(checkRepository!!.findById(eq(1L))).thenReturn(Optional.of(CheckTestData.check))
@@ -81,8 +82,8 @@ class CheckServiceTest {
 
         val expected = CheckTestData.checkDTO.copy(
                 title = "New title",
-                activeFrom = LocalDateTime.parse("2020-02-02T10:00:00"),
-                activeTo = LocalDateTime.parse("2020-02-04T10:00:00")
+                activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
+                activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
 
         val actual = checkService!!.updateCheckById(1L, expected)

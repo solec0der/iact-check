@@ -1,15 +1,16 @@
 package ch.iact.iactcheck.dto
 
 import org.springframework.format.annotation.DateTimeFormat
+import java.time.Instant
 import java.time.LocalDateTime
 
 data class CheckDTO(
         val id: Long,
         val customerId: Long,
         val title: String,
-        @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
-        val activeFrom: LocalDateTime,
-        @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
-        val activeTo: LocalDateTime,
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        val activeFrom: Instant,
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        val activeTo: Instant,
         val questionCategories: List<QuestionCategoryDTO>
 )
