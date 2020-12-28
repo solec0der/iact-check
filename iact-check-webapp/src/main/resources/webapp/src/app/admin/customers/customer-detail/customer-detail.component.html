@@ -53,6 +53,19 @@
       <ngx-mat-color-toggle matSuffix [for]="accentColourPicker"></ngx-mat-color-toggle>
       <ngx-mat-color-picker #accentColourPicker></ngx-mat-color-picker>
     </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.LOGO' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.ERRORS.MISSING_LOGO' | translate}}
+      </mat-error>
+      <ngx-mat-file-input color="accent" formControlName="logo" accept="image/*" required>
+      </ngx-mat-file-input>
+      <button mat-icon-button matSuffix (click)="this.showLogo()" *ngIf="this.logo">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </mat-form-field>
+    <br/><br/>
 
     <div class="half-width" *ngIf="this.isSuperUser">
       <h3>{{'CUSTOMERS.USERS_WITH_ACCESS' | translate}}</h3>

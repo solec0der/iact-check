@@ -15,6 +15,8 @@ import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { ActiveCustomerService } from '../../shared/services/active-customer.service';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FileReaderUtil } from '../../shared/util/file-reader.util';
+import { CORE_URL } from '../../../app.config';
 
 @Component({
   selector: 'app-customer-detail',
@@ -26,6 +28,9 @@ export class CustomerDetailComponent implements OnInit {
   public customerId: number = -1;
   public displayedColumnsUsersWithAccess = ['username', 'hasAccess'];
   public keycloakUsersDatasource!: MatTableDataSource<KeycloakUserDto>;
+
+  public logo!: File;
+
   private usersRoleMappings!: Map<string, RoleRepresentationDTO[]>;
   private customerDTO!: CustomerDTO;
   private usersWithAccess: string[] = [];
@@ -53,15 +58,7 @@ export class CustomerDetailComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.action === 'edit') {
-      this.customerService
-        .getCustomerById(this.customerId)
-        .subscribe((customer) => {
-          this.activeCustomerService.setActiveCustomer(customer);
-
-          this.customerDTO = customer;
-          this.usersWithAccess = customer.usersWithAccess;
-          this.createCustomerFromGroup();
-        });
+      this.loadData();
     } else if (this.action === 'create') {
       this.createCustomerFromGroup();
     }
@@ -146,6 +143,13 @@ export class CustomerDetailComponent implements OnInit {
     });
   }
 
+  public showLogo(): void {
+    window.open(
+      CORE_URL + '/api/customers/' + this.customerId + '/logo',
+      '_blank'
+    );
+  }
+
   private deleteCustomer() {
     this.customerService
       .deleteCustomerById(<number>this.customerDTO.id)
@@ -158,6 +162,30 @@ export class CustomerDetailComponent implements OnInit {
           }
         );
         this.router.navigate(['admin', 'customers']).then();
+      });
+  }
+
+  private loadData(): void {
+    this.customerService
+      .getCustomerById(this.customerId)
+      .subscribe((customer) => {
+        this.activeCustomerService.setActiveCustomer(customer);
+
+        this.customerDTO = customer;
+        this.usersWithAccess = customer.usersWithAccess;
+        this.loadLogo();
+      });
+  }
+
+  private loadLogo(): void {
+    this.customerService
+      .getLogoByCustomerId(this.customerId)
+      .subscribe((thumbnail) => {
+        this.logo = FileReaderUtil.convertBlobToFile(
+          thumbnail,
+          this.customerDTO.name + '.png'
+        );
+        this.createCustomerFromGroup();
       });
   }
 
@@ -201,6 +229,7 @@ export class CustomerDetailComponent implements OnInit {
               duration: 5000,
             }
           );
+          this.uploadLogo();
         });
     });
   }
@@ -218,7 +247,7 @@ export class CustomerDetailComponent implements OnInit {
       .subscribe((response) => {
         this.customerDTO = response;
 
-        this.activeCustomerService.setActiveCustomer(customerDTO);
+        this.activeCustomerService.setActiveCustomer(response);
 
         this.matSnackBar.open(
           this.translateService.instant('CUSTOMERS.UPDATED_MESSAGE'),
@@ -227,6 +256,18 @@ export class CustomerDetailComponent implements OnInit {
             duration: 5000,
           }
         );
+        this.uploadLogo();
+      });
+  }
+
+  private uploadLogo(): void {
+    this.customerService
+      .uploadLogoByCustomerId(
+        this.customerId,
+        this.customerFormGroup.value.logo
+      )
+      .subscribe(() => {
+        this.loadLogo();
       });
   }
 
@@ -249,6 +290,10 @@ export class CustomerDetailComponent implements OnInit {
       ),
       accentColour: new FormControl(
         this.action === 'edit' ? accentColour : '',
+        Validators.required
+      ),
+      logo: new FormControl(
+        this.action === 'edit' ? this.logo : '',
         Validators.required
       ),
     });

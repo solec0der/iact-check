@@ -38,6 +38,13 @@ export class CustomerService {
       .unsubscribe();
   }
 
+  public getLogoByCustomerId(customerId: number): Observable<Blob> {
+    return this.httpClient.get(
+      CORE_URL + '/api/customers/' + customerId + '/logo',
+      { responseType: 'blob' }
+    );
+  }
+
   public getCustomerById(customerId: number): Observable<CustomerDTO> {
     return this.httpClient.get<CustomerDTO>(
       CORE_URL + '/api/admin/customers/' + customerId
@@ -57,6 +64,19 @@ export class CustomerService {
     const body = JSON.stringify(customerDTO);
     return this.httpClient.put<CustomerDTO>(
       CORE_URL + '/api/admin/customers/' + customerId,
+      body
+    );
+  }
+
+  public uploadLogoByCustomerId(
+    customerId: number,
+    logo: File
+  ): Observable<void> {
+    const body: FormData = new FormData();
+    body.append('logo', logo, logo.name);
+
+    return this.httpClient.put<void>(
+      CORE_URL + '/api/admin/customers/' + customerId + '/logo',
       body
     );
   }
