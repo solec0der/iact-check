@@ -82,20 +82,18 @@ export class CheckDetailComponent implements OnInit {
   }
 
   private deleteCheck() {
-    this.checkService
-      .deleteCheckById(<number>this.checkDTO.id)
-      .subscribe((_) => {
-        this.matSnackBar.open(
-          this.translateService.instant('CHECKS.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.router
-          .navigate(['admin', 'customers', this.customerId, 'checks'])
-          .then();
-      });
+    this.checkService.deleteCheckById(this.checkDTO.id).subscribe((_) => {
+      this.matSnackBar.open(
+        this.translateService.instant('CHECKS.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.router
+        .navigate(['admin', 'customers', this.customerId, 'checks'])
+        .then();
+    });
   }
 
   private createCheck(): void {

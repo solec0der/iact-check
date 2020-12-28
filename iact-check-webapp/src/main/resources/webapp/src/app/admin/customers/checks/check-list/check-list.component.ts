@@ -71,7 +71,7 @@ export class CheckListComponent implements OnInit {
   }
 
   private deleteCheckById(checkId: number) {
-    this.checkService.deleteCheckById(<number>checkId).subscribe((_) => {
+    this.checkService.deleteCheckById(checkId).subscribe((_) => {
       this.matSnackBar.open(
         this.translateService.instant('CHECKS.DELETED_MESSAGE'),
         this.translateService.instant('SHARED.CLOSE'),

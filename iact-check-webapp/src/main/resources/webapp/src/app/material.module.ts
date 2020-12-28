@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,11 +29,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import {
   NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
-  NgxMatTimepickerModule
+  NgxMatTimepickerModule,
 } from '@angular-material-components/datetime-picker';
 
 @NgModule({
@@ -73,7 +72,7 @@ import {
     MatNativeDateModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
   ],
 })
 export class MaterialModule {}
