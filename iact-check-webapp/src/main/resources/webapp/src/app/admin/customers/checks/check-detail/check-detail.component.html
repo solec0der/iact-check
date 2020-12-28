@@ -40,7 +40,7 @@
                formControlName="activeFrom" required/>
       </label>
       <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveFrom)"></mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerActiveFrom showSeconds="true"></ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerActiveFrom [showSeconds]="true"></ngx-mat-datetime-picker>
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline" class="half-width">
@@ -54,7 +54,7 @@
                formControlName="activeTo" required/>
       </label>
       <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveTo)"></mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerActiveTo showSeconds="true"></ngx-mat-datetime-picker>
+      <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
     </mat-form-field>
   </form>
 </div>
