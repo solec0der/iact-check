@@ -62,13 +62,9 @@ export class QuestionCategoryDetailComponent implements OnInit {
 
   public goBackToCheck(): void {
     this.router
-      .navigateByUrl(
-        '/admin/customers/' +
-          this.customerId +
-          '/checks/' +
-          this.checkId +
-          '/edit'
-      )
+      .navigate(['../../../edit'], {
+        relativeTo: this.activatedRoute,
+      })
       .then();
   }
 
@@ -143,16 +139,9 @@ export class QuestionCategoryDetailComponent implements OnInit {
         this.questionCategoryDTO = createdQuestionCategoryDTO;
 
         this.router
-          .navigate([
-            'admin',
-            'customers',
-            this.customerId,
-            'checks',
-            createdQuestionCategoryDTO.checkId,
-            'question-categories',
-            createdQuestionCategoryDTO.id,
-            'edit',
-          ])
+          .navigate(['../../' + createdQuestionCategoryDTO.id + '/edit'], {
+            relativeTo: this.activatedRoute,
+          })
           .then(() => {
             this.matSnackBar.open(
               this.translateService.instant(
@@ -215,14 +204,9 @@ export class QuestionCategoryDetailComponent implements OnInit {
           }
         );
         this.router
-          .navigate([
-            'admin',
-            'customers',
-            this.customerId,
-            'checks',
-            this.checkId,
-            'edit',
-          ])
+          .navigate(['../../../edit'], {
+            relativeTo: this.activatedRoute,
+          })
           .then();
       });
   }

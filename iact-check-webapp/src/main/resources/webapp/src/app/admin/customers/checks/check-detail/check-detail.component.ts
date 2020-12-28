@@ -112,14 +112,9 @@ export class CheckDetailComponent implements OnInit {
       this.checkDTO = createdCheckDTO;
 
       this.router
-        .navigate([
-          'admin',
-          'customers',
-          createdCheckDTO.customerId,
-          'checks',
-          createdCheckDTO.id,
-          'edit',
-        ])
+        .navigate(['../../' + createdCheckDTO.id + '/edit'], {
+          relativeTo: this.activatedRoute,
+        })
         .then(() => {
           this.createCheckFormGroup();
           this.matSnackBar.open(
