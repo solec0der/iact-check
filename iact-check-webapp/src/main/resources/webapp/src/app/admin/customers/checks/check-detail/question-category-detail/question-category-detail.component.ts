@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { QuestionCategoryService } from '../../../../shared/services/question-category.service';
 import { CORE_URL } from '../../../../../app.config';
 import { FileReaderUtil } from '../../../../shared/util/file-reader.util';
+import { ConfirmDialogComponent } from '../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-question-category-detail',
@@ -71,7 +72,30 @@ export class QuestionCategoryDetailComponent implements OnInit {
       .then();
   }
 
-  public showQuestionCategoryDeletionDialog(): void {}
+  public showQuestionCategoryDeletionDialog(): void {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.translateService.instant(
+          'QUESTION_CATEGORIES.DELETION_DIALOG.TITLE'
+        ),
+        message: this.translateService.instant(
+          'QUESTION_CATEGORIES.DELETION_DIALOG.MESSAGE'
+        ),
+        buttonTextCancel: this.translateService.instant(
+          'QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
+        ),
+        buttonTextConfirm: this.translateService.instant(
+          'QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
+        ),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((hasConfirmed) => {
+      if (hasConfirmed) {
+        this.deleteQuestionCategory();
+      }
+    });
+  }
 
   public showThumbnail(): void {
     window.open(
@@ -130,6 +154,15 @@ export class QuestionCategoryDetailComponent implements OnInit {
             'edit',
           ])
           .then(() => {
+            this.matSnackBar.open(
+              this.translateService.instant(
+                'QUESTION_CATEGORIES.CREATED_MESSAGE'
+              ),
+              this.translateService.instant('SHARED.CLOSE'),
+              {
+                duration: 5000,
+              }
+            );
             this.uploadThumbnail();
           });
       });
@@ -148,6 +181,13 @@ export class QuestionCategoryDetailComponent implements OnInit {
       .updateQuestionCategoryById(this.questionCategoryId, questionCategoryDTO)
       .subscribe((updatedQuestionCategoryDTO) => {
         this.questionCategoryDTO = updatedQuestionCategoryDTO;
+        this.matSnackBar.open(
+          this.translateService.instant('QUESTION_CATEGORIES.UPDATED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
         this.uploadThumbnail();
       });
   }
@@ -160,6 +200,30 @@ export class QuestionCategoryDetailComponent implements OnInit {
       )
       .subscribe(() => {
         this.loadThumbnail();
+      });
+  }
+
+  private deleteQuestionCategory() {
+    this.questionCategoryService
+      .deleteQuestionCategoryById(this.questionCategoryId)
+      .subscribe(() => {
+        this.matSnackBar.open(
+          this.translateService.instant('QUESTION_CATEGORIES.DELETED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.router
+          .navigate([
+            'admin',
+            'customers',
+            this.customerId,
+            'checks',
+            this.checkId,
+            'edit',
+          ])
+          .then();
       });
   }
 

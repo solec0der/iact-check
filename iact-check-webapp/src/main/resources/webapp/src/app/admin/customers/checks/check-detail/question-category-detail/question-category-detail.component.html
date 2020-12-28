@@ -37,6 +37,9 @@
     <br/>
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'QUESTION_CATEGORIES.THUMBNAIL' | translate}}</mat-label>
+      <mat-error>
+        {{'QUESTION_CATEGORIES.ERRORS.MISSING_THUMBNAIL' | translate}}
+      </mat-error>
       <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*">
       </ngx-mat-file-input>
       <mat-hint>{{'QUESTION_CATEGORIES.THUMBNAIL_HINT' | translate}}</mat-hint>

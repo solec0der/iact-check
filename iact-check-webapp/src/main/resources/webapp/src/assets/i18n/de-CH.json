@@ -81,12 +81,21 @@
     "TITLE": "Titel",
     "THUMBNAIL": "Thumbnail",
     "THUMBNAIL_HINT": "Dieses Bild wird zusammen mit dem Titel der Fragekategorie angezeigt.",
+    "CREATED_MESSAGE": "Die Fragekategorie wurde erfolgreich erstellt.",
+    "UPDATED_MESSAGE": "Die Fragekategorie wurde erfolgreich modifiziert.",
+    "DELETED_MESSAGE": "Die Fragekategorie wurde erfolgreich gelöscht.",
     "PLACEHOLDER": {
-      "TITLE": "Bitte Titel des Checks eingeben",
-      "IMAGE": "Bitte laden Sie ein Bild hoch"
+      "TITLE": "Bitte Titel des Checks eingeben"
     },
     "ERRORS": {
-      "MISSING_TITLE": "Bitte gültigen Titel eingeben"
+      "MISSING_TITLE": "Bitte gültigen Titel eingeben",
+      "MISSING_THUMBNAIL": "Bitte gültiges Thumbnail hochladen"
+    },
+    "DELETION_DIALOG": {
+      "TITLE": "Sind Sie sicher, dass Sie diese Fragekategorie löschen möchten?",
+      "MESSAGE": "Wenn Sie diese Fragekategorie löschen, werden alle dazugehörigen Daten gelöscht.¨",
+      "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
+      "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
   },
   "SHARED": {

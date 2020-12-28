@@ -67,4 +67,12 @@ export class QuestionCategoryService {
       body
     );
   }
+
+  public deleteQuestionCategoryById(
+    questionCategoryId: number
+  ): Observable<void> {
+    return this.httpClient.delete<void>(
+      CORE_URL + '/api/admin/question-categories/' + questionCategoryId
+    );
+  }
 }

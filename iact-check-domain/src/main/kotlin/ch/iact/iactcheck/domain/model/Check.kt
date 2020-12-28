@@ -15,6 +15,6 @@ data class Check(
         val activeFrom: Instant,
         val activeTo: Instant,
 
-        @OneToMany(targetEntity = QuestionCategory::class, mappedBy = "check")
+        @OneToMany(targetEntity = QuestionCategory::class, mappedBy = "check", cascade = [CascadeType.ALL])
         val questionCategories: List<QuestionCategory>
 )
