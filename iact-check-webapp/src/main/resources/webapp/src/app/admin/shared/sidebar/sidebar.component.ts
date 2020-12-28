@@ -12,7 +12,7 @@ import { ActiveCustomerService } from '../services/active-customer.service';
 export class SidebarComponent implements OnInit {
   public activeMenuItems = GENERAL_MENU_ITEMS;
 
-  private activeCustomer!: CustomerDTO;
+  private activeCustomer: CustomerDTO | undefined;
 
   constructor(
     private keycloakService: KeycloakService,

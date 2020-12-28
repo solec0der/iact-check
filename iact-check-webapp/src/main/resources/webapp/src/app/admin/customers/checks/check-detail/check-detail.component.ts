@@ -6,7 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerService } from '../../../shared/services/customer.service';
-import { ActiveCustomerService } from '../../../shared/services/active-customer.service';
 import { ConfirmDialogComponent } from '../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -30,8 +29,7 @@ export class CheckDetailComponent implements OnInit {
     private checkService: CheckService,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private translateService: TranslateService,
-    private activeCustomerService: ActiveCustomerService
+    private translateService: TranslateService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.action = String(params.get('action'));
@@ -41,7 +39,7 @@ export class CheckDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    this.customerService.setActiveCustomerIfNotSet(this.customerId);
     if (this.action === 'edit') {
       this.checkService.getCheckById(this.checkId).subscribe((checkDTO) => {
         this.checkDTO = checkDTO;
@@ -176,13 +174,5 @@ export class CheckDetailComponent implements OnInit {
         Validators.required
       ),
     });
-  }
-
-  private loadData(): void {
-    this.customerService
-      .getCustomerById(this.customerId)
-      .subscribe((customer) => {
-        this.activeCustomerService.setActiveCustomer(customer);
-      });
   }
 }

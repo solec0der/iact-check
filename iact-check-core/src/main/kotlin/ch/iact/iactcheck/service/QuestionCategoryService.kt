@@ -41,6 +41,12 @@ class QuestionCategoryService(
         questionCategoryRepository.save(questionCategory)
     }
 
+    fun getQuestionCategoryById(questionCategoryId: Long): QuestionCategoryDTO {
+        return QuestionCategoryConverter.convertQuestionCategoryToDTO(
+                questionCategoryRepository.findById(questionCategoryId).orElseThrow { throw QuestionCategoryNotFoundException() }
+        )
+    }
+
     fun getThumbnailByQuestionCategoryId(questionCategoryId: Long): ByteArray {
         val questionCategory = questionCategoryRepository
                 .findById(questionCategoryId)

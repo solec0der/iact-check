@@ -13,6 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMatColorPickerModule } from '@angular-material-components/color-picker';
 import { CheckListComponent } from './customers/checks/check-list/check-list.component';
 import { CheckDetailComponent } from './customers/checks/check-detail/check-detail.component';
+import { QuestionCategoryListComponent } from './customers/checks/check-detail/question-category-list/question-category-list.component';
+import { QuestionCategoryDetailComponent } from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
+import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { CheckDetailComponent } from './customers/checks/check-detail/check-deta
     CustomerDetailComponent,
     CheckListComponent,
     CheckDetailComponent,
+    QuestionCategoryListComponent,
+    QuestionCategoryDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +37,7 @@ import { CheckDetailComponent } from './customers/checks/check-detail/check-deta
     TranslateModule.forChild({}),
     ReactiveFormsModule,
     NgxMatColorPickerModule,
+    NgxMatFileInputModule,
   ],
   bootstrap: [AdminComponent],
 })

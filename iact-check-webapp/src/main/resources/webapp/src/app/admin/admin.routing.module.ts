@@ -6,6 +6,7 @@ import { LanguageComponent } from './settings/language/language.component';
 import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
 import { CheckListComponent } from './customers/checks/check-list/check-list.component';
 import { CheckDetailComponent } from './customers/checks/check-detail/check-detail.component';
+import {QuestionCategoryDetailComponent} from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'customers/:customerId/checks/:checkId/:action',
         component: CheckDetailComponent,
+      },
+      {
+        path: 'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/:action',
+        component: QuestionCategoryDetailComponent,
       },
       {
         path: 'customers/:customerId/:action',

@@ -9,7 +9,6 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
-  JsonpInterceptor,
 } from '@angular/common/http';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializer } from './shared/keycloak/init-keycloak';
@@ -19,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import {
-  NgxMatColorPickerModule,
   MAT_COLOR_FORMATS,
   NGX_MAT_COLOR_FORMATS,
 } from '@angular-material-components/color-picker';
@@ -28,6 +26,7 @@ import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-
 import { HttpExceptionDialogComponent } from './shared/dialogs/http-exception-dialog/http-exception-dialog.component';
 import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interceptor';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 
 @NgModule({
   declarations: [
@@ -51,6 +50,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     }),
     ReactiveFormsModule,
     NgxSpinnerModule,
+    NgxMatFileInputModule
   ],
   providers: [
     {

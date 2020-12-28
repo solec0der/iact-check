@@ -35,7 +35,7 @@ CREATE TABLE question_category
     id        bigint NOT NULL AUTO_INCREMENT,
     check_id  bigint NOT NULL,
     title     varchar(255),
-    thumbnail blob,
+    thumbnail longblob,
     PRIMARY KEY (id),
     FOREIGN KEY (check_id) REFERENCES `check` (id)
 );
@@ -47,7 +47,7 @@ CREATE TABLE question
     question_text        varchar(255) NOT NULL,
     min_score            int(4)       NOT NULL,
     max_score            int(4)       NOT NULL,
-    icon                 blob,
+    icon                 longblob,
     PRIMARY KEY (id),
     FOREIGN KEY (question_category_id) REFERENCES question_category (id)
 );

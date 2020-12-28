@@ -72,12 +72,30 @@
       "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
   },
+  "QUESTION_CATEGORIES": {
+    "CREATE_QUESTION_CATEGORY": "Fragekategorien erstellen",
+    "QUESTION_CATEGORIES": "Fragekategorien",
+    "ADD_QUESTION_CATEGORY": "Fragekategorie erstellen",
+    "EDIT_QUESTION_CATEGORY": "Fragekategorie bearbeiten",
+    "BACK_TO_CHECK": "Zurück zum Check",
+    "TITLE": "Titel",
+    "THUMBNAIL": "Thumbnail",
+    "THUMBNAIL_HINT": "Dieses Bild wird zusammen mit dem Titel der Fragekategorie angezeigt.",
+    "PLACEHOLDER": {
+      "TITLE": "Bitte Titel des Checks eingeben",
+      "IMAGE": "Bitte laden Sie ein Bild hoch"
+    },
+    "ERRORS": {
+      "MISSING_TITLE": "Bitte gültigen Titel eingeben"
+    }
+  },
   "SHARED": {
     "RELOAD": "Neu laden",
     "ACTIONS": "Aktionen",
     "SAVE": "Speichern",
     "DELETE": "Löschen",
-    "CLOSE": "Schliessen"
+    "CLOSE": "Schliessen",
+    "CREATE": "Erstellen"
   },
   "USER": {
     "USERNAME": "Benutzername"

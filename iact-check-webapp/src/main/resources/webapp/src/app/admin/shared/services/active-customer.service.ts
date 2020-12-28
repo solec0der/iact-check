@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CustomerDTO } from '../dtos/customer-dto';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActiveCustomerService {
-  private activeCustomer: Subject<CustomerDTO> = new Subject<CustomerDTO>();
+  private activeCustomer: BehaviorSubject<
+    CustomerDTO | undefined
+  > = new BehaviorSubject<CustomerDTO | undefined>(undefined);
 
   constructor() {}
 
@@ -14,11 +16,11 @@ export class ActiveCustomerService {
     this.activeCustomer.next(customerDTO);
   }
 
-  public getActiveCustomer(): Observable<CustomerDTO> {
-    return this.activeCustomer.asObservable();
+  public getActiveCustomer(): Observable<CustomerDTO | undefined> {
+    return this.activeCustomer;
   }
 
   public unsetActiveCustomer(): void {
-    this.activeCustomer.next();
+    this.activeCustomer.next(undefined);
   }
 }

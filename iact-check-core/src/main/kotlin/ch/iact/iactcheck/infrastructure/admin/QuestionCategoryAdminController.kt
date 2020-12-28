@@ -18,6 +18,11 @@ internal class QuestionCategoryAdminController(
         return questionCategoryService.createQuestionCategory(questionCategoryDTO)
     }
 
+    @GetMapping("/{questionCategoryId}")
+    fun getQuestionCategoryById(@PathVariable("questionCategoryId") questionCategoryId: Long): QuestionCategoryDTO {
+        return questionCategoryService.getQuestionCategoryById(questionCategoryId)
+    }
+
     @PutMapping("/{questionCategoryId}/thumbnail")
     fun uploadThumbnailForQuestionCategory(
             @PathVariable("questionCategoryId") questionCategoryId: Long,

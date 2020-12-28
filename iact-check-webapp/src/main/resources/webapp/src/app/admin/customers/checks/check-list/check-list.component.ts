@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActiveCustomerService } from '../../../shared/services/active-customer.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { CheckDTO } from '../../../shared/dtos/check-dto';
@@ -7,7 +6,7 @@ import { CheckService } from '../../../shared/services/check.service';
 import { ConfirmDialogComponent } from '../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-check-list',
@@ -32,8 +31,7 @@ export class CheckListComponent implements OnInit {
     private checkService: CheckService,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
-    private translateService: TranslateService,
-    private activeCustomerService: ActiveCustomerService
+    private translateService: TranslateService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.customerId = Number(params.get('customerId'));
@@ -41,7 +39,9 @@ export class CheckListComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.customerService.setActiveCustomerIfNotSet(this.customerId);
+  }
 
   public reload(): void {
     this.loadData();
@@ -85,12 +85,6 @@ export class CheckListComponent implements OnInit {
 
   private loadData(): void {
     this.checks = [];
-
-    this.customerService
-      .getCustomerById(this.customerId)
-      .subscribe((customer) => {
-        this.activeCustomerService.setActiveCustomer(customer);
-      });
 
     this.checkService
       .getChecksByCustomerId(this.customerId)
