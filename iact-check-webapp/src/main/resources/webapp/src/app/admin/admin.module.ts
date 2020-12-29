@@ -16,6 +16,7 @@ import { CheckDetailComponent } from './customers/checks/check-detail/check-deta
 import { QuestionCategoryListComponent } from './customers/checks/check-detail/question-category-list/question-category-list.component';
 import { QuestionCategoryDetailComponent } from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import { QuestionListComponent } from './customers/checks/check-detail/question-category-detail/question-list/question-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     CheckDetailComponent,
     QuestionCategoryListComponent,
     QuestionCategoryDetailComponent,
+    QuestionListComponent,
   ],
   imports: [
     CommonModule,

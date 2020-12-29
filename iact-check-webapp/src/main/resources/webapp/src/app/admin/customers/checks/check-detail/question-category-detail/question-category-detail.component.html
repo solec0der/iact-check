@@ -48,4 +48,8 @@
       </button>
     </mat-form-field>
   </form>
+  <br/>
+  <mat-divider *ngIf="this.questionCategoryDTO"></mat-divider>
+  <br/>
+  <app-question-list *ngIf="this.questionCategoryDTO" [questionCategory]="this.questionCategoryDTO"></app-question-list>
 </div>

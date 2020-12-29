@@ -100,6 +100,13 @@
       "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
   },
+  "QUESTIONS": {
+    "QUESTIONS": "Fragen",
+    "CREATE_QUESTION": "Frage erstellen",
+    "QUESTION_TEXT": "Frage",
+    "MIN_SCORE": "Min. Punktezahl",
+    "MAX_SCORE": "Max. Punktezahl"
+  },
   "SHARED": {
     "RELOAD": "Neu laden",
     "ACTIONS": "Aktionen",

@@ -1,8 +1,14 @@
-div.full-height-sidebar {
-  width: 100%;
+.sidebar-container {
+  min-width: 300px;
   min-height: calc(100vh - 56px);
   height: 100%;
-  background-color: #9EA3AC;
-  color: white;
 }
-
+div.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  font-size: 0.75em;
+  font-weight: lighter;
+}
