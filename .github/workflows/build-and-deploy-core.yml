@@ -30,6 +30,7 @@ jobs:
       - name: Build Iact-Check-Webapp
         run: |
           cd iact-check-webapp/src/main/resources/webapp
+          npm install @angular/cli
           npm install
           ng build --prod
       - name: Set up JDK 11
