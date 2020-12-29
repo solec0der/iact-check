@@ -1,13 +1,13 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
-import ch.iact.iactcheck.domain.model.Question
+import ch.iact.iactcheck.domain.model.RangeQuestion
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
-import ch.iact.iactcheck.domain.repository.QuestionRepository
+import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.QuestionNotFoundException
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
-import ch.iact.iactcheck.testdata.QuestionTestData
+import ch.iact.iactcheck.testdata.RangeQuestionTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -19,17 +19,16 @@ import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.*
-import kotlin.math.exp
 
 @RunWith(MockitoJUnitRunner::class)
 @SpringBootTest(classes = [IactCheckApplication::class])
-class QuestionServiceTest {
+class RangeRangeQuestionServiceTest {
 
     @InjectMocks
-    private val questionService: QuestionService? = null
+    private val rangeQuestionService: RangeQuestionService? = null
 
     @Mock
-    private val questionRepository: QuestionRepository? = null
+    private val rangeQuestionRepository: RangeQuestionRepository? = null
 
     @Mock
     private val questionCategoryRepository: QuestionCategoryRepository? = null
@@ -37,11 +36,11 @@ class QuestionServiceTest {
     @Test
     fun shouldCreateQuestionAndReturnCreatedQuestion() {
         `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
-        `when`(questionRepository!!.save(any(Question::class.java))).thenReturn(QuestionTestData.question)
+        `when`(rangeQuestionRepository!!.save(any(RangeQuestion::class.java))).thenReturn(RangeQuestionTestData.question)
 
-        val actual = questionService!!.createQuestion(QuestionTestData.questionDTO)
+        val actual = rangeQuestionService!!.createRangeQuestion(RangeQuestionTestData.questionDTO)
 
-        Assert.assertEquals(QuestionTestData.questionDTO, actual)
+        Assert.assertEquals(RangeQuestionTestData.questionDTO, actual)
     }
 
     @Test
@@ -49,67 +48,65 @@ class QuestionServiceTest {
         `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionCategoryNotFoundException> {
-            questionService!!.createQuestion(QuestionTestData.questionDTO)
+            rangeQuestionService!!.createRangeQuestion(RangeQuestionTestData.questionDTO)
         }
     }
 
     @Test
     fun shouldUpdateQuestionByIdAndReturnUpdatedQuestion() {
-        `when`(questionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionTestData.question))
+        `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RangeQuestionTestData.question))
 
-        val updatedQuestionDTO = QuestionTestData.questionDTO.copy(
+        val updatedQuestionDTO = RangeQuestionTestData.questionDTO.copy(
                 questionText = "new question text",
-                minScore = 2,
-                maxScore = 6
+                rangeSteps = emptyList()
         )
 
-        val updatedQuestion = QuestionTestData.question.copy(
+        val updatedQuestion = RangeQuestionTestData.question.copy(
                 questionText = "new question text",
-                minScore = 2,
-                maxScore = 6
+                rangeSteps = emptyList()
         )
 
-        `when`(questionRepository.save(any(Question::class.java))).thenReturn(updatedQuestion)
+        `when`(rangeQuestionRepository.save(any(RangeQuestion::class.java))).thenReturn(updatedQuestion)
 
-        val actual = questionService!!.updateQuestionById(1L, updatedQuestionDTO)
+        val actual = rangeQuestionService!!.updateQuestionById(1L, updatedQuestionDTO)
 
         Assert.assertEquals(updatedQuestionDTO, actual)
     }
 
     @Test
     fun shouldThrowQuestionNotFoundExceptionWhenPassingInvalidIdWhileUpdatingQuestion() {
-        `when`(questionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
+        `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionNotFoundException> {
-            questionService!!.updateQuestionById(1L, QuestionTestData.questionDTO)
+            rangeQuestionService!!.updateQuestionById(1L, RangeQuestionTestData.questionDTO)
         }
     }
 
     @Test
     fun shouldThrowQuestionNotFoundExceptionWhenPassingInvalidIdWhileUploadingIcon() {
-        `when`(questionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
+        `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionNotFoundException> {
-            questionService!!.uploadIconForQuestion(1L, ByteArray(100))
+            rangeQuestionService!!.uploadIconForQuestion(1L, ByteArray(100))
         }
     }
 
     @Test
     fun shouldReturnIconByQuestionId() {
-        `when`(questionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionTestData.question))
+        `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RangeQuestionTestData.question))
 
         val expected = ByteArray(100)
-        val actual = questionService!!.getIconByQuestionId(1L)
+        val actual = rangeQuestionService!!.getIconByRangeQuestionId(1L)
 
         Assert.assertEquals(expected.size, actual.size)
     }
 
     @Test
     fun shouldThrowQuestionNotFoundExceptionWhenPassingInvalidIdWhileFetchingIcon() {
-        `when`(questionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
+        `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionNotFoundException> {
-            questionService!!.getIconByQuestionId(1L)
+            rangeQuestionService!!.getIconByRangeQuestionId(1L)
         }
     }
 }

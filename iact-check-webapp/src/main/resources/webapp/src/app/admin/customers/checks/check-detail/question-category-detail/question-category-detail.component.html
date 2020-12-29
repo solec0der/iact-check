@@ -51,5 +51,11 @@
   <br/>
   <mat-divider *ngIf="this.questionCategoryDTO"></mat-divider>
   <br/>
-  <app-question-list *ngIf="this.questionCategoryDTO" [questionCategory]="this.questionCategoryDTO"></app-question-list>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>{{'QUESTIONS.RANGE_QUESTIONS' | translate}}</ng-template>
+      <br/>
+      <app-range-question-list *ngIf="this.questionCategoryDTO" [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
+    </mat-tab>
+  </mat-tab-group>
 </div>

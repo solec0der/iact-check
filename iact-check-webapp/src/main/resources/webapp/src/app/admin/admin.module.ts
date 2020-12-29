@@ -15,8 +15,8 @@ import { CheckListComponent } from './customers/checks/check-list/check-list.com
 import { CheckDetailComponent } from './customers/checks/check-detail/check-detail.component';
 import { QuestionCategoryListComponent } from './customers/checks/check-detail/question-category-list/question-category-list.component';
 import { QuestionCategoryDetailComponent } from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
-import {NgxMatFileInputModule} from '@angular-material-components/file-input';
-import { QuestionListComponent } from './customers/checks/check-detail/question-category-detail/question-list/question-list.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { RangeQuestionListComponent } from './customers/checks/check-detail/question-category-detail/range-question-list/range-question-list.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { QuestionListComponent } from './customers/checks/check-detail/question-
     CheckDetailComponent,
     QuestionCategoryListComponent,
     QuestionCategoryDetailComponent,
-    QuestionListComponent,
+    RangeQuestionListComponent,
   ],
   imports: [
     CommonModule,

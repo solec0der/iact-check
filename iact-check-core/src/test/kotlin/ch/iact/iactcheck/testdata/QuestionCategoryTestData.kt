@@ -10,7 +10,7 @@ object QuestionCategoryTestData {
             title = "Technology",
             thumbnail = ByteArray(100),
             check = CheckTestData.check,
-            questions = emptyList(),
+            rangeQuestions = emptyList(),
             possibleOutcomes = emptyList()
     )
 
@@ -19,7 +19,7 @@ object QuestionCategoryTestData {
             title = "Technology",
             thumbnail = ByteArray(100),
             check = CheckTestData.check,
-            questions = listOf(QuestionTestData.question),
+            rangeQuestions = listOf(RangeQuestionTestData.question),
             possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcome)
     )
 
@@ -27,7 +27,7 @@ object QuestionCategoryTestData {
             id = 1L,
             title = "Technology",
             checkId = 1L,
-            questions = emptyList(),
+            rangeQuestions = emptyList(),
             possibleOutcomes = emptyList()
     )
 
@@ -35,7 +35,7 @@ object QuestionCategoryTestData {
             id = 1L,
             title = "Technology",
             checkId = 1L,
-            questions = listOf(QuestionTestData.questionDTO),
+            rangeQuestions = listOf(RangeQuestionTestData.questionDTO),
             possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcomeDTO)
     )
 }

@@ -14,8 +14,8 @@ CREATE TABLE customer
 
 CREATE TABLE user_customer_access
 (
-    customer_id bigint NOT NULL,
-    user_id varchar(255) NOT NULL,
+    customer_id bigint       NOT NULL,
+    user_id     varchar(255) NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customer (id)
 );
 
@@ -40,16 +40,24 @@ CREATE TABLE question_category
     FOREIGN KEY (check_id) REFERENCES `check` (id)
 );
 
-CREATE TABLE question
+CREATE TABLE range_question
 (
     id                   bigint       NOT NULL AUTO_INCREMENT,
     question_category_id bigint       NOT NULL,
     question_text        varchar(255) NOT NULL,
-    min_score            int(4)       NOT NULL,
-    max_score            int(4)       NOT NULL,
     icon                 longblob,
     PRIMARY KEY (id),
     FOREIGN KEY (question_category_id) REFERENCES question_category (id)
+);
+
+CREATE TABLE range_step
+(
+    id                bigint NOT NULL AUTO_INCREMENT,
+    range_question_id bigint NOT NULL,
+    score             int    NOT NULL,
+    description       varchar(255),
+    PRIMARY KEY (id),
+    FOREIGN KEY (range_question_id) REFERENCES range_question (id)
 );
 
 CREATE TABLE possible_outcome

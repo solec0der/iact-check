@@ -3,18 +3,19 @@ package ch.iact.iactcheck.domain.model
 import javax.persistence.*
 
 @Entity
-@Table(name = "question")
-data class Question(
+@Table(name = "range_question")
+data class RangeQuestion(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
         val questionText: String,
-        val minScore: Int,
-        val maxScore: Int,
 
         @Lob
         @Basic(fetch = FetchType.LAZY)
         val icon: ByteArray = ByteArray(0),
+
+        @OneToMany(targetEntity = RangeStep::class, mappedBy = "rangeQuestion", cascade = [CascadeType.ALL], orphanRemoval = true)
+        val rangeSteps: List<RangeStep>,
 
         @ManyToOne
         val questionCategory: QuestionCategory

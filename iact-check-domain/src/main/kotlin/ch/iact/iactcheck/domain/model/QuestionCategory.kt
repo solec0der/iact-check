@@ -17,8 +17,8 @@ data class QuestionCategory(
         @ManyToOne
         val check: Check,
 
-        @OneToMany(targetEntity = Question::class, mappedBy = "questionCategory")
-        val questions: List<Question>,
+        @OneToMany(targetEntity = RangeQuestion::class, mappedBy = "questionCategory")
+        val rangeQuestions: List<RangeQuestion>,
 
         @OneToMany(targetEntity = PossibleOutcome::class, mappedBy = "questionCategory")
         val possibleOutcomes: List<PossibleOutcome>

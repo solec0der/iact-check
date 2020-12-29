@@ -129,7 +129,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       id: -1,
       checkId: this.checkId,
       title: this.questionCategoryFromGroup.value.title,
-      questions: [],
+      rangeQuestions: [],
       possibleOutcomes: [],
     };
 
@@ -162,7 +162,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       id: this.questionCategoryId,
       checkId: this.checkId,
       title: this.questionCategoryFromGroup.value.title,
-      questions: [],
+      rangeQuestions: [],
       possibleOutcomes: [],
     };
 

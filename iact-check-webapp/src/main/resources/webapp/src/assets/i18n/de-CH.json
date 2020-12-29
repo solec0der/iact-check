@@ -104,8 +104,7 @@
     "QUESTIONS": "Fragen",
     "CREATE_QUESTION": "Frage erstellen",
     "QUESTION_TEXT": "Frage",
-    "MIN_SCORE": "Min. Punktezahl",
-    "MAX_SCORE": "Max. Punktezahl"
+    "RANGE_QUESTIONS": "Slider Fragen"
   },
   "SHARED": {
     "RELOAD": "Neu laden",

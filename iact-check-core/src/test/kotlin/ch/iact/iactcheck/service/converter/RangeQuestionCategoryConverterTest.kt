@@ -4,7 +4,7 @@ import ch.iact.iactcheck.testdata.QuestionCategoryTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
 
-class QuestionCategoryConverterTest {
+class RangeQuestionCategoryConverterTest {
 
     @Test
     fun shouldReturnConvertedQuestionCategoryDTO() {

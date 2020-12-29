@@ -13,8 +13,8 @@ object QuestionCategoryConverter {
                 possibleOutcomes = questionCategory.possibleOutcomes.map {
                     PossibleOutcomeConverter.convertPossibleOutcomeToDTO(it)
                 }.toList(),
-                questions = questionCategory.questions.map {
-                    QuestionConverter.convertQuestionToDTO(it)
+                rangeQuestions = questionCategory.rangeQuestions.map {
+                    RangeQuestionConverter.convertQuestionToDTO(it)
                 }.toList()
         )
     }

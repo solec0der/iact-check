@@ -22,7 +22,7 @@ class QuestionCategoryService(
                 id = -1,
                 check = check,
                 title = questionCategoryDTO.title,
-                questions = emptyList(),
+                rangeQuestions = emptyList(),
                 possibleOutcomes = emptyList()
         )
 
