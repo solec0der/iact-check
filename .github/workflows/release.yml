@@ -1,4 +1,4 @@
-name: Deploy
+name: Create Release
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
 
     steps:
