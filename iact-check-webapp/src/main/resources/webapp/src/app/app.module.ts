@@ -27,6 +27,7 @@ import { HttpExceptionDialogComponent } from './shared/dialogs/http-exception-di
 import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interceptor';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import {KeycloakInfoService} from './shared/services/keycloak-info.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
     {
       provide: APP_INITIALIZER,
       useFactory: initializer,
-      deps: [KeycloakService],
+      deps: [KeycloakService, KeycloakInfoService],
       multi: true,
     },
     {
