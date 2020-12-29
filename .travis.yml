@@ -1,11 +1,22 @@
-language: java
-
 addons:
   sonarcloud:
     organization: "solec0der"
     token:
       secure: "LDV35aJFeExX/atcg7ZyWzVGrbbiFuhIXGDXb0vph32DKFRmzCZBTBERAgwWQ8DTANXgL9z1FuYxDU+XcDXv2d/1wUfLrx0AHWiq5+e8crhGYTBnxHWnzSLg9+3bbiCmj3Rg5W39LuDzMKJuZwXLb6mVPa7MJJ9WnzP4qW9SXqPsrtaFxTxrYn7xrfp2YbkFVtnF9ESz67rpjtqyUtB4d7eHiQxKOU4FR9pObNp0rL9kb/4noR7UtYvDezvTkibNyVSNbpScQtcHu/Mu/grpffEZd1vLvYFxZzGL7NKwqMpQXFDyhLAfQLkXsPj57ykSpsyMi4ceIrSy7qYlQqbR3qbmgWcHszbcbOU8n9p4h/1bfMHAJBPPrIWkE1wj95dbWF7KpG5bfJekyUItEkguHs/bVFH1JTay2S05OU5tsiyTcvULoTL9Kc6uX9IIWQ90aEz1xnGEVnUAMoWxUV3IR+NrViVEHrpNJ+VgfrYEmADlUF747vTZyjEFTImyi7fS8wPFaRg0O9byOVb14EchLd+fQgruckdVqk2aRVds5Jmwnb+K6kqtbaQdqfxQRRuoWhfnG9vtVkCmg5KxqcMXo+OLliXcsRvvt+ggUvUa/iD5BMG6yKTyMGtFEVL8jmQ+I6GZlroil0yYpomyXRSFDCrL3LZm2SZT0+nEH5Nbges="
 
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=solec0der_iact-check
+jobs:
+  include:
+    - stage: Build Webapp
+    - language: node_js
+      node_js:
+        - "14"
+      before_script:
+        - cd iact-check-webapp/src/main/resources/webapp
+        - npm install -g @angular/cli
+      script:
+        - npm install
+        - ng build --prod
+    - stage: Build Iact-Check-Core
+    - language: java
+      script:
+      - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=solec0der_iact-check
