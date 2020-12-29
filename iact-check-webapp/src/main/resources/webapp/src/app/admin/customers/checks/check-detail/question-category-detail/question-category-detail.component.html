@@ -51,12 +51,12 @@
   <br/>
   <mat-divider *ngIf="this.questionCategoryDTO"></mat-divider>
   <br/>
-  <mat-card class="mat-elevation-z2">
+  <mat-card class="mat-elevation-z2" *ngIf="this.questionCategoryDTO">
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>{{'QUESTIONS.RANGE_QUESTIONS' | translate}}</ng-template>
         <br/>
-        <app-range-question-list *ngIf="this.questionCategoryDTO" [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
+        <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
       </mat-tab>
     </mat-tab-group>
   </mat-card>
