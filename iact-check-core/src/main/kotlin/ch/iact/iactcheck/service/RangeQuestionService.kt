@@ -37,8 +37,14 @@ class RangeQuestionService(
         return RangeQuestionConverter.convertQuestionToDTO(rangeQuestionRepository.save(rangeQuestion))
     }
 
-    fun updateQuestionById(questionId: Long, rangeQuestionDTO: RangeQuestionDTO): RangeQuestionDTO {
-        var rangeQuestion = rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+    fun getRangeQuestionById(rangeQuestionId: Long): RangeQuestionDTO {
+        return RangeQuestionConverter.convertQuestionToDTO(
+                rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
+        )
+    }
+
+    fun updateRangeQuestionById(rangeQuestionId: Long, rangeQuestionDTO: RangeQuestionDTO): RangeQuestionDTO {
+        var rangeQuestion = rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
 
         rangeQuestion = rangeQuestion.copy(
                 questionText = rangeQuestionDTO.questionText,
@@ -50,21 +56,21 @@ class RangeQuestionService(
         return RangeQuestionConverter.convertQuestionToDTO(rangeQuestionRepository.save(rangeQuestion))
     }
 
-    fun uploadIconForQuestion(questionId: Long, icon: ByteArray) {
-        var question = rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+    fun uploadIconForRangeQuestion(rangeQuestionId: Long, icon: ByteArray) {
+        var rangeQuestion = rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
 
-        question = question.copy(icon = icon)
+        rangeQuestion = rangeQuestion.copy(icon = icon)
 
-        rangeQuestionRepository.save(question)
+        rangeQuestionRepository.save(rangeQuestion)
     }
 
     fun getIconByRangeQuestionId(questionId: Long): ByteArray {
-        val question = rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+        val rangeQuestion = rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
 
-        return question.icon
+        return rangeQuestion.icon
     }
 
-    fun deleteQuestionById(questionId: Long) {
-        rangeQuestionRepository.deleteById(questionId)
+    fun deleteRangeQuestionById(rangeQuestionId: Long) {
+        rangeQuestionRepository.deleteById(rangeQuestionId)
     }
 }

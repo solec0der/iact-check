@@ -101,10 +101,27 @@
     }
   },
   "QUESTIONS": {
-    "QUESTIONS": "Fragen",
     "CREATE_QUESTION": "Frage erstellen",
     "QUESTION_TEXT": "Frage",
-    "RANGE_QUESTIONS": "Slider Fragen"
+    "RANGE_QUESTIONS": "Slider Fragen",
+    "ADD_RANGE_QUESTION": "Slider Frage erstellen",
+    "EDIT_RANGE_QUESTION": "Slider Frage bearbeiten",
+    "BACK_TO_QUESTION_CATEGORY": "Zurück zur Fragekategorie",
+    "ICON": "Icon",
+    "SCORE": "Punkte",
+    "DESCRIPTION": "Beschreibung",
+    "ERRORS": {
+      "MISSING_QUESTION_TEXT": "Bitte gültige Frage eingeben",
+      "MISSING_ICON": "Bitte gültiges Icon hochladen",
+      "MISSING_SCORE": "Bitte Punkte eingeben"
+    },
+    "ICON_HINT": "Das Icon wird zusammen mit der Frage angezeigt.",
+    "PLACEHOLDER": {
+      "QUESTION_TEXT": "Bitte Frage eingeben",
+      "SCORE": "Bitte Punkte eingeben",
+      "DESCRIPTION": "Bitte Beschreibung eingeben (optional)"
+    },
+    "ADD_STEP": "Weiteren Schritt hinzufügen"
   },
   "SHARED": {
     "RELOAD": "Neu laden",

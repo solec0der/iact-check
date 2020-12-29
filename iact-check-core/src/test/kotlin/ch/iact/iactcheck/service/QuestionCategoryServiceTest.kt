@@ -23,7 +23,7 @@ import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 @SpringBootTest(classes = [IactCheckApplication::class])
-class RangeQuestionCategoryServiceTest {
+class QuestionCategoryServiceTest {
 
     @InjectMocks
     private val questionCategoryService: QuestionCategoryService? = null

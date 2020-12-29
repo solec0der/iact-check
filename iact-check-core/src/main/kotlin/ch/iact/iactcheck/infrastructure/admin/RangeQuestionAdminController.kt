@@ -18,12 +18,17 @@ internal class RangeQuestionAdminController(
         return rangeQuestionService.createRangeQuestion(rangeQuestionDTO)
     }
 
+    @GetMapping("/{rangeQuestionId}")
+    fun getRangeQuestionById(@PathVariable("rangeQuestionId") rangeQuestionId: Long): RangeQuestionDTO {
+        return rangeQuestionService.getRangeQuestionById(rangeQuestionId)
+    }
+
     @PutMapping("/{rangeQuestionId}")
     fun updateRangeQuestionById(
             @PathVariable("rangeQuestionId") questionId: Long,
             @RequestBody rangeQuestionDTO: RangeQuestionDTO
     ): RangeQuestionDTO {
-        return rangeQuestionService.updateQuestionById(questionId, rangeQuestionDTO)
+        return rangeQuestionService.updateRangeQuestionById(questionId, rangeQuestionDTO)
     }
 
     @PutMapping("/{rangeQuestionId}/icon")
@@ -31,12 +36,12 @@ internal class RangeQuestionAdminController(
             @PathVariable("rangeQuestionId") questionId: Long,
             @RequestParam("icon") file: MultipartFile
     ) {
-        rangeQuestionService.uploadIconForQuestion(questionId, file.bytes)
+        rangeQuestionService.uploadIconForRangeQuestion(questionId, file.bytes)
     }
 
     @DeleteMapping("/{rangeQuestionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteRangeQuestionById(@PathVariable("rangeQuestionId") questionId: Long) {
-        rangeQuestionService.deleteQuestionById(questionId)
+        rangeQuestionService.deleteRangeQuestionById(questionId)
     }
 }

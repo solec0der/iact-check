@@ -68,7 +68,7 @@ class RangeRangeQuestionServiceTest {
 
         `when`(rangeQuestionRepository.save(any(RangeQuestion::class.java))).thenReturn(updatedQuestion)
 
-        val actual = rangeQuestionService!!.updateQuestionById(1L, updatedQuestionDTO)
+        val actual = rangeQuestionService!!.updateRangeQuestionById(1L, updatedQuestionDTO)
 
         Assert.assertEquals(updatedQuestionDTO, actual)
     }
@@ -78,7 +78,7 @@ class RangeRangeQuestionServiceTest {
         `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionNotFoundException> {
-            rangeQuestionService!!.updateQuestionById(1L, RangeQuestionTestData.questionDTO)
+            rangeQuestionService!!.updateRangeQuestionById(1L, RangeQuestionTestData.questionDTO)
         }
     }
 
@@ -87,7 +87,7 @@ class RangeRangeQuestionServiceTest {
         `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.empty())
 
         assertThrows<QuestionNotFoundException> {
-            rangeQuestionService!!.uploadIconForQuestion(1L, ByteArray(100))
+            rangeQuestionService!!.uploadIconForRangeQuestion(1L, ByteArray(100))
         }
     }
 

@@ -1,0 +1,87 @@
+<div *ngIf="this.rangeQuestionFormGroup">
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <h1 *ngIf="this.action === 'create'">{{'QUESTIONS.ADD_RANGE_QUESTION' | translate}}</h1>
+      <h1 *ngIf="this.action === 'edit'">{{'QUESTIONS.EDIT_RANGE_QUESTION' | translate}}</h1>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.goBackToQuestionCategory()"
+              style="margin-right: 10px;">
+        <mat-icon>arrow_back</mat-icon>
+        {{'QUESTIONS.BACK_TO_QUESTION_CATEGORY' | translate}}
+      </button>
+      <button mat-stroked-button *ngIf="this.action === 'edit'"
+              style="margin-right: 10px;">
+        <mat-icon>delete</mat-icon>
+        {{'SHARED.DELETE' | translate}}
+      </button>
+      <button mat-stroked-button (click)="this.save()"
+              [disabled]="this.rangeQuestionFormGroup.invalid || this.rangeStepsFormArray.invalid">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="this.rangeQuestionFormGroup">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'QUESTIONS.QUESTION_TEXT' | translate}}</mat-label>
+      <mat-error>
+        {{'QUESTIONS.ERRORS.MISSING_QUESTION_TEXT' | translate}}
+      </mat-error>
+      <label>
+        <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.QUESTION_TEXT' | translate" formControlName="questionText"
+               required/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'QUESTIONS.ICON' | translate}}</mat-label>
+      <mat-error>
+        {{'QUESTIONS.ERRORS.MISSING_ICON' | translate}}
+      </mat-error>
+      <ngx-mat-file-input color="accent" formControlName="icon" accept="image/*" [required]="true">
+      </ngx-mat-file-input>
+      <mat-hint>{{'QUESTIONS.ICON_HINT' | translate}}</mat-hint>
+      <button mat-icon-button matSuffix (click)="this.showIcon()" *ngIf="this.icon">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <br/>
+  <ng-container *ngFor="let rangeStepsFormGroup of this.rangeStepsFormArray.controls; let i = index">
+    <div [formGroup]="$any(rangeStepsFormGroup)" class="display-flex-space-between half-width"
+         style="align-content: baseline; align-items: baseline">
+      <div style="width: 15%">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{'QUESTIONS.SCORE' | translate}}</mat-label>
+          <mat-error>
+            {{'QUESTIONS.ERRORS.MISSING_SCORE' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.SCORE' | translate" formControlName="score"
+                   required/>
+          </label>
+        </mat-form-field>
+      </div>
+      <div style="width: 80%;">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{'QUESTIONS.DESCRIPTION' | translate}}</mat-label>
+          <label>
+            <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.DESCRIPTION' | translate"
+                   formControlName="description"/>
+          </label>
+        </mat-form-field>
+      </div>
+      <div style="width: 3%;">
+        <button mat-icon-button (click)="this.removeRangeStepByIndex(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <button mat-stroked-button (click)="this.addRangeStepFormGroup()">
+    <mat-icon>add</mat-icon>
+    {{'QUESTIONS.ADD_STEP' | translate}}
+  </button>
+</div>
