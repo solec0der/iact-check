@@ -5,7 +5,7 @@
 
     <groupId>ch.iact</groupId>
     <artifactId>iact-check</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-RELEASE</version>
     <packaging>pom</packaging>
 
     <modules>
