@@ -27,9 +27,10 @@ jobs:
           java-version: 11
       - name: Build and Test with Maven
         run: mvn -B clean verify -DskipTests
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Rename artifacts
+        run: |
+          mv iact-check-core/target/iact-check-core*.jar iact-check-core/target/iact-check-core.jar
+          mv iact-check-webapp/target/iact-check-webapp*.jar iact-check-webapp/target/iact-check-webapp.jar
       - name: Create a Release
         id: create_release
         uses: actions/create-release@v1.1.4
@@ -47,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./iact-check-core/target/${{ iact-check-core-${{ steps.get_version.outputs.VERSION }}.jar }}
-          asset_name: iact-check-core-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_path: ./iact-check-core/target/iact-check-core.jar
+          asset_name: iact-check-core.jar
           asset_content_type: application/java-archive
