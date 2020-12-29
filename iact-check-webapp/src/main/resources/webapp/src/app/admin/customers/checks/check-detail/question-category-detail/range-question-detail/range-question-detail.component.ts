@@ -79,7 +79,9 @@ export class RangeQuestionDetailComponent implements OnInit {
   }
 
   public removeRangeStepByIndex(index: number): void {
-    this.rangeQuestionDTO.rangeSteps.splice(index, 1);
+    if (this.rangeQuestionDTO) {
+      this.rangeQuestionDTO.rangeSteps.splice(index, 1);
+    }
     this.rangeStepsFormArray.removeAt(index);
   }
 

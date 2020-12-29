@@ -74,7 +74,7 @@
         </mat-form-field>
       </div>
       <div style="width: 3%;">
-        <button mat-icon-button (click)="this.removeRangeStepByIndex(i)">
+        <button mat-icon-button (click)="this.removeRangeStepByIndex(i)" [disabled]="this.rangeStepsFormArray.length === 1">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
