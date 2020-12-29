@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, range } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RangeQuestionDTO } from '../dtos/range-question-d-t-o';
 import { CORE_URL } from '../../../app.config';
 
@@ -58,6 +58,12 @@ export class RangeQuestionService {
     return this.httpClient.put<RangeQuestionDTO>(
       CORE_URL + '/api/admin/range-questions/' + rangeQuestionId,
       body
+    );
+  }
+
+  public deleteRangeQuestionById(rangeQuestionId: number): Observable<void> {
+    return this.httpClient.delete<void>(
+      CORE_URL + '/api/admin/range-questions/' + rangeQuestionId
     );
   }
 }

@@ -16,10 +16,10 @@ import { QuestionCategoryDTO } from '../../../../shared/dtos/question-category-d
 export class QuestionCategoryListComponent implements OnInit {
   @Input('check') public checkDTO!: CheckDTO;
 
+  public displayedColumnsQuestionCategories = ['id', 'title', 'actions'];
+
   @ViewChild('questionCategoriesTable')
   private questionCategoriesTable!: MatTable<QuestionCategoryDTO>;
-
-  public displayedColumnsQuestionCategories = ['id', 'title', 'actions'];
 
   constructor(
     private matDialog: MatDialog,
@@ -68,7 +68,7 @@ export class QuestionCategoryListComponent implements OnInit {
         );
         this.checkDTO.questionCategories.splice(
           this.checkDTO.questionCategories.findIndex(
-            (q) => (q.id = questionCategoryId)
+            (q) => (q.id === questionCategoryId)
           ),
           1
         );

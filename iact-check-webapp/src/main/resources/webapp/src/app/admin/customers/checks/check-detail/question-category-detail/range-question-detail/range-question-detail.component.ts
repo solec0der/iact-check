@@ -10,6 +10,7 @@ import { RangeQuestionService } from '../../../../../shared/services/range-quest
 import { RangeStepDTO } from '../../../../../shared/dtos/range-step-dto';
 import { FileReaderUtil } from '../../../../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../../../../app.config';
+import { ConfirmDialogComponent } from '../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-range-question-detail',
@@ -82,6 +83,27 @@ export class RangeQuestionDetailComponent implements OnInit {
     this.rangeStepsFormArray.removeAt(index);
   }
 
+  public showRangeQuestionDeletionDialog(): void {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.translateService.instant('QUESTIONS.DELETION_DIALOG.TITLE'),
+        message: '',
+        buttonTextCancel: this.translateService.instant(
+          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
+        ),
+        buttonTextConfirm: this.translateService.instant(
+          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
+        ),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((hasConfirmed) => {
+      if (hasConfirmed) {
+        this.deleteRangeQuestion();
+      }
+    });
+  }
+
   public showIcon(): void {
     window.open(
       CORE_URL + '/api/range-questions/' + this.rangeQuestionId + '/icon',
@@ -129,6 +151,13 @@ export class RangeQuestionDetailComponent implements OnInit {
             relativeTo: this.activatedRoute,
           })
           .then(() => {
+            this.matSnackBar.open(
+              this.translateService.instant('QUESTIONS.CREATED_MESSAGE'),
+              this.translateService.instant('SHARED.CLOSE'),
+              {
+                duration: 5000,
+              }
+            );
             this.uploadIcon();
           });
       });
@@ -146,6 +175,13 @@ export class RangeQuestionDetailComponent implements OnInit {
       .updateRangeQuestionById(this.rangeQuestionId, rangeQuestionDTO)
       .subscribe((updatedRangeQuestionDTO) => {
         this.rangeQuestionDTO = updatedRangeQuestionDTO;
+        this.matSnackBar.open(
+          this.translateService.instant('QUESTIONS.UPDATED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
         this.uploadIcon();
       });
   }
@@ -206,6 +242,25 @@ export class RangeQuestionDetailComponent implements OnInit {
     });
 
     this.rangeStepsFormArray = new FormArray(formGroups);
+  }
+
+  private deleteRangeQuestion(): void {
+    this.rangeQuestionService
+      .deleteRangeQuestionById(this.rangeQuestionId)
+      .subscribe(() => {
+        this.matSnackBar.open(
+          this.translateService.instant('QUESTIONS.DELETED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.router
+          .navigate(['../../../edit'], {
+            relativeTo: this.activatedRoute,
+          })
+          .then();
+      });
   }
 
   private static createEmptyRangeStepFormGroup(): FormGroup {

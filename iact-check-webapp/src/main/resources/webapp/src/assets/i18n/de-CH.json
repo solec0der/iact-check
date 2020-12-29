@@ -121,7 +121,15 @@
       "SCORE": "Bitte Punkte eingeben",
       "DESCRIPTION": "Bitte Beschreibung eingeben (optional)"
     },
-    "ADD_STEP": "Weiteren Schritt hinzufügen"
+    "ADD_STEP": "Weiteren Schritt hinzufügen",
+    "CREATED_MESSAGE": "Die Frage wurde erfolgreich erstellt.",
+    "UPDATED_MESSAGE": "Die Frage wurde erfolgreich modifiziert.",
+    "DELETED_MESSAGE": "Die Frage wurde erfolgreich gelöscht.",
+    "DELETION_DIALOG": {
+      "TITLE": "Sind Sie sicher, dass Sie diese Frage löschen möchten?",
+      "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
+      "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
+    }
   },
   "SHARED": {
     "RELOAD": "Neu laden",

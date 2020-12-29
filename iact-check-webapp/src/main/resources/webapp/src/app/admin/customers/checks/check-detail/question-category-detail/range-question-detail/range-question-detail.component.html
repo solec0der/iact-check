@@ -11,7 +11,7 @@
         {{'QUESTIONS.BACK_TO_QUESTION_CATEGORY' | translate}}
       </button>
       <button mat-stroked-button *ngIf="this.action === 'edit'"
-              style="margin-right: 10px;">
+              style="margin-right: 10px;" (click)="this.showRangeQuestionDeletionDialog()">
         <mat-icon>delete</mat-icon>
         {{'SHARED.DELETE' | translate}}
       </button>
