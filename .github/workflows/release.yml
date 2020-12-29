@@ -68,18 +68,22 @@ jobs:
           host: ${{ secrets.PROD_SERVER_URL }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
+          overwrite: true
+          tar_tmp_path: /var/www/iact-check-core
           port: 22022
           source: "iact-check-core/target/iact-check-core.jar"
-          target: "/var/www/iact-check-core/iact-check-core.jar"
+          target: "/var/www/iact-check-core"
       - name: Deploy Webapp to Prod
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.PROD_SERVER_URL }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
+          overwrite: true
+          tar_tmp_path: /var/www/iact-check-webapp
           port: 22022
           source: "iact-check-webapp/target/iact-check-webapp.jar"
-          target: "/var/www/iact-check-webapp/iact-check-webapp.jar"  
+          target: "/var/www/iact-check-webapp"  
       - name: ssh pipelines
         uses: cross-the-world/ssh-pipeline@master
         with:
