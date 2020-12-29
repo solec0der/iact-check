@@ -1,6 +1,6 @@
-package ch.iact.iactcheck.infrastructure
+package ch.iact.iactcheck.webapp.infrastructure
 
-import ch.iact.iactcheck.dto.KeycloakInfoDTO
+import ch.iact.iactcheck.webapp.dto.KeycloakInfoDTO
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

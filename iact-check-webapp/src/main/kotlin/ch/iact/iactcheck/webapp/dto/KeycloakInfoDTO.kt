@@ -1,4 +1,4 @@
-package ch.iact.iactcheck.dto
+package ch.iact.iactcheck.webapp.dto
 
 data class KeycloakInfoDTO(
         val authServerUrl: String,
