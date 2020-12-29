@@ -1,14 +1,17 @@
-matrix:
+node_js: "14"
+
+jobs:
   include:
+    - stage: Build Webapp
     - language: node_js
-      node_js:
-        - "14"
+      node_js: "14"
       before_script:
         - cd iact-check-webapp/src/main/resources/webapp
         - npm install -g @angular/cli
       script:
         - npm install
         - ng build --prod
+    - stage: Build Iact-Check-Core
     - language: java
       addons:
         sonarcloud:
