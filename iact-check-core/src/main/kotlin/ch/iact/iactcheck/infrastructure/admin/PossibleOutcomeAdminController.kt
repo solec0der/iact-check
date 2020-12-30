@@ -23,20 +23,13 @@ internal class PossibleOutcomeAdminController(
         return possibleOutcomeService.getPossibleOutcomeById(possibleOutcomeId)
     }
 
-    @PutMapping("/{possibleOutcomeId}/thumbnail")
+    @PutMapping("/{possibleOutcomeId}/assets")
     fun uploadThumbnailForPossibleOutcome(
             @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
-            @RequestParam("thumbnail") file: MultipartFile
+            @RequestParam("thumbnail") thumbnail: MultipartFile,
+            @RequestParam("pdf") pdf: MultipartFile
     ) {
-        possibleOutcomeService.uploadThumbnailForPossibleOutcome(possibleOutcomeId, file.bytes)
-    }
-
-    @PutMapping("/{possibleOutcomeId}/pdf")
-    fun uploadPdfForPossibleOutcome(
-            @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
-            @RequestParam("pdf") file: MultipartFile
-    ) {
-        possibleOutcomeService.uploadPdfForPossibleOutcome(possibleOutcomeId, file.bytes)
+        possibleOutcomeService.uploadAdditionalAssetsForPossibleOutcome(possibleOutcomeId, thumbnail.bytes, pdf.bytes)
     }
 
     @PutMapping("/{possibleOutcomeId}")

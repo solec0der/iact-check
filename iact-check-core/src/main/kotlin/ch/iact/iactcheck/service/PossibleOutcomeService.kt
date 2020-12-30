@@ -9,6 +9,7 @@ import ch.iact.iactcheck.infrastructure.exception.PossibleOutcomeNotFoundExcepti
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.service.converter.PossibleOutcomeConverter
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PossibleOutcomeService(
@@ -52,7 +53,7 @@ class PossibleOutcomeService(
                 .findById(possibleOutcomeId)
                 .orElseThrow { throw PossibleOutcomeNotFoundException() }
 
-        return possibleOutcome.thumbnail
+        return possibleOutcome.thumbnail ?: ByteArray(0)
     }
 
     fun getPdfByPossibleOutcomeId(possibleOutcomeId: Long): ByteArray {
@@ -60,30 +61,17 @@ class PossibleOutcomeService(
                 .findById(possibleOutcomeId)
                 .orElseThrow { throw PossibleOutcomeNotFoundException() }
 
-        return possibleOutcome.pdf
+        return possibleOutcome.pdf ?: ByteArray(0)
     }
 
-    fun uploadThumbnailForPossibleOutcome(possibleOutcomeId: Long, thumbnail: ByteArray) {
+    fun uploadAdditionalAssetsForPossibleOutcome(possibleOutcomeId: Long, thumbnail: ByteArray, pdf: ByteArray) {
         var possibleOutcome = possibleOutcomeRepository
                 .findById(possibleOutcomeId)
                 .orElseThrow { throw PossibleOutcomeNotFoundException() }
 
-        possibleOutcome = possibleOutcome.copy(
-                thumbnail = thumbnail
-        )
-
+        possibleOutcome = possibleOutcome.copy(thumbnail = thumbnail)
         possibleOutcomeRepository.save(possibleOutcome)
-    }
-
-    fun uploadPdfForPossibleOutcome(possibleOutcomeId: Long, pdf: ByteArray) {
-        var possibleOutcome = possibleOutcomeRepository
-                .findById(possibleOutcomeId)
-                .orElseThrow { throw PossibleOutcomeNotFoundException() }
-
-        possibleOutcome = possibleOutcome.copy(
-                pdf = pdf
-        )
-
+        possibleOutcome = possibleOutcome.copy(pdf = pdf)
         possibleOutcomeRepository.save(possibleOutcome)
     }
 

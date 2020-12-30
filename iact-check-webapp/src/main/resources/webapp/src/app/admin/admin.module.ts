@@ -18,6 +18,8 @@ import { QuestionCategoryDetailComponent } from './customers/checks/check-detail
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { RangeQuestionListComponent } from './customers/checks/check-detail/question-category-detail/range-question-list/range-question-list.component';
 import { RangeQuestionDetailComponent } from './customers/checks/check-detail/question-category-detail/range-question-detail/range-question-detail.component';
+import { PossibleOutcomeListComponent } from './customers/checks/check-detail/question-category-detail/possible-outcome-list/possible-outcome-list.component';
+import { PossibleOutcomeDetailComponent } from './customers/checks/check-detail/question-category-detail/possible-outcome-detail/possible-outcome-detail.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { RangeQuestionDetailComponent } from './customers/checks/check-detail/qu
     QuestionCategoryDetailComponent,
     RangeQuestionListComponent,
     RangeQuestionDetailComponent,
+    PossibleOutcomeListComponent,
+    PossibleOutcomeDetailComponent,
   ],
   imports: [
     CommonModule,

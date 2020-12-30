@@ -15,7 +15,12 @@ export class JsonInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!req.url.includes('thumbnail') && !req.url.includes('logo') && !req.url.includes('icon')) {
+    if (
+      !req.url.includes('thumbnail') &&
+      !req.url.includes('logo') &&
+      !req.url.includes('icon') &&
+      !req.url.includes('assets')
+    ) {
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json',

@@ -143,6 +143,41 @@
       "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
   },
+  "POSSIBLE_OUTCOMES": {
+    "POSSIBLE_OUTCOMES": "Mögliche Ergebnisse",
+    "CREATE_POSSIBLE_OUTCOME": "Mögliches Ergebnis erstellen",
+    "ADD_POSSIBLE_OUTCOME": "Mögliches Ergebnis erstellen",
+    "EDIT_POSSIBLE_OUTCOME": "Mögliches Ergebnis bearbeiten",
+    "BACK_TO_QUESTION_CATEGORY": "Zurück zur Fragekategorie",
+    "TITLE": "Titel",
+    "SUBTITLE": "Untertitel",
+    "DESCRIPTION": "Beschreibung",
+    "YOUTUBE_URL": "Youtube Video URL",
+    "THUMBNAIL": "Thumbnail",
+    "PDF": "PDF",
+    "POSSIBLE_SCORES": "Mögliche Punkte",
+    "CREATED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich erstellt.",
+    "UPDATED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich modifiziert.",
+    "DELETED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich gelöscht.",
+    "ERRORS": {
+      "MISSING_TITLE": "Bitte gültigen Titel eingeben",
+      "MISSING_SUBTITLE": "Bitte gültigen Untertitel hochladen",
+      "MISSING_DESCRIPTION": "Bitte gültige Beschreibung eingeben",
+      "MISSING_POSSIBLE_SCORES": "Bitte gültige mögliche Punkte eingeben"
+    },
+    "PLACEHOLDER": {
+      "TITLE": "Bitte Titel eingeben",
+      "SUBTITLE": "Bitte Untertitel eingeben",
+      "DESCRIPTION": "Bitte Beschreibung eingeben",
+      "POSSIBLE_SCORES": "Bitte mögliche Punkte eingeben (mit Komma trennen)",
+      "YOUTUBE_URL": "Bitte Youtube Video URL eingeben (optional)"
+    },
+    "DELETION_DIALOG": {
+      "TITLE": "Sind Sie sicher, dass Sie dieses mögliche Ergebnis löschen möchten?",
+      "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
+      "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
+    }
+  },
   "SHARED": {
     "RELOAD": "Neu laden",
     "ACTIONS": "Aktionen",

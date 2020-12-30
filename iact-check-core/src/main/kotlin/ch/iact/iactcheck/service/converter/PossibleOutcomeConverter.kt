@@ -12,6 +12,7 @@ object PossibleOutcomeConverter {
                 title = possibleOutcome.title,
                 subtitle = possibleOutcome.subtitle,
                 description = possibleOutcome.description,
+                youtubeUrl = possibleOutcome.youtubeUrl,
                 possibleScores = possibleOutcome.possibleScores.map {
                     PossibleScoreConverter.convertPossibleScoreToDTO(it)
                 }.toList()

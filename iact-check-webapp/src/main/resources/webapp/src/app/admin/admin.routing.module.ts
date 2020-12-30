@@ -8,6 +8,7 @@ import { CheckListComponent } from './customers/checks/check-list/check-list.com
 import { CheckDetailComponent } from './customers/checks/check-detail/check-detail.component';
 import { QuestionCategoryDetailComponent } from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
 import { RangeQuestionDetailComponent } from './customers/checks/check-detail/question-category-detail/range-question-detail/range-question-detail.component';
+import { PossibleOutcomeDetailComponent } from './customers/checks/check-detail/question-category-detail/possible-outcome-detail/possible-outcome-detail.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
         path:
           'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/range-questions/:rangeQuestionId/:action',
         component: RangeQuestionDetailComponent,
+      },
+      {
+        path:
+          'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/possible-outcomes/:possibleOutcomeId/:action',
+        component: PossibleOutcomeDetailComponent,
       },
       {
         path: 'customers/:customerId/:action',

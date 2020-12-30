@@ -1,0 +1,114 @@
+<div *ngIf="this.possibleOutcomeFormGroup">
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <h1 *ngIf="this.action === 'create'">{{'POSSIBLE_OUTCOMES.ADD_POSSIBLE_OUTCOME' | translate}}</h1>
+      <h1 *ngIf="this.action === 'edit'">{{'POSSIBLE_OUTCOMES.EDIT_POSSIBLE_OUTCOME' | translate}}</h1>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.goBackToQuestionCategory()"
+              style="margin-right: 10px;">
+        <mat-icon>arrow_back</mat-icon>
+        {{'POSSIBLE_OUTCOMES.BACK_TO_QUESTION_CATEGORY' | translate}}
+      </button>
+      <button mat-stroked-button *ngIf="this.action === 'edit'"
+              style="margin-right: 10px;" (click)="this.showRangeQuestionDeletionDialog()">
+        <mat-icon>delete</mat-icon>
+        {{'SHARED.DELETE' | translate}}
+      </button>
+      <button mat-stroked-button (click)="this.save()"
+              [disabled]="this.possibleOutcomeFormGroup.invalid">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="this.possibleOutcomeFormGroup">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.TITLE' | translate}}</mat-label>
+      <mat-error>
+        {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_TITLE' | translate}}
+      </mat-error>
+      <label>
+        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.TITLE' | translate"
+               formControlName="title"
+               required/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.SUBTITLE' | translate}}</mat-label>
+      <mat-error>
+        {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_SUBTITLE' | translate}}
+      </mat-error>
+      <label>
+        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.SUBTITLE' | translate"
+               formControlName="subtitle"
+               required/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.DESCRIPTION' | translate}}</mat-label>
+      <mat-error>
+        {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_DESCRIPTION' | translate}}
+      </mat-error>
+      <label>
+        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.DESCRIPTION' | translate"
+               formControlName="description"
+               required/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.POSSIBLE_SCORES' | translate}}</mat-label>
+      <mat-error>
+        {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_POSSIBLE_SCORES' | translate}}
+      </mat-error>
+      <label>
+        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.POSSIBLE_SCORES' | translate"
+               formControlName="possibleScores" required/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.YOUTUBE_URL' | translate}}</mat-label>
+      <label>
+        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.YOUTUBE_URL' | translate"
+               formControlName="youtubeUrl"/>
+      </label>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.THUMBNAIL' | translate}}</mat-label>
+      <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*">
+      </ngx-mat-file-input>
+      <span matSuffix class="display-flex-space-between">
+      <button mat-icon-button matSuffix (click)="this.showThumbnail()"
+              *ngIf="this.thumbnail && this.thumbnail.size > 0">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-icon-button matSuffix (click)="this.removeThumbnail()"
+              *ngIf="this.thumbnail && this.thumbnail.size > 0">
+        <mat-icon>delete</mat-icon>
+      </button>
+      </span>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.PDF' | translate}}</mat-label>
+      <ngx-mat-file-input color="accent" formControlName="pdf" accept="application/pdf">
+      </ngx-mat-file-input>
+      <span matSuffix class="display-flex-space-between">
+      <button mat-icon-button matSuffix (click)="this.showPdf()" *ngIf="this.pdf && this.pdf.size > 0">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-icon-button matSuffix (click)="this.removePdf()"
+              *ngIf="this.pdf && this.pdf.size > 0">
+        <mat-icon>delete</mat-icon>
+      </button>
+      </span>
+    </mat-form-field>
+  </form>
+</div>
+

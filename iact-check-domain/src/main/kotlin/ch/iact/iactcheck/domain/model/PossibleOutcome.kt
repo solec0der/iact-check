@@ -15,11 +15,11 @@ data class PossibleOutcome(
 
         @Lob
         @Basic(fetch = FetchType.LAZY)
-        val thumbnail: ByteArray = ByteArray(0),
+        val thumbnail: ByteArray? = ByteArray(0),
 
         @Lob
         @Basic(fetch = FetchType.LAZY)
-        val pdf: ByteArray = ByteArray(0),
+        val pdf: ByteArray? = ByteArray(0),
 
         @ManyToOne
         val questionCategory: QuestionCategory,
