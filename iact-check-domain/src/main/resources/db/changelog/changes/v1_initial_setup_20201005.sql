@@ -27,6 +27,7 @@ CREATE TABLE `check`
     id          bigint       NOT NULL AUTO_INCREMENT,
     customer_id bigint       NOT NULL,
     title       varchar(255) NOT NULL,
+    language    varchar(32)  NOT NULL,
     active_from datetime     NOT NULL,
     active_to   datetime     NOT NULL,
     PRIMARY KEY (id),

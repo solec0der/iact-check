@@ -2,8 +2,10 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.Check
+import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
+import ch.iact.iactcheck.dto.LanguageDTO
 import ch.iact.iactcheck.infrastructure.exception.CheckNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.testdata.CheckTestData
@@ -20,7 +22,6 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
 import java.time.Instant
-import java.time.LocalDateTime
 import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
@@ -73,6 +74,7 @@ class CheckServiceTest {
     fun shouldUpdateCheckByIdAndReturnUpdatedCheck() {
         val updatedCheck = CheckTestData.check.copy(
                 title = "New title",
+                language = Language.GERMAN,
                 activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
                 activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
@@ -82,6 +84,10 @@ class CheckServiceTest {
 
         val expected = CheckTestData.checkDTO.copy(
                 title = "New title",
+                language = LanguageDTO(
+                        language = "GERMAN",
+                        locale = "de-CH"
+                ),
                 activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
                 activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
