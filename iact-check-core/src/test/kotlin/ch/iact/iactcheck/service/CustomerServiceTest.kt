@@ -39,7 +39,10 @@ class CustomerServiceTest {
                 id = 0L,
                 name = "EXPOFORMER",
                 primaryColour = "#FFFAAA",
+                backgroundColour = "#fafafa",
                 accentColour = "#AAAFFF",
+                textColour = "#000000",
+                font = "Roboto",
                 usersWithAccess = emptySet()
         )
 

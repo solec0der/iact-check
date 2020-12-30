@@ -31,6 +31,15 @@
         {{element.primaryColour}}
       </td>
     </ng-container>
+    <ng-container matColumnDef="backgroundColour">
+      <th mat-header-cell *matHeaderCellDef>
+        {{'CUSTOMERS.BACKGROUND_COLOUR' | translate}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span class="color-preview-dot" [style.background-color]="element.backgroundColour"></span>
+        {{element.backgroundColour}}
+      </td>
+    </ng-container>
     <ng-container matColumnDef="accentColour">
       <th mat-header-cell *matHeaderCellDef>
         {{'CUSTOMERS.ACCENT_COLOUR' | translate}}
@@ -38,6 +47,23 @@
       <td mat-cell *matCellDef="let element">
         <span class="color-preview-dot" [style.background-color]="element.accentColour"></span>
         {{element.accentColour}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="textColour">
+      <th mat-header-cell *matHeaderCellDef>
+        {{'CUSTOMERS.TEXT_COLOUR' | translate}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <span class="color-preview-dot" [style.background-color]="element.textColour"></span>
+        {{element.textColour}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="font">
+      <th mat-header-cell *matHeaderCellDef>
+        {{'CUSTOMERS.FONT' | translate}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.font}}
       </td>
     </ng-container>
     <ng-container matColumnDef="actions">

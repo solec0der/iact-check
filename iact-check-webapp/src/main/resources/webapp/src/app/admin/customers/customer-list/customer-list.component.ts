@@ -19,7 +19,10 @@ export class CustomerListComponent implements OnInit {
     'id',
     'name',
     'primaryColour',
+    'backgroundColour',
     'accentColour',
+    'textColour',
+    'font',
     'actions',
   ];
 

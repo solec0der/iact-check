@@ -24,7 +24,10 @@ class CustomerService(
                 id = -1,
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
+                backgroundColour = customerDTO.backgroundColour,
                 accentColour = customerDTO.accentColour,
+                textColour = customerDTO.textColour,
+                font = customerDTO.font,
                 usersWithAccess = customerDTO.usersWithAccess,
                 checks = emptyList()
         )
@@ -96,7 +99,10 @@ class CustomerService(
         customer = customer.copy(
                 name = customerDTO.name,
                 primaryColour = customerDTO.primaryColour,
+                backgroundColour = customerDTO.backgroundColour,
                 accentColour = customerDTO.accentColour,
+                textColour = customerDTO.textColour,
+                font = customerDTO.font,
                 usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess
         )
 
