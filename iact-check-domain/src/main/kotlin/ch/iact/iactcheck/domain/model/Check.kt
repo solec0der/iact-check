@@ -12,6 +12,8 @@ data class Check(
         @ManyToOne
         val customer: Customer,
         val title: String,
+        @Enumerated(EnumType.STRING)
+        val language: Language,
         val activeFrom: Instant,
         val activeTo: Instant,
 

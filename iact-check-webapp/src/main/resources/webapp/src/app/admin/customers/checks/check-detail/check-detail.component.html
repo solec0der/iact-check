@@ -30,6 +30,18 @@
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CHECKS.LANGUAGE' | translate}}</mat-label>
+      <mat-error>
+        {{'CHECKS.ERRORS.MISSING_LANGUAGE' | translate}}
+      </mat-error>
+      <mat-select formControlName="language">
+        <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
+          {{'CHECKS.' + availableLanguage.language | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'CHECKS.ACTIVE_FROM' | translate}}</mat-label>
       <mat-error>
         {{'CHECKS.ERRORS.MISSING_OR_INVALID_ACTIVE_FROM' | translate}}

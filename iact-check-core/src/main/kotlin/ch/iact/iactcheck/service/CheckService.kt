@@ -1,6 +1,7 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.domain.model.Check
+import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CheckDTO
@@ -27,6 +28,7 @@ class CheckService(
                 id = -1,
                 customer = customer,
                 title = checkDTO.title,
+                language = Language.findLanguageByLocale(checkDTO.language.locale),
                 activeFrom = checkDTO.activeFrom,
                 activeTo = checkDTO.activeTo,
                 questionCategories = emptyList()
@@ -58,6 +60,7 @@ class CheckService(
 
         check = check.copy(
                 title = checkDTO.title,
+                language = Language.findLanguageByLocale(checkDTO.language.locale),
                 activeFrom = checkDTO.activeFrom,
                 activeTo = checkDTO.activeTo
         )

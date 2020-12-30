@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CustomerService } from '../../../shared/services/customer.service';
 import { ConfirmDialogComponent } from '../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LanguageDTO } from '../../../../shared/dtos/language-dto';
+import { AVAILABLE_LANGUAGES } from '../../../../shared/model/available-languages';
 
 @Component({
   selector: 'app-check-detail',
@@ -81,6 +83,10 @@ export class CheckDetailComponent implements OnInit {
     });
   }
 
+  public get availableLanguages(): LanguageDTO[] {
+    return AVAILABLE_LANGUAGES;
+  }
+
   private deleteCheck() {
     this.checkService.deleteCheckById(this.checkDTO.id).subscribe((_) => {
       this.matSnackBar.open(
@@ -101,6 +107,10 @@ export class CheckDetailComponent implements OnInit {
       id: -1,
       customerId: this.customerId,
       title: this.checkFormGroup.value.title,
+      language: {
+        language: '',
+        locale: this.checkFormGroup.value.language
+      },
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
@@ -131,6 +141,10 @@ export class CheckDetailComponent implements OnInit {
       id: this.checkDTO.id,
       customerId: this.checkDTO.customerId,
       title: this.checkFormGroup.value.title,
+      language: {
+        language: '',
+        locale: this.checkFormGroup.value.language
+      },
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
@@ -156,6 +170,10 @@ export class CheckDetailComponent implements OnInit {
     this.checkFormGroup = new FormGroup({
       title: new FormControl(
         this.action === 'edit' ? this.checkDTO.title : '',
+        Validators.required
+      ),
+      language: new FormControl(
+        this.action === 'edit' ? this.checkDTO.language.locale : '',
         Validators.required
       ),
       activeFrom: new FormControl(

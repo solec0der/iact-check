@@ -18,6 +18,7 @@ export class CheckListComponent implements OnInit {
   public displayedColumnsChecks = [
     'id',
     'title',
+    'language',
     'activeFrom',
     'activeTo',
     'actions',
