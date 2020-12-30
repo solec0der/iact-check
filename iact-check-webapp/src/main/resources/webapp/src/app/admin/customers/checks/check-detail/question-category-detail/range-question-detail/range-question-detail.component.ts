@@ -53,11 +53,13 @@ export class RangeQuestionDetailComponent implements OnInit {
     } else if (this.action === 'create') {
       this.createRangeQuestionFormGroup();
       this.createInitialRangeStepsFormArray();
+    } else if (this.action === 'copy') {
+      this.loadData();
     }
   }
 
   public save(): void {
-    if (this.action === 'create') {
+    if (this.action === 'create' || this.action === 'copy') {
       this.createRangeQuestion();
     } else if (this.action === 'edit') {
       this.updateRangeQuestion();

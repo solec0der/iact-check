@@ -28,6 +28,9 @@
       <button mat-icon-button [routerLink]="['..', 'range-questions', element.id, 'edit']">
         <mat-icon>edit</mat-icon>
       </button>
+      <button mat-icon-button [routerLink]="['..', 'range-questions', element.id, 'copy']">
+        <mat-icon>content_copy</mat-icon>
+      </button>
       <button mat-icon-button (click)="this.showRangeQuestionDeletionDialog(element.id)">
         <mat-icon>delete</mat-icon>
       </button>

@@ -1,1 +1,1 @@
-export const AVAILABLE_FONTS = ['Roboto', 'Lato', 'Raleway'];
+export const AVAILABLE_FONTS = ['Lato', 'Helvetica Neue', 'Roboto', 'Raleway'];

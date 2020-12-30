@@ -1,7 +1,7 @@
 <div *ngIf="this.rangeQuestionFormGroup">
   <div class="display-flex-space-between margin-bottom-after-title">
     <div>
-      <h1 *ngIf="this.action === 'create'">{{'QUESTIONS.ADD_RANGE_QUESTION' | translate}}</h1>
+      <h1 *ngIf="this.action === 'create' || this.action === 'copy'">{{'QUESTIONS.ADD_RANGE_QUESTION' | translate}}</h1>
       <h1 *ngIf="this.action === 'edit'">{{'QUESTIONS.EDIT_RANGE_QUESTION' | translate}}</h1>
     </div>
     <div>
