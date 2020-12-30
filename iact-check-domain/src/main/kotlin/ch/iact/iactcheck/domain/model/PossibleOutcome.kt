@@ -11,6 +11,15 @@ data class PossibleOutcome(
         val title: String,
         val subtitle: String,
         val description: String,
+        val youtubeUrl: String? = null,
+
+        @Lob
+        @Basic(fetch = FetchType.LAZY)
+        val thumbnail: ByteArray = ByteArray(0),
+
+        @Lob
+        @Basic(fetch = FetchType.LAZY)
+        val pdf: ByteArray = ByteArray(0),
 
         @ManyToOne
         val questionCategory: QuestionCategory,

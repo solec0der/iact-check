@@ -6,5 +6,6 @@ data class PossibleOutcomeDTO(
         val title: String,
         val subtitle: String,
         val description: String,
+        val youtubeUrl: String? = null,
         val possibleScores: List<PossibleScoreDTO>
 )

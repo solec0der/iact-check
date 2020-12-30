@@ -71,6 +71,9 @@ CREATE TABLE possible_outcome
     title                varchar(255) NOT NULL,
     subtitle             varchar(255) NOT NULL,
     description          text         NOT NULL,
+    youtube_url          varchar(512),
+    thumbnail            longblob,
+    pdf                  longblob,
     PRIMARY KEY (id),
     FOREIGN KEY (question_category_id) REFERENCES question_category (id)
 );
