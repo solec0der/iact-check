@@ -4,11 +4,14 @@
 
 CREATE TABLE customer
 (
-    id             bigint       NOT NULL AUTO_INCREMENT,
-    name           varchar(255) NOT NULL,
-    primary_colour varchar(10)  NOT NULL,
-    accent_colour  varchar(10)  NOT NULL,
-    logo           longblob,
+    id                bigint       NOT NULL AUTO_INCREMENT,
+    name              varchar(255) NOT NULL,
+    primary_colour    varchar(10)  NOT NULL,
+    background_colour varchar(10)  NOT NULL,
+    accent_colour     varchar(10)  NOT NULL,
+    text_colour       varchar(10)  NOT NULL,
+    font              varchar(10)  NOT NULL,
+    logo              longblob,
     primary key (id)
 );
 

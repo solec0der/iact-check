@@ -17,6 +17,7 @@ import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/c
 import { MatDialog } from '@angular/material/dialog';
 import { FileReaderUtil } from '../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../app.config';
+import { AVAILABLE_FONTS } from '../../../shared/model/available-fonts';
 
 @Component({
   selector: 'app-customer-detail',
@@ -193,6 +194,10 @@ export class CustomerDetailComponent implements OnInit {
     return this.userService.isSuperUser();
   }
 
+  get availableFonts(): string[] {
+    return AVAILABLE_FONTS;
+  }
+
   private getKeycloakUsers(): void {
     this.keycloakAdminService.getKeycloakUsers().subscribe((keycloakUsers) => {
       this.keycloakUsersDatasource = new MatTableDataSource<KeycloakUserDto>(
@@ -210,7 +215,10 @@ export class CustomerDetailComponent implements OnInit {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
       primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
+      backgroundColour: '#' + this.customerFormGroup.value.backgroundColour.hex,
       accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
+      textColour: '#' + this.customerFormGroup.value.textColour.hex,
+      font: this.customerFormGroup.value.font,
       usersWithAccess: this.usersWithAccess,
     };
 
@@ -238,7 +246,10 @@ export class CustomerDetailComponent implements OnInit {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
       primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
+      backgroundColour: '#' + this.customerFormGroup.value.backgroundColour.hex,
       accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
+      textColour: '#' + this.customerFormGroup.value.textColour.hex,
+      font: this.customerFormGroup.value.font,
       usersWithAccess: this.usersWithAccess,
     };
 
@@ -275,8 +286,14 @@ export class CustomerDetailComponent implements OnInit {
     const primaryColour = ColourUtility.convertHexToColor(
       this.customerDTO ? this.customerDTO.primaryColour : null
     );
+    const backgroundColour = ColourUtility.convertHexToColor(
+      this.customerDTO ? this.customerDTO.backgroundColour : null
+    );
     const accentColour = ColourUtility.convertHexToColor(
       this.customerDTO ? this.customerDTO.accentColour : null
+    );
+    const textColour = ColourUtility.convertHexToColor(
+      this.customerDTO ? this.customerDTO.textColour : null
     );
 
     this.customerFormGroup = new FormGroup({
@@ -288,8 +305,20 @@ export class CustomerDetailComponent implements OnInit {
         this.action === 'edit' ? primaryColour : '',
         Validators.required
       ),
+      backgroundColour: new FormControl(
+        this.action === 'edit' ? backgroundColour : '',
+        Validators.required
+      ),
       accentColour: new FormControl(
         this.action === 'edit' ? accentColour : '',
+        Validators.required
+      ),
+      textColour: new FormControl(
+        this.action === 'edit' ? textColour : '',
+        Validators.required
+      ),
+      font: new FormControl(
+        this.action === 'edit' ? this.customerDTO?.font : '',
         Validators.required
       ),
       logo: new FormControl(

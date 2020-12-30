@@ -10,7 +10,10 @@ data class Customer(
         val id: Long,
         val name: String,
         val primaryColour: String,
+        val backgroundColour: String,
         val accentColour: String,
+        val textColour: String,
+        val font: String,
         @Lob
         @Basic(fetch = FetchType.LAZY)
         val logo: ByteArray = ByteArray(0),

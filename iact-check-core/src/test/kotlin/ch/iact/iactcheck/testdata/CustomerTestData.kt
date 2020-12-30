@@ -9,7 +9,10 @@ object CustomerTestData {
             id = 1L,
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
+            backgroundColour = "#fafafa",
             accentColour = "#AAAFFF",
+            textColour = "#000000",
+            font = "Roboto",
             usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
@@ -19,7 +22,10 @@ object CustomerTestData {
             id = 2L,
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
+            backgroundColour = "#fafafa",
             accentColour = "#AAAFFF",
+            textColour = "#000000",
+            font = "Roboto",
             usersWithAccess = emptySet(),
             logo = ByteArray(100),
             checks = emptyList()
@@ -29,7 +35,10 @@ object CustomerTestData {
             id = 2L,
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
+            backgroundColour = "#fafafa",
             accentColour = "#AAAFFF",
+            textColour = "#000000",
+            font = "Roboto",
             usersWithAccess = setOf(UserTestData.userDTO2.userId),
             logo = ByteArray(0),
             checks = emptyList()
@@ -39,7 +48,10 @@ object CustomerTestData {
             id = 1L,
             name = "EXPOFORMER",
             primaryColour = "#FFFAAA",
+            backgroundColour = "#fafafa",
             accentColour = "#AAAFFF",
+            textColour = "#000000",
+            font = "Roboto",
             usersWithAccess = emptySet()
     )
 
@@ -47,7 +59,10 @@ object CustomerTestData {
             id = 2L,
             name = "POLYPOINT",
             primaryColour = "#FFFAAA",
+            backgroundColour = "#fafafa",
             accentColour = "#AAAFFF",
+            textColour = "#000000",
+            font = "Roboto",
             usersWithAccess = emptySet()
     )
 }

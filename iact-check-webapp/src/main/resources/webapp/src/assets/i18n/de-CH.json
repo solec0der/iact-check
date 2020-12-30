@@ -17,7 +17,10 @@
     "CUSTOMERS": "Kunden",
     "NAME": "Name",
     "PRIMARY_COLOUR": "Primärfarbe",
+    "BACKGROUND_COLOUR": "Hintergrundfarbe",
     "ACCENT_COLOUR": "Akzentfarbe",
+    "TEXT_COLOUR": "Schriftfarbe",
+    "FONT": "Font",
     "LOGO": "Logo",
     "USERS_WITH_ACCESS": "Benutzer mit Zugriff",
     "ADD_CUSTOMER": "Kunde erstellen",
@@ -25,14 +28,19 @@
     "PLACEHOLDER": {
       "NAME": "Bitte Namen des Kunden eingeben",
       "PRIMARY_COLOUR": "Bitte Primärfarbe des Kunden wählen",
-      "ACCENT_COLOUR": "Bitte Akkzentfarbe des Kunden wählen"
+      "BACKGROUND_COLOUR": "Bitte Hintergrundfarbe des Kunden wählen",
+      "ACCENT_COLOUR": "Bitte Akkzentfarbe des Kunden wählen",
+      "TEXT_COLOUR": "Bitte Schriftfarbe des Kunden wählen"
     },
     "HAS_ACCESS": "Hat Zugriff",
     "ERRORS": {
       "MISSING_NAME": "Bitte gültigen Namen eingeben",
       "MISSING_OR_INVALID_PRIMARY_COLOUR": "Bitte gültige Primärfarbe eingeben",
+      "MISSING_OR_INVALID_BACKGROUND_COLOUR": "Bitte gültige Hintergrundfarbe eingeben",
       "MISSING_OR_INVALID_ACCENT_COLOUR": "Bitte gültige Akzentfarbe eingeben",
-      "MISSING_LOGO": "Bitte gültiges Logo hochladen"
+      "MISSING_OR_INVALID_TEXT_COLOUR": "Bitte gültige Schriftfarbe eingeben",
+      "MISSING_LOGO": "Bitte gültiges Logo hochladen",
+      "MISSING_FONT": "Bitte gültige Font auswählen"
     },
     "CREATED_MESSAGE": "Der Kunde wurde erfolgreich erstellt.",
     "UPDATED_MESSAGE": "Der Kunde wurde erfolgreich modifiziert.",

@@ -10,7 +10,10 @@ object CustomerConverter {
                 id = customer.id,
                 name = customer.name,
                 primaryColour = customer.primaryColour,
+                backgroundColour = customer.backgroundColour,
                 accentColour = customer.accentColour,
+                textColour = customer.textColour,
+                font = customer.font,
                 usersWithAccess = customer.usersWithAccess
         )
     }
