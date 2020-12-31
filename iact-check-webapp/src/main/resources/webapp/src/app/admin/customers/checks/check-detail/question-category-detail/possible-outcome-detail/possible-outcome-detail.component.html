@@ -54,9 +54,9 @@
         {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_DESCRIPTION' | translate}}
       </mat-error>
       <label>
-        <input matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.DESCRIPTION' | translate"
-               formControlName="description"
-               required/>
+        <textarea rows="10" matInput [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.DESCRIPTION' | translate"
+                  formControlName="description"
+                  required></textarea>
       </label>
     </mat-form-field>
     <br/>
