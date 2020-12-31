@@ -20,6 +20,7 @@
         <java.version>11</java.version>
         <kotlin.version>1.3.72</kotlin.version>
         <sonar.sources>src/main/resources/webapp</sonar.sources>
+        <sonar.exclusions>src/main/resources/webapp/node_modules</sonar.exclusions>
     </properties>
 
     <dependencies>

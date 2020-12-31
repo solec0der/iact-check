@@ -11,6 +11,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { FileReaderUtil } from '../../../../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../../../../app.config';
+import { ConfirmDialogComponent } from '../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-possible-outcome-detail',
@@ -102,6 +103,29 @@ export class PossibleOutcomeDetailComponent implements OnInit {
     this.possibleOutcomeFormGroup.setControl('pdf', new FormControl(this.pdf));
   }
 
+  public showPossibleOutcomeDeletionDialog(): void {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.translateService.instant(
+          'POSSIBLE_OUTCOMES.DELETION_DIALOG.TITLE'
+        ),
+        message: '',
+        buttonTextCancel: this.translateService.instant(
+          'POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
+        ),
+        buttonTextConfirm: this.translateService.instant(
+          'POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
+        ),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((hasConfirmed) => {
+      if (hasConfirmed) {
+        this.deletePossibleOutcome();
+      }
+    });
+  }
+
   private createPossibleOutcome(): void {
     const possibleOutcomeDTO: PossibleOutcomeDTO = {
       id: -1,
@@ -138,7 +162,18 @@ export class PossibleOutcomeDetailComponent implements OnInit {
           .navigate(['../../' + this.possibleOutcomeDTO.id + '/edit'], {
             relativeTo: this.activatedRoute,
           })
-          .then(() => this.loadData());
+          .then(() => {
+            this.matSnackBar.open(
+              this.translateService.instant(
+                'POSSIBLE_OUTCOMES.CREATED_MESSAGE'
+              ),
+              this.translateService.instant('SHARED.CLOSE'),
+              {
+                duration: 5000,
+              }
+            );
+            this.loadData();
+          });
       });
   }
 
@@ -162,6 +197,7 @@ export class PossibleOutcomeDetailComponent implements OnInit {
       .updatePossibleOutcomeById(this.possibleOutcomeId, possibleOutcomeDTO)
       .pipe(
         map((updatedPossibleOutcomeDTO) => {
+          this.possibleOutcomeDTO = updatedPossibleOutcomeDTO;
           return updatedPossibleOutcomeDTO;
         }),
         mergeMap((updatedPossibleOutcomeDTO) => {
@@ -173,7 +209,33 @@ export class PossibleOutcomeDetailComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.loadData();
+        this.matSnackBar.open(
+          this.translateService.instant('POSSIBLE_OUTCOMES.UPDATED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.createPossibleOutcomeFormGroup();
+      });
+  }
+
+  private deletePossibleOutcome() {
+    this.possibleOutcomeService
+      .deletePossibleOutcomeById(this.possibleOutcomeId)
+      .subscribe(() => {
+        this.matSnackBar.open(
+          this.translateService.instant('POSSIBLE_OUTCOMES.DELETED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.router
+          .navigate(['../../../edit'], {
+            relativeTo: this.activatedRoute,
+          })
+          .then();
       });
   }
 
