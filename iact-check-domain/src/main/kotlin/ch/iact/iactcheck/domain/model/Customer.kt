@@ -9,24 +9,20 @@ data class Customer(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
         val name: String,
-        val primaryColour: String,
-        val backgroundColour: String,
-        val accentColour: String,
-        val textColour: String,
-        val font: String,
-        @Lob
-        @Basic(fetch = FetchType.LAZY)
-        val logo: ByteArray = ByteArray(0),
 
         @ElementCollection
         @Column(name = "user_id")
         @CollectionTable(name = "user_customer_access", joinColumns = [JoinColumn(name = "customer_id")])
         val usersWithAccess: Set<String>,
 
+        @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
+        @PrimaryKeyJoinColumn
+        val customerBranding: CustomerBranding? = null,
+
         @OneToMany(targetEntity = Check::class, mappedBy = "customer")
         val checks: List<Check>
 ) {
     override fun toString(): String {
-        return "Customer(id=$id, name='$name', primaryColour='$primaryColour', accentColour='$accentColour')"
+        return "Customer(id=$id, name='$name')"
     }
 }

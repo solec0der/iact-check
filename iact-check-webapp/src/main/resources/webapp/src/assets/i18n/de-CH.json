@@ -11,7 +11,8 @@
     "BACK_TO_OVERVIEW": "Zurück zur Übersicht",
     "EDIT_CUSTOMER": "Kunde bearbeiten",
     "CHECKS": "Checks",
-    "CREATE_CHECK": "Check erstellen"
+    "CREATE_CHECK": "Check erstellen",
+    "CUSTOMER_BRANDING": "Branding"
   },
   "CUSTOMERS": {
     "CUSTOMERS": "Kunden",

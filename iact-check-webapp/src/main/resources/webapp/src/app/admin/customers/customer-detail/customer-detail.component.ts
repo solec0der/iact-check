@@ -11,13 +11,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from '../../../shared/services/user.service';
 import { RoleRepresentationDTO } from '../../shared/dtos/role-representation-dto';
-import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { ActiveCustomerService } from '../../shared/services/active-customer.service';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FileReaderUtil } from '../../shared/util/file-reader.util';
-import { CORE_URL } from '../../../app.config';
-import { AVAILABLE_FONTS } from '../../../shared/model/available-fonts';
 
 @Component({
   selector: 'app-customer-detail',
@@ -29,8 +25,6 @@ export class CustomerDetailComponent implements OnInit {
   public customerId: number = -1;
   public displayedColumnsUsersWithAccess = ['username', 'hasAccess'];
   public keycloakUsersDatasource!: MatTableDataSource<KeycloakUserDto>;
-
-  public logo!: File;
 
   private usersRoleMappings!: Map<string, RoleRepresentationDTO[]>;
   private customerDTO!: CustomerDTO;
@@ -144,13 +138,6 @@ export class CustomerDetailComponent implements OnInit {
     });
   }
 
-  public showLogo(): void {
-    window.open(
-      CORE_URL + '/api/customers/' + this.customerId + '/logo',
-      '_blank'
-    );
-  }
-
   private deleteCustomer() {
     this.customerService
       .deleteCustomerById(<number>this.customerDTO.id)
@@ -174,28 +161,12 @@ export class CustomerDetailComponent implements OnInit {
 
         this.customerDTO = customer;
         this.usersWithAccess = customer.usersWithAccess;
-        this.loadLogo();
-      });
-  }
-
-  private loadLogo(): void {
-    this.customerService
-      .getLogoByCustomerId(this.customerId)
-      .subscribe((thumbnail) => {
-        this.logo = FileReaderUtil.convertBlobToFile(
-          thumbnail,
-          this.customerDTO.name + '.png'
-        );
         this.createCustomerFromGroup();
       });
   }
 
   get isSuperUser(): boolean {
     return this.userService.isSuperUser();
-  }
-
-  get availableFonts(): string[] {
-    return AVAILABLE_FONTS;
   }
 
   private getKeycloakUsers(): void {
@@ -214,11 +185,6 @@ export class CustomerDetailComponent implements OnInit {
   private createCustomer(): void {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
-      primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
-      backgroundColour: '#' + this.customerFormGroup.value.backgroundColour.hex,
-      accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
-      textColour: '#' + this.customerFormGroup.value.textColour.hex,
-      font: this.customerFormGroup.value.font,
       usersWithAccess: this.usersWithAccess,
     };
 
@@ -237,7 +203,6 @@ export class CustomerDetailComponent implements OnInit {
               duration: 5000,
             }
           );
-          this.uploadLogo();
         });
     });
   }
@@ -245,11 +210,6 @@ export class CustomerDetailComponent implements OnInit {
   private updateCustomer(): void {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
-      primaryColour: '#' + this.customerFormGroup.value.primaryColour.hex,
-      backgroundColour: '#' + this.customerFormGroup.value.backgroundColour.hex,
-      accentColour: '#' + this.customerFormGroup.value.accentColour.hex,
-      textColour: '#' + this.customerFormGroup.value.textColour.hex,
-      font: this.customerFormGroup.value.font,
       usersWithAccess: this.usersWithAccess,
     };
 
@@ -267,62 +227,13 @@ export class CustomerDetailComponent implements OnInit {
             duration: 5000,
           }
         );
-        this.uploadLogo();
-      });
-  }
-
-  private uploadLogo(): void {
-    this.customerService
-      .uploadLogoByCustomerId(
-        this.customerId,
-        this.customerFormGroup.value.logo
-      )
-      .subscribe(() => {
-        this.loadLogo();
       });
   }
 
   private createCustomerFromGroup(): void {
-    const primaryColour = ColourUtility.convertHexToColor(
-      this.customerDTO ? this.customerDTO.primaryColour : null
-    );
-    const backgroundColour = ColourUtility.convertHexToColor(
-      this.customerDTO ? this.customerDTO.backgroundColour : null
-    );
-    const accentColour = ColourUtility.convertHexToColor(
-      this.customerDTO ? this.customerDTO.accentColour : null
-    );
-    const textColour = ColourUtility.convertHexToColor(
-      this.customerDTO ? this.customerDTO.textColour : null
-    );
-
     this.customerFormGroup = new FormGroup({
       name: new FormControl(
         this.action === 'edit' ? this.customerDTO?.name : '',
-        Validators.required
-      ),
-      primaryColour: new FormControl(
-        this.action === 'edit' ? primaryColour : '',
-        Validators.required
-      ),
-      backgroundColour: new FormControl(
-        this.action === 'edit' ? backgroundColour : '',
-        Validators.required
-      ),
-      accentColour: new FormControl(
-        this.action === 'edit' ? accentColour : '',
-        Validators.required
-      ),
-      textColour: new FormControl(
-        this.action === 'edit' ? textColour : '',
-        Validators.required
-      ),
-      font: new FormControl(
-        this.action === 'edit' ? this.customerDTO?.font : '',
-        Validators.required
-      ),
-      logo: new FormControl(
-        this.action === 'edit' ? this.logo : '',
         Validators.required
       ),
     });

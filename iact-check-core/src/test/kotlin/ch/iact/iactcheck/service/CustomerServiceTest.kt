@@ -38,11 +38,6 @@ class CustomerServiceTest {
         val input = CustomerDTO(
                 id = 0L,
                 name = "EXPOFORMER",
-                primaryColour = "#FFFAAA",
-                backgroundColour = "#fafafa",
-                accentColour = "#AAAFFF",
-                textColour = "#000000",
-                font = "Roboto",
                 usersWithAccess = emptySet()
         )
 
@@ -134,15 +129,11 @@ class CustomerServiceTest {
 
         val updatedCustomerDTO = CustomerTestData.customerDTO.copy(
                 name = "New name",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
                 usersWithAccess = emptySet()
         )
 
         val updatedCustomer = CustomerTestData.customer.copy(
                 name = "New name",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
                 usersWithAccess = emptySet()
         )
 

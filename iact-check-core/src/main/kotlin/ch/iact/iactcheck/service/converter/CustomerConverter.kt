@@ -9,11 +9,7 @@ object CustomerConverter {
         return CustomerDTO(
                 id = customer.id,
                 name = customer.name,
-                primaryColour = customer.primaryColour,
-                backgroundColour = customer.backgroundColour,
-                accentColour = customer.accentColour,
-                textColour = customer.textColour,
-                font = customer.font,
+                customerBranding = CustomerBrandingConverter.convertCustomerBrandingToDTO(customer.customerBranding),
                 usersWithAccess = customer.usersWithAccess
         )
     }

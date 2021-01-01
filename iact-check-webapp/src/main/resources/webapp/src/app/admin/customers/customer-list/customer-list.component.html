@@ -27,8 +27,9 @@
         {{'CUSTOMERS.PRIMARY_COLOUR' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
-        <span class="color-preview-dot" [style.background-color]="element.primaryColour"></span>
-        {{element.primaryColour}}
+        <span class="color-preview-dot" *ngIf="element.customerBranding"
+              [style.background-color]="element.customerBranding.primaryColour"></span>
+        {{element.customerBranding ? element.customerBranding.primaryColour : ''}}
       </td>
     </ng-container>
     <ng-container matColumnDef="backgroundColour">
@@ -36,8 +37,9 @@
         {{'CUSTOMERS.BACKGROUND_COLOUR' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
-        <span class="color-preview-dot" [style.background-color]="element.backgroundColour"></span>
-        {{element.backgroundColour}}
+        <span class="color-preview-dot" *ngIf="element.customerBranding"
+              [style.background-color]="element.customerBranding.backgroundColour"></span>
+        {{element.customerBranding ? element.customerBranding.backgroundColour : ''}}
       </td>
     </ng-container>
     <ng-container matColumnDef="accentColour">
@@ -45,8 +47,9 @@
         {{'CUSTOMERS.ACCENT_COLOUR' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
-        <span class="color-preview-dot" [style.background-color]="element.accentColour"></span>
-        {{element.accentColour}}
+        <span class="color-preview-dot" *ngIf="element.customerBranding"
+              [style.background-color]="element.customerBranding.accentColour"></span>
+        {{element.customerBranding ? element.customerBranding.accentColour : ''}}
       </td>
     </ng-container>
     <ng-container matColumnDef="textColour">
@@ -54,8 +57,9 @@
         {{'CUSTOMERS.TEXT_COLOUR' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
-        <span class="color-preview-dot" [style.background-color]="element.textColour"></span>
-        {{element.textColour}}
+        <span class="color-preview-dot" *ngIf="element.customerBranding"
+              [style.background-color]="element.customerBranding.textColour"></span>
+        {{element.customerBranding ? element.customerBranding.textColour : ''}}
       </td>
     </ng-container>
     <ng-container matColumnDef="font">
@@ -63,7 +67,7 @@
         {{'CUSTOMERS.FONT' | translate}}
       </th>
       <td mat-cell *matCellDef="let element">
-        {{element.font}}
+        {{element.customerBranding ? element.customerBranding.font : ''}}
       </td>
     </ng-container>
     <ng-container matColumnDef="actions">
