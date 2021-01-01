@@ -2,6 +2,7 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.Customer
+import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
@@ -32,6 +33,9 @@ class CustomerServiceTest {
 
     @Mock
     private val customerRepository: CustomerRepository? = null
+
+    @Mock
+    private val customerBrandingRepository: CustomerBrandingRepository? = null
 
     @Test
     fun shouldCreateCustomerAndReturnCreatedCustomer() {
@@ -89,16 +93,6 @@ class CustomerServiceTest {
         val actual = customerService!!.getAccessibleCustomers()
 
         Assert.assertEquals(expected, actual)
-    }
-
-    @Test
-    fun shouldReturnCustomerLogoById() {
-        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
-
-        val expected = ByteArray(100)
-        val actual = customerService!!.getCustomerLogoByCustomerId(1L)
-
-        Assert.assertEquals(expected.size, actual.size)
     }
 
     @Test

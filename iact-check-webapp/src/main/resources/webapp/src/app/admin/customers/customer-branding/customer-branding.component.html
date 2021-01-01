@@ -1,1 +1,13 @@
-<p>customer-branding works!</p>
+<div>
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <h1>{{'CUSTOMERS.BRANDING' | translate}}</h1>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.save()">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

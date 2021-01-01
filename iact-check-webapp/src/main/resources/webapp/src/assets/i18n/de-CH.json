@@ -17,6 +17,7 @@
   "CUSTOMERS": {
     "CUSTOMERS": "Kunden",
     "NAME": "Name",
+    "BRANDING": "Branding",
     "PRIMARY_COLOUR": "Primärfarbe",
     "BACKGROUND_COLOUR": "Hintergrundfarbe",
     "ACCENT_COLOUR": "Akzentfarbe",
