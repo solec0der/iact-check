@@ -9,21 +9,24 @@ object CustomerTestData {
             id = 1L,
             name = "EXPOFORMER",
             usersWithAccess = emptySet(),
-            checks = emptyList()
+            checks = emptyList(),
+            customerBranding = null
     )
 
     val customer2 = Customer(
             id = 2L,
             name = "POLYPOINT",
             usersWithAccess = emptySet(),
-            checks = emptyList()
+            checks = emptyList(),
+            customerBranding = null
     )
 
     val customer3NoLogo = Customer(
             id = 2L,
             name = "POLYPOINT",
             usersWithAccess = setOf(UserTestData.userDTO2.userId),
-            checks = emptyList()
+            checks = emptyList(),
+            customerBranding = null
     )
 
     val customerDTO = CustomerDTO(

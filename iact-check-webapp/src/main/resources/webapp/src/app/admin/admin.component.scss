@@ -1,4 +1,10 @@
 div.full-height-container {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+}
+
+div.content-container {
+  height: calc(100vh - 104px);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }

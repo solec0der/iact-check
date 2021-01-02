@@ -5,7 +5,7 @@ import { CustomerDTO } from '../dtos/customer-dto';
 import { ActiveCustomerService } from '../services/active-customer.service';
 import { ActuatorInfoService } from '../services/actuator-info.service';
 import { ActuatorInfo } from '../dtos/actuator-info';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',

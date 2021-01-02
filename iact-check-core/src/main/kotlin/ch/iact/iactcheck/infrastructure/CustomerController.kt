@@ -47,13 +47,13 @@ internal class CustomerController(
         return customerService.getCustomers()
     }
 
-    @GetMapping("/{customerId}/logo", produces = [MediaType.IMAGE_PNG_VALUE])
+    @GetMapping("/{customerId}/branding/logo", produces = [MediaType.IMAGE_PNG_VALUE])
     @Operation(
             summary = "getCustomerLogoByCustomerId",
             description = "Returns a png representation of the customers logo",
             tags = ["customer"]
     )
-    fun getCustomerLogoByCustomerId(@PathVariable("customerId") customerId: Long): ByteArray  {
+    fun getCustomerLogoByCustomerId(@PathVariable("customerId") customerId: Long): ByteArray {
         return customerService.getCustomerLogoByCustomerId(customerId)
     }
 }

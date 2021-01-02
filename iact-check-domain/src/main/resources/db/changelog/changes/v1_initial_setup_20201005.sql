@@ -11,6 +11,7 @@ CREATE TABLE customer
 
 CREATE TABLE customer_branding
 (
+    id                bigint      NOT NULL AUTO_INCREMENT,
     customer_id       bigint      NOT NULL,
     primary_colour    varchar(10) NOT NULL,
     background_colour varchar(10) NOT NULL,
@@ -18,8 +19,8 @@ CREATE TABLE customer_branding
     text_colour       varchar(10) NOT NULL,
     font              varchar(32) NOT NULL,
     logo              longblob,
-    primary key (customer_id),
-    foreign key (customer_id) REFERENCES customer (id)
+    primary key (id),
+    foreign key (id) REFERENCES customer (id)
 );
 
 CREATE TABLE user_customer_access

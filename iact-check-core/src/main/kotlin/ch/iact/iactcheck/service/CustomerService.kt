@@ -27,7 +27,8 @@ class CustomerService(
                 id = -1,
                 name = customerDTO.name,
                 usersWithAccess = customerDTO.usersWithAccess,
-                checks = emptyList()
+                checks = emptyList(),
+                customerBranding = null
         )
 
         return CustomerConverter.convertCustomerToDTO(customerRepository.save(customer))
@@ -45,7 +46,7 @@ class CustomerService(
         }
 
         val customerBranding = CustomerBranding(
-                customerId = customerId,
+                id = -1,
                 primaryColour = customerBrandingDTO.primaryColour,
                 backgroundColour = customerBrandingDTO.backgroundColour,
                 accentColour = customerBrandingDTO.accentColour,
@@ -142,7 +143,7 @@ class CustomerService(
 
 
     fun updateCustomerBranding(customerId: Long, customerBrandingDTO: CustomerBrandingDTO): CustomerBrandingDTO {
-        var customerBranding = customerBrandingRepository.findById(customerId).orElseThrow { throw CustomerBrandingNotFoundException() }
+        var customerBranding = customerBrandingRepository.findByCustomerId(customerId).orElseThrow { throw CustomerBrandingNotFoundException() }
 
         if (!isLoggedInUserAllowedToModifyCustomer(customerBranding.customer)) {
             throw ForbiddenException()

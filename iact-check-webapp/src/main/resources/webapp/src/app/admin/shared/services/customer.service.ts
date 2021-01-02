@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CustomerDTO } from '../dtos/customer-dto';
 import { CORE_URL } from '../../../app.config';
 import { ActiveCustomerService } from './active-customer.service';
+import { CustomerBrandingDTO } from '../dtos/customer-branding-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,17 @@ export class CustomerService {
     const body = JSON.stringify(customerDTO);
     return this.httpClient.post<CustomerDTO>(
       CORE_URL + '/api/admin/customers',
+      body
+    );
+  }
+
+  public createCustomerBranding(
+    customerId: number,
+    customerBrandingDTO: CustomerBrandingDTO
+  ): Observable<CustomerBrandingDTO> {
+    const body = JSON.stringify(customerBrandingDTO);
+    return this.httpClient.post<CustomerBrandingDTO>(
+      CORE_URL + '/api/admin/customers/' + customerId + '/branding',
       body
     );
   }
@@ -40,7 +52,7 @@ export class CustomerService {
 
   public getLogoByCustomerId(customerId: number): Observable<Blob> {
     return this.httpClient.get(
-      CORE_URL + '/api/customers/' + customerId + '/logo',
+      CORE_URL + '/api/customers/' + customerId + '/branding/logo',
       { responseType: 'blob' }
     );
   }
@@ -68,6 +80,17 @@ export class CustomerService {
     );
   }
 
+  public updateCustomerBrandingByCustomerId(
+    customerId: number,
+    customerBrandingDTO: CustomerBrandingDTO
+  ): Observable<CustomerBrandingDTO> {
+    const body = JSON.stringify(customerBrandingDTO);
+    return this.httpClient.put<CustomerBrandingDTO>(
+      CORE_URL + '/api/admin/customers/' + customerId + '/branding',
+      body
+    );
+  }
+
   public uploadLogoByCustomerId(
     customerId: number,
     logo: File
@@ -76,7 +99,7 @@ export class CustomerService {
     body.append('logo', logo, logo.name);
 
     return this.httpClient.put<void>(
-      CORE_URL + '/api/admin/customers/' + customerId + '/logo',
+      CORE_URL + '/api/admin/customers/' + customerId + '/branding/logo',
       body
     );
   }

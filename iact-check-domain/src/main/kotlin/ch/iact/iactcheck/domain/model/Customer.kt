@@ -16,8 +16,7 @@ data class Customer(
         val usersWithAccess: Set<String>,
 
         @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
-        @PrimaryKeyJoinColumn
-        val customerBranding: CustomerBranding? = null,
+        val customerBranding: CustomerBranding?,
 
         @OneToMany(targetEntity = Check::class, mappedBy = "customer")
         val checks: List<Check>

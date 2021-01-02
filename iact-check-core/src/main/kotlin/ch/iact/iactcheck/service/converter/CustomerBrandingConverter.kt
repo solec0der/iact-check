@@ -11,7 +11,8 @@ object CustomerBrandingConverter {
         }
 
         return CustomerBrandingDTO(
-                customerId = customerBranding.customerId,
+                id = customerBranding.id,
+                customerId = customerBranding.id,
                 primaryColour = customerBranding.primaryColour,
                 backgroundColour = customerBranding.backgroundColour,
                 accentColour = customerBranding.accentColour,

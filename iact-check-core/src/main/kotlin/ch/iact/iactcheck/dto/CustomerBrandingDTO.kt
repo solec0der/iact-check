@@ -1,6 +1,7 @@
 package ch.iact.iactcheck.dto
 
 data class CustomerBrandingDTO(
+        val id: Long,
         val customerId: Long,
         val primaryColour: String,
         val backgroundColour: String,

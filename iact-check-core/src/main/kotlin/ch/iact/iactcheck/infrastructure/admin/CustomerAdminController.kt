@@ -36,7 +36,7 @@ internal class CustomerAdminController(
         return customerService.createCustomerBranding(customerId, customerBrandingDTO)
     }
 
-    @PutMapping("/{customerId}/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    @PutMapping("/{customerId}/branding/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun uploadCustomerLogoByCustomerId(
             @PathVariable("customerId") customerId: Long,
             @RequestParam("logo") file: MultipartFile

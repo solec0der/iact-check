@@ -7,18 +7,19 @@ import javax.persistence.*
 data class CustomerBranding(
 
         @Id
-        val customerId: Long,
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long,
         val primaryColour: String,
         val backgroundColour: String,
         val accentColour: String,
         val textColour: String,
         val font: String,
+
         @Lob
         @Basic(fetch = FetchType.LAZY)
         val logo: ByteArray = ByteArray(0),
 
         @OneToOne
-        @MapsId
         @JoinColumn(name = "customer_id")
         val customer: Customer
 )
