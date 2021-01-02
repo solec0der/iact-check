@@ -1,5 +1,6 @@
 package ch.iact.iactcheck.infrastructure.admin
 
+import ch.iact.iactcheck.dto.CustomerBrandingDTO
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.service.CustomerService
 import io.swagger.v3.oas.annotations.Operation
@@ -23,40 +24,19 @@ internal class CustomerAdminController(
     @PostMapping
     @RolesAllowed("SUPERUSER")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(
-            summary = "createCustomer",
-            description = "Creates a customer. Per customer, there will be a dedicated endpoint in the frontend, " +
-                    "where the check will take place.",
-            tags = ["customer"]
-    )
-    @ApiResponses(
-            value = [
-                ApiResponse(responseCode = "201",
-                        content = [
-                            Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = Schema(implementation = CustomerDTO::class),
-                                    examples = [
-                                        ExampleObject(
-                                                name = "201 Created Response",
-                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/create_customer_response.txt")
-                                    ]
-                            )
-                        ]
-                )
-            ]
-    )
     fun createCustomer(@RequestBody customerDTO: CustomerDTO): CustomerDTO {
         return customerService.createCustomer(customerDTO)
     }
 
-    @PutMapping("/{customerId}/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    @Operation(
-            summary = "uploadCustomerLogoByCustomerId",
-            description = "Uploads a new customer logo for the customer with the id in the path. " +
-                    "Existing logos will be replaced.",
-            tags = ["customer"]
-    )
+    @PostMapping("/{customerId}/branding")
+    fun createCustomerBranding(
+            @PathVariable("customerId") customerId: Long,
+            @RequestBody customerBrandingDTO: CustomerBrandingDTO
+    ): CustomerBrandingDTO {
+        return customerService.createCustomerBranding(customerId, customerBrandingDTO)
+    }
+
+    @PutMapping("/{customerId}/branding/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun uploadCustomerLogoByCustomerId(
             @PathVariable("customerId") customerId: Long,
             @RequestParam("logo") file: MultipartFile
@@ -65,28 +45,6 @@ internal class CustomerAdminController(
     }
 
     @GetMapping
-    @Operation(
-            summary = "getAccessibleCustomers",
-            description = "Returns a list of customers that the logged in user is permitted to edit.",
-            tags = ["customer"]
-    )
-    @ApiResponses(
-            value = [
-                ApiResponse(responseCode = "200",
-                        content = [
-                            Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = Schema(implementation = CustomerDTO::class),
-                                    examples = [
-                                        ExampleObject(
-                                                name = "200 OK Response",
-                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/get_accessible_customers_response.txt")
-                                    ]
-                            )
-                        ]
-                )
-            ]
-    )
     fun getAccessibleCustomers(): List<CustomerDTO> {
         return customerService.getAccessibleCustomers()
     }
@@ -97,28 +55,6 @@ internal class CustomerAdminController(
     }
 
     @PutMapping("/{customerId}")
-    @Operation(
-            summary = "updateCustomerById",
-            description = "Updates all fields of a customer. If no customer can be found with the customerId, a 404 Not Found will be returned",
-            tags = ["customer"]
-    )
-    @ApiResponses(
-            value = [
-                ApiResponse(responseCode = "200",
-                        content = [
-                            Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = Schema(implementation = CustomerDTO::class),
-                                    examples = [
-                                        ExampleObject(
-                                                name = "200 OK Response",
-                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/update_customer_response.txt")
-                                    ]
-                            )
-                        ]
-                )
-            ]
-    )
     fun updateCustomerById(
             @PathVariable("customerId") customerId: Long,
             @RequestBody customerDTO: CustomerDTO
@@ -126,14 +62,17 @@ internal class CustomerAdminController(
         return customerService.updateCustomerById(customerId, customerDTO)
     }
 
+    @PutMapping("/{customerId}/branding")
+    fun updateCustomerBrandingByCustomerId(
+            @PathVariable("customerId") customerId: Long,
+            @RequestBody customerBrandingDTO: CustomerBrandingDTO
+    ): CustomerBrandingDTO {
+        return customerService.updateCustomerBranding(customerId, customerBrandingDTO)
+    }
+
     @DeleteMapping("/{customerId}")
     @RolesAllowed("SUPERUSER")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(
-            summary = "deleteCustomerById",
-            description = "Deletes a customer and all related data",
-            tags = ["customer"]
-    )
     fun deleteCustomerById(@PathVariable("customerId") customerId: Long) {
         customerService.deleteCustomerById(customerId)
     }

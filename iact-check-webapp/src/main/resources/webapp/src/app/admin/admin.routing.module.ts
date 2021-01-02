@@ -9,6 +9,7 @@ import { CheckDetailComponent } from './customers/checks/check-detail/check-deta
 import { QuestionCategoryDetailComponent } from './customers/checks/check-detail/question-category-detail/question-category-detail.component';
 import { RangeQuestionDetailComponent } from './customers/checks/check-detail/question-category-detail/range-question-detail/range-question-detail.component';
 import { PossibleOutcomeDetailComponent } from './customers/checks/check-detail/question-category-detail/possible-outcome-detail/possible-outcome-detail.component';
+import { CustomerBrandingComponent } from './customers/customer-branding/customer-branding.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
         path:
           'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/possible-outcomes/:possibleOutcomeId/:action',
         component: PossibleOutcomeDetailComponent,
+      },
+      {
+        path: 'customers/:customerId/branding',
+        component: CustomerBrandingComponent,
       },
       {
         path: 'customers/:customerId/:action',

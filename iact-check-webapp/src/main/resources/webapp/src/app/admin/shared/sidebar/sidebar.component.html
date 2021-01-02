@@ -1,10 +1,10 @@
 <mat-drawer-container class="sidebar-container" autosize>
-  <mat-drawer  mode="side" [opened]="true" style="min-width: 300px">
+  <mat-drawer mode="side" [opened]="true" style="min-width: 300px">
     <div *ngFor="let menuItem of this.activeMenuItems">
       <button mat-button style="width: 100%; text-align: left;" *ngIf="this.hasUserRoles(menuItem.rolesNeededToAccess)"
               [routerLink]="menuItem.routerLink" [routerLinkActive]="'active'">
         <mat-icon>{{menuItem.isSubMenuItem ? '' : menuItem.icon}}</mat-icon>
-        <span style="margin-left: 10px;" *ngIf="!menuItem.isSubMenuItem" >
+        <span style="margin-left: 10px;" *ngIf="!menuItem.isSubMenuItem">
           {{menuItem.displayValue | translate}}
         </span>
         <span style="margin-left: 10px; font-weight: normal" *ngIf="menuItem.isSubMenuItem">

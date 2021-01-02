@@ -2,6 +2,7 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.Customer
+import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
@@ -33,16 +34,14 @@ class CustomerServiceTest {
     @Mock
     private val customerRepository: CustomerRepository? = null
 
+    @Mock
+    private val customerBrandingRepository: CustomerBrandingRepository? = null
+
     @Test
     fun shouldCreateCustomerAndReturnCreatedCustomer() {
         val input = CustomerDTO(
                 id = 0L,
                 name = "EXPOFORMER",
-                primaryColour = "#FFFAAA",
-                backgroundColour = "#fafafa",
-                accentColour = "#AAAFFF",
-                textColour = "#000000",
-                font = "Roboto",
                 usersWithAccess = emptySet()
         )
 
@@ -97,16 +96,6 @@ class CustomerServiceTest {
     }
 
     @Test
-    fun shouldReturnCustomerLogoById() {
-        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
-
-        val expected = ByteArray(100)
-        val actual = customerService!!.getCustomerLogoByCustomerId(1L)
-
-        Assert.assertEquals(expected.size, actual.size)
-    }
-
-    @Test
     fun shouldThrowCustomerNotFoundWhenFetchingLogoOfNonExistentCustomer() {
         `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.empty())
 
@@ -134,15 +123,11 @@ class CustomerServiceTest {
 
         val updatedCustomerDTO = CustomerTestData.customerDTO.copy(
                 name = "New name",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
                 usersWithAccess = emptySet()
         )
 
         val updatedCustomer = CustomerTestData.customer.copy(
                 name = "New name",
-                primaryColour = "#FFFAAA",
-                accentColour = "#AAAFFF",
                 usersWithAccess = emptySet()
         )
 

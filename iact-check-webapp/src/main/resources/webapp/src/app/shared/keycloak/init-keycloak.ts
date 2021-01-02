@@ -16,7 +16,7 @@ export function initializer(
               realm: 'iact-realm',
               clientId: 'iact-check-webapp',
             },
-            loadUserProfileAtStartUp: false,
+            loadUserProfileAtStartUp: true,
             initOptions: {
               checkLoginIframe: true,
             },
@@ -33,7 +33,7 @@ export function initializer(
                   realm: keycloakInfo.realm,
                   clientId: 'iact-check-webapp',
                 },
-                loadUserProfileAtStartUp: false,
+                loadUserProfileAtStartUp: true,
                 initOptions: {
                   checkLoginIframe: true,
                 },
