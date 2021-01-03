@@ -14,19 +14,6 @@ export const GENERAL_MENU_ITEMS: MenuItem[] = [
     isSubMenuItem: true,
     rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
   },
-  {
-    displayValue: 'SIDEBAR.SETTINGS',
-    routerLink: 'settings',
-    icon: 'settings',
-    isSubMenuItem: false,
-    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
-  },
-  {
-    displayValue: 'SIDEBAR.LANGUAGE',
-    routerLink: 'settings/language',
-    isSubMenuItem: true,
-    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
-  },
 ];
 
 export const CUSTOMER_MENU_ITEMS: MenuItem[] = [
@@ -61,6 +48,31 @@ export const CUSTOMER_MENU_ITEMS: MenuItem[] = [
   {
     displayValue: 'SIDEBAR.CREATE_CHECK',
     routerLink: 'customers/{customerId}/checks/-1/create',
+    isSubMenuItem: true,
+    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
+  },
+  {
+    displayValue: 'SIDEBAR.SETTINGS',
+    routerLink: 'customers/{customerId}/settings',
+    icon: 'settings',
+    isSubMenuItem: false,
+    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
+  },
+  {
+    displayValue: 'SIDEBAR.GENERAL',
+    routerLink: 'customers/{customerId}/settings/general',
+    isSubMenuItem: true,
+    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
+  },
+  {
+    displayValue: 'SIDEBAR.EMAIL',
+    routerLink: 'customers/{customerId}/settings/email',
+    isSubMenuItem: true,
+    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
+  },
+  {
+    displayValue: 'SIDEBAR.TEXT',
+    routerLink: 'customers/{customerId}/settings/text',
     isSubMenuItem: true,
     rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
   },

@@ -6,13 +6,16 @@
   "SIDEBAR": {
     "CUSTOMERS": "Kunden",
     "CREATE_CUSTOMER": "Kunde erstellen",
+    "GENERAL": "Allgemein",
     "SETTINGS": "Einstellungen",
     "LANGUAGE": "Sprache",
     "BACK_TO_OVERVIEW": "Zurück zur Übersicht",
     "EDIT_CUSTOMER": "Kunde bearbeiten",
     "CHECKS": "Checks",
     "CREATE_CHECK": "Check erstellen",
-    "CUSTOMER_BRANDING": "Branding"
+    "CUSTOMER_BRANDING": "Branding",
+    "EMAIL": "E-Mail",
+    "TEXT": "SMS"
   },
   "CUSTOMERS": {
     "CUSTOMERS": "Kunden",

@@ -18,6 +18,9 @@ data class Customer(
         @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
         val customerBranding: CustomerBranding?,
 
+        @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
+        val emailSettings: EmailSettings? = null,
+
         @OneToMany(targetEntity = Check::class, mappedBy = "customer")
         val checks: List<Check>
 ) {
