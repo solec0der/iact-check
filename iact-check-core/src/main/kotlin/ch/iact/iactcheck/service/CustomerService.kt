@@ -2,6 +2,7 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.domain.model.Customer
 import ch.iact.iactcheck.domain.model.CustomerBranding
+import ch.iact.iactcheck.domain.model.EmailSettings
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerBrandingDTO

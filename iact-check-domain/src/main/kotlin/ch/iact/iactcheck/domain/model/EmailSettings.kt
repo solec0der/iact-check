@@ -14,6 +14,7 @@ data class EmailSettings(
         @JoinColumn(name = "customer_id")
         val customer: Customer,
 
+        val sendEmails: Boolean,
         val smtpHost: String,
         val smtpPort: Int,
         val smtpUsername: String,
