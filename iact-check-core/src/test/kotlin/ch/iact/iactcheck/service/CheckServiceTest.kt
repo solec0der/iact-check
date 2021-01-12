@@ -51,8 +51,8 @@ class CheckServiceTest {
     @Test
     fun shouldThrowFromDateAfterToDateExceptionWhenCreatingCheck() {
         val input = CheckTestData.checkDTO.copy(
-                activeTo = CheckTestData.checkDTO.activeFrom,
-                activeFrom = CheckTestData.checkDTO.activeTo
+            activeTo = CheckTestData.checkDTO.activeFrom,
+            activeFrom = CheckTestData.checkDTO.activeTo
         )
 
         assertThrows<FromDateAfterToDateException> {
@@ -73,23 +73,23 @@ class CheckServiceTest {
     @Test
     fun shouldUpdateCheckByIdAndReturnUpdatedCheck() {
         val updatedCheck = CheckTestData.check.copy(
-                title = "New title",
-                language = Language.GERMAN,
-                activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
-                activeTo = Instant.parse("2020-02-04T10:00:00Z")
+            title = "New title",
+            language = Language.GERMAN,
+            activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
+            activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
 
         `when`(checkRepository!!.findById(eq(1L))).thenReturn(Optional.of(CheckTestData.check))
         `when`(checkRepository.save(any(Check::class.java))).thenReturn(updatedCheck)
 
         val expected = CheckTestData.checkDTO.copy(
-                title = "New title",
-                language = LanguageDTO(
-                        language = "GERMAN",
-                        locale = "de-CH"
-                ),
-                activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
-                activeTo = Instant.parse("2020-02-04T10:00:00Z")
+            title = "New title",
+            language = LanguageDTO(
+                language = "GERMAN",
+                locale = "de-CH"
+            ),
+            activeFrom = Instant.parse("2020-02-02T10:00:00Z"),
+            activeTo = Instant.parse("2020-02-04T10:00:00Z")
         )
 
         val actual = checkService!!.updateCheckById(1L, expected)
@@ -109,8 +109,8 @@ class CheckServiceTest {
     @Test
     fun shouldThrowFromDateAfterToDateExceptionWhenUpdatingCheck() {
         val input = CheckTestData.checkDTO.copy(
-                activeTo = CheckTestData.checkDTO.activeFrom,
-                activeFrom = CheckTestData.checkDTO.activeTo
+            activeTo = CheckTestData.checkDTO.activeFrom,
+            activeFrom = CheckTestData.checkDTO.activeTo
         )
 
         assertThrows<FromDateAfterToDateException> {

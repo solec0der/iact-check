@@ -7,35 +7,36 @@ import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.api.mailer.config.TransportStrategy
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.mailer.MailerBuilder
+import org.springframework.stereotype.Service
 
-
+@Service
 class EmailMessageService : MessageService<EmailSettings, EmailRecipient> {
 
     override fun sendMessage(settings: EmailSettings, recipient: EmailRecipient, message: Message) {
         val mailer = createMailerFromServerSettings(settings);
 
         val email: Email = EmailBuilder.startingBlank()
-                .from(settings.fromName, settings.fromAddress)
-                .to(recipient.firstName + " " + recipient.lastName, recipient.emailAddress)
-                .withSubject(message.subject)
-                .withHTMLText(message.message)
-                .buildEmail()
+            .from(settings.fromName, settings.fromAddress)
+            .to(recipient.firstName + " " + recipient.lastName, recipient.emailAddress)
+            .withSubject(message.subject)
+            .withHTMLText(message.message)
+            .buildEmail()
 
         mailer.sendMail(email)
     }
 
     private fun createMailerFromServerSettings(settings: EmailSettings): Mailer {
         return MailerBuilder
-                .withSMTPServer(
-                        settings.smtpHost,
-                        settings.smtpPort,
-                        settings.smtpUsername,
-                        settings.smtpPassword
-                )
-                .withTransportStrategy(TransportStrategy.valueOf(settings.smtpTransportStrategy.name))
-                .withSessionTimeout(10 * 1000)
-                .clearEmailAddressCriteria()
-                .async()
-                .buildMailer()
+            .withSMTPServer(
+                settings.smtpHost,
+                settings.smtpPort,
+                settings.smtpUsername,
+                settings.smtpPassword
+            )
+            .withTransportStrategy(TransportStrategy.valueOf(settings.smtpTransportStrategy.name))
+            .withSessionTimeout(10 * 1000)
+            .clearEmailAddressCriteria()
+            .async()
+            .buildMailer()
     }
 }

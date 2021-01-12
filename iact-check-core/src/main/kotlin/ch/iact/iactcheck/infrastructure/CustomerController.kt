@@ -17,31 +17,33 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/customers")
 internal class CustomerController(
-        private val customerService: CustomerService
+    private val customerService: CustomerService
 ) {
 
     @GetMapping
     @Operation(
-            summary = "getCustomers",
-            description = "Returns a list of all customers",
-            tags = ["customer"]
+        summary = "getCustomers",
+        description = "Returns a list of all customers",
+        tags = ["customer"]
     )
     @ApiResponses(
-            value = [
-                ApiResponse(responseCode = "200",
-                        content = [
-                            Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = Schema(implementation = CustomerDTO::class),
-                                    examples = [
-                                        ExampleObject(
-                                                name = "200 OK Response",
-                                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/get_customers_response.txt")
-                                    ]
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = MediaType.APPLICATION_JSON_VALUE,
+                        schema = Schema(implementation = CustomerDTO::class),
+                        examples = [
+                            ExampleObject(
+                                name = "200 OK Response",
+                                externalValue = "/iact-check-core/public-api/documentation/private/examples/customer/get_customers_response.txt"
                             )
                         ]
-                )
-            ]
+                    )
+                ]
+            )
+        ]
     )
     fun getCustomers(): List<CustomerDTO> {
         return customerService.getCustomers()
@@ -49,9 +51,9 @@ internal class CustomerController(
 
     @GetMapping("/{customerId}/branding/logo", produces = [MediaType.IMAGE_PNG_VALUE])
     @Operation(
-            summary = "getCustomerLogoByCustomerId",
-            description = "Returns a png representation of the customers logo",
-            tags = ["customer"]
+        summary = "getCustomerLogoByCustomerId",
+        description = "Returns a png representation of the customers logo",
+        tags = ["customer"]
     )
     fun getCustomerLogoByCustomerId(@PathVariable("customerId") customerId: Long): ByteArray {
         return customerService.getCustomerLogoByCustomerId(customerId)

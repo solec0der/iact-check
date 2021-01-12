@@ -64,7 +64,11 @@ class QuestionCategoryServiceTest {
 
     @Test
     fun shouldReturnThumbnailOfQuestionCategoryById() {
-        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
+        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
+            Optional.of(
+                QuestionCategoryTestData.questionCategory
+            )
+        )
 
         val expected = QuestionCategoryTestData.questionCategory.thumbnail
         val actual = questionCategoryService!!.getThumbnailByQuestionCategoryId(1L)
@@ -86,7 +90,11 @@ class QuestionCategoryServiceTest {
         val updatedQuestionCategoryDTO = QuestionCategoryTestData.questionCategoryDTO.copy(title = "Math")
         val updatedQuestionCategory = QuestionCategoryTestData.questionCategory.copy(title = "Math")
 
-        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
+        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
+            Optional.of(
+                QuestionCategoryTestData.questionCategory
+            )
+        )
         `when`(questionCategoryRepository.save(any(QuestionCategory::class.java))).thenReturn(updatedQuestionCategory)
 
         val actual = questionCategoryService!!.updateQuestionCategoryById(1L, updatedQuestionCategoryDTO)

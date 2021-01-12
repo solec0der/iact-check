@@ -12,26 +12,26 @@ import org.springframework.stereotype.Service
 
 @Service
 class RangeQuestionService(
-        private val rangeQuestionRepository: RangeQuestionRepository,
-        private val questionCategoryRepository: QuestionCategoryRepository
+    private val rangeQuestionRepository: RangeQuestionRepository,
+    private val questionCategoryRepository: QuestionCategoryRepository
 ) {
 
     fun createRangeQuestion(rangeQuestionDTO: RangeQuestionDTO): RangeQuestionDTO {
         val questionCategory = questionCategoryRepository
-                .findById(rangeQuestionDTO.questionCategoryId)
-                .orElseThrow { throw QuestionCategoryNotFoundException() }
+            .findById(rangeQuestionDTO.questionCategoryId)
+            .orElseThrow { throw QuestionCategoryNotFoundException() }
 
         var rangeQuestion = RangeQuestion(
-                id = -1,
-                questionText = rangeQuestionDTO.questionText,
-                rangeSteps = emptyList(),
-                questionCategory = questionCategory
+            id = -1,
+            questionText = rangeQuestionDTO.questionText,
+            rangeSteps = emptyList(),
+            questionCategory = questionCategory
         )
         rangeQuestion = rangeQuestionRepository.save(rangeQuestion);
         rangeQuestion = rangeQuestion.copy(
-                rangeSteps = rangeQuestionDTO.rangeSteps.map {
-                    RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
-                }
+            rangeSteps = rangeQuestionDTO.rangeSteps.map {
+                RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
+            }
         )
 
         return RangeQuestionConverter.convertQuestionToDTO(rangeQuestionRepository.save(rangeQuestion))
@@ -39,25 +39,27 @@ class RangeQuestionService(
 
     fun getRangeQuestionById(rangeQuestionId: Long): RangeQuestionDTO {
         return RangeQuestionConverter.convertQuestionToDTO(
-                rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
+            rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
         )
     }
 
     fun updateRangeQuestionById(rangeQuestionId: Long, rangeQuestionDTO: RangeQuestionDTO): RangeQuestionDTO {
-        var rangeQuestion = rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
+        var rangeQuestion =
+            rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
 
         rangeQuestion = rangeQuestion.copy(
-                questionText = rangeQuestionDTO.questionText,
-                rangeSteps = rangeQuestionDTO.rangeSteps.map {
-                    RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
-                }
+            questionText = rangeQuestionDTO.questionText,
+            rangeSteps = rangeQuestionDTO.rangeSteps.map {
+                RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
+            }
         )
 
         return RangeQuestionConverter.convertQuestionToDTO(rangeQuestionRepository.save(rangeQuestion))
     }
 
     fun uploadIconForRangeQuestion(rangeQuestionId: Long, icon: ByteArray) {
-        var rangeQuestion = rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
+        var rangeQuestion =
+            rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
 
         rangeQuestion = rangeQuestion.copy(icon = icon)
 
@@ -65,7 +67,8 @@ class RangeQuestionService(
     }
 
     fun getIconByRangeQuestionId(questionId: Long): ByteArray {
-        val rangeQuestion = rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
+        val rangeQuestion =
+            rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
 
         return rangeQuestion.icon
     }

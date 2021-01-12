@@ -9,7 +9,6 @@ import ch.iact.iactcheck.dto.PossibleScoreDTO
 import ch.iact.iactcheck.infrastructure.exception.PossibleOutcomeNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
-import ch.iact.iactcheck.testdata.PossibleScoreTestData
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
 import org.junit.Assert
 import org.junit.jupiter.api.Test
@@ -18,7 +17,8 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.any
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.*
@@ -38,10 +38,15 @@ class PossibleOutcomeServiceTest {
 
     @Test
     fun shouldCreatePossibleOutcomeAndReturnCreatedPossibleOutcome() {
-        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
+        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
+            Optional.of(
+                QuestionCategoryTestData.questionCategory
+            )
+        )
         `when`(possibleOutcomeRepository!!.save(any(PossibleOutcome::class.java))).thenReturn(PossibleOutcomeTestData.possibleOutcomeWithPossibleScores)
 
-        val actual = possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores)
+        val actual =
+            possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores)
 
         Assert.assertEquals(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores, actual)
     }
@@ -57,20 +62,30 @@ class PossibleOutcomeServiceTest {
 
     @Test
     fun shouldUpdatePossibleOutcomeAndReturnUpdatedPossibleOutcome() {
-        `when`(possibleOutcomeRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(PossibleOutcomeTestData.possibleOutcomeWithPossibleScores))
+        `when`(possibleOutcomeRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
+            Optional.of(
+                PossibleOutcomeTestData.possibleOutcomeWithPossibleScores
+            )
+        )
 
         val updatedPossibleOutcome = PossibleOutcomeTestData.possibleOutcomeWithPossibleScores.copy(
-                title = "New title",
-                subtitle = "New Subtitle",
-                description = "New description",
-                possibleScores = listOf(PossibleScore(id = 1, score = 1, possibleOutcome = PossibleOutcomeTestData.possibleOutcomeWithPossibleScores))
+            title = "New title",
+            subtitle = "New Subtitle",
+            description = "New description",
+            possibleScores = listOf(
+                PossibleScore(
+                    id = 1,
+                    score = 1,
+                    possibleOutcome = PossibleOutcomeTestData.possibleOutcomeWithPossibleScores
+                )
+            )
         )
 
         val updatedPossibleOutcomeDTO = PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores.copy(
-                title = "New title",
-                subtitle = "New Subtitle",
-                description = "New description",
-                possibleScores = listOf(PossibleScoreDTO(id = 1, score = 1))
+            title = "New title",
+            subtitle = "New Subtitle",
+            description = "New description",
+            possibleScores = listOf(PossibleScoreDTO(id = 1, score = 1))
         )
 
         `when`(possibleOutcomeRepository.save(any(PossibleOutcome::class.java))).thenReturn(updatedPossibleOutcome)

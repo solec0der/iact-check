@@ -7,10 +7,10 @@ object CustomerConverter {
 
     fun convertCustomerToDTO(customer: Customer): CustomerDTO {
         return CustomerDTO(
-                id = customer.id,
-                name = customer.name,
-                customerBranding = CustomerBrandingConverter.convertCustomerBrandingToDTO(customer.customerBranding),
-                usersWithAccess = customer.usersWithAccess
+            id = customer.id,
+            name = customer.name,
+            customerBranding = CustomerBrandingConverter.convertCustomerBrandingToDTO(customer.customerBranding),
+            usersWithAccess = customer.usersWithAccess
         )
     }
 }

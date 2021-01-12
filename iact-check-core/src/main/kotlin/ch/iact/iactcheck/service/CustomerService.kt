@@ -2,7 +2,6 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.domain.model.Customer
 import ch.iact.iactcheck.domain.model.CustomerBranding
-import ch.iact.iactcheck.domain.model.EmailSettings
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerBrandingDTO
@@ -14,9 +13,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(
-        private val userService: UserService,
-        private val customerRepository: CustomerRepository,
-        private val customerBrandingRepository: CustomerBrandingRepository
+    private val userService: UserService,
+    private val customerRepository: CustomerRepository,
+    private val customerBrandingRepository: CustomerBrandingRepository
 ) {
 
     fun createCustomer(customerDTO: CustomerDTO): CustomerDTO {
@@ -25,11 +24,11 @@ class CustomerService(
         }
 
         val customer = Customer(
-                id = -1,
-                name = customerDTO.name,
-                usersWithAccess = customerDTO.usersWithAccess,
-                checks = emptyList(),
-                customerBranding = null
+            id = -1,
+            name = customerDTO.name,
+            usersWithAccess = customerDTO.usersWithAccess,
+            checks = emptyList(),
+            customerBranding = null
         )
 
         return CustomerConverter.convertCustomerToDTO(customerRepository.save(customer))
@@ -47,17 +46,17 @@ class CustomerService(
         }
 
         val customerBranding = CustomerBranding(
-                id = -1,
-                primaryColour = customerBrandingDTO.primaryColour,
-                backgroundColour = customerBrandingDTO.backgroundColour,
-                accentColour = customerBrandingDTO.accentColour,
-                textColour = customerBrandingDTO.textColour,
-                font = customerBrandingDTO.font,
-                customer = customer
+            id = -1,
+            primaryColour = customerBrandingDTO.primaryColour,
+            backgroundColour = customerBrandingDTO.backgroundColour,
+            accentColour = customerBrandingDTO.accentColour,
+            textColour = customerBrandingDTO.textColour,
+            font = customerBrandingDTO.font,
+            customer = customer
         )
 
         return CustomerBrandingConverter.convertCustomerBrandingToDTO(
-                customerBrandingRepository.save(customerBranding)
+            customerBrandingRepository.save(customerBranding)
         )!!
     }
 
@@ -65,13 +64,13 @@ class CustomerService(
         val customers = customerRepository.findAll()
 
         return customers
-                .map { CustomerConverter.convertCustomerToDTO(it.copy(usersWithAccess = emptySet())) }
-                .toList()
+            .map { CustomerConverter.convertCustomerToDTO(it.copy(usersWithAccess = emptySet())) }
+            .toList()
     }
 
     fun getCustomerById(customerId: Long): CustomerDTO {
         return CustomerConverter.convertCustomerToDTO(
-                customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
+            customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
         )
     }
 
@@ -89,8 +88,8 @@ class CustomerService(
         }
 
         return customers
-                .map { CustomerConverter.convertCustomerToDTO(it) }
-                .toList()
+            .map { CustomerConverter.convertCustomerToDTO(it) }
+            .toList()
     }
 
     fun getCustomerLogoByCustomerId(customerId: Long): ByteArray {
@@ -110,9 +109,11 @@ class CustomerService(
             throw CustomerBrandingNotFoundException()
         }
 
-        customer = customer.copy(customerBranding = customer.customerBranding!!.copy(
+        customer = customer.copy(
+            customerBranding = customer.customerBranding!!.copy(
                 logo = logo
-        ))
+            )
+        )
 
         customerRepository.save(customer)
     }
@@ -129,8 +130,8 @@ class CustomerService(
         }
 
         customer = customer.copy(
-                name = customerDTO.name,
-                usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess
+            name = customerDTO.name,
+            usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess
         )
 
         customer = customerRepository.save(customer)
@@ -144,22 +145,23 @@ class CustomerService(
 
 
     fun updateCustomerBranding(customerId: Long, customerBrandingDTO: CustomerBrandingDTO): CustomerBrandingDTO {
-        var customerBranding = customerBrandingRepository.findByCustomerId(customerId).orElseThrow { throw CustomerBrandingNotFoundException() }
+        var customerBranding = customerBrandingRepository.findByCustomerId(customerId)
+            .orElseThrow { throw CustomerBrandingNotFoundException() }
 
         if (!isLoggedInUserAllowedToModifyCustomer(customerBranding.customer)) {
             throw ForbiddenException()
         }
 
         customerBranding = customerBranding.copy(
-                primaryColour = customerBrandingDTO.primaryColour,
-                backgroundColour = customerBrandingDTO.backgroundColour,
-                accentColour = customerBrandingDTO.accentColour,
-                textColour = customerBrandingDTO.textColour,
-                font = customerBrandingDTO.font
+            primaryColour = customerBrandingDTO.primaryColour,
+            backgroundColour = customerBrandingDTO.backgroundColour,
+            accentColour = customerBrandingDTO.accentColour,
+            textColour = customerBrandingDTO.textColour,
+            font = customerBrandingDTO.font
         )
 
         return CustomerBrandingConverter.convertCustomerBrandingToDTO(
-                customerBrandingRepository.save(customerBranding)
+            customerBrandingRepository.save(customerBranding)
         )!!
     }
 

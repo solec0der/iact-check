@@ -9,9 +9,11 @@ import java.util.stream.Collectors
 object FileLoaderUtil {
     fun getResourceFileAsString(fileName: String): String {
         return try {
-            val reader = BufferedReader(InputStreamReader(
+            val reader = BufferedReader(
+                InputStreamReader(
                     getResourceFileAsInputStream(fileName),
-                    StandardCharsets.UTF_8.displayName())
+                    StandardCharsets.UTF_8.displayName()
+                )
             )
             reader.lines().collect(Collectors.joining(System.lineSeparator()))
         } catch (exception: Exception) {

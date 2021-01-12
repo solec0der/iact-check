@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/range-questions")
 internal class RangeQuestionController(
-        private val rangeQuestionService: RangeQuestionService
+    private val rangeQuestionService: RangeQuestionService
 ) {
 
     @GetMapping("/{rangeQuestionId}/icon", produces = [MediaType.IMAGE_PNG_VALUE])

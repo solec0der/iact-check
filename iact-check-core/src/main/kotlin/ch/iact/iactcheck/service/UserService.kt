@@ -28,10 +28,10 @@ class UserService {
 
     private fun createUserFromAccessToken(accessToken: AccessToken): UserDTO {
         return UserDTO(
-                userId = accessToken.subject,
-                preferredUsername = accessToken.preferredUsername,
-                email = accessToken.email ?: "",
-                roles = accessToken.realmAccess.roles
+            userId = accessToken.subject,
+            preferredUsername = accessToken.preferredUsername,
+            email = accessToken.email ?: "",
+            roles = accessToken.realmAccess.roles
         )
     }
 }

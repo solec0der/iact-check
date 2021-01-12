@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/possible-outcomes")
 internal class PossibleOutcomeController(
-        private val possibleOutcomeService: PossibleOutcomeService
+    private val possibleOutcomeService: PossibleOutcomeService
 ) {
-    @GetMapping("/{possibleOutcomeId}/thumbnail",  produces = [MediaType.IMAGE_PNG_VALUE])
+    @GetMapping("/{possibleOutcomeId}/thumbnail", produces = [MediaType.IMAGE_PNG_VALUE])
     fun getThumbnailByPossibleOutcomeId(@PathVariable("possibleOutcomeId") possibleOutcomeId: Long): ByteArray {
         return possibleOutcomeService.getThumbnailByPossibleOutcomeId(possibleOutcomeId)
     }
 
-    @GetMapping("/{possibleOutcomeId}/pdf",  produces = [MediaType.APPLICATION_PDF_VALUE])
+    @GetMapping("/{possibleOutcomeId}/pdf", produces = [MediaType.APPLICATION_PDF_VALUE])
     fun getPdfByPossibleOutcomeId(@PathVariable("possibleOutcomeId") possibleOutcomeId: Long): ByteArray {
         return possibleOutcomeService.getPdfByPossibleOutcomeId(possibleOutcomeId)
     }

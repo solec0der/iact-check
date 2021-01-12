@@ -1,23 +1,22 @@
 package ch.iact.iactcheck.testdata
 
 import ch.iact.iactcheck.domain.model.RangeQuestion
-import ch.iact.iactcheck.domain.model.RangeStep
 import ch.iact.iactcheck.dto.RangeQuestionDTO
 
 object RangeQuestionTestData {
 
     val question = RangeQuestion(
-            id = 1L,
-            questionText = "Do you like programming?",
-            rangeSteps = emptyList(),
-            icon = ByteArray(100),
-            questionCategory = QuestionCategoryTestData.questionCategory
+        id = 1L,
+        questionText = "Do you like programming?",
+        rangeSteps = emptyList(),
+        icon = ByteArray(100),
+        questionCategory = QuestionCategoryTestData.questionCategory
     )
 
     val questionDTO = RangeQuestionDTO(
-            id = 1L,
-            questionText = "Do you like programming?",
-            rangeSteps = emptyList(),
-            questionCategoryId = 1L
+        id = 1L,
+        questionText = "Do you like programming?",
+        rangeSteps = emptyList(),
+        questionCategoryId = 1L
     )
 }

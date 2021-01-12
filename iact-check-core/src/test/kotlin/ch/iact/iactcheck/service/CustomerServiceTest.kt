@@ -40,9 +40,9 @@ class CustomerServiceTest {
     @Test
     fun shouldCreateCustomerAndReturnCreatedCustomer() {
         val input = CustomerDTO(
-                id = 0L,
-                name = "EXPOFORMER",
-                usersWithAccess = emptySet()
+            id = 0L,
+            name = "EXPOFORMER",
+            usersWithAccess = emptySet()
         )
 
         `when`(customerRepository!!.existsByName("EXPOFORMER")).thenReturn(false)
@@ -87,7 +87,12 @@ class CustomerServiceTest {
     @Test
     fun shouldReturnAccessibleCustomersForOrganizationAdministrator() {
         `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO2)
-        `when`(customerRepository!!.findAllByUsersWithAccess(anyString())).thenReturn(listOf(CustomerTestData.customer, CustomerTestData.customer2))
+        `when`(customerRepository!!.findAllByUsersWithAccess(anyString())).thenReturn(
+            listOf(
+                CustomerTestData.customer,
+                CustomerTestData.customer2
+            )
+        )
 
         val expected = listOf(CustomerTestData.customerDTO, CustomerTestData.customer2DTO)
         val actual = customerService!!.getAccessibleCustomers()
@@ -122,13 +127,13 @@ class CustomerServiceTest {
         `when`(userService.isLoggedInUserSuperUser()).thenReturn(true)
 
         val updatedCustomerDTO = CustomerTestData.customerDTO.copy(
-                name = "New name",
-                usersWithAccess = emptySet()
+            name = "New name",
+            usersWithAccess = emptySet()
         )
 
         val updatedCustomer = CustomerTestData.customer.copy(
-                name = "New name",
-                usersWithAccess = emptySet()
+            name = "New name",
+            usersWithAccess = emptySet()
         )
 
         `when`(customerRepository.save(eq(updatedCustomer))).thenReturn(updatedCustomer)

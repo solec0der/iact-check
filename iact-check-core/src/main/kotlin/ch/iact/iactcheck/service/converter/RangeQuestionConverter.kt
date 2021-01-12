@@ -8,12 +8,17 @@ object RangeQuestionConverter {
 
     fun convertQuestionToDTO(rangeQuestion: RangeQuestion): RangeQuestionDTO {
         return RangeQuestionDTO(
-                id = rangeQuestion.id,
-                questionCategoryId = rangeQuestion.questionCategory.id,
-                questionText = rangeQuestion.questionText,
-                rangeSteps = rangeQuestion.rangeSteps.map {
-                    RangeStepDTO(id = it.id, rangeQuestionId = it.rangeQuestion.id, score = it.score, description = it.description)
-                }.toList()
+            id = rangeQuestion.id,
+            questionCategoryId = rangeQuestion.questionCategory.id,
+            questionText = rangeQuestion.questionText,
+            rangeSteps = rangeQuestion.rangeSteps.map {
+                RangeStepDTO(
+                    id = it.id,
+                    rangeQuestionId = it.rangeQuestion.id,
+                    score = it.score,
+                    description = it.description
+                )
+            }.toList()
         )
     }
 }

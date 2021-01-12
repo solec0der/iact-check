@@ -7,8 +7,8 @@ object PossibleScoreConverter {
 
     fun convertPossibleScoreToDTO(possibleScore: PossibleScore): PossibleScoreDTO {
         return PossibleScoreDTO(
-                id = possibleScore.id,
-                score = possibleScore.score
+            id = possibleScore.id,
+            score = possibleScore.score
         )
     }
 }

@@ -1,17 +1,19 @@
 package ch.iact.iactcheck.infrastructure.admin
 
 import ch.iact.iactcheck.dto.EmailSettingsDTO
-import ch.iact.iactcheck.dto.SmtpTransportStrategy
 import ch.iact.iactcheck.service.EmailSettingsService
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/api/admin")
 internal class EmailSettingsAdminController(
-        private val emailSettingsService: EmailSettingsService
+    private val emailSettingsService: EmailSettingsService
 ) {
 
     @PostMapping("/customers/{customerId}/settings/email")
-    fun createEmailSettingsByCustomerId(@PathVariable("customerId") customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO {
+    fun createEmailSettingsByCustomerId(
+        @PathVariable("customerId") customerId: Long,
+        emailSettingsDTO: EmailSettingsDTO
+    ): EmailSettingsDTO {
         return emailSettingsService.createEmailSettingsByCustomerId(customerId, emailSettingsDTO)
     }
 
@@ -21,7 +23,10 @@ internal class EmailSettingsAdminController(
     }
 
     @PutMapping("/customers/{customerId}/settings/email")
-    fun updateEmailSettingsByCustomerId(@PathVariable("customerId") customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO {
+    fun updateEmailSettingsByCustomerId(
+        @PathVariable("customerId") customerId: Long,
+        emailSettingsDTO: EmailSettingsDTO
+    ): EmailSettingsDTO {
         return emailSettingsService.updateEmailSettingsByCustomerId(customerId, emailSettingsDTO)
     }
 }

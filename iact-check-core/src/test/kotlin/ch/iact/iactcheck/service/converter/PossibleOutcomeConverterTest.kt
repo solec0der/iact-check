@@ -15,7 +15,8 @@ class PossibleOutcomeConverterTest {
 
     @Test
     fun shouldReturnConvertedPossibleOutcomeDTOWithPossibleScores() {
-        val actual = PossibleOutcomeConverter.convertPossibleOutcomeToDTO(PossibleOutcomeTestData.possibleOutcomeWithPossibleScores)
+        val actual =
+            PossibleOutcomeConverter.convertPossibleOutcomeToDTO(PossibleOutcomeTestData.possibleOutcomeWithPossibleScores)
 
         Assert.assertEquals(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores, actual)
     }

@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/keycloak-info")
 internal class KeycloakInfoController(
-        @Value("\${keycloak.auth-server-url}") private val authServerUrl: String,
-        @Value("\${keycloak.realm}") private val realm: String
+    @Value("\${keycloak.auth-server-url}") private val authServerUrl: String,
+    @Value("\${keycloak.realm}") private val realm: String
 ) {
 
     @GetMapping
     fun getKeycloakInfo(): KeycloakInfoDTO {
         return KeycloakInfoDTO(
-                authServerUrl = authServerUrl,
-                realm = realm
+            authServerUrl = authServerUrl,
+            realm = realm
         )
     }
 }
