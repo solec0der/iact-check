@@ -12,7 +12,7 @@ export function initializer(
         if (isDevMode()) {
           await keycloak.init({
             config: {
-              url: 'http://localhost:8080/auth',
+              url: 'https://iam.iact.ch/auth',
               realm: 'iact-realm',
               clientId: 'iact-check-webapp',
             },

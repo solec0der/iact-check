@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - check.solecoder.ch
+    - check.iact.ch
     secretName: check-iact-tls
   rules:
-  - host: "check.solecoder.ch"
+  - host: "check.iact.ch"
     http:
       paths:
       - pathType: Prefix

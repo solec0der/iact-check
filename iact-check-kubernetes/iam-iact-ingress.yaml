@@ -5,7 +5,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/affinity: cookie
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://check.solecoder.ch"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://check.iact.ch"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.org/location-snippets: |
       proxy_set_header Host $host;
@@ -21,10 +21,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - iam.solecoder.ch
+    - iam.iact.ch
     secretName: iact-tls
   rules:
-  - host: "iam.solecoder.ch"
+  - host: "iam.iact.ch"
     http:
       paths:
       - pathType: Prefix

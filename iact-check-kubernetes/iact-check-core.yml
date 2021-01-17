@@ -20,7 +20,7 @@ spec:
             - containerPort: 9090
           env:
             - name: KEYCLOAK_AUTH_SERVER_URL
-              value: https://iam.solecoder.ch/auth
+              value: https://iam.iact.ch/auth
             - name: KEYCLOAK_SECRET
               value: b2cde5e1-be7b-4a89-a288-e0bd43a36ba7
             - name: MYSQL_HOST

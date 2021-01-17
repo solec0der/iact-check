@@ -20,7 +20,7 @@ spec:
             - containerPort: 9091
           env:
             - name: KEYCLOAK_AUTH_SERVER_URL
-              value: https://iam.solecoder.ch/auth
+              value: https://iam.iact.ch/auth
 ---
 apiVersion: v1
 kind: Service
