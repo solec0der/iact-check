@@ -12,7 +12,9 @@ export class HeaderComponent implements OnInit {
   constructor(private keycloakService: KeycloakService) {}
 
   ngOnInit(): void {
-    this.username = this.keycloakService.getUsername();
+    this.keycloakService.loadUserProfile().then((userProfile) => {
+      this.username = userProfile.username;
+    });
   }
 
   public openAccountInKeycloak(): void {

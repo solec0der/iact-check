@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../../shared/services/user.service';
 import { CustomerService } from '../../../shared/services/customer.service';
-import { TranslateService } from '@ngx-translate/core';
 import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AVAILABLE_FONTS } from '../../../../shared/model/available-fonts';
@@ -32,8 +31,7 @@ export class CustomerBrandingComponent implements OnInit {
     private matSnackBar: MatSnackBar,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
-    private customerService: CustomerService,
-    private translateService: TranslateService
+    private customerService: CustomerService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.customerId = Number(params.get('customerId'));
@@ -68,9 +66,10 @@ export class CustomerBrandingComponent implements OnInit {
     const customerBrandingDTO: CustomerBrandingDTO = {
       id: -1,
       customerId: this.customerId,
-      primaryColour: '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
-      backgroundColour: '#' + this.customerBrandingFormGroup.value.backgroundColour
-        .hex,
+      primaryColour:
+        '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
+      backgroundColour:
+        '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
       accentColour: '#' + this.customerBrandingFormGroup.value.accentColour.hex,
       textColour: '#' + this.customerBrandingFormGroup.value.textColour.hex,
       font: this.customerBrandingFormGroup.value.font,
@@ -99,9 +98,10 @@ export class CustomerBrandingComponent implements OnInit {
     const customerBrandingDTO: CustomerBrandingDTO = {
       id: this.customerDTO.customerBranding?.id!,
       customerId: this.customerId,
-      primaryColour: '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
-      backgroundColour: '#' + this.customerBrandingFormGroup.value.backgroundColour
-        .hex,
+      primaryColour:
+        '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
+      backgroundColour:
+        '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
       accentColour: '#' + this.customerBrandingFormGroup.value.accentColour.hex,
       textColour: '#' + this.customerBrandingFormGroup.value.textColour.hex,
       font: this.customerBrandingFormGroup.value.font,

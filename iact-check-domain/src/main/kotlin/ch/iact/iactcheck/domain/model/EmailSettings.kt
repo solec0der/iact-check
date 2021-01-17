@@ -3,7 +3,7 @@ package ch.iact.iactcheck.domain.model
 import javax.persistence.*
 
 @Entity
-@Table(name = "email_settings")
+@Table(name = "email_setting")
 data class EmailSettings(
 
     @Id

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iact-check-webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iact-check-webapp
+  template:
+    metadata:
+      labels:
+        app: iact-check-webapp
+    spec:
+      containers:
+        - name: iact-check-webapp
+          image: mortimercold/iact-check-webapp:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9091
+          env:
+            - name: KEYCLOAK_AUTH_SERVER_URL
+              value: https://iam.solecoder.ch/auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iact-check-webapp
+spec:
+  selector:
+    app: iact-check-webapp
+  ports:
+    - port: 80
+      targetPort: 9091
+  type: NodePort
+

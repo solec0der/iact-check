@@ -5,7 +5,11 @@ import ch.iact.iactcheck.dto.EmailSettingsDTO
 import ch.iact.iactcheck.dto.SmtpTransportStrategy
 
 object EmailSettingsConverter {
-    fun convertEmailSettingsToDTO(emailSettings: EmailSettings): EmailSettingsDTO {
+    fun convertEmailSettingsToDTO(emailSettings: EmailSettings?): EmailSettingsDTO? {
+        if (emailSettings == null) {
+            return null;
+        }
+
         return EmailSettingsDTO(
             sendEmails = emailSettings.sendEmails,
             smtpHost = emailSettings.smtpHost,

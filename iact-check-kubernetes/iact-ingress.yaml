@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: iact-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    ingress.kubernetes.io/rewrite-target: /$2
+    nginx.org/location-snippets: |
+      proxy_set_header Authorization $http_authorization;
+spec:
+  tls:
+  - hosts:
+    - check.solecoder.ch
+    secretName: check-iact-tls
+  rules:
+  - host: "check.solecoder.ch"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: iact-check-webapp
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/iact-check-core"
+        backend:
+          service:
+            name: iact-check-core
+            port:
+              number: 80

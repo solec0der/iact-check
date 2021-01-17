@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iact-check-core
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iact-check-core
+  template:
+    metadata:
+      labels:
+        app: iact-check-core
+    spec:
+      containers:
+        - name: iact-check-core
+          image: mortimercold/iact-check-core:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9090
+          env:
+            - name: KEYCLOAK_AUTH_SERVER_URL
+              value: https://iam.solecoder.ch/auth
+            - name: KEYCLOAK_SECRET
+              value: b2cde5e1-be7b-4a89-a288-e0bd43a36ba7
+            - name: MYSQL_HOST
+              value: mysql
+            - name: MYSQL_USERNAME
+              value: root
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prod-mysql-secret
+                  key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iact-check-core
+spec:
+  selector:
+    app: iact-check-core
+  ports:
+    - port: 80
+      targetPort: 9090
+  type: NodePort
+

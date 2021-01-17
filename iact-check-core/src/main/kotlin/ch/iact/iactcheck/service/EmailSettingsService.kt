@@ -15,7 +15,7 @@ class EmailSettingsService(
     private val customerRepository: CustomerRepository,
     private val emailSettingsRepository: EmailSettingsRepository
 ) {
-    fun createEmailSettingsByCustomerId(customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO {
+    fun createEmailSettingsByCustomerId(customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO? {
         val customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
 
         val emailSettings = EmailSettings(
@@ -33,15 +33,15 @@ class EmailSettingsService(
         return EmailSettingsConverter.convertEmailSettingsToDTO(emailSettingsRepository.save(emailSettings))
     }
 
-    fun getEmailSettingsByCustomerId(customerId: Long): EmailSettingsDTO {
+    fun getEmailSettingsByCustomerId(customerId: Long): EmailSettingsDTO? {
         return EmailSettingsConverter.convertEmailSettingsToDTO(
             emailSettingsRepository
                 .findByCustomerId(customerId)
-                .orElseThrow { throw EmailSettingsNotFoundException() }
+                .orElse(null)
         )
     }
 
-    fun updateEmailSettingsByCustomerId(customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO {
+    fun updateEmailSettingsByCustomerId(customerId: Long, emailSettingsDTO: EmailSettingsDTO): EmailSettingsDTO? {
         val emailSettings = emailSettingsRepository
             .findByCustomerId(customerId)
             .orElseThrow { throw EmailSettingsNotFoundException() }
