@@ -152,7 +152,7 @@ export class EmailSettingsComponent implements OnInit {
           value: this.emailSettings ? this.emailSettings.fromAddress : '',
           disabled: isDisabled,
         },
-        Validators.required
+        [Validators.required, Validators.email]
       ),
       fromName: new FormControl(
         {

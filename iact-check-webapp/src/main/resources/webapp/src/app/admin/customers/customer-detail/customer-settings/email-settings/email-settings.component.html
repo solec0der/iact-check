@@ -66,7 +66,7 @@
                formControlName="smtpUsername"/>
       </label>
     </mat-form-field>
-    <br>
+    <br><br>
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_PASSWORD' | translate}}</mat-label>
       <mat-hint>
@@ -81,7 +81,7 @@
           (click)="this.hidePassword = !this.hidePassword">{{this.hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
-    <br>
+    <br><br>
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_TRANSPORT_STRATEGY' | translate}}</mat-label>
       <mat-hint>
@@ -93,7 +93,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <br>
+    <br><br>
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.FROM_ADDRESS' | translate}}</mat-label>
       <mat-error>
@@ -107,7 +107,7 @@
                formControlName="fromAddress" required/>
       </label>
     </mat-form-field>
-    <br>
+    <br><br>
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.FROM_NAME' | translate}}</mat-label>
       <mat-error>
