@@ -13,7 +13,7 @@ internal class EmailSettingsAdminController(
     @PostMapping("/customers/{customerId}/settings/email")
     fun createEmailSettingsByCustomerId(
         @PathVariable("customerId") customerId: Long,
-        emailSettingsDTO: EmailSettingsDTO
+        @RequestBody emailSettingsDTO: EmailSettingsDTO
     ): EmailSettingsDTO? {
         return emailSettingsService.createEmailSettingsByCustomerId(customerId, emailSettingsDTO)
     }
@@ -26,7 +26,7 @@ internal class EmailSettingsAdminController(
     @PutMapping("/customers/{customerId}/settings/email")
     fun updateEmailSettingsByCustomerId(
         @PathVariable("customerId") customerId: Long,
-        emailSettingsDTO: EmailSettingsDTO
+        @RequestBody emailSettingsDTO: EmailSettingsDTO
     ): EmailSettingsDTO? {
         return emailSettingsService.updateEmailSettingsByCustomerId(customerId, emailSettingsDTO)
     }

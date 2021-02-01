@@ -1,1 +1,125 @@
-<p>email-settings works!</p>
+<div *ngIf="this.emailSettingsFormGroup">
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <h1>{{'CUSTOMERS.EMAIL_SETTINGS.EMAIL_SETTINGS' | translate}}</h1>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.save()"
+              [disabled]="this.emailSettingsFormGroup.invalid && !this.emailSettings">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="this.emailSettingsFormGroup">
+    <div class="display-flex-space-between half-width">
+      <div>
+        <p>{{'CUSTOMERS.EMAIL_SETTINGS.SEND_EMAILS' | translate}}</p>
+      </div>
+      <div>
+        <mat-slide-toggle formControlName="sendEmails" color="primary"
+                          (change)="this.toggleSendEmails($event)"></mat-slide-toggle>
+      </div>
+    </div>
+    <br>
+    <div class="display-flex-space-between half-width">
+      <div style="width: 67.5%">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_HOST' | translate}}</mat-label>
+          <mat-error>
+            {{'CUSTOMERS.EMAIL_SETTINGS.ERRORS.MISSING_SMTP_HOST' | translate}}
+          </mat-error>
+          <mat-hint>
+            {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.SMTP_HOST' | translate}}
+          </mat-hint>
+          <label>
+            <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.SMTP_HOST' | translate"
+                   formControlName="smtpHost" required/>
+          </label>
+        </mat-form-field>
+      </div>
+      <div style="width: 30%">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_PORT' | translate}}</mat-label>
+          <mat-error>
+            {{'CUSTOMERS.EMAIL_SETTINGS.ERRORS.MISSING_SMTP_PORT' | translate}}
+          </mat-error>
+          <mat-hint>
+            {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.SMTP_PORT' | translate}}
+          </mat-hint>
+          <label>
+            <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.SMTP_PORT' | translate"
+                   formControlName="smtpPort" required/>
+          </label>
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_USERNAME' | translate}}</mat-label>
+      <mat-hint>
+        {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.SMTP_USERNAME' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.SMTP_USERNAME' | translate"
+               formControlName="smtpUsername"/>
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_PASSWORD' | translate}}</mat-label>
+      <mat-hint>
+        {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.SMTP_PASSWORD' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.SMTP_PASSWORD' | translate"
+               formControlName="smtpPassword" [type]="this.hidePassword ? 'password' : 'text'"/>
+      </label>
+      <button mat-icon-button matSuffix>
+        <mat-icon
+          (click)="this.hidePassword = !this.hidePassword">{{this.hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.SMTP_TRANSPORT_STRATEGY' | translate}}</mat-label>
+      <mat-hint>
+        {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.SMTP_TRANSPORT_STRATEGY' | translate}}
+      </mat-hint>
+      <mat-select formControlName="smtpTransportStrategy" required>
+        <mat-option *ngFor="let smtpTransportStrategy of this.smtpTransportStrategies" [value]="smtpTransportStrategy">
+          {{'CUSTOMERS.EMAIL_SETTINGS.' + smtpTransportStrategy | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.FROM_ADDRESS' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.EMAIL_SETTINGS.ERRORS.MISSING_FROM_ADDRESS' | translate}}
+      </mat-error>
+      <mat-hint>
+        {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.FROM_ADDRESS' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.FROM_ADDRESS' | translate"
+               formControlName="fromAddress" required/>
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.EMAIL_SETTINGS.FROM_NAME' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.EMAIL_SETTINGS.ERRORS.MISSING_FROM_NAME' | translate}}
+      </mat-error>
+      <mat-hint>
+        {{'CUSTOMERS.EMAIL_SETTINGS.HINTS.FROM_NAME' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.EMAIL_SETTINGS.PLACEHOLDER.FROM_NAME' | translate"
+               formControlName="fromName" required/>
+      </label>
+    </mat-form-field>
+  </form>
+</div>

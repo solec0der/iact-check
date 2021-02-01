@@ -6,5 +6,5 @@ export interface EmailSettingsDTO {
   smtpPassword: string;
   smtpTransportStrategy: string;
   fromAddress: string;
-  formName: string;
+  fromName: string;
 }

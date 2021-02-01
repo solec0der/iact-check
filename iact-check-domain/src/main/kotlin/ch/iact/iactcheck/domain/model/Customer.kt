@@ -15,10 +15,10 @@ data class Customer(
     @CollectionTable(name = "user_customer_access", joinColumns = [JoinColumn(name = "customer_id")])
     val usersWithAccess: Set<String>,
 
-    @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
+    @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL], orphanRemoval = true)
     val customerBranding: CustomerBranding?,
 
-    @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL])
+    @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL], orphanRemoval = true)
     val emailSettings: EmailSettings? = null,
 
     @OneToMany(targetEntity = Check::class, mappedBy = "customer")

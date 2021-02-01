@@ -58,6 +58,45 @@
       "MESSAGE": "Wenn Sie diesen Kunden löschen, werden alle dazugehörigen Daten, wie Checks und Fragekategorieren gelöscht.¨",
       "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
       "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
+    },
+    "EMAIL_SETTINGS": {
+      "EMAIL_SETTINGS": "E-Mail Einstellungen",
+      "SEND_EMAILS": "E-Mails versenden",
+      "SMTP_HOST": "SMTP-Server",
+      "SMTP_PORT": "SMTP-Port",
+      "SMTP_USERNAME": "SMTP-Benutzername",
+      "SMTP_PASSWORD": "SMTP-Passwort",
+      "SMTP_TRANSPORT_STRATEGY": "SMTP-Verschlüsselungsart",
+      "FROM_ADDRESS": "Absender (E-Mail)",
+      "FROM_NAME": "Absender (Name)",
+      "HINTS": {
+        "SMTP_HOST": "IP-Addresse oder Domain des E-Mail-Ausgangsserver",
+        "SMTP_PORT": "Port des E-Mail-Ausgangsserver",
+        "SMTP_USERNAME": "Benutzername, um sich am E-Mail-Ausgangsserver anzumelden",
+        "SMTP_PASSWORD": "Passwort, um sich am E-Mail-Ausgangsserver anzumalden",
+        "SMTP_TRANSPORT_STRATEGY": "Art, wie ausgehende Mails verschlüsselt versendet werden",
+        "FROM_ADDRESS": "E-Mail-Adresse, die als Absender verwendet wird",
+        "FROM_NAME": "Name, der als Absender verwendet wird"
+      },
+      "ERRORS": {
+        "MISSING_SMTP_HOST": "Bitte gültigen SMTP-Server eingeben",
+        "MISSING_SMTP_PORT": "Bitte gültigen SMTP-Port eingeben",
+        "MISSING_SMTP_TRANSPORT_STRATEGY": "Bitte gültige SMTP-Verschlüsselungsart wahlen",
+        "MISSING_FROM_ADDRESS": "Bitte gültigen Absender (E-Mail) eingeben",
+        "MISSING_FROM_NAME": "Bitte gültigen Absender (Name) eingeben"
+      },
+      "PLACEHOLDER": {
+        "SMTP_HOST": "Bitte SMTP-Server eingeben",
+        "SMTP_PORT": "Bitte SMTP-Port eingeben",
+        "SMTP_USERNAME": "Bitte SMTP-Benutzername eingeben",
+        "SMTP_PASSWORD": "Bitte SMTP-Passwort eingeben",
+        "SMTP_TRANSPORT_STRATEGY": "Bitte SMTP-Verschlüsselungsart wählen",
+        "FROM_ADDRESS": "Bitte Absender (E-Mail) eingeben",
+        "FROM_NAME": "Bitte Absender (Name) eingeben"
+      },
+      "SMTP": "Keine Verschlüsselung",
+      "SMTPS": "SMTP über SSL",
+      "SMTP_TLS": "SMTP über TLS"
     }
   },
   "CHECKS": {
