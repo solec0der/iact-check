@@ -1,38 +1,32 @@
 package ch.iact.iactcheck.service.converter
 
-import ch.iact.iactcheck.domain.model.EmailSettings
-import ch.iact.iactcheck.dto.EmailSettingsDTO
-import ch.iact.iactcheck.dto.SmtpTransportStrategy
+import ch.iact.iactcheck.domain.model.TextMessageSettings
+import ch.iact.iactcheck.dto.TextMessageSettingsDTO
 
 object TextMessageSettingsConverter {
-//    fun convertTextMessageSettingsToDTO(emailSettings: EmailSettings?): EmailSettingsDTO? {
-//        if (emailSettings == null) {
-//            return null;
-//        }
-//
-//        return EmailSettingsDTO(
-//            sendEmails = emailSettings.sendEmails,
-//            smtpHost = emailSettings.smtpHost,
-//            smtpPort = emailSettings.smtpPort,
-//            smtpUsername = emailSettings.smtpUsername,
-//            smtpPassword = emailSettings.smtpPassword,
-//            smtpTransportStrategy = SmtpTransportStrategy.valueOf(emailSettings.smtpTransportStrategy.name),
-//            fromAddress = emailSettings.fromAddress,
-//            fromName = emailSettings.fromName
-//        )
-//    }
-//
-//    fun convertTextMessageSettingsToBusinessObject(
-//        emailSettings: EmailSettings
-//    ): ch.iact.iactcheck.messaging.email.EmailSettings {
-//        return ch.iact.iactcheck.messaging.email.EmailSettings(
-//            smtpHost = emailSettings.smtpHost,
-//            smtpPort = emailSettings.smtpPort,
-//            smtpUsername = emailSettings.smtpUsername,
-//            smtpPassword = emailSettings.smtpPassword,
-//            smtpTransportStrategy = ch.iact.iactcheck.messaging.email.SmtpTransportStrategy.valueOf(emailSettings.smtpTransportStrategy.name),
-//            fromAddress = emailSettings.fromAddress,
-//            fromName = emailSettings.fromName
-//        )
-//    }
+    fun convertTextMessageSettingsToDTO(textMessageSettings: TextMessageSettings?): TextMessageSettingsDTO? {
+        if (textMessageSettings == null) {
+            return null;
+        }
+
+        return TextMessageSettingsDTO(
+            accountSid = textMessageSettings.accountSid,
+            authToken = textMessageSettings.authToken,
+            fromPhoneNumber = textMessageSettings.fromPhoneNumber
+        )
+    }
+
+    fun convertTextMessageSettingsToBusinessObject(
+        textMessageSettings: TextMessageSettings?
+    ): ch.iact.iactcheck.messaging.text.TextMessageSettings? {
+        if (textMessageSettings == null) {
+            return null
+        }
+
+        return ch.iact.iactcheck.messaging.text.TextMessageSettings(
+            accountSid = textMessageSettings.accountSid,
+            authToken = textMessageSettings.authToken,
+            fromPhoneNumber = textMessageSettings.fromPhoneNumber
+        )
+    }
 }

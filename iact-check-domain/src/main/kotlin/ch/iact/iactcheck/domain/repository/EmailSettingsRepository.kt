@@ -8,5 +8,4 @@ import java.util.*
 @Repository
 interface EmailSettingsRepository : JpaRepository<EmailSettings, Long> {
     fun findByCustomerId(customerId: Long): Optional<EmailSettings>
-    fun existsByCustomerId(customerId: Long): Boolean
 }
