@@ -21,8 +21,14 @@ data class Customer(
     @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL], orphanRemoval = true)
     val emailSettings: EmailSettings? = null,
 
+    @OneToOne(mappedBy = "customer", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val textMessageSettings: TextMessageSettings? = null,
+
     @OneToMany(targetEntity = Check::class, mappedBy = "customer")
-    val checks: List<Check>
+    val checks: List<Check>,
+
+    @OneToMany(targetEntity = ActiveUserRegistrationField::class, mappedBy = "customer")
+    val activeUserRegistrationFields: Set<ActiveUserRegistrationField>
 ) {
     override fun toString(): String {
         return "Customer(id=$id, name='$name')"

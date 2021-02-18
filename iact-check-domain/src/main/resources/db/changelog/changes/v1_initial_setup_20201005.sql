@@ -20,7 +20,7 @@ CREATE TABLE customer_branding
     font              varchar(32) NOT NULL,
     logo              longblob,
     primary key (id),
-    foreign key (id) REFERENCES customer (id)
+    foreign key (customer_id) REFERENCES customer (id)
 );
 
 CREATE TABLE user_customer_access

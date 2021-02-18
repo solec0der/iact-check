@@ -1,19 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../shared/services/customer.service';
 import { CustomerDTO } from '../../shared/dtos/customer-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { KeycloakAdminService } from '../../shared/services/keycloak-admin.service';
-import { KeycloakUserDto } from '../../shared/dtos/keycloak-user-dto';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { UserService } from '../../../shared/services/user.service';
-import { RoleRepresentationDTO } from '../../shared/dtos/role-representation-dto';
 import { ActiveCustomerService } from '../../shared/services/active-customer.service';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ColourUtility } from '../../../shared/utils/colour.utility';
+import { map, mergeMap } from 'rxjs/operators';
+import { FileReaderUtil } from '../../shared/util/file-reader.util';
 
 @Component({
   selector: 'app-customer-detail',
@@ -23,26 +20,20 @@ import { MatDialog } from '@angular/material/dialog';
 export class CustomerDetailComponent implements OnInit {
   public action: string = '';
   public customerId: number = -1;
-  public displayedColumnsUsersWithAccess = ['username', 'hasAccess'];
-  public keycloakUsersDatasource!: MatTableDataSource<KeycloakUserDto>;
-
-  private usersRoleMappings!: Map<string, RoleRepresentationDTO[]>;
-  private customerDTO!: CustomerDTO;
-  private usersWithAccess: string[] = [];
-
   public customerFormGroup!: FormGroup;
+  public customerBrandingFormGroup!: FormGroup;
+  public usersWithAccess: string[] = [];
 
-  @ViewChild(MatPaginator) usersWithAccessPaginator!: MatPaginator;
+  public logo!: File;
+  public customerDTO!: CustomerDTO;
 
   constructor(
     private router: Router,
     private matDialog: MatDialog,
     private matSnackBar: MatSnackBar,
-    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private customerService: CustomerService,
     private translateService: TranslateService,
-    private keycloakAdminService: KeycloakAdminService,
     private activeCustomerService: ActiveCustomerService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -54,37 +45,8 @@ export class CustomerDetailComponent implements OnInit {
   ngOnInit(): void {
     if (this.action === 'edit') {
       this.loadData();
-    } else if (this.action === 'create') {
-      this.createCustomerFromGroup();
-    }
-  }
-
-  public getAdditionalUserInfoForVisibleUsers(
-    pageIndex: number,
-    pageSize: number
-  ): void {
-    const users = this.keycloakUsersDatasource.data.slice(
-      pageIndex * pageSize,
-      pageIndex * pageSize + pageSize
-    );
-
-    this.usersRoleMappings = new Map<string, RoleRepresentationDTO[]>();
-
-    users.forEach((user) => {
-      this.keycloakAdminService
-        .getRolesByUserId(user.id)
-        .subscribe((roleRepresentations) => {
-          this.usersRoleMappings.set(user.id, roleRepresentations);
-        });
-    });
-  }
-
-  public addOrRemoveUserFromUsersWithAccess(user: KeycloakUserDto) {
-    if (this.usersWithAccess.includes(user.id)) {
-      const indexOfUserToBeRemoved = this.usersWithAccess.indexOf(user.id);
-      this.usersWithAccess.splice(indexOfUserToBeRemoved, 1);
     } else {
-      this.usersWithAccess.push(user.id);
+      this.createCustomerFromGroup();
     }
   }
 
@@ -94,25 +56,6 @@ export class CustomerDetailComponent implements OnInit {
     } else if (this.action === 'edit') {
       this.updateCustomer();
     }
-  }
-
-  public isUserInUsersWithAccess(user: KeycloakUserDto): boolean {
-    return this.usersWithAccess.includes(user.id) || this.isUserSuperUser(user);
-  }
-
-  public isUserSuperUser(user: KeycloakUserDto): boolean {
-    if (this.usersRoleMappings) {
-      const userRoleMappings = this.usersRoleMappings.get(user.id);
-
-      if (userRoleMappings) {
-        for (let userRoleMapping of userRoleMappings) {
-          if (userRoleMapping.name === 'SUPERUSER') {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
   }
 
   public showCustomerDeletionDialog(): void {
@@ -156,36 +99,32 @@ export class CustomerDetailComponent implements OnInit {
   private loadData(): void {
     this.customerService
       .getCustomerById(this.customerId)
-      .subscribe((customer) => {
-        this.activeCustomerService.setActiveCustomer(customer);
-
-        this.customerDTO = customer;
-        this.usersWithAccess = customer.usersWithAccess;
+      .pipe(
+        map((customerDTO) => {
+          this.customerDTO = customerDTO;
+          this.usersWithAccess = customerDTO.usersWithAccess;
+          this.activeCustomerService.setActiveCustomer(customerDTO);
+          return customerDTO;
+        }),
+        mergeMap(() => {
+          return this.customerService.getLogoByCustomerId(this.customerId);
+        })
+      )
+      .subscribe((logo) => {
+        this.logo = FileReaderUtil.convertBlobToFile(
+          logo,
+          this.customerDTO.name + '.png'
+        );
         this.createCustomerFromGroup();
+        this.createCustomerBrandingFormGroup();
       });
-  }
-
-  get isSuperUser(): boolean {
-    return this.userService.isSuperUser();
-  }
-
-  private getKeycloakUsers(): void {
-    this.keycloakAdminService.getKeycloakUsers().subscribe((keycloakUsers) => {
-      this.keycloakUsersDatasource = new MatTableDataSource<KeycloakUserDto>(
-        keycloakUsers
-      );
-      this.keycloakUsersDatasource.paginator = this.usersWithAccessPaginator;
-      this.getAdditionalUserInfoForVisibleUsers(
-        this.usersWithAccessPaginator.pageIndex,
-        this.usersWithAccessPaginator.pageSize
-      );
-    });
   }
 
   private createCustomer(): void {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
       usersWithAccess: this.usersWithAccess,
+      activeUserRegistrationFields: [],
     };
 
     this.customerService.createCustomer(customerDTO).subscribe((response) => {
@@ -196,6 +135,9 @@ export class CustomerDetailComponent implements OnInit {
       this.router
         .navigate(['admin', 'customers', response.id, 'edit'])
         .then(() => {
+          this.createCustomerFromGroup();
+          this.createCustomerBrandingFormGroup();
+
           this.matSnackBar.open(
             this.translateService.instant('CUSTOMERS.CREATED_MESSAGE'),
             this.translateService.instant('SHARED.CLOSE'),
@@ -211,14 +153,36 @@ export class CustomerDetailComponent implements OnInit {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
       usersWithAccess: this.usersWithAccess,
+      activeUserRegistrationFields: [],
+      customerBranding: {
+        id: this.customerDTO.customerBranding?.id!,
+        customerId: this.customerId,
+        primaryColour:
+          '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
+        backgroundColour:
+          '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
+        accentColour:
+          '#' + this.customerBrandingFormGroup.value.accentColour.hex,
+        textColour: '#' + this.customerBrandingFormGroup.value.textColour.hex,
+        font: this.customerBrandingFormGroup.value.font,
+      },
     };
 
     this.customerService
-      .updateCustomerById(<number>this.customerDTO.id, customerDTO)
-      .subscribe((response) => {
-        this.customerDTO = response;
-
-        this.activeCustomerService.setActiveCustomer(response);
+      .updateCustomerById(this.customerId, customerDTO)
+      .pipe(
+        map((updatedCustomer) => {
+          return updatedCustomer;
+        }),
+        mergeMap((updatedCustomer) => {
+          return this.customerService.uploadLogoByCustomerId(
+            <number>updatedCustomer.id,
+            this.customerBrandingFormGroup.value.logo
+          );
+        })
+      )
+      .subscribe(() => {
+        this.loadData();
 
         this.matSnackBar.open(
           this.translateService.instant('CUSTOMERS.UPDATED_MESSAGE'),
@@ -237,9 +201,57 @@ export class CustomerDetailComponent implements OnInit {
         Validators.required
       ),
     });
+  }
 
-    if (this.isSuperUser) {
-      this.getKeycloakUsers();
-    }
+  private createCustomerBrandingFormGroup(): void {
+    const primaryColour = ColourUtility.convertHexToColor(
+      this.customerDTO.customerBranding
+        ? this.customerDTO.customerBranding.primaryColour
+        : null
+    );
+    const backgroundColour = ColourUtility.convertHexToColor(
+      this.customerDTO.customerBranding
+        ? this.customerDTO.customerBranding.backgroundColour
+        : null
+    );
+    const accentColour = ColourUtility.convertHexToColor(
+      this.customerDTO.customerBranding
+        ? this.customerDTO.customerBranding.accentColour
+        : null
+    );
+    const textColour = ColourUtility.convertHexToColor(
+      this.customerDTO.customerBranding
+        ? this.customerDTO.customerBranding.textColour
+        : null
+    );
+
+    this.customerBrandingFormGroup = new FormGroup({
+      logo: new FormControl(
+        this.logo && this.logo.size > 0 ? this.logo : new File([], ''),
+        Validators.required
+      ),
+      primaryColour: new FormControl(
+        this.customerDTO.customerBranding ? primaryColour : '',
+        Validators.required
+      ),
+      backgroundColour: new FormControl(
+        this.customerDTO.customerBranding ? backgroundColour : '',
+        Validators.required
+      ),
+      accentColour: new FormControl(
+        this.customerDTO.customerBranding ? accentColour : '',
+        Validators.required
+      ),
+      textColour: new FormControl(
+        this.customerDTO.customerBranding ? textColour : '',
+        Validators.required
+      ),
+      font: new FormControl(
+        this.customerDTO.customerBranding
+          ? this.customerDTO.customerBranding.font
+          : '',
+        Validators.required
+      ),
+    });
   }
 }

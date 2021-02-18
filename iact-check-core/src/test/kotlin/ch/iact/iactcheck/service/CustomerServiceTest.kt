@@ -42,7 +42,8 @@ class CustomerServiceTest {
         val input = CustomerDTO(
             id = 0L,
             name = "EXPOFORMER",
-            usersWithAccess = emptySet()
+            usersWithAccess = emptySet(),
+            activeUserRegistrationFields = emptySet()
         )
 
         `when`(customerRepository!!.existsByName("EXPOFORMER")).thenReturn(false)

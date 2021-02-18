@@ -4,5 +4,6 @@ data class CustomerDTO(
     val id: Long,
     val name: String,
     val customerBranding: CustomerBrandingDTO? = null,
-    val usersWithAccess: Set<String>
+    val usersWithAccess: Set<String>,
+    val activeUserRegistrationFields: Set<ActiveUserRegistrationFieldDTO>
 )

@@ -7,5 +7,4 @@ import java.util.*
 
 @Repository
 interface CustomerBrandingRepository : JpaRepository<CustomerBranding, Long> {
-    fun findByCustomerId(customerId: Long): Optional<CustomerBranding>
 }

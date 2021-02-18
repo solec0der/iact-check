@@ -10,7 +10,10 @@ object CustomerConverter {
             id = customer.id,
             name = customer.name,
             customerBranding = CustomerBrandingConverter.convertCustomerBrandingToDTO(customer.customerBranding),
-            usersWithAccess = customer.usersWithAccess
+            usersWithAccess = customer.usersWithAccess,
+            activeUserRegistrationFields = customer.activeUserRegistrationFields
+                .map { UserRegistrationFieldConverter.convertActiveUserRegistrationToDTO(it) }
+                .toSet()
         )
     }
 }

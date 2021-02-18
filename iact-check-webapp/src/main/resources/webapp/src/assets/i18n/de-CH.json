@@ -250,7 +250,8 @@
     "SAVE": "Speichern",
     "DELETE": "Löschen",
     "CLOSE": "Schliessen",
-    "CREATE": "Erstellen"
+    "CREATE": "Erstellen",
+    "GENERAL": "Allgemein"
   },
   "USER": {
     "USERNAME": "Benutzername"
