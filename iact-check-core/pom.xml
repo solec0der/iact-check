@@ -20,6 +20,7 @@
         <kotlin.version>1.3.72</kotlin.version>
         <resteasy.version>3.9.1.Final</resteasy.version>
         <keycloak.version>8.0.2</keycloak.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <restdocs-project-version>2.0.4.RELEASE</restdocs-project-version>
 
         <sonar.coverage.exclusions>
@@ -157,6 +158,10 @@
             <artifactId>resteasy-jackson2-provider</artifactId>
             <version>${resteasy.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-all</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -165,6 +170,13 @@
                 <groupId>org.keycloak.bom</groupId>
                 <artifactId>keycloak-adapter-bom</artifactId>
                 <version>8.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
