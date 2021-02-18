@@ -10,6 +10,7 @@ object TextMessageSettingsConverter {
         }
 
         return TextMessageSettingsDTO(
+            sendTextMessages = textMessageSettings.sendTextMessages,
             accountSid = textMessageSettings.accountSid,
             authToken = textMessageSettings.authToken,
             fromPhoneNumber = textMessageSettings.fromPhoneNumber

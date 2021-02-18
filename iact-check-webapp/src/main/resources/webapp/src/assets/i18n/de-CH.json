@@ -97,6 +97,28 @@
       "SMTP": "Keine Verschlüsselung",
       "SMTPS": "SMTP über SSL",
       "SMTP_TLS": "SMTP über TLS"
+    },
+    "TEXT_MESSAGE_SETTINGS": {
+      "TEXT_MESSAGE_SETTINGS": "SMS Einstellungen",
+      "SEND_TEXT_MESSAGES": "SMS versenden",
+      "ACCOUNT_SID": "Account-SID",
+      "AUTH_TOKEN": "Auth-Token",
+      "FROM_PHONE_NUMBER": "Absender (Telefonnummer)",
+      "HINTS": {
+        "ACCOUNT_SID": "Account-SID von Twilio",
+        "AUTH_TOKEN": "Auth-Token von Twilio",
+        "FROM_PHONE_NUMBER": "Absender Telefonnummer"
+      },
+      "ERRORS": {
+        "MISSING_ACCOUNT_SID": "Bitte gültige Account-SID eingeben",
+        "MISSING_AUTH_TOKEN": "Bitte gültigen Auth-Token eingeben",
+        "MISSING_FROM_PHONE_NUMBER": "Bitte gültige Absender-Telefonnummer eingeben"
+      },
+      "PLACEHOLDER": {
+        "ACCOUNT_SID": "Bitte Account-SID eingeben",
+        "AUTH_TOKEN": "Bitte Auth-Token eingeben",
+        "FROM_PHONE_NUMBER": "Bitte Absender (Telefonnummer) eingeben"
+      }
     }
   },
   "CHECKS": {

@@ -5,7 +5,8 @@
     </div>
     <div>
       <button mat-stroked-button (click)="this.save()"
-              [disabled]="this.emailSettingsFormGroup.invalid && !this.emailSettings">
+              [disabled]="(this.emailSettingsFormGroup.invalid && !this.emailSettings)
+              || (!this.emailSettingsFormGroup.get('sendEmails')?.value && !this.emailSettings)">
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
       </button>

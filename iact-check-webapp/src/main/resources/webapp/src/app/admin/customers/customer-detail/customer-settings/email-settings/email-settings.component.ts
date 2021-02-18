@@ -108,8 +108,6 @@ export class EmailSettingsComponent implements OnInit {
     const isDisabled = this.emailSettings
       ? !this.emailSettings.sendEmails
       : true;
-    !this.emailSettings ||
-      (this.emailSettings && !this.emailSettings.sendEmails);
 
     this.emailSettingsFormGroup = new FormGroup({
       sendEmails: new FormControl(

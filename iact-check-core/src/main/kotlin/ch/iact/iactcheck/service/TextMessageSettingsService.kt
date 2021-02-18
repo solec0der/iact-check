@@ -20,6 +20,7 @@ class TextMessageSettingsService(
         val textMessageSettings = TextMessageSettings(
             id = -1,
             customer = customer,
+            sendTextMessages = textMessageSettingsDTO.sendTextMessages,
             accountSid = textMessageSettingsDTO.accountSid,
             authToken = textMessageSettingsDTO.authToken,
             fromPhoneNumber = textMessageSettingsDTO.fromPhoneNumber
@@ -39,6 +40,7 @@ class TextMessageSettingsService(
             .findByCustomerId(customerId)
             .orElseThrow { throw TextMessageSettingsNotFoundException() }
             .copy(
+                sendTextMessages = textMessageSettingsDTO.sendTextMessages,
                 accountSid = textMessageSettingsDTO.accountSid,
                 authToken = textMessageSettingsDTO.authToken,
                 fromPhoneNumber = textMessageSettingsDTO.fromPhoneNumber

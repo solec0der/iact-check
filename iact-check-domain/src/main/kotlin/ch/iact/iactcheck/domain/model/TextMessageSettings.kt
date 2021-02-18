@@ -14,6 +14,7 @@ data class TextMessageSettings(
     @JoinColumn(name = "customer_id")
     val customer: Customer,
 
+    val sendTextMessages: Boolean,
     val accountSid: String,
     val authToken: String,
     val fromPhoneNumber: String
