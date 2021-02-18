@@ -1,0 +1,73 @@
+<div *ngIf="this.textMessageSettingsFromGroup">
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <h1>{{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.TEXT_MESSAGE_SETTINGS' | translate}}</h1>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.save()"
+              [disabled]="(this.textMessageSettingsFromGroup.invalid && !this.textMessageSettings)
+              || (!this.textMessageSettingsFromGroup.get('sendTextMessages')?.value && !this.textMessageSettings)">
+        <mat-icon>save</mat-icon>
+        {{'SHARED.SAVE' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="this.textMessageSettingsFromGroup">
+    <div class="display-flex-space-between half-width">
+      <div>
+        <p>{{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.SEND_TEXT_MESSAGES' | translate}}</p>
+      </div>
+      <div>
+        <mat-slide-toggle formControlName="sendTextMessages" color="primary"
+                          (change)="this.toggleSendTextMessages($event)"></mat-slide-toggle>
+      </div>
+    </div>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.ACCOUNT_SID' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.ERRORS.MISSING_ACCOUNT_SID' | translate}}
+      </mat-error>
+      <mat-hint>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.HINTS.ACCOUNT_SID' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.TEXT_MESSAGE_SETTINGS.PLACEHOLDER.ACCOUNT_SID' | translate"
+               formControlName="accountSid" required/>
+      </label>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.AUTH_TOKEN' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.ERRORS.MISSING_AUTH_TOKEN' | translate}}
+      </mat-error>
+      <mat-hint>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.HINTS.AUTH_TOKEN' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.TEXT_MESSAGE_SETTINGS.PLACEHOLDER.AUTH_TOKEN' | translate"
+               formControlName="authToken" required [type]="this.hideAuthToken ? 'password' : 'text'"/>
+      </label>
+      <button mat-icon-button matSuffix>
+        <mat-icon
+          (click)="this.hideAuthToken = !this.hideAuthToken">{{this.hideAuthToken ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.FROM_PHONE_NUMBER' | translate}}</mat-label>
+      <mat-error>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.ERRORS.MISSING_FROM_PHONE_NUMBER' | translate}}
+      </mat-error>
+      <mat-hint>
+        {{'CUSTOMERS.TEXT_MESSAGE_SETTINGS.HINTS.FROM_PHONE_NUMBER' | translate}}
+      </mat-hint>
+      <label>
+        <input matInput [placeholder]="'CUSTOMERS.TEXT_MESSAGE_SETTINGS.PLACEHOLDER.FROM_PHONE_NUMBER' | translate"
+               formControlName="fromPhoneNumber"/>
+      </label>
+    </mat-form-field>
+  </form>
+</div>

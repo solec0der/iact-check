@@ -6,13 +6,13 @@ import ch.iact.iactcheck.dto.PossibleScoreDTO
 object PossibleScoreTestData {
 
     val possibleScore = PossibleScore(
-            id = 1L,
-            score = 10,
-            possibleOutcome = PossibleOutcomeTestData.possibleOutcome
+        id = 1L,
+        score = 10,
+        possibleOutcome = PossibleOutcomeTestData.possibleOutcome
     )
 
     val possibleScoreDTO = PossibleScoreDTO(
-            id = 1L,
-            score = 10
+        id = 1L,
+        score = 10
     )
 }

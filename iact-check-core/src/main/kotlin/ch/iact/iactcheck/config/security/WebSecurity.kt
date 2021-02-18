@@ -19,9 +19,9 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true
+    prePostEnabled = true,
+    securedEnabled = true,
+    jsr250Enabled = true
 )
 @ComponentScan(basePackageClasses = [KeycloakSecurityComponents::class])
 class WebSecurity : KeycloakWebSecurityConfigurerAdapter() {
@@ -40,14 +40,16 @@ class WebSecurity : KeycloakWebSecurityConfigurerAdapter() {
 
     override fun configure(httpSecurity: HttpSecurity) {
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/swagger-ui.html", "/webjars/springfox-swagger-ui/**",
-                        "/swagger-resources/**", "/v2/api-docs", "/csrf", "/swagger-ui/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/public/**").permitAll()
-                .antMatchers("/**/public-api/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/v3/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/api/admin/**").hasAnyRole("SUPERUSER", "ORGANIZATION_ADMINISTRATOR")
-                .anyRequest().authenticated();
+            .antMatchers(
+                HttpMethod.GET, "/swagger-ui.html", "/webjars/springfox-swagger-ui/**",
+                "/swagger-resources/**", "/v2/api-docs", "/csrf", "/swagger-ui/**"
+            ).permitAll()
+            .antMatchers(HttpMethod.GET, "/public/**").permitAll()
+            .antMatchers("/**/public-api/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/v3/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+            .antMatchers("/api/**").permitAll()
+            .antMatchers("/api/admin/**").hasAnyRole("SUPERUSER", "ORGANIZATION_ADMINISTRATOR")
+            .anyRequest().authenticated();
     }
 }

@@ -11,13 +11,13 @@ object CustomerBrandingConverter {
         }
 
         return CustomerBrandingDTO(
-                id = customerBranding.id,
-                customerId = customerBranding.id,
-                primaryColour = customerBranding.primaryColour,
-                backgroundColour = customerBranding.backgroundColour,
-                accentColour = customerBranding.accentColour,
-                textColour = customerBranding.textColour,
-                font = customerBranding.font
+            id = customerBranding.id,
+            customerId = customerBranding.id,
+            primaryColour = customerBranding.primaryColour,
+            backgroundColour = customerBranding.backgroundColour,
+            accentColour = customerBranding.accentColour,
+            textColour = customerBranding.textColour,
+            font = customerBranding.font
         )
     }
 }

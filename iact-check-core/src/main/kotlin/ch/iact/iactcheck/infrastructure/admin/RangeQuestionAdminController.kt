@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/api/admin/range-questions")
 internal class RangeQuestionAdminController(
-        private val rangeQuestionService: RangeQuestionService
+    private val rangeQuestionService: RangeQuestionService
 ) {
 
     @PostMapping
@@ -25,16 +25,16 @@ internal class RangeQuestionAdminController(
 
     @PutMapping("/{rangeQuestionId}")
     fun updateRangeQuestionById(
-            @PathVariable("rangeQuestionId") questionId: Long,
-            @RequestBody rangeQuestionDTO: RangeQuestionDTO
+        @PathVariable("rangeQuestionId") questionId: Long,
+        @RequestBody rangeQuestionDTO: RangeQuestionDTO
     ): RangeQuestionDTO {
         return rangeQuestionService.updateRangeQuestionById(questionId, rangeQuestionDTO)
     }
 
     @PutMapping("/{rangeQuestionId}/icon")
     fun uploadIconForRangeQuestion(
-            @PathVariable("rangeQuestionId") questionId: Long,
-            @RequestParam("icon") file: MultipartFile
+        @PathVariable("rangeQuestionId") questionId: Long,
+        @RequestParam("icon") file: MultipartFile
     ) {
         rangeQuestionService.uploadIconForRangeQuestion(questionId, file.bytes)
     }

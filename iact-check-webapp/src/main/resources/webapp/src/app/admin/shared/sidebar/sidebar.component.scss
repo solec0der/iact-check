@@ -1,13 +1,13 @@
 .sidebar-container {
-  min-width: 300px;
+  width: 300px;
   height: calc(100vh - 64px);
 }
 div.footer {
+  overflow: hidden;
   position: absolute;
   bottom: 0;
   text-align: center;
   width: 100%;
-  padding: 5px;
   font-size: 0.75em;
   font-weight: lighter;
 }

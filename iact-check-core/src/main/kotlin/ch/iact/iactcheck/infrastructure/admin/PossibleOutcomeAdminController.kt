@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/api/admin/possible-outcomes")
 internal class PossibleOutcomeAdminController(
-        private val possibleOutcomeService: PossibleOutcomeService
+    private val possibleOutcomeService: PossibleOutcomeService
 ) {
 
     @PostMapping
@@ -25,17 +25,17 @@ internal class PossibleOutcomeAdminController(
 
     @PutMapping("/{possibleOutcomeId}/assets")
     fun uploadThumbnailForPossibleOutcome(
-            @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
-            @RequestParam("thumbnail") thumbnail: MultipartFile,
-            @RequestParam("pdf") pdf: MultipartFile
+        @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
+        @RequestParam("thumbnail") thumbnail: MultipartFile,
+        @RequestParam("pdf") pdf: MultipartFile
     ) {
         possibleOutcomeService.uploadAdditionalAssetsForPossibleOutcome(possibleOutcomeId, thumbnail.bytes, pdf.bytes)
     }
 
     @PutMapping("/{possibleOutcomeId}")
     fun updatePossibleOutcomeById(
-            @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
-            @RequestBody possibleOutcomeDTO: PossibleOutcomeDTO
+        @PathVariable("possibleOutcomeId") possibleOutcomeId: Long,
+        @RequestBody possibleOutcomeDTO: PossibleOutcomeDTO
     ): PossibleOutcomeDTO {
         return possibleOutcomeService.updatePossibleOutcomeById(possibleOutcomeId, possibleOutcomeDTO)
     }

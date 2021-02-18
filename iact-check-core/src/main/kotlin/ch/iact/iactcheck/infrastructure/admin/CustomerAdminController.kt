@@ -3,12 +3,6 @@ package ch.iact.iactcheck.infrastructure.admin
 import ch.iact.iactcheck.dto.CustomerBrandingDTO
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.service.CustomerService
-import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.Content
-import io.swagger.v3.oas.annotations.media.ExampleObject
-import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
@@ -18,7 +12,7 @@ import javax.annotation.security.RolesAllowed
 @RestController
 @RequestMapping("/api/admin/customers")
 internal class CustomerAdminController(
-        private val customerService: CustomerService
+    private val customerService: CustomerService
 ) {
 
     @PostMapping
@@ -30,16 +24,16 @@ internal class CustomerAdminController(
 
     @PostMapping("/{customerId}/branding")
     fun createCustomerBranding(
-            @PathVariable("customerId") customerId: Long,
-            @RequestBody customerBrandingDTO: CustomerBrandingDTO
+        @PathVariable("customerId") customerId: Long,
+        @RequestBody customerBrandingDTO: CustomerBrandingDTO
     ): CustomerBrandingDTO {
         return customerService.createCustomerBranding(customerId, customerBrandingDTO)
     }
 
     @PutMapping("/{customerId}/branding/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun uploadCustomerLogoByCustomerId(
-            @PathVariable("customerId") customerId: Long,
-            @RequestParam("logo") file: MultipartFile
+        @PathVariable("customerId") customerId: Long,
+        @RequestParam("logo") file: MultipartFile
     ) {
         customerService.uploadCustomerLogo(customerId, file.bytes)
     }
@@ -56,16 +50,16 @@ internal class CustomerAdminController(
 
     @PutMapping("/{customerId}")
     fun updateCustomerById(
-            @PathVariable("customerId") customerId: Long,
-            @RequestBody customerDTO: CustomerDTO
+        @PathVariable("customerId") customerId: Long,
+        @RequestBody customerDTO: CustomerDTO
     ): CustomerDTO {
         return customerService.updateCustomerById(customerId, customerDTO)
     }
 
     @PutMapping("/{customerId}/branding")
     fun updateCustomerBrandingByCustomerId(
-            @PathVariable("customerId") customerId: Long,
-            @RequestBody customerBrandingDTO: CustomerBrandingDTO
+        @PathVariable("customerId") customerId: Long,
+        @RequestBody customerBrandingDTO: CustomerBrandingDTO
     ): CustomerBrandingDTO {
         return customerService.updateCustomerBranding(customerId, customerBrandingDTO)
     }

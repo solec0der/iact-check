@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/question-categories")
 internal class QuestionCategoryController(
-        private val questionCategoryService: QuestionCategoryService
+    private val questionCategoryService: QuestionCategoryService
 ) {
 
-    @GetMapping("/{questionCategoryId}/thumbnail",  produces = [MediaType.IMAGE_PNG_VALUE])
+    @GetMapping("/{questionCategoryId}/thumbnail", produces = [MediaType.IMAGE_PNG_VALUE])
     fun getThumbnailByQuestionCategoryId(@PathVariable("questionCategoryId") questionCategoryId: Long): ByteArray {
         return questionCategoryService.getThumbnailByQuestionCategoryId(questionCategoryId)
     }

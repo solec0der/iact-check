@@ -7,15 +7,15 @@ object PossibleOutcomeConverter {
 
     fun convertPossibleOutcomeToDTO(possibleOutcome: PossibleOutcome): PossibleOutcomeDTO {
         return PossibleOutcomeDTO(
-                id = possibleOutcome.id,
-                questionCategoryId = possibleOutcome.questionCategory.id,
-                title = possibleOutcome.title,
-                subtitle = possibleOutcome.subtitle,
-                description = possibleOutcome.description,
-                youtubeUrl = possibleOutcome.youtubeUrl,
-                possibleScores = possibleOutcome.possibleScores.map {
-                    PossibleScoreConverter.convertPossibleScoreToDTO(it)
-                }.toList()
+            id = possibleOutcome.id,
+            questionCategoryId = possibleOutcome.questionCategory.id,
+            title = possibleOutcome.title,
+            subtitle = possibleOutcome.subtitle,
+            description = possibleOutcome.description,
+            youtubeUrl = possibleOutcome.youtubeUrl,
+            possibleScores = possibleOutcome.possibleScores.map {
+                PossibleScoreConverter.convertPossibleScoreToDTO(it)
+            }.toList()
         )
     }
 }

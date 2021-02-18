@@ -15,7 +15,8 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.any
 import org.mockito.junit.MockitoJUnitRunner
 import org.springframework.boot.test.context.SpringBootTest
 import java.util.*
@@ -35,7 +36,11 @@ class RangeRangeQuestionServiceTest {
 
     @Test
     fun shouldCreateQuestionAndReturnCreatedQuestion() {
-        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(QuestionCategoryTestData.questionCategory))
+        `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
+            Optional.of(
+                QuestionCategoryTestData.questionCategory
+            )
+        )
         `when`(rangeQuestionRepository!!.save(any(RangeQuestion::class.java))).thenReturn(RangeQuestionTestData.question)
 
         val actual = rangeQuestionService!!.createRangeQuestion(RangeQuestionTestData.questionDTO)
@@ -57,13 +62,13 @@ class RangeRangeQuestionServiceTest {
         `when`(rangeQuestionRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(Optional.of(RangeQuestionTestData.question))
 
         val updatedQuestionDTO = RangeQuestionTestData.questionDTO.copy(
-                questionText = "new question text",
-                rangeSteps = emptyList()
+            questionText = "new question text",
+            rangeSteps = emptyList()
         )
 
         val updatedQuestion = RangeQuestionTestData.question.copy(
-                questionText = "new question text",
-                rangeSteps = emptyList()
+            questionText = "new question text",
+            rangeSteps = emptyList()
         )
 
         `when`(rangeQuestionRepository.save(any(RangeQuestion::class.java))).thenReturn(updatedQuestion)

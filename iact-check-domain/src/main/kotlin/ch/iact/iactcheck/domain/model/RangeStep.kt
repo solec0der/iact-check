@@ -5,13 +5,13 @@ import javax.persistence.*
 @Entity
 @Table(name = "range_step")
 data class RangeStep(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
-        @ManyToOne
-        val rangeQuestion: RangeQuestion,
+    @ManyToOne
+    val rangeQuestion: RangeQuestion,
 
-        val score: Int,
-        val description: String?
+    val score: Int,
+    val description: String?
 )

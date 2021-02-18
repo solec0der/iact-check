@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class CheckService(
-        private val checkRepository: CheckRepository,
-        private val customerRepository: CustomerRepository
+    private val checkRepository: CheckRepository,
+    private val customerRepository: CustomerRepository
 ) {
 
     fun createCheck(checkDTO: CheckDTO): CheckDTO {
@@ -22,16 +22,17 @@ class CheckService(
             throw FromDateAfterToDateException()
         }
 
-        val customer = customerRepository.findById(checkDTO.customerId).orElseThrow { throw CustomerNotFoundException() }
+        val customer =
+            customerRepository.findById(checkDTO.customerId).orElseThrow { throw CustomerNotFoundException() }
 
         val check = Check(
-                id = -1,
-                customer = customer,
-                title = checkDTO.title,
-                language = Language.findLanguageByLocale(checkDTO.language.locale),
-                activeFrom = checkDTO.activeFrom,
-                activeTo = checkDTO.activeTo,
-                questionCategories = emptyList()
+            id = -1,
+            customer = customer,
+            title = checkDTO.title,
+            language = Language.findLanguageByLocale(checkDTO.language.locale),
+            activeFrom = checkDTO.activeFrom,
+            activeTo = checkDTO.activeTo,
+            questionCategories = emptyList()
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))
@@ -47,7 +48,7 @@ class CheckService(
 
     fun getCheckById(checkId: Long): CheckDTO {
         return CheckConverter.convertCheckToDTO(
-                checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
+            checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
         )
     }
 
@@ -59,10 +60,10 @@ class CheckService(
         var check = checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
 
         check = check.copy(
-                title = checkDTO.title,
-                language = Language.findLanguageByLocale(checkDTO.language.locale),
-                activeFrom = checkDTO.activeFrom,
-                activeTo = checkDTO.activeTo
+            title = checkDTO.title,
+            language = Language.findLanguageByLocale(checkDTO.language.locale),
+            activeFrom = checkDTO.activeFrom,
+            activeTo = checkDTO.activeTo
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))

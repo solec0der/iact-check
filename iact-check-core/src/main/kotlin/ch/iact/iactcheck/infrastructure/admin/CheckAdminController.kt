@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/admin/checks")
 internal class CheckAdminController(
-        private val checkService: CheckService
+    private val checkService: CheckService
 ) {
 
     @PostMapping

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api")
 internal class CheckController(
-        private val checkService: CheckService
+    private val checkService: CheckService
 ) {
 
     @GetMapping("/customers/{customerId}/checks")

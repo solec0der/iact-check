@@ -13,9 +13,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
-@OpenAPIDefinition(info = Info(
+@OpenAPIDefinition(
+    info = Info(
         title = "Iact-Check Private API Documentation"
-))
+    )
+)
 class PrivateOpenApiConfiguration {
 
     @Value("\${info.app.version:?}")
@@ -35,16 +37,16 @@ class PrivateOpenApiConfiguration {
         securityRequirement.addList("Basic")
 
         return GroupedOpenApi.builder()
-                .setGroup("private")
-                .addOpenApiCustomiser {
-                    it.info.title = title
-                    it.info.version = version
-                    it.info.description = description
-                    it.schemaRequirement("Basic", securityScheme)
-                    it.addSecurityItem(securityRequirement)
-                }
-                .packagesToScan("$basePackage.infrastructure", "$basePackage.dto")
-                .build()
+            .setGroup("private")
+            .addOpenApiCustomiser {
+                it.info.title = title
+                it.info.version = version
+                it.info.description = description
+                it.schemaRequirement("Basic", securityScheme)
+                it.addSecurityItem(securityRequirement)
+            }
+            .packagesToScan("$basePackage.infrastructure", "$basePackage.dto")
+            .build()
     }
 
     @Bean
