@@ -1,91 +1,92 @@
-<div class="display-flex-space-between margin-bottom-after-title">
-  <div>
-    <h1>{{'CUSTOMERS.CUSTOMERS' | translate}}</h1>
+<mat-card>
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <mat-card-title>{{'CUSTOMERS.CUSTOMERS' | translate}}</mat-card-title>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.reload()">
+        <mat-icon>refresh</mat-icon>
+        {{'SHARED.RELOAD' | translate}}
+      </button>
+    </div>
   </div>
-  <div>
-    <button mat-stroked-button (click)="this.reload()">
-      <mat-icon>refresh</mat-icon>
-      {{'SHARED.RELOAD' | translate}}
-    </button>
-  </div>
-</div>
-
-<mat-card class="mat-elevation-z2">
-  <table mat-table [dataSource]="this.customers" class="full-width">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.NAME' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-    <ng-container matColumnDef="primaryColour">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.PRIMARY_COLOUR' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element">
+  <mat-card-content>
+    <table mat-table [dataSource]="this.customers" class="full-width">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.NAME' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="primaryColour">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.PRIMARY_COLOUR' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element">
         <span class="color-preview-dot" *ngIf="element.customerBranding"
               [style.background-color]="element.customerBranding.primaryColour"></span>
-        {{element.customerBranding ? element.customerBranding.primaryColour : ''}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="backgroundColour">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.BACKGROUND_COLOUR' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element">
+          {{element.customerBranding ? element.customerBranding.primaryColour : ''}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="backgroundColour">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.BACKGROUND_COLOUR' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element">
         <span class="color-preview-dot" *ngIf="element.customerBranding"
               [style.background-color]="element.customerBranding.backgroundColour"></span>
-        {{element.customerBranding ? element.customerBranding.backgroundColour : ''}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="accentColour">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.ACCENT_COLOUR' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element">
+          {{element.customerBranding ? element.customerBranding.backgroundColour : ''}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="accentColour">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.ACCENT_COLOUR' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element">
         <span class="color-preview-dot" *ngIf="element.customerBranding"
               [style.background-color]="element.customerBranding.accentColour"></span>
-        {{element.customerBranding ? element.customerBranding.accentColour : ''}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="textColour">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.TEXT_COLOUR' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element">
+          {{element.customerBranding ? element.customerBranding.accentColour : ''}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="textColour">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.TEXT_COLOUR' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element">
         <span class="color-preview-dot" *ngIf="element.customerBranding"
               [style.background-color]="element.customerBranding.textColour"></span>
-        {{element.customerBranding ? element.customerBranding.textColour : ''}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="font">
-      <th mat-header-cell *matHeaderCellDef>
-        {{'CUSTOMERS.FONT' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.customerBranding ? element.customerBranding.font : ''}}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef style="text-align: right">
-        {{'SHARED.ACTIONS' | translate}}
-      </th>
-      <td mat-cell *matCellDef="let element" style="text-align: right">
-        <button mat-icon-button [routerLink]="[element.id, 'edit']">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="this.showCustomerDeletionDialog(element.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+          {{element.customerBranding ? element.customerBranding.textColour : ''}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="font">
+        <th mat-header-cell *matHeaderCellDef>
+          {{'CUSTOMERS.FONT' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.customerBranding ? element.customerBranding.font : ''}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="text-align: right">
+          {{'SHARED.ACTIONS' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: right">
+          <button mat-icon-button [routerLink]="[element.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="this.showCustomerDeletionDialog(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="this.displayedColumnsCustomers"></tr>
-    <tr mat-row *matRowDef="let row; columns: this.displayedColumnsCustomers;"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="this.displayedColumnsCustomers"></tr>
+      <tr mat-row *matRowDef="let row; columns: this.displayedColumnsCustomers;"></tr>
+    </table>
+  </mat-card-content>
 </mat-card>
 

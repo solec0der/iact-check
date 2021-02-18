@@ -1,8 +1,8 @@
-<div *ngIf="this.checkFormGroup">
+<mat-card *ngIf="this.checkFormGroup">
   <div class="display-flex-space-between margin-bottom-after-title">
     <div>
-      <h1 *ngIf="this.action === 'create'">{{'CHECKS.ADD_CHECK' | translate}}</h1>
-      <h1 *ngIf="this.action === 'edit'">{{'CHECKS.EDIT_CHECK' | translate}}</h1>
+      <mat-card-title *ngIf="this.action === 'create'">{{'CHECKS.ADD_CHECK' | translate}}</mat-card-title>
+      <mat-card-title *ngIf="this.action === 'edit'">{{'CHECKS.EDIT_CHECK' | translate}}</mat-card-title>
     </div>
     <div>
       <button mat-stroked-button *ngIf="this.action === 'edit'" (click)="this.showCheckDeletionDialog()"
@@ -17,60 +17,63 @@
       </button>
     </div>
   </div>
+  <mat-card-content>
+    <form [formGroup]="this.checkFormGroup">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'CHECKS.TITLE' | translate}}</mat-label>
+        <mat-error>
+          {{'CHECKS.ERRORS.MISSING_TITLE' | translate}}
+        </mat-error>
+        <label>
+          <input matInput [placeholder]="'CHECKS.PLACEHOLDER.TITLE' | translate" formControlName="title" required/>
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'CHECKS.LANGUAGE' | translate}}</mat-label>
+        <mat-error>
+          {{'CHECKS.ERRORS.MISSING_LANGUAGE' | translate}}
+        </mat-error>
+        <mat-select formControlName="language">
+          <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
+            {{'CHECKS.' + availableLanguage.language | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'CHECKS.ACTIVE_FROM' | translate}}</mat-label>
+        <mat-error>
+          {{'CHECKS.ERRORS.MISSING_OR_INVALID_ACTIVE_FROM' | translate}}
+        </mat-error>
+        <label>
+          <input matInput [ngxMatDatetimePicker]="pickerActiveFrom"
+                 [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_FROM' | translate"
+                 formControlName="activeFrom" required/>
+        </label>
+        <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveFrom)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #pickerActiveFrom [showSeconds]="true"></ngx-mat-datetime-picker>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'CHECKS.ACTIVE_TO' | translate}}</mat-label>
+        <mat-error>
+          {{'CHECKS.ERRORS.MISSING_OR_INVALID_ACTIVE_TO' | translate}}
+        </mat-error>
+        <label>
+          <input matInput [ngxMatDatetimePicker]="pickerActiveTo"
+                 [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_TO' | translate"
+                 formControlName="activeTo" required/>
+        </label>
+        <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveTo)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
+      </mat-form-field>
+    </form>
+    <mat-divider *ngIf="this.checkDTO"></mat-divider>
+    <br/>
+    <app-question-category-list *ngIf="this.checkDTO" [check]="this.checkDTO"></app-question-category-list>
+  </mat-card-content>
 
-  <form [formGroup]="this.checkFormGroup">
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'CHECKS.TITLE' | translate}}</mat-label>
-      <mat-error>
-        {{'CHECKS.ERRORS.MISSING_TITLE' | translate}}
-      </mat-error>
-      <label>
-        <input matInput [placeholder]="'CHECKS.PLACEHOLDER.TITLE' | translate" formControlName="title" required/>
-      </label>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'CHECKS.LANGUAGE' | translate}}</mat-label>
-      <mat-error>
-        {{'CHECKS.ERRORS.MISSING_LANGUAGE' | translate}}
-      </mat-error>
-      <mat-select formControlName="language">
-        <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
-          {{'CHECKS.' + availableLanguage.language | translate}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'CHECKS.ACTIVE_FROM' | translate}}</mat-label>
-      <mat-error>
-        {{'CHECKS.ERRORS.MISSING_OR_INVALID_ACTIVE_FROM' | translate}}
-      </mat-error>
-      <label>
-        <input matInput [ngxMatDatetimePicker]="pickerActiveFrom"
-               [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_FROM' | translate"
-               formControlName="activeFrom" required/>
-      </label>
-      <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveFrom)"></mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerActiveFrom [showSeconds]="true"></ngx-mat-datetime-picker>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'CHECKS.ACTIVE_TO' | translate}}</mat-label>
-      <mat-error>
-        {{'CHECKS.ERRORS.MISSING_OR_INVALID_ACTIVE_TO' | translate}}
-      </mat-error>
-      <label>
-        <input matInput [ngxMatDatetimePicker]="pickerActiveTo"
-               [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_TO' | translate"
-               formControlName="activeTo" required/>
-      </label>
-      <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveTo)"></mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
-    </mat-form-field>
-  </form>
-  <mat-divider *ngIf="this.checkDTO"></mat-divider>
-  <br/>
-  <app-question-category-list *ngIf="this.checkDTO" [check]="this.checkDTO"></app-question-category-list>
-</div>
-
+  <mat-card-actions>
+  </mat-card-actions>
+</mat-card>
