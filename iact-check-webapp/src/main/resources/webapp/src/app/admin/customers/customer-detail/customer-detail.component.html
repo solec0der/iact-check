@@ -16,7 +16,7 @@
         {{'SHARED.SAVE' | translate}}
       </button>
       <button mat-stroked-button *ngIf="this.action === 'edit'" (click)="this.save()"
-              [disabled]="this.customerFormGroup.invalid || this.customerBrandingFormGroup.invalid">
+              [disabled]="this.customerFormGroup.invalid || this.customerBrandingFormGroup.invalid || this.customerUserRegistrationFieldsFormArray.invalid">
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
       </button>
@@ -39,6 +39,13 @@
           [customerBrandingFormGroup]="this.customerBrandingFormGroup"
           [logo]="this.logo"
         ></app-customer-branding>
+      </mat-tab>
+      <mat-tab [label]="'CUSTOMERS.USER_REGISTRATION_FIELDS' | translate" *ngIf="this.action === 'edit'">
+        <br>
+        <app-customer-user-registration-fields
+          [customer]="this.customerDTO"
+          [customerUserRegistrationFieldFormArray]="this.customerUserRegistrationFieldsFormArray"
+        ></app-customer-user-registration-fields>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

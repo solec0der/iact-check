@@ -1,0 +1,27 @@
+<ng-container
+  *ngFor="let customerUserRegistrationFieldFormGroup of this.customerUserRegistrationFieldFormArray.controls; let i = index;">
+
+  <div [formGroup]="$any(customerUserRegistrationFieldFormGroup)" class="display-flex-space-between half-width"
+       style="align-items: baseline">
+    <div style="width: 33%;">
+      <p
+        style="font-size: 1.1em;">{{'USER_REGISTRATION_FIELDS.' + this.userRegistrationFields.userRegistrationFields[i].fieldName | translate}}</p>
+    </div>
+    <div style="width: 45%">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{'USER_REGISTRATION_FIELDS.VALIDATION_REGEX' | translate}}</mat-label>
+        <mat-error>
+          {{'USER_REGISTRATION_FIELDS.ERRORS.MISSING_VALIDATION_REGEX' | translate}}
+        </mat-error>
+        <label>
+          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.VALIDATION_REGEX' | translate"
+                 formControlName="validationRegex"
+                 required/>
+        </label>
+      </mat-form-field>
+    </div>
+    <div style="width: 17%">
+      <mat-slide-toggle formControlName="active" (change)="this.toggleFormGroup($event, i)"></mat-slide-toggle>
+    </div>
+  </div>
+</ng-container>

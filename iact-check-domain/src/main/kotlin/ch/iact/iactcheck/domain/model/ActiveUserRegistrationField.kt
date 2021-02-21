@@ -15,6 +15,5 @@ data class ActiveUserRegistrationField(
     @ManyToOne
     val customer: Customer,
 
-    val validationRegex: String,
-    val position: Int
+    val validationRegex: String
 )

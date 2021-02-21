@@ -1,25 +1,25 @@
 package ch.iact.iactcheck.service
 
-import ch.iact.iactcheck.domain.model.ActiveUserRegistrationField
 import ch.iact.iactcheck.domain.model.Customer
-import ch.iact.iactcheck.domain.model.CustomerBranding
-import ch.iact.iactcheck.domain.model.UserRegistrationFieldRepository
+import ch.iact.iactcheck.domain.repository.ActiveUserRegistrationFieldRepository
+import ch.iact.iactcheck.domain.repository.UserRegistrationFieldRepository
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
-import ch.iact.iactcheck.dto.CustomerBrandingDTO
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.*
 import ch.iact.iactcheck.service.converter.CustomerBrandingConverter
 import ch.iact.iactcheck.service.converter.CustomerConverter
 import ch.iact.iactcheck.service.converter.UserRegistrationFieldConverter
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CustomerService(
     private val userService: UserService,
     private val customerRepository: CustomerRepository,
     private val customerBrandingRepository: CustomerBrandingRepository,
-    private val userRegistrationFieldRepository: UserRegistrationFieldRepository
+    private val userRegistrationFieldRepository: UserRegistrationFieldRepository,
+    private val activeUserRegistrationFieldRepository: ActiveUserRegistrationFieldRepository
 ) {
 
     fun createCustomer(customerDTO: CustomerDTO): CustomerDTO {
@@ -97,6 +97,7 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
+    @Transactional
     fun updateCustomerById(customerId: Long, customerDTO: CustomerDTO): CustomerDTO {
         var customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
 
@@ -113,19 +114,22 @@ class CustomerService(
         )
         updatedCustomerBranding = customerBrandingRepository.save(updatedCustomerBranding!!)
 
+        activeUserRegistrationFieldRepository.deleteAllByCustomerId(customerId)
+
         customer = customer.copy(
             name = customerDTO.name,
             usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess,
             customerBranding = updatedCustomerBranding,
             activeUserRegistrationFields = customerDTO.activeUserRegistrationFields
                 .map {
-                    UserRegistrationFieldConverter.convertActiveUserRegistrationToDomain(
-                        activeUserRegistrationFieldDTO = it,
-                        customer = customer,
-                        userRegistrationField = userRegistrationFieldRepository
-                            .findById(it.userRegistrationFieldId)
-                            .orElseThrow { throw UserRegistrationFieldNotFoundException() }
-                    )
+                    activeUserRegistrationFieldRepository.save(
+                        UserRegistrationFieldConverter.convertActiveUserRegistrationToDomain(
+                            activeUserRegistrationFieldDTO = it,
+                            customer = customer,
+                            userRegistrationField = userRegistrationFieldRepository
+                                .findById(it.userRegistrationFieldId)
+                                .orElseThrow { throw UserRegistrationFieldNotFoundException() }
+                        ))
                 }.toSet()
         )
 

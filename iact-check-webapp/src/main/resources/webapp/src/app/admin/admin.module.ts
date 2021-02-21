@@ -25,6 +25,7 @@ import { EmailSettingsComponent } from './customers/customer-detail/customer-set
 import { TextSettingsComponent } from './customers/customer-detail/customer-settings/text-settings/text-settings.component';
 import { CustomerSettingsComponent } from './customers/customer-detail/customer-settings/customer-settings.component';
 import { CustomerGeneralComponent } from './customers/customer-detail/customer-general/customer-general.component';
+import { CustomerUserRegistrationFieldsComponent } from './customers/customer-detail/customer-user-registration-fields/customer-user-registration-fields.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CustomerGeneralComponent } from './customers/customer-detail/customer-g
     TextSettingsComponent,
     CustomerSettingsComponent,
     CustomerGeneralComponent,
+    CustomerUserRegistrationFieldsComponent,
   ],
   imports: [
     CommonModule,

@@ -11,8 +11,7 @@ object UserRegistrationFieldConverter {
     fun convertUserRegistrationToDTO(userRegistrationField: UserRegistrationField): UserRegistrationFieldDTO {
         return UserRegistrationFieldDTO(
             id = userRegistrationField.id,
-            fieldName = userRegistrationField.fieldName,
-            required = userRegistrationField.required
+            fieldName = userRegistrationField.fieldName
         )
     }
 
@@ -20,8 +19,7 @@ object UserRegistrationFieldConverter {
         return ActiveUserRegistrationFieldDTO(
             id = activeUserRegistrationField.id,
             userRegistrationFieldId = activeUserRegistrationField.userRegistrationField.id,
-            validationRegex = activeUserRegistrationField.validationRegex,
-            position = activeUserRegistrationField.position
+            validationRegex = activeUserRegistrationField.validationRegex
         )
     }
 
@@ -34,8 +32,7 @@ object UserRegistrationFieldConverter {
             id = -1,
             userRegistrationField = userRegistrationField,
             customer = customer,
-            validationRegex = activeUserRegistrationFieldDTO.validationRegex,
-            position = activeUserRegistrationFieldDTO.position
+            validationRegex = activeUserRegistrationFieldDTO.validationRegex
         )
     }
 }

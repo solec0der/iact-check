@@ -10,9 +10,25 @@ data class UserRegistrationField(
     val id: Long,
 
     val fieldName: String,
-    val required: Boolean,
 
     @OneToMany(targetEntity = ActiveUserRegistrationField::class, mappedBy = "userRegistrationField")
     val activeUserRegistrationFields: Set<ActiveUserRegistrationField>
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-)
+        other as UserRegistrationField
+
+        if (id != other.id) return false
+        if (fieldName != other.fieldName) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + fieldName.hashCode()
+        return result
+    }
+}

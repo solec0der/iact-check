@@ -30,6 +30,7 @@
     "USERS_WITH_ACCESS": "Benutzer mit Zugriff",
     "ADD_CUSTOMER": "Kunde erstellen",
     "EDIT_CUSTOMER": "Kunde bearbeiten",
+    "USER_REGISTRATION_FIELDS": "Registrierungs-Felder",
     "PLACEHOLDER": {
       "NAME": "Bitte Namen des Kunden eingeben",
       "PRIMARY_COLOUR": "Bitte Primärfarbe des Kunden wählen",
@@ -179,6 +180,7 @@
     }
   },
   "QUESTIONS": {
+    "QUESTIONS": "Fragen",
     "CREATE_QUESTION": "Frage erstellen",
     "QUESTION_TEXT": "Frage",
     "RANGE_QUESTIONS": "Slider Fragen",
@@ -255,6 +257,22 @@
   },
   "USER": {
     "USERNAME": "Benutzername"
+  },
+  "USER_REGISTRATION_FIELDS": {
+    "VALIDATION_REGEX": "Validierungs-Muster",
+    "FIRST_NAME": "Vorname",
+    "LAST_NAME": "Nachname",
+    "STREET": "Strasse",
+    "ZIP_CODE": "PLZ",
+    "CITY": "Ort",
+    "PHONE_NUMBER": "Telefon-Nummer",
+    "EMAIL": "E-Mail",
+    "PLACEHOLDER": {
+      "VALIDATION_REGEX": "Bitte Validaierungs-Muster eingeben"
+    },
+    "ERRORS": {
+      "MISSING_VALIDATION_REGEX": "Bitte Validierungs-Muster eingeben"
+    }
   },
   "ERROR_MESSAGES": {
     "BAD_REQUEST": "Fehler 400 | Ungültige Anfrage",

@@ -7,10 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActiveCustomerService } from '../../shared/services/active-customer.service';
 import { ConfirmDialogComponent } from '../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { map, mergeMap } from 'rxjs/operators';
 import { FileReaderUtil } from '../../shared/util/file-reader.util';
+import { ActiveUserRegistrationFieldDTO } from '../../shared/dtos/active-user-registration-field-dto';
 
 @Component({
   selector: 'app-customer-detail',
@@ -22,6 +23,7 @@ export class CustomerDetailComponent implements OnInit {
   public customerId: number = -1;
   public customerFormGroup!: FormGroup;
   public customerBrandingFormGroup!: FormGroup;
+  public customerUserRegistrationFieldsFormArray!: FormArray;
   public usersWithAccess: string[] = [];
 
   public logo!: File;
@@ -48,6 +50,7 @@ export class CustomerDetailComponent implements OnInit {
     } else {
       this.createCustomerFromGroup();
     }
+    this.createCustomerUserRegistrationFieldsFormArray();
   }
 
   public save(): void {
@@ -153,7 +156,9 @@ export class CustomerDetailComponent implements OnInit {
     const customerDTO: CustomerDTO = {
       name: this.customerFormGroup.value.name,
       usersWithAccess: this.usersWithAccess,
-      activeUserRegistrationFields: [],
+      activeUserRegistrationFields: this.getActiveUserRegistrationFieldsFromFormArray(
+        this.customerUserRegistrationFieldsFormArray
+      ),
       customerBranding: {
         id: this.customerDTO.customerBranding?.id!,
         customerId: this.customerId,
@@ -192,6 +197,23 @@ export class CustomerDetailComponent implements OnInit {
           }
         );
       });
+  }
+
+  private getActiveUserRegistrationFieldsFromFormArray(
+    userRegistrationFieldFormArray: FormArray
+  ): ActiveUserRegistrationFieldDTO[] {
+    const activeUserRegistrationFields: ActiveUserRegistrationFieldDTO[] = [];
+    userRegistrationFieldFormArray.controls.forEach((formGroup) => {
+      if (formGroup.get('active')?.value) {
+        activeUserRegistrationFields.push({
+          id: -1,
+          userRegistrationFieldId: formGroup.value.userRegistrationFieldId,
+          position: 1,
+          validationRegex: formGroup.value.validationRegex,
+        });
+      }
+    });
+    return activeUserRegistrationFields;
   }
 
   private createCustomerFromGroup(): void {
@@ -253,5 +275,9 @@ export class CustomerDetailComponent implements OnInit {
         Validators.required
       ),
     });
+  }
+
+  private createCustomerUserRegistrationFieldsFormArray(): void {
+    this.customerUserRegistrationFieldsFormArray = new FormArray([]);
   }
 }
