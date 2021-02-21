@@ -1,21 +1,25 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.domain.model.Customer
-import ch.iact.iactcheck.domain.model.CustomerBranding
+import ch.iact.iactcheck.domain.repository.ActiveUserRegistrationFieldRepository
+import ch.iact.iactcheck.domain.repository.UserRegistrationFieldRepository
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
-import ch.iact.iactcheck.dto.CustomerBrandingDTO
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.*
 import ch.iact.iactcheck.service.converter.CustomerBrandingConverter
 import ch.iact.iactcheck.service.converter.CustomerConverter
+import ch.iact.iactcheck.service.converter.UserRegistrationFieldConverter
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CustomerService(
     private val userService: UserService,
     private val customerRepository: CustomerRepository,
-    private val customerBrandingRepository: CustomerBrandingRepository
+    private val customerBrandingRepository: CustomerBrandingRepository,
+    private val userRegistrationFieldRepository: UserRegistrationFieldRepository,
+    private val activeUserRegistrationFieldRepository: ActiveUserRegistrationFieldRepository
 ) {
 
     fun createCustomer(customerDTO: CustomerDTO): CustomerDTO {
@@ -28,36 +32,11 @@ class CustomerService(
             name = customerDTO.name,
             usersWithAccess = customerDTO.usersWithAccess,
             checks = emptyList(),
-            customerBranding = null
+            customerBranding = null,
+            activeUserRegistrationFields = emptySet()
         )
 
         return CustomerConverter.convertCustomerToDTO(customerRepository.save(customer))
-    }
-
-    fun createCustomerBranding(customerId: Long, customerBrandingDTO: CustomerBrandingDTO): CustomerBrandingDTO {
-        if (customerBrandingRepository.existsById(customerId)) {
-            throw CustomerBrandingAlreadyExistsException()
-        }
-
-        val customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
-
-        if (!isLoggedInUserAllowedToModifyCustomer(customer)) {
-            throw ForbiddenException()
-        }
-
-        val customerBranding = CustomerBranding(
-            id = -1,
-            primaryColour = customerBrandingDTO.primaryColour,
-            backgroundColour = customerBrandingDTO.backgroundColour,
-            accentColour = customerBrandingDTO.accentColour,
-            textColour = customerBrandingDTO.textColour,
-            font = customerBrandingDTO.font,
-            customer = customer
-        )
-
-        return CustomerBrandingConverter.convertCustomerBrandingToDTO(
-            customerBrandingRepository.save(customerBranding)
-        )!!
     }
 
     fun getCustomers(): List<CustomerDTO> {
@@ -118,6 +97,7 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
+    @Transactional
     fun updateCustomerById(customerId: Long, customerDTO: CustomerDTO): CustomerDTO {
         var customer = customerRepository.findById(customerId).orElseThrow { throw CustomerNotFoundException() }
 
@@ -128,10 +108,29 @@ class CustomerService(
         if (customer.name != customerDTO.name && customerRepository.existsByName(customerDTO.name)) {
             throw CustomerAlreadyExistsException()
         }
+        var updatedCustomerBranding = CustomerBrandingConverter.convertCustomerBrandingToDomain(
+            customerDTO.customerBranding,
+            customer
+        )
+        updatedCustomerBranding = customerBrandingRepository.save(updatedCustomerBranding!!)
+
+        activeUserRegistrationFieldRepository.deleteAllByCustomerId(customerId)
 
         customer = customer.copy(
             name = customerDTO.name,
-            usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess
+            usersWithAccess = if (userService.isLoggedInUserSuperUser()) customerDTO.usersWithAccess else customer.usersWithAccess,
+            customerBranding = updatedCustomerBranding,
+            activeUserRegistrationFields = customerDTO.activeUserRegistrationFields
+                .map {
+                    activeUserRegistrationFieldRepository.save(
+                        UserRegistrationFieldConverter.convertActiveUserRegistrationToDomain(
+                            activeUserRegistrationFieldDTO = it,
+                            customer = customer,
+                            userRegistrationField = userRegistrationFieldRepository
+                                .findById(it.userRegistrationFieldId)
+                                .orElseThrow { throw UserRegistrationFieldNotFoundException() }
+                        ))
+                }.toSet()
         )
 
         customer = customerRepository.save(customer)
@@ -141,28 +140,6 @@ class CustomerService(
         }
 
         return CustomerConverter.convertCustomerToDTO(customer)
-    }
-
-
-    fun updateCustomerBranding(customerId: Long, customerBrandingDTO: CustomerBrandingDTO): CustomerBrandingDTO {
-        var customerBranding = customerBrandingRepository.findByCustomerId(customerId)
-            .orElseThrow { throw CustomerBrandingNotFoundException() }
-
-        if (!isLoggedInUserAllowedToModifyCustomer(customerBranding.customer)) {
-            throw ForbiddenException()
-        }
-
-        customerBranding = customerBranding.copy(
-            primaryColour = customerBrandingDTO.primaryColour,
-            backgroundColour = customerBrandingDTO.backgroundColour,
-            accentColour = customerBrandingDTO.accentColour,
-            textColour = customerBrandingDTO.textColour,
-            font = customerBrandingDTO.font
-        )
-
-        return CustomerBrandingConverter.convertCustomerBrandingToDTO(
-            customerBrandingRepository.save(customerBranding)
-        )!!
     }
 
     fun deleteCustomerById(customerId: Long) {

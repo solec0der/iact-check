@@ -22,14 +22,6 @@ internal class CustomerAdminController(
         return customerService.createCustomer(customerDTO)
     }
 
-    @PostMapping("/{customerId}/branding")
-    fun createCustomerBranding(
-        @PathVariable("customerId") customerId: Long,
-        @RequestBody customerBrandingDTO: CustomerBrandingDTO
-    ): CustomerBrandingDTO {
-        return customerService.createCustomerBranding(customerId, customerBrandingDTO)
-    }
-
     @PutMapping("/{customerId}/branding/logo", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun uploadCustomerLogoByCustomerId(
         @PathVariable("customerId") customerId: Long,
@@ -54,14 +46,6 @@ internal class CustomerAdminController(
         @RequestBody customerDTO: CustomerDTO
     ): CustomerDTO {
         return customerService.updateCustomerById(customerId, customerDTO)
-    }
-
-    @PutMapping("/{customerId}/branding")
-    fun updateCustomerBrandingByCustomerId(
-        @PathVariable("customerId") customerId: Long,
-        @RequestBody customerBrandingDTO: CustomerBrandingDTO
-    ): CustomerBrandingDTO {
-        return customerService.updateCustomerBranding(customerId, customerBrandingDTO)
     }
 
     @DeleteMapping("/{customerId}")

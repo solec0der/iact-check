@@ -10,7 +10,8 @@ object CustomerTestData {
         name = "EXPOFORMER",
         usersWithAccess = emptySet(),
         checks = emptyList(),
-        customerBranding = null
+        customerBranding = null,
+        activeUserRegistrationFields = emptySet()
     )
 
     val customer2 = Customer(
@@ -18,7 +19,8 @@ object CustomerTestData {
         name = "POLYPOINT",
         usersWithAccess = emptySet(),
         checks = emptyList(),
-        customerBranding = null
+        customerBranding = null,
+        activeUserRegistrationFields = emptySet()
     )
 
     val customer3NoLogo = Customer(
@@ -26,18 +28,21 @@ object CustomerTestData {
         name = "POLYPOINT",
         usersWithAccess = setOf(UserTestData.userDTO2.userId),
         checks = emptyList(),
-        customerBranding = null
+        customerBranding = null,
+        activeUserRegistrationFields = emptySet()
     )
 
     val customerDTO = CustomerDTO(
         id = 1L,
         name = "EXPOFORMER",
-        usersWithAccess = emptySet()
+        usersWithAccess = emptySet(),
+        activeUserRegistrationFields = emptySet()
     )
 
     val customer2DTO = CustomerDTO(
         id = 2L,
         name = "POLYPOINT",
-        usersWithAccess = emptySet()
+        usersWithAccess = emptySet(),
+        activeUserRegistrationFields = emptySet()
     )
 }

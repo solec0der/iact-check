@@ -32,13 +32,6 @@ export const CUSTOMER_MENU_ITEMS: MenuItem[] = [
     rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
   },
   {
-    displayValue: 'SIDEBAR.CUSTOMER_BRANDING',
-    routerLink: 'customers/{customerId}/branding',
-    icon: 'invert_colors',
-    isSubMenuItem: false,
-    rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
-  },
-  {
     displayValue: 'SIDEBAR.CHECKS',
     routerLink: 'customers/{customerId}/checks',
     icon: 'assignment_turned_in',

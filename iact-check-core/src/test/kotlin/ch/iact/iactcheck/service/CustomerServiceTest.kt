@@ -2,12 +2,16 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.Customer
+import ch.iact.iactcheck.domain.model.CustomerBranding
+import ch.iact.iactcheck.domain.repository.ActiveUserRegistrationFieldRepository
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
+import ch.iact.iactcheck.domain.repository.UserRegistrationFieldRepository
 import ch.iact.iactcheck.dto.CustomerDTO
 import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
 import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
 import ch.iact.iactcheck.infrastructure.exception.ForbiddenException
+import ch.iact.iactcheck.service.converter.CustomerBrandingConverter
 import ch.iact.iactcheck.testdata.CustomerTestData
 import ch.iact.iactcheck.testdata.UserTestData
 import org.junit.Assert
@@ -35,6 +39,12 @@ class CustomerServiceTest {
     private val customerRepository: CustomerRepository? = null
 
     @Mock
+    private val userRegistrationFieldRepository: UserRegistrationFieldRepository? = null
+
+    @Mock
+    private val activeUserRegistrationFieldRepository: ActiveUserRegistrationFieldRepository? = null
+
+    @Mock
     private val customerBrandingRepository: CustomerBrandingRepository? = null
 
     @Test
@@ -42,7 +52,8 @@ class CustomerServiceTest {
         val input = CustomerDTO(
             id = 0L,
             name = "EXPOFORMER",
-            usersWithAccess = emptySet()
+            usersWithAccess = emptySet(),
+            activeUserRegistrationFields = emptySet()
         )
 
         `when`(customerRepository!!.existsByName("EXPOFORMER")).thenReturn(false)
@@ -119,30 +130,6 @@ class CustomerServiceTest {
             customerService!!.uploadCustomerLogo(1L, ByteArray(100))
         }
     }
-
-    @Test
-    fun shouldUpdateCustomerById() {
-        `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer))
-        `when`(userService!!.getLoggedInUser()).thenReturn(UserTestData.userDTO)
-        `when`(userService.isLoggedInUserSuperUser()).thenReturn(true)
-
-        val updatedCustomerDTO = CustomerTestData.customerDTO.copy(
-            name = "New name",
-            usersWithAccess = emptySet()
-        )
-
-        val updatedCustomer = CustomerTestData.customer.copy(
-            name = "New name",
-            usersWithAccess = emptySet()
-        )
-
-        `when`(customerRepository.save(eq(updatedCustomer))).thenReturn(updatedCustomer)
-
-        val actual = customerService!!.updateCustomerById(1L, updatedCustomerDTO)
-
-        Assert.assertEquals(updatedCustomerDTO, actual)
-    }
-
     @Test
     fun shouldThrowForbiddenExceptionWhenUpdatingCustomerWithoutAccess() {
         `when`(customerRepository!!.findById(eq(1L))).thenReturn(Optional.of(CustomerTestData.customer2))

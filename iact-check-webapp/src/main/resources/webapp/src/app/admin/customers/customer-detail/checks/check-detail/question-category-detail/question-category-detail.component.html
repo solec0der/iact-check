@@ -1,17 +1,18 @@
-<div *ngIf="this.questionCategoryFromGroup">
+<mat-card *ngIf="this.questionCategoryFromGroup">
   <div class="display-flex-space-between margin-bottom-after-title">
     <div>
-      <h1 *ngIf="this.action === 'create'">{{'QUESTION_CATEGORIES.ADD_QUESTION_CATEGORY' | translate}}</h1>
-      <h1 *ngIf="this.action === 'edit'">{{'QUESTION_CATEGORIES.EDIT_QUESTION_CATEGORY' | translate}}</h1>
+      <mat-card-title
+        *ngIf="this.action === 'create'">{{'QUESTION_CATEGORIES.ADD_QUESTION_CATEGORY' | translate}}</mat-card-title>
+      <mat-card-title
+        *ngIf="this.action === 'edit'">{{'QUESTION_CATEGORIES.EDIT_QUESTION_CATEGORY' | translate}}</mat-card-title>
     </div>
     <div>
-      <button mat-stroked-button (click)="this.goBackToCheck()"
-              style="margin-right: 10px;">
+      <button mat-stroked-button (click)="this.goBackToCheck()" style="margin-right: 10px;">
         <mat-icon>arrow_back</mat-icon>
         {{'QUESTION_CATEGORIES.BACK_TO_CHECK' | translate}}
       </button>
-      <button mat-stroked-button *ngIf="this.action === 'edit'" (click)="this.showQuestionCategoryDeletionDialog()"
-              style="margin-right: 10px;">
+      <button mat-stroked-button *ngIf="this.action === 'edit'"
+              (click)="this.showQuestionCategoryDeletionDialog()" style="margin-right: 10px;">
         <mat-icon>delete</mat-icon>
         {{'SHARED.DELETE' | translate}}
       </button>
@@ -23,46 +24,50 @@
     </div>
   </div>
 
-  <form [formGroup]="this.questionCategoryFromGroup">
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'QUESTION_CATEGORIES.TITLE' | translate}}</mat-label>
-      <mat-error>
-        {{'QUESTION_CATEGORIES.ERRORS.MISSING_TITLE' | translate}}
-      </mat-error>
-      <label>
-        <input matInput [placeholder]="'QUESTION_CATEGORIES.PLACEHOLDER.TITLE' | translate" formControlName="title"
-               required/>
-      </label>
-    </mat-form-field>
-    <br/>
-    <mat-form-field appearance="outline" class="half-width">
-      <mat-label>{{'QUESTION_CATEGORIES.THUMBNAIL' | translate}}</mat-label>
-      <mat-error>
-        {{'QUESTION_CATEGORIES.ERRORS.MISSING_THUMBNAIL' | translate}}
-      </mat-error>
-      <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*" [required]="true">
-      </ngx-mat-file-input>
-      <mat-hint>{{'QUESTION_CATEGORIES.THUMBNAIL_HINT' | translate}}</mat-hint>
-      <button mat-icon-button matSuffix (click)="this.showThumbnail()" *ngIf="this.thumbnail">
-        <mat-icon>visibility</mat-icon>
-      </button>
-    </mat-form-field>
-  </form>
-  <br/>
-  <mat-divider *ngIf="this.questionCategoryDTO"></mat-divider>
-  <br/>
-  <mat-card class="mat-elevation-z2" *ngIf="this.questionCategoryDTO">
+  <mat-card-content>
     <mat-tab-group>
-      <mat-tab>
-        <ng-template mat-tab-label>{{'QUESTIONS.RANGE_QUESTIONS' | translate}}</ng-template>
-        <br/>
-        <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
+      <mat-tab [label]="'SHARED.GENERAL' | translate">
+        <br>
+        <form [formGroup]="this.questionCategoryFromGroup">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>{{'QUESTION_CATEGORIES.TITLE' | translate}}</mat-label>
+            <mat-error>
+              {{'QUESTION_CATEGORIES.ERRORS.MISSING_TITLE' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'QUESTION_CATEGORIES.PLACEHOLDER.TITLE' | translate"
+                     formControlName="title"
+                     required/>
+            </label>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>{{'QUESTION_CATEGORIES.THUMBNAIL' | translate}}</mat-label>
+            <mat-error>
+              {{'QUESTION_CATEGORIES.ERRORS.MISSING_THUMBNAIL' | translate}}
+            </mat-error>
+            <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*" [required]="true">
+            </ngx-mat-file-input>
+            <mat-hint>{{'QUESTION_CATEGORIES.THUMBNAIL_HINT' | translate}}</mat-hint>
+            <button mat-icon-button matSuffix (click)="this.showThumbnail()" *ngIf="this.thumbnail">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+      <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate">
+        <mat-tab-group *ngIf="this.questionCategoryDTO">
+          <mat-tab [label]="'QUESTIONS.RANGE_QUESTIONS' | translate">
+            <br/>
+            <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-tab>
+      <mat-tab [label]="'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate">
+        <br>
+        <app-possible-outcome-list *ngIf="this.questionCategoryDTO"
+                                   [questionCategory]="this.questionCategoryDTO"></app-possible-outcome-list>
       </mat-tab>
     </mat-tab-group>
-  </mat-card>
-  <mat-divider *ngIf="this.questionCategoryDTO"></mat-divider>
-  <br/>
-  <mat-card class="mat-elevation-z2" *ngIf="this.questionCategoryDTO">
-    <app-possible-outcome-list [questionCategory]="this.questionCategoryDTO"></app-possible-outcome-list>
-  </mat-card>
-</div>
+  </mat-card-content>
+</mat-card>
