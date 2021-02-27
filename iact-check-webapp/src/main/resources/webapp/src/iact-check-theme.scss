@@ -13,9 +13,9 @@ $mat-primary: (
     700 : #0f87c9,
     800 : #0f87c9,
     900 : #0f87c9,
-    A100 : #0f87c9,
+    A100 : #85b0c6,
     A200 : #0f87c9,
-    A400 : #0f87c9,
+    A400 : #5ea0c6,
     A700 : #0f87c9,
     contrast: (
         50 : #ffffff,
@@ -70,7 +70,7 @@ $mat-accent: (
 
 
 
-$iact-check-primary: mat-palette($mat-primary);
+$iact-check-primary: mat-palette($mat-primary, A200, A100, A400);
 $iact-check-accent: mat-palette($mat-accent, A200, A100, A400);
 
 $iact-check-theme: mat-light-theme(

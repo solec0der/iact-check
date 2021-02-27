@@ -1,0 +1,22 @@
+<div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.checkDTO">
+  <div class="check-container">
+    <div class="align-center">
+      <h1>{{this.checkDTO?.title}}</h1>
+      <h3>Wähle eine der Fragekategorien aus</h3>
+    </div>
+
+    <div class="question-categories-container">
+      <div *ngFor="let questionCategory of this.checkDTO?.questionCategories"
+           [style.width]="this.getWidthOfQuestionCategory()"
+           class="question-category-container"
+           (click)="this.selectQuestionCategory(questionCategory)"
+           matRipple
+      >
+        <img [src]="this.getQuestionCategoryThumbnailById(questionCategory.id)" alt="Question-Cateogry"
+             class="full-width" style="margin-bottom: 15px"/>
+
+        <span class="subtitle">{{questionCategory.title}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="full-width-and-height" *ngIf="this.customerDTO">
+  <div>
+    <div class="logo-wrapper">
+      <img class="logo" [src]="this.getCustomerLogoUrl()" alt="Customer-Logo"/>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="full-width" style="position: absolute; bottom: 0;">
+    <mat-progress-bar style="height: 10px;" mode="determinate" color="primary"
+                      [value]="this.currentProgressPercentage"></mat-progress-bar>
+  </div>
+</div>
+

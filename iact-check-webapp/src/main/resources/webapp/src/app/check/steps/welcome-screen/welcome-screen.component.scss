@@ -1,0 +1,15 @@
+.question-categories-container {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: 45px auto 0;
+}
+
+.question-category-container {
+  text-align: center;
+  cursor: pointer;
+}
+
+.subtitle {
+  font-size: 1.25em;
+}
