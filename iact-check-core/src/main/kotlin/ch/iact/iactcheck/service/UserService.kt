@@ -1,7 +1,7 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.dto.UserDTO
-import ch.iact.iactcheck.infrastructure.exception.UserNotLoggedInException
+import ch.iact.iactcheck.controller.exception.UserNotLoggedInException
 import org.keycloak.KeycloakPrincipal
 import org.keycloak.representations.AccessToken
 import org.springframework.security.core.context.SecurityContextHolder

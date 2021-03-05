@@ -1,13 +1,13 @@
 package ch.iact.iactcheck.service
 
+import ch.iact.iactcheck.controller.exception.CheckNotFoundException
+import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
+import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.domain.model.Check
 import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CheckDTO
-import ch.iact.iactcheck.infrastructure.exception.CheckNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.service.converter.CheckConverter
 import org.springframework.stereotype.Service
 
@@ -22,8 +22,9 @@ class CheckService(
             throw FromDateAfterToDateException()
         }
 
-        val customer =
-            customerRepository.findById(checkDTO.customerId).orElseThrow { throw CustomerNotFoundException() }
+        val customer = customerRepository
+            .findById(checkDTO.customerId)
+            .orElseThrow { throw CustomerNotFoundException() }
 
         val check = Check(
             id = -1,

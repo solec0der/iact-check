@@ -51,6 +51,11 @@ export class CheckStateService {
     return this.currentProgressPercentage.asObservable();
   }
 
+  public setStep(step: number, currentRoute: ActivatedRoute): void {
+    this.currentStep = step;
+    this.navigateToCurrentStep(currentRoute);
+  }
+
   public previousStep(currentRoute: ActivatedRoute): void {
     this.currentStep--;
     this.navigateToCurrentStep(currentRoute);

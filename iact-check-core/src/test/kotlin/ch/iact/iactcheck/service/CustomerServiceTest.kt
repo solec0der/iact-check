@@ -2,16 +2,14 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.Customer
-import ch.iact.iactcheck.domain.model.CustomerBranding
 import ch.iact.iactcheck.domain.repository.ActiveUserRegistrationFieldRepository
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.domain.repository.UserRegistrationFieldRepository
 import ch.iact.iactcheck.dto.CustomerDTO
-import ch.iact.iactcheck.infrastructure.exception.CustomerAlreadyExistsException
-import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.ForbiddenException
-import ch.iact.iactcheck.service.converter.CustomerBrandingConverter
+import ch.iact.iactcheck.controller.exception.CustomerAlreadyExistsException
+import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
+import ch.iact.iactcheck.controller.exception.ForbiddenException
 import ch.iact.iactcheck.testdata.CustomerTestData
 import ch.iact.iactcheck.testdata.UserTestData
 import org.junit.Assert

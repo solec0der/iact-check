@@ -4,8 +4,8 @@ import ch.iact.iactcheck.domain.model.QuestionCategory
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.QuestionCategoryDTO
-import ch.iact.iactcheck.infrastructure.exception.CheckNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.controller.exception.CheckNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.service.converter.QuestionCategoryConverter
 import org.springframework.stereotype.Service
 

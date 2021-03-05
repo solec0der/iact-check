@@ -4,8 +4,8 @@ import ch.iact.iactcheck.IactCheckApplication
 import ch.iact.iactcheck.domain.model.RangeQuestion
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
-import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.QuestionNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionNotFoundException
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
 import ch.iact.iactcheck.testdata.RangeQuestionTestData
 import org.junit.Assert

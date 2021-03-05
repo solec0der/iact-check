@@ -6,7 +6,7 @@ import ch.iact.iactcheck.domain.repository.UserRegistrationFieldRepository
 import ch.iact.iactcheck.domain.repository.CustomerBrandingRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CustomerDTO
-import ch.iact.iactcheck.infrastructure.exception.*
+import ch.iact.iactcheck.controller.exception.*
 import ch.iact.iactcheck.service.converter.CustomerBrandingConverter
 import ch.iact.iactcheck.service.converter.CustomerConverter
 import ch.iact.iactcheck.service.converter.UserRegistrationFieldConverter

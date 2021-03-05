@@ -67,6 +67,14 @@ div.display-flex-align-center {
 
 div.check-container {
   margin: 0 auto;
+  width: 50%;
+}
+
+div.check-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 45px auto 0;
 }
 
 .align-center {

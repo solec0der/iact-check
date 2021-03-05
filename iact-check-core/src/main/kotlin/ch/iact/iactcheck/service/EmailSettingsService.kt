@@ -5,8 +5,8 @@ import ch.iact.iactcheck.domain.model.SmtpTransportStrategy
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.domain.repository.EmailSettingsRepository
 import ch.iact.iactcheck.dto.EmailSettingsDTO
-import ch.iact.iactcheck.infrastructure.exception.CustomerNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.EmailSettingsNotFoundException
+import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
+import ch.iact.iactcheck.controller.exception.EmailSettingsNotFoundException
 import ch.iact.iactcheck.service.converter.EmailSettingsConverter
 import org.springframework.stereotype.Service
 

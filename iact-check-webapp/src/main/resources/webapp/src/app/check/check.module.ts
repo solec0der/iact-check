@@ -8,9 +8,10 @@ import { CheckComponent } from './check.component';
 import { WelcomeScreenComponent } from './steps/welcome-screen/welcome-screen.component';
 import { StepsComponent } from './steps/steps.component';
 import {MatRippleModule} from "@angular/material/core";
+import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
 
 @NgModule({
-  declarations: [CheckComponent, WelcomeScreenComponent, StepsComponent],
+  declarations: [CheckComponent, WelcomeScreenComponent, StepsComponent, UserRegistrationComponent],
   imports: [
     CommonModule,
     CheckRoutingModule,

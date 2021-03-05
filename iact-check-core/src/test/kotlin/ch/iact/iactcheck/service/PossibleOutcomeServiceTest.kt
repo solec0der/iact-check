@@ -6,8 +6,8 @@ import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.PossibleScoreDTO
-import ch.iact.iactcheck.infrastructure.exception.PossibleOutcomeNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
 import org.junit.Assert

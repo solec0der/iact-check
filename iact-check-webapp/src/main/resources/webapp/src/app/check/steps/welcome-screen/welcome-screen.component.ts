@@ -4,7 +4,7 @@ import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { CORE_URL } from '../../../app.config';
 import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-screen',
@@ -12,8 +12,10 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./welcome-screen.component.scss'],
 })
 export class WelcomeScreenComponent implements OnInit {
-  public checkDTO!: CheckDTO;
   public customerDTO!: CustomerDTO;
+  public checkDTO!: CheckDTO;
+
+  private readonly CURRENT_STEP = 1;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -21,13 +23,11 @@ export class WelcomeScreenComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
-      this.checkDTO = checkDTO;
-    });
+    this.loadData();
+  }
 
-    this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
-      this.customerDTO = customerDTO;
-    });
+  ngAfterViewInit(): void {
+    this.checkStateService.setStep(this.CURRENT_STEP, this.activatedRoute);
   }
 
   public getWidthOfQuestionCategory(): string {
@@ -43,5 +43,15 @@ export class WelcomeScreenComponent implements OnInit {
   public selectQuestionCategory(questionCategory: QuestionCategoryDTO): void {
     this.checkStateService.setActiveQuestionCategory(questionCategory);
     this.checkStateService.nextStep(this.activatedRoute);
+  }
+
+  private loadData(): void {
+    this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
+      this.customerDTO = customerDTO;
+    });
+    
+    this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
+      this.checkDTO = checkDTO;
+    });
   }
 }

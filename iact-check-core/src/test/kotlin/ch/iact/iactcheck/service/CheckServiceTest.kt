@@ -6,8 +6,8 @@ import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.LanguageDTO
-import ch.iact.iactcheck.infrastructure.exception.CheckNotFoundException
-import ch.iact.iactcheck.infrastructure.exception.FromDateAfterToDateException
+import ch.iact.iactcheck.controller.exception.CheckNotFoundException
+import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.testdata.CheckTestData
 import ch.iact.iactcheck.testdata.CustomerTestData
 import org.junit.Assert
