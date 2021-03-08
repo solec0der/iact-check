@@ -1,92 +1,112 @@
-<div class="full-width-and-height-absolute display-flex-align-center">
+<div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.userRegistrationFormGroup">
   <div class="check-container">
     <div class="align-center">
       <h1>Registrieren</h1>
     </div>
-    <div class="check-content">
-      <mat-form-field appearance="outline" style="width: 48.5%;">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.FIRST_NAME' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_FIRST_NAME' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.FIRST_NAME' | translate"
-                 formControlName="firstName"
-                 required/>
-        </label>
-      </mat-form-field>
+    <form [formGroup]="this.userRegistrationFormGroup">
+      <div class="check-content">
+        <mat-form-field appearance="outline" style="width: 48.5%;"
+                        *ngIf="this.userRegistrationFormGroup.get('firstName')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.FIRST_NAME' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_FIRST_NAME' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.FIRST_NAME' | translate"
+                   formControlName="firstName"
+                   required/>
+          </label>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 48.5%">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.LAST_NAME' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_LAST_NAME' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.LAST_NAME' | translate"
-                 formControlName="lastName"
-                 required/>
-        </label>
-      </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 48.5%"
+                        *ngIf="this.userRegistrationFormGroup.get('lastName')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.LAST_NAME' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_LAST_NAME' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.LAST_NAME' | translate"
+                   formControlName="lastName"
+                   required/>
+          </label>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 100%">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.STREET' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_STREET' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.STREET' | translate"
-                 formControlName="street"
-                 required/>
-        </label>
-      </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%" *ngIf="this.userRegistrationFormGroup.get('street')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.STREET' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_STREET' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.STREET' | translate"
+                   formControlName="street"
+                   required/>
+          </label>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 27%">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.ZIP_CODE' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_ZIP_CODE' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.ZIP_CODE' | translate"
-                 formControlName="zipCode"
-                 autocomplete="postal-code"
-                 required/>
-        </label>
-      </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 27%" *ngIf="this.userRegistrationFormGroup.get('zipCode')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.ZIP_CODE' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_ZIP_CODE' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.ZIP_CODE' | translate"
+                   formControlName="zipCode"
+                   autocomplete="postal-code"
+                   required/>
+          </label>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 70%">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.CITY' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_CITY' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.CITY' | translate"
-                 formControlName="street"
-                 required/>
-        </label>
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 48.5%;">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.EMAIL' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_EMAIL' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.EMAIL' | translate"
-                 formControlName="email"
-                 required/>
-        </label>
-      </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 70%" *ngIf="this.userRegistrationFormGroup.get('city')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.CITY' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_CITY' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.CITY' | translate"
+                   formControlName="city"
+                   required/>
+          </label>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 48.5%;" *ngIf="this.userRegistrationFormGroup.get('email')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.EMAIL' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_EMAIL' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.EMAIL' | translate"
+                   formControlName="email"
+                   required/>
+          </label>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="width: 48.5%">
-        <mat-label>{{'USER_REGISTRATION_FIELDS.PHONE_NUMBER' | translate}}</mat-label>
-        <mat-error>
-          {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_PHONE_NUMBER' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.PHONE_NUMBER' | translate"
-                 formControlName="phoneNumber"
-                 required/>
-        </label>
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="outline" style="width: 48.5%"
+                        *ngIf="this.userRegistrationFormGroup.get('phoneNumber')">
+          <mat-label>{{'USER_REGISTRATION_FIELDS.PHONE_NUMBER' | translate}}</mat-label>
+          <mat-error>
+            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_PHONE_NUMBER' | translate}}
+          </mat-error>
+          <label>
+            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.PHONE_NUMBER' | translate"
+                   formControlName="phoneNumber"
+                   required/>
+          </label>
+        </mat-form-field>
+
+        <div class="controls">
+          <div>
+            <button mat-stroked-button (click)="this.previousStep()">
+              <mat-icon>arrow_back_ios</mat-icon>
+              Back
+            </button>
+          </div>
+          <div>
+            <button mat-stroked-button (click)="this.nextStep()">
+              Forward
+              <mat-icon>arrow_forward_ios</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

@@ -80,3 +80,9 @@ div.check-content {
 .align-center {
   text-align: center;
 }
+
+div.controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
