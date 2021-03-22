@@ -29,7 +29,3 @@ jobs:
           java-version: 11
       - name: Build and Test with Maven
         run: mvn -B clean verify
-      - name: Run Sonar Analysis on Core
-        run: mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=solec0der_iact-check -Dsonar.organization=solec0der
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
