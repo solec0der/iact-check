@@ -3,7 +3,6 @@ import { CheckStateService } from '../../check-state.service';
 import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { CORE_URL } from '../../../app.config';
-import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -40,16 +39,20 @@ export class WelcomeScreenComponent implements OnInit {
     );
   }
 
-  public selectQuestionCategory(questionCategory: QuestionCategoryDTO): void {
-    this.checkStateService.setActiveQuestionCategory(questionCategory);
+  public nextStep(): void {
     this.checkStateService.nextStep(this.activatedRoute);
   }
+  //
+  // public selectQuestionCategory(questionCategory: QuestionCategoryDTO): void {
+  //   this.checkStateService.setActiveQuestionCategory(questionCategory);
+  //   this.checkStateService.nextStep(this.activatedRoute);
+  // }
 
   private loadData(): void {
     this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
       this.customerDTO = customerDTO;
     });
-    
+
     this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
       this.checkDTO = checkDTO;
     });

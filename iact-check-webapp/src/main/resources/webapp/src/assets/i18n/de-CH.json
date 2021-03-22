@@ -253,7 +253,8 @@
     "DELETE": "Löschen",
     "CLOSE": "Schliessen",
     "CREATE": "Erstellen",
-    "GENERAL": "Allgemein"
+    "GENERAL": "Allgemein",
+    "START": "Start"
   },
   "USER": {
     "USERNAME": "Benutzername"

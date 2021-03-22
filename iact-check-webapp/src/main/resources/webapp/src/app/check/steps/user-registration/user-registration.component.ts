@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
-import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegistrationFieldService } from '../../../admin/shared/services/user-registration-field.service';
 import { UserRegistrationFieldsDTO } from '../../../admin/shared/dtos/user-registration-fields-dto';
 import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-registration-field-mappings';
+import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 
 @Component({
   selector: 'app-user-registration',
@@ -14,9 +14,9 @@ import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-regi
   styleUrls: ['./user-registration.component.scss'],
 })
 export class UserRegistrationComponent implements OnInit {
+  public checkDTO!: CheckDTO;
   public customerDTO!: CustomerDTO;
   public userRegistrationFormGroup!: FormGroup;
-  public questionCategoryDTO!: QuestionCategoryDTO;
   private userRegistrationFields!: UserRegistrationFieldsDTO;
 
   private readonly CURRENT_STEP = 2;
@@ -40,11 +40,21 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   public nextStep(): void {
+    this.saveUserRegistration();
     this.checkStateService.nextStep(this.activatedRoute);
   }
 
-  private getUserRegistrationValues(): void {
-
+  private saveUserRegistration(): void {
+    this.checkStateService.submission = {
+      correlatingCheckId: this.checkDTO.id,
+      firstName: this.userRegistrationFormGroup.value.firstName,
+      lastName: this.userRegistrationFormGroup.value.lastName,
+      street: this.userRegistrationFormGroup.value.street,
+      zipCode: this.userRegistrationFormGroup.value.zipCode,
+      city: this.userRegistrationFormGroup.value.city,
+      phoneNumber: this.userRegistrationFormGroup.value.phoneNumber,
+      email: this.userRegistrationFormGroup.value.email,
+    };
   }
 
   private loadData(): void {
@@ -52,11 +62,9 @@ export class UserRegistrationComponent implements OnInit {
       this.customerDTO = customerDTO;
     });
 
-    this.checkStateService
-      .getActiveQuestionCategory()
-      .subscribe((questionCategoryDTO) => {
-        this.questionCategoryDTO = questionCategoryDTO;
-      });
+    this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
+      this.checkDTO = checkDTO;
+    });
 
     this.userRegistrationFieldService
       .getUserRegistrationFields()

@@ -2,21 +2,29 @@
   <div class="check-container">
     <div class="align-center">
       <h1>{{this.checkDTO?.title}}</h1>
-      <h3>Wähle eine der Fragekategorien aus</h3>
+      <br>
+      <h2>Klicke auf Start, um mit dem Check loszulegen</h2>
     </div>
 
     <div class="check-content">
-      <div *ngFor="let questionCategory of this.checkDTO?.questionCategories"
-           [style.width]="this.getWidthOfQuestionCategory()"
-           class="question-category-container"
-           (click)="this.selectQuestionCategory(questionCategory)"
-           matRipple
-      >
-        <img [src]="this.getQuestionCategoryThumbnailById(questionCategory.id)" alt="Question-Cateogry"
-             class="full-width" style="margin-bottom: 15px"/>
-
-        <span class="subtitle">{{questionCategory.title}}</span>
+      <div class="align-center full-width">
+        <button mat-stroked-button (click)="this.nextStep()">
+          <mat-icon>play_arrow</mat-icon>
+          {{'SHARED.START' | translate}}
+        </button>
       </div>
+
+      <!--      <div *ngFor="let questionCategory of this.checkDTO?.questionCategories"-->
+      <!--           [style.width]="this.getWidthOfQuestionCategory()"-->
+      <!--           class="question-category-container"-->
+      <!--           (click)="this.selectQuestionCategory(questionCategory)"-->
+      <!--           matRipple-->
+      <!--      >-->
+      <!--        <img [src]="this.getQuestionCategoryThumbnailById(questionCategory.id)" alt="Question-Cateogry"-->
+      <!--             class="full-width" style="margin-bottom: 15px"/>-->
+
+      <!--        <span class="subtitle">{{questionCategory.title}}</span>-->
+      <!--      </div>-->
     </div>
   </div>
 </div>

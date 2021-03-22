@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CheckComponent } from './check.component';
 import { StepsComponent } from './steps/steps.component';
 import { WelcomeScreenComponent } from './steps/welcome-screen/welcome-screen.component';
-import {UserRegistrationComponent} from "./steps/user-registration/user-registration.component";
+import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
 
 const routes: Routes = [
   {
