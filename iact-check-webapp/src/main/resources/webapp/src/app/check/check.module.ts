@@ -9,6 +9,7 @@ import { StepsComponent } from './steps/steps.component';
 import { MatRippleModule } from '@angular/material/core';
 import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
 import { SharedTranslateModule } from '../shared/translation/shared-translate.module';
+import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { SharedTranslateModule } from '../shared/translation/shared-translate.mo
     WelcomeScreenComponent,
     StepsComponent,
     UserRegistrationComponent,
+    QuestionCategorySelectionComponent,
   ],
   imports: [
     CommonModule,

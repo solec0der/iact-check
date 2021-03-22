@@ -4,6 +4,7 @@ import { CheckComponent } from './check.component';
 import { StepsComponent } from './steps/steps.component';
 import { WelcomeScreenComponent } from './steps/welcome-screen/welcome-screen.component';
 import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
+import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
           {
             path: '2',
             component: UserRegistrationComponent,
+          },
+          {
+            path: '3',
+            component: QuestionCategorySelectionComponent,
           },
         ],
       },
