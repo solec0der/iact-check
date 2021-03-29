@@ -10,6 +10,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
 import { SharedTranslateModule } from '../shared/translation/shared-translate.module';
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
+import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { QuestionCategorySelectionComponent } from './steps/question-category-se
     StepsComponent,
     UserRegistrationComponent,
     QuestionCategorySelectionComponent,
+    QuestionsFormComponent,
   ],
   imports: [
     CommonModule,

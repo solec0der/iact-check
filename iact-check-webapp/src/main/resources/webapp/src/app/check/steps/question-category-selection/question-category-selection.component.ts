@@ -16,7 +16,7 @@ export class QuestionCategorySelectionComponent implements OnInit {
   public checkDTO!: CheckDTO;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService
   ) {}
 
@@ -33,7 +33,8 @@ export class QuestionCategorySelectionComponent implements OnInit {
   }
 
   public selectQuestionCategory(questionCategory: QuestionCategoryDTO): void {
-    // nothing yet
+    this.checkStateService.setActiveQuestionCategory(questionCategory);
+    this.nextStep();
   }
 
   public getQuestionCategoryThumbnailById(questionCategoryId: number): string {
