@@ -1,7 +1,7 @@
 Iact Check
 ==============
 
-![Build and Analyze Core](https://github.com/solec0der/iact-check/workflows/Build%20and%20Analyze%20Core/badge.svg)
+[![Build and Analyze Application](https://github.com/solec0der/iact-check/actions/workflows/build-and-analyze-core.yml/badge.svg)](https://github.com/solec0der/iact-check/actions/workflows/build-and-analyze-core.yml)
 
 Table of content
 ----------------
