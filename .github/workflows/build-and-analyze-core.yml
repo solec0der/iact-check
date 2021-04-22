@@ -6,7 +6,7 @@ on:
       - '**'
   workflow_dispatch:
 jobs:
-  build_and_analyze_core:
+  build_and_analyze_application:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
