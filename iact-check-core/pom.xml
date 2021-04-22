@@ -3,14 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath/>
+        <groupId>ch.iact</groupId>
+        <artifactId>iact-check</artifactId>
+        <version>1.1.2-RELEASE</version>
     </parent>
-    <groupId>ch.iact</groupId>
     <artifactId>iact-check-core</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-RELEASE</version>
     <name>iact-check-core</name>
     <description>Iact Check Core</description>
     <packaging>jar</packaging>
@@ -22,6 +20,7 @@
         <keycloak.version>8.0.2</keycloak.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <restdocs-project-version>2.0.4.RELEASE</restdocs-project-version>
+        <spring-version>2.1.7.RELEASE</spring-version>
 
         <sonar.coverage.exclusions>
             **/*Application.*,
@@ -54,10 +53,12 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -83,18 +84,6 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
             <version>2.11.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- OpenAPI -->
@@ -166,10 +155,28 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-all</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.keycloak.bom</groupId>
                 <artifactId>keycloak-adapter-bom</artifactId>
@@ -210,11 +217,23 @@
                         <artifactId>junit-jupiter-engine</artifactId>
                         <version>5.1.0</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-test</artifactId>
+                        <version>${spring-version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.junit.vintage</groupId>
+                                <artifactId>junit-vintage-engine</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -233,6 +252,7 @@
                     <args>
                         <arg>-Xjsr305=strict</arg>
                     </args>
+                    <jvmTarget>11</jvmTarget>
                     <compilerPlugins>
                         <plugin>spring</plugin>
                     </compilerPlugins>

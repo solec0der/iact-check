@@ -4,14 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath/>
+        <groupId>ch.iact</groupId>
+        <artifactId>iact-check</artifactId>
+        <version>1.1.2-RELEASE</version>
     </parent>
-    <groupId>ch.iact</groupId>
     <artifactId>iact-check-webapp</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-RELEASE</version>
     <name>iact-check-webapp</name>
     <description>Iact Check Webapp</description>
     <packaging>jar</packaging>
@@ -21,6 +19,7 @@
         <kotlin.version>1.3.72</kotlin.version>
         <sonar.sources>src/main/resources/webapp/src</sonar.sources>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-version>2.1.7.RELEASE</spring-version>
     </properties>
 
     <dependencies>
@@ -40,10 +39,12 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -58,6 +59,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
@@ -69,7 +77,6 @@
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -78,6 +85,7 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -96,6 +104,7 @@
                     <args>
                         <arg>-Xjsr305=strict</arg>
                     </args>
+                    <jvmTarget>11</jvmTarget>
                     <compilerPlugins>
                         <plugin>spring</plugin>
                     </compilerPlugins>
@@ -122,6 +131,11 @@
                             <resources>
                                 <resource>
                                     <directory>${basedir}/src/main/resources/webapp/dist/webapp</directory>
+                                    <excludes>
+                                        <exclude>node_modules/**</exclude>
+                                        <exclude>src/**</exclude>
+                                        <exclude>e2e/**</exclude>
+                                    </excludes>
                                 </resource>
                             </resources>
                         </configuration>
