@@ -1,1 +1,29 @@
-<p>questions-form works!</p>
+<div
+  class="full-width-and-height-absolute display-flex-align-center"
+  *ngIf="this.checkDTO"
+>
+  <div class="check-container" style="width: 65%">
+    <div class="check-content">
+      <div class="questions-container">
+        <div
+          *ngFor="let question of this.questionCategoryDTO?.rangeQuestions"
+          class="question-container"
+        >
+          <div style="width: 15%">
+            <img
+              [src]="this.getIconUrlByRangeQuestionId(question.id)"
+              style="width: 100%"
+            />
+          </div>
+          <div style="width: 80%">
+            <mat-slider
+              style="width: 100%"
+              [min]="0"
+              [max]="question.rangeSteps.length"
+            ></mat-slider>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
