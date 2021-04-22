@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { RangeQuestionDTO } from '../../../../../../shared/dtos/range-question-d-t-o';
+import {RangeQuestionDTO} from "../../../../../../shared/dtos/range-question-dto";
 
 @Component({
   selector: 'app-range-question-list',

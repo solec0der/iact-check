@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RangeQuestionDTO } from '../../../../../../shared/dtos/range-question-d-t-o';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,6 +10,7 @@ import { RangeStepDTO } from '../../../../../../shared/dtos/range-step-dto';
 import { FileReaderUtil } from '../../../../../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../../../../../app.config';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { RangeQuestionDTO } from '../../../../../../shared/dtos/range-question-dto';
 
 @Component({
   selector: 'app-range-question-detail',

@@ -1,5 +1,5 @@
-import { RangeQuestionDTO } from './range-question-d-t-o';
 import { PossibleOutcomeDTO } from './possible-outcome-dto';
+import {RangeQuestionDTO} from "./range-question-dto";
 
 export interface QuestionCategoryDTO {
   id: number;

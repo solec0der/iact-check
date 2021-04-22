@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RangeQuestionDTO } from '../dtos/range-question-d-t-o';
 import { CORE_URL } from '../../../app.config';
+import {RangeQuestionDTO} from "../dtos/range-question-dto";
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +11,9 @@ export class RangeQuestionService {
   constructor(private httpClient: HttpClient) {}
 
   public createRangeQuestion(
-    rangeQuestionDTO: RangeQuestionDTO
+    RangeQuestionDTO: RangeQuestionDTO
   ): Observable<RangeQuestionDTO> {
-    const body = JSON.stringify(rangeQuestionDTO);
+    const body = JSON.stringify(RangeQuestionDTO);
 
     return this.httpClient.post<RangeQuestionDTO>(
       CORE_URL + '/api/admin/range-questions',
@@ -51,9 +51,9 @@ export class RangeQuestionService {
 
   public updateRangeQuestionById(
     rangeQuestionId: number,
-    rangeQuestionDTO: RangeQuestionDTO
+    RangeQuestionDTO: RangeQuestionDTO
   ): Observable<RangeQuestionDTO> {
-    const body = JSON.stringify(rangeQuestionDTO);
+    const body = JSON.stringify(RangeQuestionDTO);
 
     return this.httpClient.put<RangeQuestionDTO>(
       CORE_URL + '/api/admin/range-questions/' + rangeQuestionId,
