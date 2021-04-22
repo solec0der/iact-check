@@ -1,16 +1,13 @@
-name: Build and Analyze Core
+name: Build and Analyze Application
 
 on:
   push:
     branches:
       - '**'
-
   workflow_dispatch:
-
 jobs:
   build_and_analyze_core:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
