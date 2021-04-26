@@ -1,3 +1,5 @@
+import {RangeQuestionAnswerDTO} from "./range-question-answer-dto";
+
 export interface SubmissionDTO {
   id?: number;
   correlatingCheckId: number;
@@ -8,4 +10,5 @@ export interface SubmissionDTO {
   city: string;
   phoneNumber: string;
   email: string;
+  rangeQuestionAnswers: RangeQuestionAnswerDTO[];
 }

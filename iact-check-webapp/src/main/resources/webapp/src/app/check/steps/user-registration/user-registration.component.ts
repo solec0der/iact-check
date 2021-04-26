@@ -7,6 +7,7 @@ import { UserRegistrationFieldService } from '../../../admin/shared/services/use
 import { UserRegistrationFieldsDTO } from '../../../admin/shared/dtos/user-registration-fields-dto';
 import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-registration-field-mappings';
 import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
+import { SubmissionService } from '../../../shared/services/submission.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -24,6 +25,7 @@ export class UserRegistrationComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
+    private readonly submissionService: SubmissionService,
     private readonly userRegistrationFieldService: UserRegistrationFieldService
   ) {}
 
@@ -33,6 +35,10 @@ export class UserRegistrationComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.checkStateService.setStep(this.CURRENT_STEP, this.activatedRoute);
+
+    if (this.checkStateService.submission) {
+      this.checkStateService.nextStep(this.activatedRoute);
+    }
   }
 
   public previousStep(): void {
@@ -41,11 +47,10 @@ export class UserRegistrationComponent implements OnInit {
 
   public nextStep(): void {
     this.saveUserRegistration();
-    this.checkStateService.nextStep(this.activatedRoute);
   }
 
   private saveUserRegistration(): void {
-    this.checkStateService.submission = {
+    const submission = {
       correlatingCheckId: this.checkDTO.id,
       firstName: this.userRegistrationFormGroup.value.firstName,
       lastName: this.userRegistrationFormGroup.value.lastName,
@@ -54,7 +59,15 @@ export class UserRegistrationComponent implements OnInit {
       city: this.userRegistrationFormGroup.value.city,
       phoneNumber: this.userRegistrationFormGroup.value.phoneNumber,
       email: this.userRegistrationFormGroup.value.email,
+      rangeQuestionAnswers: [],
     };
+
+    this.submissionService
+      .createSubmission(submission)
+      .subscribe((submission) => {
+        this.checkStateService.submission = submission;
+        this.checkStateService.nextStep(this.activatedRoute);
+      });
   }
 
   private loadData(): void {

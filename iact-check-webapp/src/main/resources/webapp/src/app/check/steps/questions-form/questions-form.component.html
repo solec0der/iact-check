@@ -19,6 +19,7 @@
             <div class="full-width">
               <p>{{question.questionText}}</p>
               <mat-slider
+                thumbLabel
                 style="width: 100%"
                 [min]="0"
                 [max]="question.rangeSteps.length - 1"
@@ -35,6 +36,20 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="display-flex-space-between full-width">
+        <div>
+          <button mat-stroked-button (click)="this.previousStep()">
+            <mat-icon>navigate_before</mat-icon>
+            {{'SHARED.BACK' | translate}}
+          </button>
+        </div>
+        <div>
+          <button mat-stroked-button (click)="this.nextStep()">
+            {{'SHARED.NEXT' | translate}}
+            <mat-icon>navigate_next</mat-icon>
+          </button>
         </div>
       </div>
     </div>

@@ -254,7 +254,9 @@
     "CLOSE": "Schliessen",
     "CREATE": "Erstellen",
     "GENERAL": "Allgemein",
-    "START": "Start"
+    "START": "Start",
+    "BACK": "Zurück",
+    "NEXT": "Weiter"
   },
   "USER": {
     "USERNAME": "Benutzername"

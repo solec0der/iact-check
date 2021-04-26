@@ -26,7 +26,8 @@ object SubmissionConverter {
         return RangeQuestionAnswerDTO(
             id = rangeQuestionAnswer.id,
             value = rangeQuestionAnswer.value,
-            rangeQuestionId = rangeQuestionAnswer.rangeQuestion.id
+            rangeQuestionId = rangeQuestionAnswer.rangeQuestion.id,
+            rangeQuestionCategoryId = rangeQuestionAnswer.rangeQuestion.questionCategory.id
         )
     }
 }

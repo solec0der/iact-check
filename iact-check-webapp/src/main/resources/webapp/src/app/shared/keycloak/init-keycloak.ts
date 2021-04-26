@@ -19,6 +19,7 @@ export function initializer(
             loadUserProfileAtStartUp: true,
             initOptions: {
               checkLoginIframe: true,
+              flow: 'implicit'
             },
             bearerExcludedUrls: [],
           });
@@ -36,6 +37,7 @@ export function initializer(
                 loadUserProfileAtStartUp: true,
                 initOptions: {
                   checkLoginIframe: true,
+                  flow: 'implicit'
                 },
                 bearerExcludedUrls: [],
               });

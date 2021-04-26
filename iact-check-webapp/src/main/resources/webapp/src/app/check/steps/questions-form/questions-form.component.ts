@@ -8,6 +8,8 @@ import { MatSliderChange } from '@angular/material/slider';
 import { RangeQuestionDTO } from '../../../admin/shared/dtos/range-question-dto';
 import { RangeQuestionAnswerDTO } from '../../../shared/dtos/range-question-answer-dto';
 import { RangeStepDTO } from '../../../admin/shared/dtos/range-step-dto';
+import { SubmissionService } from '../../../shared/services/submission.service';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-questions-form',
@@ -23,6 +25,7 @@ export class QuestionsFormComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
+    private readonly submissionService: SubmissionService,
     private readonly checkStateService: CheckStateService
   ) {}
 
@@ -48,8 +51,11 @@ export class QuestionsFormComponent implements OnInit {
           rangeQuestionAnswer.rangeQuestionId === changedQuestion.id
       );
       if (foundRangeQuestionAnswer) {
-        foundRangeQuestionAnswer.value =
-          changedQuestion.rangeSteps[event.value].score;
+        const rangeStep = changedQuestion.rangeSteps[event.value];
+        event.source.displayWith = (_) => {
+          return rangeStep.score;
+        };
+        foundRangeQuestionAnswer.value = rangeStep.score;
       }
     }
   }
@@ -58,6 +64,34 @@ export class QuestionsFormComponent implements OnInit {
     rangeQuestion: RangeQuestionDTO
   ): RangeStepDTO {
     return rangeQuestion.rangeSteps[(rangeQuestion.rangeSteps.length - 1) / 2];
+  }
+
+  public previousStep(): void {
+    this.checkStateService.previousStep(this.activatedRoute);
+  }
+
+  public nextStep(): void {
+    this.saveRangeQuestionAnswers();
+  }
+
+  private saveRangeQuestionAnswers(): void {
+    const rangeQuestionAnswers = [];
+    const submission = this.checkStateService.submission;
+
+    rangeQuestionAnswers.push(...this.rangeQuestionAnswers);
+
+    if (submission && submission.rangeQuestionAnswers.length > 0) {
+      rangeQuestionAnswers.push(...submission.rangeQuestionAnswers);
+    }
+
+    this.submissionService
+      .addRangeQuestionAnswersToSubmission(
+        <number>submission?.id,
+        rangeQuestionAnswers
+      )
+      .subscribe((submission) => {
+        this.checkStateService.submission = submission;
+      });
   }
 
   private loadData(): void {
