@@ -18,5 +18,13 @@ data class Check(
     val activeTo: Instant,
 
     @OneToMany(targetEntity = QuestionCategory::class, mappedBy = "check", cascade = [CascadeType.ALL])
-    val questionCategories: List<QuestionCategory>
+    val questionCategories: List<QuestionCategory>,
+
+    @OneToMany(
+        targetEntity = Submission::class,
+        mappedBy = "check",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val submissions: List<Submission>
 )

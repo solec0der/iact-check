@@ -33,7 +33,8 @@ class CheckService(
             language = Language.findLanguageByLocale(checkDTO.language.locale),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
-            questionCategories = emptyList()
+            questionCategories = emptyList(),
+            submissions = emptyList()
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))
