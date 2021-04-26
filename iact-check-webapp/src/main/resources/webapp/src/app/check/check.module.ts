@@ -11,6 +11,7 @@ import { UserRegistrationComponent } from './steps/user-registration/user-regist
 import { SharedTranslateModule } from '../shared/translation/shared-translate.module';
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { QuestionsFormComponent } from './steps/questions-form/questions-form.co
     MaterialModule,
     ReactiveFormsModule,
     MatRippleModule,
-    SharedTranslateModule,
+    SharedTranslateModule
   ],
 })
 export class CheckModule {}

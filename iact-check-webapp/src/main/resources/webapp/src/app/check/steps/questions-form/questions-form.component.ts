@@ -9,7 +9,6 @@ import { RangeQuestionDTO } from '../../../admin/shared/dtos/range-question-dto'
 import { RangeQuestionAnswerDTO } from '../../../shared/dtos/range-question-answer-dto';
 import { RangeStepDTO } from '../../../admin/shared/dtos/range-step-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
-import { range } from 'rxjs';
 
 @Component({
   selector: 'app-questions-form',
@@ -108,6 +107,7 @@ export class QuestionsFormComponent implements OnInit {
   }
 
   private setupRangeQuestionAnswers(): void {
+    this.rangeQuestionAnswers = [];
     this.questionCategoryDTO.rangeQuestions.forEach((rangeQuestion) => {
       this.rangeQuestionAnswers.push({
         rangeQuestionId: rangeQuestion.id,
