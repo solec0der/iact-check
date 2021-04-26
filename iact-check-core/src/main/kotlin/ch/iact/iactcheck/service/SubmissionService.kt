@@ -1,13 +1,13 @@
 package ch.iact.iactcheck.service
 
-import ch.iact.iactcheck.controller.exception.CheckNotFoundException
-import ch.iact.iactcheck.controller.exception.InvalidEmailException
-import ch.iact.iactcheck.controller.exception.InvalidPhoneNumberException
-import ch.iact.iactcheck.controller.exception.SubmissionAlreadyExistsException
+import ch.iact.iactcheck.controller.exception.*
 import ch.iact.iactcheck.domain.model.ActiveUserRegistrationField
+import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.model.Submission
 import ch.iact.iactcheck.domain.repository.CheckRepository
+import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
 import ch.iact.iactcheck.domain.repository.SubmissionRepository
+import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 import ch.iact.iactcheck.service.converter.SubmissionConverter
 import ch.iact.iactcheck.util.PhoneNumberUtil
@@ -17,7 +17,8 @@ import org.springframework.stereotype.Service
 @Service
 class SubmissionService(
     private val checkRepository: CheckRepository,
-    private val submissionRepository: SubmissionRepository
+    private val submissionRepository: SubmissionRepository,
+    private val rangeQuestionRepository: RangeQuestionRepository
 ) {
 
     fun createSubmission(submissionDTO: SubmissionDTO): SubmissionDTO {
@@ -38,12 +39,37 @@ class SubmissionService(
             zipCode = submissionDTO.zipCode,
             city = submissionDTO.city,
             phoneNumber = submissionDTO.phoneNumber.trim(),
-            email = submissionDTO.email.trim().toLowerCase()
+            email = submissionDTO.email.trim().toLowerCase(),
+            rangeQuestionAnswers = emptyList()
         )
 
-        return SubmissionConverter.convertSubmissionToDTO(
-            submissionRepository.save(submission)
+        return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
+    }
+
+    fun addRangeQuestionAnswersToSubmission(
+        submissionId: Long,
+        rangeQuestionAnswers: List<RangeQuestionAnswerDTO>
+    ): SubmissionDTO {
+        var submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val convertedRangeQuestionAnswers = rangeQuestionAnswers.map {
+            RangeQuestionAnswer(
+                id = -1,
+                rangeQuestion = rangeQuestionRepository
+                    .findById(it.rangeQuestionId)
+                    .orElseThrow { throw RangeQuestionNotFoundException() },
+                submission = submission,
+                value = it.value
+            )
+        }.toList()
+
+        submission = submission.copy(
+            rangeQuestionAnswers = convertedRangeQuestionAnswers
         )
+
+        return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
     }
 
     private fun validateSubmission(

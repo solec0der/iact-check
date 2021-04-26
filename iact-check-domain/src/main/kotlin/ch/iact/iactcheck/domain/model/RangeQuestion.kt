@@ -22,6 +22,14 @@ data class RangeQuestion(
     )
     val rangeSteps: List<RangeStep>,
 
+    @OneToMany(
+        targetEntity = RangeQuestionAnswer::class,
+        mappedBy = "rangeQuestion",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val rangeQuestionAnswer: List<RangeQuestionAnswer>,
+
     @ManyToOne
     val questionCategory: QuestionCategory
 )

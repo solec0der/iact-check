@@ -1,12 +1,12 @@
 package ch.iact.iactcheck.service
 
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionNotFoundException
 import ch.iact.iactcheck.domain.model.RangeQuestion
 import ch.iact.iactcheck.domain.model.RangeStep
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
 import ch.iact.iactcheck.dto.RangeQuestionDTO
-import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
-import ch.iact.iactcheck.controller.exception.QuestionNotFoundException
 import ch.iact.iactcheck.service.converter.RangeQuestionConverter
 import org.springframework.stereotype.Service
 
@@ -25,7 +25,8 @@ class RangeQuestionService(
             id = -1,
             questionText = rangeQuestionDTO.questionText,
             rangeSteps = emptyList(),
-            questionCategory = questionCategory
+            questionCategory = questionCategory,
+            rangeQuestionAnswer = emptyList()
         )
         rangeQuestion = rangeQuestionRepository.save(rangeQuestion);
         rangeQuestion = rangeQuestion.copy(

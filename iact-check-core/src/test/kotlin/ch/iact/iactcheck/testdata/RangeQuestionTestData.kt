@@ -10,7 +10,8 @@ object RangeQuestionTestData {
         questionText = "Do you like programming?",
         rangeSteps = emptyList(),
         icon = ByteArray(100),
-        questionCategory = QuestionCategoryTestData.questionCategory
+        questionCategory = QuestionCategoryTestData.questionCategory,
+        rangeQuestionAnswer = emptyList()
     )
 
     val questionDTO = RangeQuestionDTO(

@@ -18,5 +18,13 @@ data class Submission(
     val zipCode: String,
     val city: String,
     val phoneNumber: String,
-    val email: String
+    val email: String,
+
+    @OneToMany(
+        targetEntity = RangeQuestionAnswer::class,
+        mappedBy = "submission",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val rangeQuestionAnswers: List<RangeQuestionAnswer>
 )

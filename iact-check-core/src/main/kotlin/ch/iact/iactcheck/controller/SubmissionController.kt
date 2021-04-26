@@ -20,6 +20,7 @@ internal class SubmissionController(
     fun addRangeQuestionAnswersToSubmission(
         @PathVariable("submissionId") submissionId: Long,
         @RequestBody rangeQuestionAnswers: List<RangeQuestionAnswerDTO>
-    ) {
+    ): SubmissionDTO {
+        return submissionService.addRangeQuestionAnswersToSubmission(submissionId, rangeQuestionAnswers)
     }
 }

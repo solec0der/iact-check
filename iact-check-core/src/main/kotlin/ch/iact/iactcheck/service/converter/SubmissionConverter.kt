@@ -1,6 +1,8 @@
 package ch.iact.iactcheck.service.converter
 
+import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.model.Submission
+import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 
 object SubmissionConverter {
@@ -16,7 +18,15 @@ object SubmissionConverter {
             city = submission.city,
             phoneNumber = submission.phoneNumber,
             email = submission.email,
-            rangeQuestionAnswers = emptyList()
+            rangeQuestionAnswers = submission.rangeQuestionAnswers.map { convertRangeQuestionAnswerToDTO(it) }
+        )
+    }
+
+    private fun convertRangeQuestionAnswerToDTO(rangeQuestionAnswer: RangeQuestionAnswer): RangeQuestionAnswerDTO {
+        return RangeQuestionAnswerDTO(
+            id = rangeQuestionAnswer.id,
+            value = rangeQuestionAnswer.value,
+            rangeQuestionId = rangeQuestionAnswer.rangeQuestion.id
         )
     }
 }
