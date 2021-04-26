@@ -9,6 +9,7 @@ import { RangeQuestionDTO } from '../../../admin/shared/dtos/range-question-dto'
 import { RangeQuestionAnswerDTO } from '../../../shared/dtos/range-question-answer-dto';
 import { RangeStepDTO } from '../../../admin/shared/dtos/range-step-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
+import { Steps } from '../steps';
 
 @Component({
   selector: 'app-questions-form',
@@ -16,8 +17,6 @@ import { SubmissionService } from '../../../shared/services/submission.service';
   styleUrls: ['./questions-form.component.scss'],
 })
 export class QuestionsFormComponent implements OnInit {
-  private readonly CURRENT_STEP = 4;
-
   public checkDTO!: CheckDTO;
   public questionCategoryDTO!: QuestionCategoryDTO;
   private rangeQuestionAnswers: RangeQuestionAnswerDTO[] = [];
@@ -29,11 +28,8 @@ export class QuestionsFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.checkStateService.setStep(Steps.QuestionsForm, this.activatedRoute);
     this.loadData();
-  }
-
-  ngAfterViewInit(): void {
-    this.checkStateService.setStep(this.CURRENT_STEP, this.activatedRoute);
   }
 
   public getIconUrlByRangeQuestionId(rangeQuestionId: number): string {
@@ -90,6 +86,7 @@ export class QuestionsFormComponent implements OnInit {
       )
       .subscribe((submission) => {
         this.checkStateService.submission = submission;
+        this.checkStateService.nextStep(this.activatedRoute);
       });
   }
 
@@ -102,8 +99,27 @@ export class QuestionsFormComponent implements OnInit {
       .getActiveQuestionCategory()
       .subscribe((questionCategoryDTO) => {
         this.questionCategoryDTO = questionCategoryDTO;
+        this.checkIfQuestionsAreAlreadyAnswered();
         this.setupRangeQuestionAnswers();
       });
+  }
+
+  private checkIfQuestionsAreAlreadyAnswered(): void {
+    const submission = this.checkStateService.submission;
+    if (submission) {
+      if (
+        submission.rangeQuestionAnswers.find(
+          (rangeQuestionAnswer) =>
+            rangeQuestionAnswer.questionCategoryId ===
+            this.questionCategoryDTO.id
+        )
+      ) {
+        this.checkStateService.setStep(
+          Steps.PossibleOutcomes,
+          this.activatedRoute
+        );
+      }
+    }
   }
 
   private setupRangeQuestionAnswers(): void {

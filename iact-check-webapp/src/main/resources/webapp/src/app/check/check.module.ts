@@ -12,6 +12,7 @@ import { SharedTranslateModule } from '../shared/translation/shared-translate.mo
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     UserRegistrationComponent,
     QuestionCategorySelectionComponent,
     QuestionsFormComponent,
+    PossibleOutcomesComponent,
   ],
   imports: [
     CommonModule,

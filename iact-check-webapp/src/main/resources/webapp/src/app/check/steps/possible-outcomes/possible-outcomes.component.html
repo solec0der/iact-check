@@ -1,0 +1,50 @@
+<div
+  class="full-width-and-height-absolute display-flex-align-center"
+  *ngIf="this.possibleOutcomes && this.customerDTO && this.customerDTO.customerBranding"
+>
+  <div class="check-container" style="width: 65%">
+    <div class="check-content">
+      <div class="align-center full-width" style="margin-bottom: 25px">
+        <h1>{{'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate}}</h1>
+
+        <div class="full-width">
+          <div class="color-preview-container">
+            <div class="square" [style.background-color]="this.customerDTO.customerBranding.accentColour"></div>
+            <div>
+              <p>{{'POSSIBLE_OUTCOMES.RECOMMENDED' | translate}}</p>
+            </div>
+          </div>
+
+          <div class="color-preview-container">
+            <div class="square"
+                 [style.background-color]="this.adjustColor(this.customerDTO.customerBranding.accentColour, '80')"></div>
+            <div>
+              <p>{{'POSSIBLE_OUTCOMES.LESS_RECOMMENDED' | translate}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="possible-outcomes-container">
+        <div class="possible-outcome" *ngFor="let possibleOutcome of this.possibleOutcomes"
+             [style.background-color]="this.getBackgroundColorOfPossibleOutcome(possibleOutcome)">
+          {{possibleOutcome.title}}
+        </div>
+      </div>
+      <div class="display-flex-space-between full-width">
+        <div>
+          <button mat-stroked-button (click)="this.goBackToQuestionCategories()">
+            <mat-icon>navigate_before</mat-icon>
+            {{'POSSIBLE_OUTCOMES.BACK_TO_QUESTION_CATEGORIES' | translate}}
+          </button>
+        </div>
+        <div>
+          <button mat-stroked-button>
+            {{'SHARED.FINISH' | translate}}
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

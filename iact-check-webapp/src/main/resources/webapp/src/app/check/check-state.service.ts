@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CheckDTO } from '../admin/shared/dtos/check-dto';
-import { Observable, ReplaySubject } from 'rxjs';
+import {
+  AsyncSubject,
+  BehaviorSubject,
+  Observable,
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
 import { CustomerDTO } from '../admin/shared/dtos/customer-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionCategoryDTO } from '../admin/shared/dtos/question-category-dto';
@@ -11,15 +17,15 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class CheckStateService {
-  private activeCheck = new ReplaySubject<CheckDTO>();
-  private activeCustomer = new ReplaySubject<CustomerDTO>();
-  private activeQuestionCategory = new ReplaySubject<QuestionCategoryDTO>();
+  private activeCheck = new ReplaySubject<CheckDTO>(1);
+  private activeCustomer = new ReplaySubject<CustomerDTO>(1);
+  private activeQuestionCategory = new ReplaySubject<QuestionCategoryDTO>(1);
   private currentProgressPercentage = new ReplaySubject<number>();
 
   private _submission: SubmissionDTO | undefined;
 
   private currentStep = 1;
-  private readonly numberOfSteps = 4;
+  private readonly numberOfSteps = 5;
 
   constructor(
     private readonly router: Router,
@@ -72,6 +78,24 @@ export class CheckStateService {
   public nextStep(currentRoute: ActivatedRoute): void {
     this.currentStep++;
     this.navigateToCurrentStep(currentRoute);
+  }
+
+  public getScoreByQuestionCategoryId(questionCategoryId: number): number {
+    if (this.submission) {
+      const scores = this.submission.rangeQuestionAnswers
+        .filter(
+          (rangeQuestionAnswer) =>
+            rangeQuestionAnswer.questionCategoryId === questionCategoryId
+        )
+        .map((value) => value.value);
+
+      if (scores.length > 0) {
+        return scores.reduce(
+          (previousValue, currentValue) => previousValue + currentValue
+        );
+      }
+    }
+    return 0;
   }
 
   get submission(): SubmissionDTO | undefined {

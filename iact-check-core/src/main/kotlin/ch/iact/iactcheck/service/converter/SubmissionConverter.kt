@@ -27,7 +27,7 @@ object SubmissionConverter {
             id = rangeQuestionAnswer.id,
             value = rangeQuestionAnswer.value,
             rangeQuestionId = rangeQuestionAnswer.rangeQuestion.id,
-            rangeQuestionCategoryId = rangeQuestionAnswer.rangeQuestion.questionCategory.id
+            questionCategoryId = rangeQuestionAnswer.rangeQuestion.questionCategory.id
         )
     }
 }

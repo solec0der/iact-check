@@ -1,0 +1,31 @@
+div.possible-outcomes-container {
+  height: 40vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+div.possible-outcome {
+  width: 100%;
+  padding: 10px;
+  background-color: #0f87c9;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+div.square {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+div.color-preview-container {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}

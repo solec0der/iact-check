@@ -1,12 +1,12 @@
 package ch.iact.iactcheck.service
 
+import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.domain.model.PossibleOutcome
 import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.PossibleOutcomeDTO
-import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
-import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.service.converter.PossibleOutcomeConverter
 import org.springframework.stereotype.Service
 
@@ -45,6 +45,18 @@ class PossibleOutcomeService(
         return PossibleOutcomeConverter.convertPossibleOutcomeToDTO(
             possibleOutcomeRepository.findById(possibleOutcomeId).orElseThrow { PossibleOutcomeNotFoundException() }
         )
+    }
+
+    fun getPossibleOutcomesByScoreAndQuestionCategoryId(
+        score: Int,
+        questionCategoryId: Long
+    ): List<PossibleOutcomeDTO> {
+        val possibleOutcomes = possibleOutcomeRepository.findAllByQuestionCategoryId(questionCategoryId)
+
+        return possibleOutcomes
+            .sortedByDescending { it.possibleScores.any { possibleScore -> possibleScore.score == score } }
+            .map { PossibleOutcomeConverter.convertPossibleOutcomeToDTO(it) }
+            .toList()
     }
 
     fun getThumbnailByPossibleOutcomeId(possibleOutcomeId: Long): ByteArray {

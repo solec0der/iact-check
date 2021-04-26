@@ -8,6 +8,7 @@ import { UserRegistrationFieldsDTO } from '../../../admin/shared/dtos/user-regis
 import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-registration-field-mappings';
 import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
+import { Steps } from '../steps';
 
 @Component({
   selector: 'app-user-registration',
@@ -20,8 +21,6 @@ export class UserRegistrationComponent implements OnInit {
   public userRegistrationFormGroup!: FormGroup;
   private userRegistrationFields!: UserRegistrationFieldsDTO;
 
-  private readonly CURRENT_STEP = 2;
-
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
@@ -30,11 +29,8 @@ export class UserRegistrationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.checkStateService.setStep(Steps.UserRegistration, this.activatedRoute);
     this.loadData();
-  }
-
-  ngAfterViewInit(): void {
-    this.checkStateService.setStep(this.CURRENT_STEP, this.activatedRoute);
 
     if (this.checkStateService.submission) {
       this.checkStateService.nextStep(this.activatedRoute);

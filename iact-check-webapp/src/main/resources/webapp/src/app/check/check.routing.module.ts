@@ -5,7 +5,8 @@ import { StepsComponent } from './steps/steps.component';
 import { WelcomeScreenComponent } from './steps/welcome-screen/welcome-screen.component';
 import { UserRegistrationComponent } from './steps/user-registration/user-registration.component';
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
-import {QuestionsFormComponent} from "./steps/questions-form/questions-form.component";
+import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
+import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
           {
             path: '4',
             component: QuestionsFormComponent,
+          },
+          {
+            path: '5',
+            component: PossibleOutcomesComponent,
           },
         ],
       },

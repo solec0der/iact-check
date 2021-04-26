@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { CORE_URL } from '../../../app.config';
 import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
+import { Steps } from '../steps';
 
 @Component({
   selector: 'app-question-category-selection',
@@ -11,8 +12,6 @@ import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-categor
   styleUrls: ['./question-category-selection.component.scss'],
 })
 export class QuestionCategorySelectionComponent implements OnInit {
-  private readonly CURRENT_STEP = 3;
-
   public checkDTO!: CheckDTO;
 
   constructor(
@@ -21,11 +20,12 @@ export class QuestionCategorySelectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
-  }
+    this.checkStateService.setStep(
+      Steps.QuestionCategorySelection,
+      this.activatedRoute
+    );
 
-  ngAfterViewInit(): void {
-    this.checkStateService.setStep(this.CURRENT_STEP, this.activatedRoute);
+    this.loadData();
   }
 
   public getWidthOfQuestionCategory(): string {
@@ -44,7 +44,7 @@ export class QuestionCategorySelectionComponent implements OnInit {
   }
 
   private nextStep(): void {
-    this.checkStateService.nextStep(this.activatedRoute);
+    this.checkStateService.setStep(Steps.QuestionsForm, this.activatedRoute);
   }
 
   private loadData(): void {

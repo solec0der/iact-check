@@ -28,6 +28,19 @@ export class PossibleOutcomeService {
     );
   }
 
+  public getPossibleOutcomesByScoreAndQuestionCategoryId(
+    score: number,
+    questionCategoryId: number
+  ): Observable<PossibleOutcomeDTO[]> {
+    return this.httpClient.get<PossibleOutcomeDTO[]>(
+      CORE_URL +
+        '/api/possible-outcomes?score=' +
+        score +
+        '&question-category-id=' +
+        questionCategoryId
+    );
+  }
+
   public getThumbnailByPossibleOutcomeId(
     possibleOutcomeId: number
   ): Observable<Blob> {

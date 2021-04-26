@@ -227,6 +227,9 @@
     "CREATED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich erstellt.",
     "UPDATED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich modifiziert.",
     "DELETED_MESSAGE": "Das mögliche Ergebnis wurde erfolgreich gelöscht.",
+    "RECOMMENDED": "Empfohlen",
+    "LESS_RECOMMENDED": "Weniger Empfohlen",
+    "BACK_TO_QUESTION_CATEGORIES": "Zurück zu den Fragekategorien",
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
       "MISSING_SUBTITLE": "Bitte gültigen Untertitel hochladen",
@@ -256,7 +259,8 @@
     "GENERAL": "Allgemein",
     "START": "Start",
     "BACK": "Zurück",
-    "NEXT": "Weiter"
+    "NEXT": "Weiter",
+    "FINISH": "Abschliessen"
   },
   "USER": {
     "USERNAME": "Benutzername"
