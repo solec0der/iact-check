@@ -275,10 +275,24 @@
     "PHONE_NUMBER": "Telefon-Nummer",
     "EMAIL": "E-Mail",
     "PLACEHOLDER": {
-      "VALIDATION_REGEX": "Bitte Validaierungs-Muster eingeben"
+      "VALIDATION_REGEX": "Bitte Validaierungs-Muster eingeben",
+      "FIRST_NAME": "Bitte Vornamen eingeben",
+      "LAST_NAME": "Bitte Nachnamen eingeben",
+      "STREET": "Bitte Strasse eingeben",
+      "ZIP_CODE": "Bitte PLZ eingeben",
+      "CITY": "Bitte Ort eingeben",
+      "PHONE_NUMBER": "Bitte Telefon-Nummer eingeben",
+      "EMAIL": "Bitte E-Mail eingeben"
     },
     "ERRORS": {
-      "MISSING_VALIDATION_REGEX": "Bitte Validierungs-Muster eingeben"
+      "MISSING_VALIDATION_REGEX": "Bitte Validierungs-Muster eingeben",
+      "INVALID_FIRST_NAME": "Bitte gültigen Vornamen eingeben",
+      "INVALID_LAST_NAME": "Bitte gültigen Nachnamen eingeben",
+      "INVALID_STREET": "Bitte gültige Strasse eingeben",
+      "INVALID_ZIP_CODE": "Bitte gültige PLZ eingeben",
+      "INVALID_CITY": "Bitte gültigen Ort eingeben",
+      "INVALID_PHONE_NUMBER": "Bitte gültige Telefon-Nummer eingeben",
+      "INVALID_EMAIL": "Bitte gültige E-Mail eingeben"
     }
   },
   "ERROR_MESSAGES": {

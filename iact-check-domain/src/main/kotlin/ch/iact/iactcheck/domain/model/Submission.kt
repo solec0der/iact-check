@@ -26,5 +26,13 @@ data class Submission(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val rangeQuestionAnswers: List<RangeQuestionAnswer>
+    val rangeQuestionAnswers: List<RangeQuestionAnswer> = emptyList(),
+
+    @OneToMany(
+        targetEntity = BookmarkedPossibleOutcome::class,
+        mappedBy = "submission",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList()
 )

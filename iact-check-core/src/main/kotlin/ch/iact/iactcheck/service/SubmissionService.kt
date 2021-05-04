@@ -2,11 +2,14 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.controller.exception.*
 import ch.iact.iactcheck.domain.model.ActiveUserRegistrationField
+import ch.iact.iactcheck.domain.model.BookmarkedPossibleOutcome
 import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.model.Submission
 import ch.iact.iactcheck.domain.repository.CheckRepository
+import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
 import ch.iact.iactcheck.domain.repository.SubmissionRepository
+import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 import ch.iact.iactcheck.service.converter.SubmissionConverter
@@ -18,7 +21,8 @@ import org.springframework.stereotype.Service
 class SubmissionService(
     private val checkRepository: CheckRepository,
     private val submissionRepository: SubmissionRepository,
-    private val rangeQuestionRepository: RangeQuestionRepository
+    private val rangeQuestionRepository: RangeQuestionRepository,
+    private val possibleOutcomeRepository: PossibleOutcomeRepository
 ) {
 
     fun createSubmission(submissionDTO: SubmissionDTO): SubmissionDTO {
@@ -39,8 +43,7 @@ class SubmissionService(
             zipCode = submissionDTO.zipCode,
             city = submissionDTO.city,
             phoneNumber = submissionDTO.phoneNumber.trim(),
-            email = submissionDTO.email.trim().toLowerCase(),
-            rangeQuestionAnswers = emptyList()
+            email = submissionDTO.email.trim().toLowerCase()
         )
 
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
@@ -67,6 +70,31 @@ class SubmissionService(
 
         submission = submission.copy(
             rangeQuestionAnswers = convertedRangeQuestionAnswers
+        )
+
+        return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
+    }
+
+    fun addBookmarkedPossibleOutcomesToSubmission(
+        submissionId: Long,
+        bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcomeDTO>
+    ): SubmissionDTO {
+        var submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val convertedBookmarkedPossibleOutcomes = bookmarkedPossibleOutcomes.map {
+            BookmarkedPossibleOutcome(
+                id = -1,
+                possibleOutcome = possibleOutcomeRepository
+                    .findById(it.possibleOutcomeId)
+                    .orElseThrow { throw PossibleOutcomeNotFoundException() },
+                submission = submission
+            )
+        }
+
+        submission = submission.copy(
+            bookmarkedPossibleOutcomes = convertedBookmarkedPossibleOutcomes
         )
 
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))

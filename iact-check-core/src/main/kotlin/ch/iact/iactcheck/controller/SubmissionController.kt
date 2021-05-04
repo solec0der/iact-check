@@ -1,5 +1,6 @@
 package ch.iact.iactcheck.controller
 
+import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 import ch.iact.iactcheck.service.SubmissionService
@@ -22,5 +23,13 @@ internal class SubmissionController(
         @RequestBody rangeQuestionAnswers: List<RangeQuestionAnswerDTO>
     ): SubmissionDTO {
         return submissionService.addRangeQuestionAnswersToSubmission(submissionId, rangeQuestionAnswers)
+    }
+
+    @PutMapping("/{submissionId}/bookmarked-possible-outcomes")
+    fun addBookmarkedPossibleOutcomesToSubmission(
+        @PathVariable("submissionId") submissionId: Long,
+        @RequestBody bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcomeDTO>
+    ): SubmissionDTO {
+        return submissionService.addBookmarkedPossibleOutcomesToSubmission(submissionId, bookmarkedPossibleOutcomes)
     }
 }

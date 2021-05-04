@@ -1,7 +1,9 @@
 package ch.iact.iactcheck.service.converter
 
+import ch.iact.iactcheck.domain.model.BookmarkedPossibleOutcome
 import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.model.Submission
+import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 
@@ -18,7 +20,10 @@ object SubmissionConverter {
             city = submission.city,
             phoneNumber = submission.phoneNumber,
             email = submission.email,
-            rangeQuestionAnswers = submission.rangeQuestionAnswers.map { convertRangeQuestionAnswerToDTO(it) }
+            rangeQuestionAnswers = submission.rangeQuestionAnswers.map { convertRangeQuestionAnswerToDTO(it) },
+            bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes.map {
+                convertBookmarkedPossibleOutcomeToDTO(it)
+            }
         )
     }
 
@@ -28,6 +33,15 @@ object SubmissionConverter {
             value = rangeQuestionAnswer.value,
             rangeQuestionId = rangeQuestionAnswer.rangeQuestion.id,
             questionCategoryId = rangeQuestionAnswer.rangeQuestion.questionCategory.id
+        )
+    }
+
+    private fun convertBookmarkedPossibleOutcomeToDTO(
+        bookmarkedPossibleOutcome: BookmarkedPossibleOutcome
+    ): BookmarkedPossibleOutcomeDTO {
+        return BookmarkedPossibleOutcomeDTO(
+            id = bookmarkedPossibleOutcome.id,
+            possibleOutcomeId = bookmarkedPossibleOutcome.possibleOutcome.id
         )
     }
 }

@@ -27,8 +27,7 @@ class PossibleOutcomeService(
             subtitle = possibleOutcomeDTO.subtitle,
             description = possibleOutcomeDTO.description,
             youtubeUrl = possibleOutcomeDTO.youtubeUrl,
-            questionCategory = questionCategory,
-            possibleScores = emptyList()
+            questionCategory = questionCategory
         )
 
         possibleOutcome = possibleOutcomeRepository.save(possibleOutcome)

@@ -30,5 +30,13 @@ data class PossibleOutcome(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val possibleScores: List<PossibleScore>
+    val possibleScores: List<PossibleScore> = emptyList(),
+
+    @OneToMany(
+        targetEntity = BookmarkedPossibleOutcome::class,
+        mappedBy = "possibleOutcome",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList()
 )

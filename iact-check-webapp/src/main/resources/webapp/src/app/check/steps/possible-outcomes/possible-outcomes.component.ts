@@ -28,8 +28,8 @@ export class PossibleOutcomesComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
-    this.loadData();
-    // this.loadDataDev();
+    // this.loadData();
+    this.loadDataDev();
   }
 
   public adjustColor(color: string, amount: string): string {
