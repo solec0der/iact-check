@@ -7,6 +7,7 @@ import { PossibleOutcomeDTO } from '../../../admin/shared/dtos/possible-outcome-
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { PossibleScoreDTO } from '../../../admin/shared/dtos/possible-score-dto';
 import { Steps } from '../steps';
+import { ColourUtility } from '../../../shared/utils/colour.utility';
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -16,6 +17,7 @@ import { Steps } from '../steps';
 export class PossibleOutcomesComponent implements OnInit {
   public possibleOutcomes!: PossibleOutcomeDTO[];
   public customerDTO!: CustomerDTO;
+  public colourAdjuster = ColourUtility.adjustColour;
 
   private score: number = 0;
   private questionCategoryDTO!: QuestionCategoryDTO;
@@ -32,13 +34,6 @@ export class PossibleOutcomesComponent implements OnInit {
     this.loadDataDev();
   }
 
-  public adjustColor(color: string, amount: string): string {
-    if (color) {
-      return amount === '0' ? color : color + amount;
-    }
-    return '0';
-  }
-
   public getBackgroundColorOfPossibleOutcome(
     possibleOutcome: PossibleOutcomeDTO
   ): string {
@@ -48,7 +43,7 @@ export class PossibleOutcomesComponent implements OnInit {
     if (this.isScoreInPossibleScores(possibleOutcome.possibleScores)) {
       return accentColour;
     } else {
-      return this.adjustColor(accentColour, '80');
+      return ColourUtility.adjustColour(accentColour, '80');
     }
   }
 

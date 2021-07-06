@@ -17,7 +17,7 @@
 
           <div class="color-preview-container">
             <div class="square"
-                 [style.background-color]="this.adjustColor(this.customerDTO.customerBranding.accentColour, '80')"></div>
+                 [style.background-color]="this.colourAdjuster(this.customerDTO.customerBranding.accentColour, '80')"></div>
             <div>
               <p>{{'POSSIBLE_OUTCOMES.LESS_RECOMMENDED' | translate}}</p>
             </div>
