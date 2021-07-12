@@ -13,12 +13,12 @@ export class PossibleOutcomeDetailComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: PossibleOutcomeDetailData
   ) {
-    this.possibleOutcome = data.possibleOutocme;
+    this.possibleOutcome = data.possibleOutcome;
   }
 
   ngOnInit(): void {}
 }
 
 export interface PossibleOutcomeDetailData {
-  possibleOutocme: PossibleOutcomeDTO;
+  possibleOutcome: PossibleOutcomeDTO;
 }
