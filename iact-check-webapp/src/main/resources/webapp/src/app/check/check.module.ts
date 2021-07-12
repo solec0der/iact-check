@@ -13,6 +13,7 @@ import { QuestionCategorySelectionComponent } from './steps/question-category-se
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
+import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possible-outcome-detail/possible-outcome-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-ou
     QuestionCategorySelectionComponent,
     QuestionsFormComponent,
     PossibleOutcomesComponent,
+    PossibleOutcomeDetailComponent,
   ],
   imports: [
     CommonModule,

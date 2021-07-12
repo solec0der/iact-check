@@ -27,7 +27,8 @@
 
       <div class="possible-outcomes-container">
         <div class="possible-outcome" *ngFor="let possibleOutcome of this.possibleOutcomes"
-             [style.background-color]="this.getBackgroundColorOfPossibleOutcome(possibleOutcome)">
+             [style.background-color]="this.getBackgroundColorOfPossibleOutcome(possibleOutcome)"
+             (click)="this.showPossibleOutcomeDetail(possibleOutcome)">
           {{possibleOutcome.title}}
         </div>
       </div>

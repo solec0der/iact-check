@@ -8,6 +8,8 @@ import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { PossibleScoreDTO } from '../../../admin/shared/dtos/possible-score-dto';
 import { Steps } from '../steps';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
+import {MatDialog} from "@angular/material/dialog";
+import {PossibleOutcomeDetailComponent} from "./possible-outcome-detail/possible-outcome-detail.component";
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -23,6 +25,7 @@ export class PossibleOutcomesComponent implements OnInit {
   private questionCategoryDTO!: QuestionCategoryDTO;
 
   constructor(
+    private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
     private readonly possibleOutcomeService: PossibleOutcomeService
@@ -52,6 +55,10 @@ export class PossibleOutcomesComponent implements OnInit {
       Steps.QuestionCategorySelection,
       this.activatedRoute
     );
+  }
+
+  public showPossibleOutcomeDetail(possibleOutcome: PossibleOutcomeDTO): void {
+    this.matDialog.open(PossibleOutcomeDetailComponent);
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {
