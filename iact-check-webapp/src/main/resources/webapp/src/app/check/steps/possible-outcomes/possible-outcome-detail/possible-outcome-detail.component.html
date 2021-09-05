@@ -1,5 +1,26 @@
-<mat-dialog-container>
-  <img [src]="this.thumbnailUrl" style="width: 100%">
-</mat-dialog-container>
+<img [src]="this.thumbnailUrl" style="width: 100%">
 
-<h1>Fachfrau EFZ</h1>
+<div class="possible-outcome-container">
+  <div class="align-center margin-bottom-after-title">
+    <h1 class="large-title">Automatikmonteur*in EFZ</h1>
+    <p class="subtitle">Das «Köpfchen» fürs Elektronische in der Welt des Verkehrs</p>
+  </div>
+
+  <p [innerHTML]="this.possibleOutcome.description"></p>
+</div>
+
+<mat-dialog-actions>
+  <button mat-stroked-button (click)="this.closeDialog()">
+    <mat-icon>close</mat-icon>
+    {{'SHARED.CLOSE' | translate }}
+  </button>
+  <button mat-stroked-button *ngIf="!this.isInBookmarkedPossibleOutcomes()" (click)="this.toggleIsInBookmarkedPossibleOutcomes()">
+    <mat-icon>bookmark_outline</mat-icon>
+    {{'POSSIBLE_OUTCOMES.BOOKMARK' | translate }}
+  </button>
+  <button mat-stroked-button *ngIf="this.isInBookmarkedPossibleOutcomes()" (click)="this.toggleIsInBookmarkedPossibleOutcomes()">
+    <mat-icon>bookmark</mat-icon>
+    {{'POSSIBLE_OUTCOMES.REMOVE_BOOKMARK' | translate }}
+  </button>
+</mat-dialog-actions>
+

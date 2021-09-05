@@ -1,4 +1,5 @@
 import {RangeQuestionAnswerDTO} from "./range-question-answer-dto";
+import {BookmarkedPossibleOutcomeDTO} from "./bookmarked-possible-outcome-dto";
 
 export interface SubmissionDTO {
   id?: number;
@@ -11,4 +12,5 @@ export interface SubmissionDTO {
   phoneNumber: string;
   email: string;
   rangeQuestionAnswers: RangeQuestionAnswerDTO[];
+  bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[];
 }

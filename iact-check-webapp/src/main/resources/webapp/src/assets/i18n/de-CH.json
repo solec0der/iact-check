@@ -230,6 +230,8 @@
     "RECOMMENDED": "Empfohlen",
     "LESS_RECOMMENDED": "Weniger Empfohlen",
     "BACK_TO_QUESTION_CATEGORIES": "Zurück zu den Fragekategorien",
+    "BOOKMARK": "Merken",
+    "REMOVE_BOOKMARK": "Vergessen",
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
       "MISSING_SUBTITLE": "Bitte gültigen Untertitel hochladen",

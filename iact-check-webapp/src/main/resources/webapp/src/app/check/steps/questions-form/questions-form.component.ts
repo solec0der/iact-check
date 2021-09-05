@@ -85,7 +85,7 @@ export class QuestionsFormComponent implements OnInit {
         rangeQuestionAnswers
       )
       .subscribe((submission) => {
-        this.checkStateService.submission = submission;
+        this.checkStateService.submission!.rangeQuestionAnswers = submission.rangeQuestionAnswers;
         this.checkStateService.nextStep(this.activatedRoute);
       });
   }

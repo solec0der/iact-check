@@ -56,6 +56,7 @@ export class UserRegistrationComponent implements OnInit {
       phoneNumber: this.userRegistrationFormGroup.value.phoneNumber,
       email: this.userRegistrationFormGroup.value.email,
       rangeQuestionAnswers: [],
+      bookmarkedPossibleOutcomes: []
     };
 
     this.submissionService

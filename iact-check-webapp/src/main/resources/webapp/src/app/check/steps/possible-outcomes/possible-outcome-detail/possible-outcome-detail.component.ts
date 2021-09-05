@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PossibleOutcomeDTO } from '../../../../admin/shared/dtos/possible-outcome-dto';
 import { CORE_URL } from '../../../../app.config';
 import { BookmarkedPossibleOutcomeDTO } from '../../../../shared/dtos/bookmarked-possible-outcome-dto';
@@ -11,10 +11,11 @@ import { BookmarkedPossibleOutcomeDTO } from '../../../../shared/dtos/bookmarked
 })
 export class PossibleOutcomeDetailComponent implements OnInit {
   private readonly _possibleOutcome: PossibleOutcomeDTO;
-  private _bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[];
+  private readonly _bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: PossibleOutcomeDetailData
+    @Inject(MAT_DIALOG_DATA) private data: PossibleOutcomeDetailData,
+    private readonly matDialogRef: MatDialogRef<PossibleOutcomeDetailComponent>
   ) {
     this._possibleOutcome = data.possibleOutcome;
     this._bookmarkedPossibleOutcomes = data.bookmarkedPossibleOutcomes;
@@ -27,10 +28,7 @@ export class PossibleOutcomeDetailComponent implements OnInit {
       const index = this._bookmarkedPossibleOutcomes.findIndex(
         (value) => value.possibleOutcomeId === this._possibleOutcome.id
       );
-
-      if (index) {
-        this._bookmarkedPossibleOutcomes.splice(index, 1);
-      }
+      this._bookmarkedPossibleOutcomes.splice(index, 1);
     } else {
       this._bookmarkedPossibleOutcomes.push({
         possibleOutcomeId: this._possibleOutcome.id,
@@ -39,11 +37,13 @@ export class PossibleOutcomeDetailComponent implements OnInit {
   }
 
   public isInBookmarkedPossibleOutcomes(): boolean {
-    return (
-      this._bookmarkedPossibleOutcomes.find(
-        (value) => value.possibleOutcomeId === this._possibleOutcome.id
-      ) !== null
+    return this._bookmarkedPossibleOutcomes.some(
+      (value) => value.possibleOutcomeId === this._possibleOutcome.id
     );
+  }
+
+  public closeDialog(): void {
+    this.matDialogRef.close();
   }
 
   get possibleOutcome(): PossibleOutcomeDTO {

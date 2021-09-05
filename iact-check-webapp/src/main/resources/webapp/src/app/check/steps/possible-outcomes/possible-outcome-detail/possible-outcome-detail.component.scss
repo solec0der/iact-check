@@ -1,3 +1,25 @@
 ::ng-deep .mat-dialog-container {
   padding: 0 !important;
 }
+
+::ng-deep .mat-dialog-actions {
+  padding: 24px !important;
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+div.possible-outcome-container {
+  padding: 12px 24px 24px 24px;
+}
+
+h1.large-title {
+  font-size: 2.5em;
+}
+
+p.subtitle {
+  font-size: 1.2em;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}

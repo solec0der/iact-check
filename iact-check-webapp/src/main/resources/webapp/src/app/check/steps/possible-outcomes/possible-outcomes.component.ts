@@ -10,6 +10,7 @@ import { Steps } from '../steps';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { MatDialog } from '@angular/material/dialog';
 import { PossibleOutcomeDetailComponent } from './possible-outcome-detail/possible-outcome-detail.component';
+import { BookmarkedPossibleOutcomeDTO } from '../../../shared/dtos/bookmarked-possible-outcome-dto';
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -23,6 +24,7 @@ export class PossibleOutcomesComponent implements OnInit {
 
   private score: number = 0;
   private questionCategoryDTO!: QuestionCategoryDTO;
+  private bookmarkedPossibleOutcomes!: BookmarkedPossibleOutcomeDTO[];
 
   constructor(
     private readonly matDialog: MatDialog,
@@ -33,8 +35,14 @@ export class PossibleOutcomesComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
-    // this.loadData();
-    this.loadDataDev();
+
+    const submission = this.checkStateService.submission;
+    if (submission) {
+      this.bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes;
+    }
+
+    this.loadData();
+    // this.loadDataDev();
   }
 
   public getBackgroundColorOfPossibleOutcome(
@@ -58,12 +66,24 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   public showPossibleOutcomeDetail(possibleOutcome: PossibleOutcomeDTO): void {
-    this.matDialog.open(PossibleOutcomeDetailComponent, {
+    const dialogRef = this.matDialog.open(PossibleOutcomeDetailComponent, {
       data: {
         possibleOutcome: possibleOutcome,
-        bookmarkedPossibleOutcomes: []
+        bookmarkedPossibleOutcomes: this.bookmarkedPossibleOutcomes,
       },
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log(this.bookmarkedPossibleOutcomes);
+    });
+  }
+
+  public isPossibleOutcomeInBookmarkedPossibleOutcomes(
+    possibleOutcomeId: number
+  ): boolean {
+    return this.bookmarkedPossibleOutcomes.some(
+      (value) => value.possibleOutcomeId === possibleOutcomeId
+    );
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {

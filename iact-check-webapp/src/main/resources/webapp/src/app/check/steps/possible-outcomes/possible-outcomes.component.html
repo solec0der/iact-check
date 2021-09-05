@@ -30,6 +30,11 @@
              [style.background-color]="this.getBackgroundColorOfPossibleOutcome(possibleOutcome)"
              (click)="this.showPossibleOutcomeDetail(possibleOutcome)">
           {{possibleOutcome.title}}
+
+          <span style="float: right; margin-right: 25px"
+                *ngIf="this.isPossibleOutcomeInBookmarkedPossibleOutcomes(possibleOutcome.id)">
+            <mat-icon>bookmark</mat-icon>
+          </span>
         </div>
       </div>
       <div class="display-flex-space-between full-width">
