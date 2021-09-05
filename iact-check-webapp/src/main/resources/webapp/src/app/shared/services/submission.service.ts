@@ -4,6 +4,7 @@ import { SubmissionDTO } from '../dtos/submission-dto';
 import { Observable } from 'rxjs';
 import { CORE_URL } from '../../app.config';
 import { RangeQuestionAnswerDTO } from '../dtos/range-question-answer-dto';
+import { BookmarkedPossibleOutcomeDTO } from '../dtos/bookmarked-possible-outcome-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,20 @@ export class SubmissionService {
     const body = JSON.stringify(rangeQuestionAnswers);
     return this.httpClient.put<SubmissionDTO>(
       CORE_URL + '/api/submissions/' + submissionId + '/range-question-answers',
+      body
+    );
+  }
+
+  public addBookmarkedPossibleOutcomesToSubmission(
+    submissionId: number,
+    bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[]
+  ): Observable<SubmissionDTO> {
+    const body = JSON.stringify(bookmarkedPossibleOutcomes);
+    return this.httpClient.put<SubmissionDTO>(
+      CORE_URL +
+        '/api/submissions/' +
+        submissionId +
+        '/bookmarked-possible-outcomes',
       body
     );
   }

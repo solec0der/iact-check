@@ -3,5 +3,6 @@ export enum Steps {
   UserRegistration,
   QuestionCategorySelection,
   QuestionsForm,
-  PossibleOutcomes
+  PossibleOutcomes,
+  ConfirmationScreen
 }

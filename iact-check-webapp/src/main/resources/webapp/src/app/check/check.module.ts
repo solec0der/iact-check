@@ -14,6 +14,7 @@ import { QuestionsFormComponent } from './steps/questions-form/questions-form.co
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possible-outcome-detail/possible-outcome-detail.component';
+import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possib
     QuestionsFormComponent,
     PossibleOutcomesComponent,
     PossibleOutcomeDetailComponent,
+    ConfirmationScreenComponent,
   ],
   imports: [
     CommonModule,

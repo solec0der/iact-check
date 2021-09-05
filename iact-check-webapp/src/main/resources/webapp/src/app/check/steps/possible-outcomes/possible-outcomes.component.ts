@@ -11,6 +11,8 @@ import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { MatDialog } from '@angular/material/dialog';
 import { PossibleOutcomeDetailComponent } from './possible-outcome-detail/possible-outcome-detail.component';
 import { BookmarkedPossibleOutcomeDTO } from '../../../shared/dtos/bookmarked-possible-outcome-dto';
+import { SubmissionService } from '../../../shared/services/submission.service';
+import { SubmissionDTO } from '../../../shared/dtos/submission-dto';
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -25,24 +27,26 @@ export class PossibleOutcomesComponent implements OnInit {
   private score: number = 0;
   private questionCategoryDTO!: QuestionCategoryDTO;
   private bookmarkedPossibleOutcomes!: BookmarkedPossibleOutcomeDTO[];
+  private submission!: SubmissionDTO;
 
   constructor(
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
+    private readonly submissionService: SubmissionService,
     private readonly possibleOutcomeService: PossibleOutcomeService
   ) {}
 
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
 
-    const submission = this.checkStateService.submission;
+    const submission = this.checkStateService.submission!;
     if (submission) {
+      this.submission = submission;
       this.bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes;
     }
 
     this.loadData();
-    // this.loadDataDev();
   }
 
   public getBackgroundColorOfPossibleOutcome(
@@ -86,6 +90,21 @@ export class PossibleOutcomesComponent implements OnInit {
     );
   }
 
+  public submitForm(): void {
+    this.submissionService
+      .addBookmarkedPossibleOutcomesToSubmission(
+        <number>this.submission.id,
+        this.bookmarkedPossibleOutcomes
+      )
+      .subscribe((submissionDTO) => {
+        this.checkStateService.submission = submissionDTO;
+        this.checkStateService.setStep(
+          Steps.ConfirmationScreen,
+          this.activatedRoute
+        );
+      });
+  }
+
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {
     return (
       possibleScores.find(
@@ -121,55 +140,5 @@ export class PossibleOutcomesComponent implements OnInit {
             });
         }
       });
-  }
-
-  private loadDataDev(): void {
-    this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
-      this.customerDTO = customerDTO;
-    });
-
-    this.possibleOutcomes = [];
-    this.score = 6;
-
-    for (let i = 0; i < 10; i++) {
-      this.possibleOutcomes.push({
-        id: i + 1,
-        questionCategoryId: 1,
-        title: 'Mögliches Ergebnis ' + (i + 1),
-        subtitle: 'Dies ist ein Untertitel',
-        description: 'Dies ist eine Beschreibung',
-        youtubeUrl: 'Dies ist eine YouTube URL',
-        possibleScores: [
-          {
-            id: 1,
-            score: 6,
-          },
-          {
-            id: 2,
-            score: 7,
-          },
-        ],
-      });
-    }
-    for (let i = 0; i < 10; i++) {
-      this.possibleOutcomes.push({
-        id: i + 1,
-        questionCategoryId: 1,
-        title: 'Mögliches Ergebnis ' + (i + 1),
-        subtitle: 'Dies ist ein Untertitel',
-        description: 'Dies ist eine Beschreibung',
-        youtubeUrl: 'Dies ist eine YouTube URL',
-        possibleScores: [
-          {
-            id: 1,
-            score: 2,
-          },
-          {
-            id: 2,
-            score: 3,
-          },
-        ],
-      });
-    }
   }
 }

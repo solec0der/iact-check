@@ -7,6 +7,7 @@ import { UserRegistrationComponent } from './steps/user-registration/user-regist
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
+import {ConfirmationScreenComponent} from "./steps/confirmation-screen/confirmation-screen.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
           {
             path: '5',
             component: PossibleOutcomesComponent,
+          },
+          {
+            path: '6',
+            component: ConfirmationScreenComponent,
           },
         ],
       },
