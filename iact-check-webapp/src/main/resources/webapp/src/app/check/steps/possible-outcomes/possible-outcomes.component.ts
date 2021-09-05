@@ -8,8 +8,8 @@ import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { PossibleScoreDTO } from '../../../admin/shared/dtos/possible-score-dto';
 import { Steps } from '../steps';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
-import {MatDialog} from "@angular/material/dialog";
-import {PossibleOutcomeDetailComponent} from "./possible-outcome-detail/possible-outcome-detail.component";
+import { MatDialog } from '@angular/material/dialog';
+import { PossibleOutcomeDetailComponent } from './possible-outcome-detail/possible-outcome-detail.component';
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -19,7 +19,7 @@ import {PossibleOutcomeDetailComponent} from "./possible-outcome-detail/possible
 export class PossibleOutcomesComponent implements OnInit {
   public possibleOutcomes!: PossibleOutcomeDTO[];
   public customerDTO!: CustomerDTO;
-  public colourAdjuster = ColourUtility.adjustColour;
+  public readonly colourAdjuster = ColourUtility.adjustColour;
 
   private score: number = 0;
   private questionCategoryDTO!: QuestionCategoryDTO;
@@ -58,7 +58,12 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   public showPossibleOutcomeDetail(possibleOutcome: PossibleOutcomeDTO): void {
-    this.matDialog.open(PossibleOutcomeDetailComponent);
+    this.matDialog.open(PossibleOutcomeDetailComponent, {
+      data: {
+        possibleOutcome: possibleOutcome,
+        bookmarkedPossibleOutcomes: []
+      },
+    });
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {
