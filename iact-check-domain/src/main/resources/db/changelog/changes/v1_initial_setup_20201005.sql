@@ -35,17 +35,26 @@ CREATE TABLE `check`
     id          bigint       NOT NULL AUTO_INCREMENT,
     customer_id bigint       NOT NULL,
     title       varchar(255) NOT NULL,
-    language    varchar(32)  NOT NULL,
     active_from datetime     NOT NULL,
     active_to   datetime     NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (customer_id) REFERENCES customer (id)
 );
 
+CREATE TABLE check_required_language
+(
+    id       bigint      NOT NULL AUTO_INCREMENT,
+    check_id bigint      NOT NULL,
+    language varchar(32) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (check_id) REFERENCES `check` (id)
+);
+
 CREATE TABLE question_category
 (
-    id        bigint NOT NULL AUTO_INCREMENT,
-    check_id  bigint NOT NULL,
+    id        bigint      NOT NULL AUTO_INCREMENT,
+    check_id  bigint      NOT NULL,
+    language  varchar(32) NOT NULL,
     title     varchar(255),
     thumbnail longblob,
     PRIMARY KEY (id),

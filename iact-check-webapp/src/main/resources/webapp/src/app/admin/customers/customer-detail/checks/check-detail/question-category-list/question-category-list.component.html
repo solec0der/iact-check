@@ -20,6 +20,14 @@
     </th>
     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
   </ng-container>
+  <ng-container matColumnDef="language">
+    <th mat-header-cell *matHeaderCellDef>
+      {{'QUESTION_CATEGORIES.LANGUAGE' | translate}}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{'CHECKS.' + element.language.language | translate}}
+    </td>
+  </ng-container>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef style="text-align: right">
       {{'SHARED.ACTIONS' | translate}}

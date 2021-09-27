@@ -30,7 +30,9 @@ class CheckService(
             id = -1,
             customer = customer,
             title = checkDTO.title,
-            language = Language.findLanguageByLocale(checkDTO.language.locale),
+            requiredLanguages = checkDTO.requiredLanguages.map {
+                Language.findLanguageByLocale(it.locale)
+            }.toSet(),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
             questionCategories = emptyList(),
@@ -63,7 +65,9 @@ class CheckService(
 
         check = check.copy(
             title = checkDTO.title,
-            language = Language.findLanguageByLocale(checkDTO.language.locale),
+            requiredLanguages = checkDTO.requiredLanguages.map {
+                Language.findLanguageByLocale(it.locale)
+            }.toSet(),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo
         )

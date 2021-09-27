@@ -12,8 +12,13 @@ data class Check(
     @ManyToOne
     val customer: Customer,
     val title: String,
+
+    @ElementCollection(targetClass = Language::class)
+    @CollectionTable(name = "check_required_language", joinColumns = [JoinColumn(name = "check_id")])
     @Enumerated(EnumType.STRING)
-    val language: Language,
+    @Column(name = "language")
+    val requiredLanguages: Set<Language>,
+
     val activeFrom: Instant,
     val activeTo: Instant,
 

@@ -34,7 +34,7 @@
         <mat-error>
           {{'CHECKS.ERRORS.MISSING_LANGUAGE' | translate}}
         </mat-error>
-        <mat-select formControlName="language">
+        <mat-select formControlName="requiredLanguages" multiple>
           <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
             {{'CHECKS.' + availableLanguage.language | translate}}
           </mat-option>

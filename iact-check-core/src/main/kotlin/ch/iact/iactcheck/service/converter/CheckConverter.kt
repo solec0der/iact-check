@@ -11,10 +11,7 @@ object CheckConverter {
             id = check.id,
             customerId = check.customer.id,
             title = check.title,
-            language = LanguageDTO(
-                language = check.language.name,
-                locale = check.language.locale
-            ),
+            requiredLanguages = check.requiredLanguages.map { LanguageDTO(it.name, it.locale) }.toSet(),
             activeFrom = check.activeFrom,
             activeTo = check.activeTo,
             questionCategories = check.questionCategories.map {

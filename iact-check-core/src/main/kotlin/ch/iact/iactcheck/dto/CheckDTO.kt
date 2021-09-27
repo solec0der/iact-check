@@ -7,7 +7,7 @@ data class CheckDTO(
     val id: Long,
     val customerId: Long,
     val title: String,
-    val language: LanguageDTO,
+    val requiredLanguages: Set<LanguageDTO>,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val activeFrom: Instant,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

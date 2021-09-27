@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CheckDTO } from '../admin/shared/dtos/check-dto';
-import {
-  AsyncSubject,
-  BehaviorSubject,
-  Observable,
-  ReplaySubject,
-  Subject,
-} from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { CustomerDTO } from '../admin/shared/dtos/customer-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionCategoryDTO } from '../admin/shared/dtos/question-category-dto';
@@ -27,25 +21,20 @@ export class CheckStateService {
   private currentStep = 1;
   private readonly numberOfSteps = 5;
 
-  constructor(
-    private readonly router: Router,
-    private readonly translateService: TranslateService
-  ) {
+  constructor(private readonly router: Router, private readonly translateService: TranslateService) {
     this.calculateProgressBarPercentage();
   }
 
   public setActiveCheck(checkDTO: CheckDTO): void {
     this.activeCheck.next(checkDTO);
-    this.translateService.use(checkDTO.language.locale);
+    // this.translateService.use(checkDTO.language.locale);
   }
 
   public setActiveCustomer(customerDTO: CustomerDTO): void {
     this.activeCustomer.next(customerDTO);
   }
 
-  public setActiveQuestionCategory(
-    questionCategoryDTO: QuestionCategoryDTO
-  ): void {
+  public setActiveQuestionCategory(questionCategoryDTO: QuestionCategoryDTO): void {
     this.activeQuestionCategory.next(questionCategoryDTO);
   }
 
@@ -83,16 +72,11 @@ export class CheckStateService {
   public getScoreByQuestionCategoryId(questionCategoryId: number): number {
     if (this.submission) {
       const scores = this.submission.rangeQuestionAnswers
-        .filter(
-          (rangeQuestionAnswer) =>
-            rangeQuestionAnswer.questionCategoryId === questionCategoryId
-        )
+        .filter((rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === questionCategoryId)
         .map((value) => value.value);
 
       if (scores.length > 0) {
-        return scores.reduce(
-          (previousValue, currentValue) => previousValue + currentValue
-        );
+        return scores.reduce((previousValue, currentValue) => previousValue + currentValue);
       }
     }
     return 0;
@@ -107,16 +91,12 @@ export class CheckStateService {
   }
 
   private navigateToCurrentStep(currentRoute: ActivatedRoute): void {
-    this.router
-      .navigate(['../' + this.currentStep], { relativeTo: currentRoute })
-      .then(() => {
-        this.calculateProgressBarPercentage();
-      });
+    this.router.navigate(['../' + this.currentStep], { relativeTo: currentRoute }).then(() => {
+      this.calculateProgressBarPercentage();
+    });
   }
 
   private calculateProgressBarPercentage(): void {
-    this.currentProgressPercentage.next(
-      (100 / this.numberOfSteps) * this.currentStep
-    );
+    this.currentProgressPercentage.next((100 / this.numberOfSteps) * this.currentStep);
   }
 }

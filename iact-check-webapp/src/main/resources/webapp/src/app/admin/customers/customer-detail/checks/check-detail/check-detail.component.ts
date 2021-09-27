@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CustomerService } from '../../../../shared/services/customer.service';
 import { ConfirmDialogComponent } from '../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LanguageDTO } from '../../../../../shared/dtos/language-dto';
+import { getLanguageByLocale, LanguageDTO } from '../../../../../shared/dtos/language-dto';
 import { AVAILABLE_LANGUAGES } from '../../../../../shared/model/available-languages';
 
 @Component({
@@ -64,15 +64,9 @@ export class CheckDetailComponent implements OnInit {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: this.translateService.instant('CHECKS.DELETION_DIALOG.TITLE'),
-        message: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.MESSAGE'
-        ),
-        buttonTextCancel: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        message: this.translateService.instant('CHECKS.DELETION_DIALOG.MESSAGE'),
+        buttonTextCancel: this.translateService.instant('CHECKS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('CHECKS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -96,9 +90,7 @@ export class CheckDetailComponent implements OnInit {
           duration: 5000,
         }
       );
-      this.router
-        .navigate(['admin', 'customers', this.customerId, 'checks'])
-        .then();
+      this.router.navigate(['admin', 'customers', this.customerId, 'checks']).then();
     });
   }
 
@@ -107,10 +99,9 @@ export class CheckDetailComponent implements OnInit {
       id: -1,
       customerId: this.customerId,
       title: this.checkFormGroup.value.title,
-      language: {
-        language: '',
-        locale: this.checkFormGroup.value.language
-      },
+      requiredLanguages: this.checkFormGroup.value.requiredLanguages.map((locale: string) =>
+        getLanguageByLocale(locale)
+      ),
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
@@ -141,49 +132,40 @@ export class CheckDetailComponent implements OnInit {
       id: this.checkDTO.id,
       customerId: this.checkDTO.customerId,
       title: this.checkFormGroup.value.title,
-      language: {
-        language: '',
-        locale: this.checkFormGroup.value.language
-      },
+      requiredLanguages: this.checkFormGroup.value.requiredLanguages.map((locale: string) =>
+        getLanguageByLocale(locale)
+      ),
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
     };
 
-    this.checkService
-      .updateCheckById(this.checkId, checkDTO)
-      .subscribe((updatedCheckDTO) => {
-        this.checkDTO = updatedCheckDTO;
+    this.checkService.updateCheckById(this.checkId, checkDTO).subscribe((updatedCheckDTO) => {
+      this.checkDTO = updatedCheckDTO;
 
-        this.matSnackBar.open(
-          this.translateService.instant('CHECKS.UPDATED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.createCheckFormGroup();
-      });
+      this.matSnackBar.open(
+        this.translateService.instant('CHECKS.UPDATED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.createCheckFormGroup();
+    });
   }
 
   private createCheckFormGroup(): void {
     this.checkFormGroup = new FormGroup({
-      title: new FormControl(
-        this.action === 'edit' ? this.checkDTO.title : '',
-        Validators.required
-      ),
-      language: new FormControl(
-        this.action === 'edit' ? this.checkDTO.language.locale : '',
+      title: new FormControl(this.action === 'edit' ? this.checkDTO.title : '', Validators.required),
+      requiredLanguages: new FormControl(
+        this.action === 'edit' ? this.checkDTO.requiredLanguages.map((value) => value.locale) : [],
         Validators.required
       ),
       activeFrom: new FormControl(
         this.action === 'edit' ? new Date(this.checkDTO.activeFrom) : '',
         Validators.required
       ),
-      activeTo: new FormControl(
-        this.action === 'edit' ? new Date(this.checkDTO.activeTo) : '',
-        Validators.required
-      ),
+      activeTo: new FormControl(this.action === 'edit' ? new Date(this.checkDTO.activeTo) : '', Validators.required),
     });
   }
 }

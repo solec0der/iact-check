@@ -1,11 +1,12 @@
 package ch.iact.iactcheck.service
 
+import ch.iact.iactcheck.controller.exception.CheckNotFoundException
+import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
+import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.model.QuestionCategory
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.QuestionCategoryDTO
-import ch.iact.iactcheck.controller.exception.CheckNotFoundException
-import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.service.converter.QuestionCategoryConverter
 import org.springframework.stereotype.Service
 
@@ -22,6 +23,7 @@ class QuestionCategoryService(
             id = -1,
             check = check,
             title = questionCategoryDTO.title,
+            language = Language.findLanguageByLocale(questionCategoryDTO.language.locale),
             rangeQuestions = emptyList(),
             possibleOutcomes = emptyList()
         )
@@ -64,7 +66,10 @@ class QuestionCategoryService(
             .findById(questionCategoryId)
             .orElseThrow { throw QuestionCategoryNotFoundException() }
 
-        questionCategory = questionCategory.copy(title = questionCategoryDTO.title)
+        questionCategory = questionCategory.copy(
+            title = questionCategoryDTO.title,
+            language = Language.findLanguageByLocale(questionCategoryDTO.language.locale)
+        )
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))
     }

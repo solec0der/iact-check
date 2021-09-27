@@ -42,6 +42,18 @@
           </mat-form-field>
           <br/>
           <mat-form-field appearance="outline" class="half-width">
+            <mat-label>{{'QUESTION_CATEGORIES.LANGUAGE' | translate}}</mat-label>
+            <mat-error>
+              {{'QUESTION_CATEGORIES.ERRORS.MISSING_LANGUAGE' | translate}}
+            </mat-error>
+            <mat-select formControlName="language">
+              <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
+                {{'CHECKS.' + availableLanguage.language | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+          <mat-form-field appearance="outline" class="half-width">
             <mat-label>{{'QUESTION_CATEGORIES.THUMBNAIL' | translate}}</mat-label>
             <mat-error>
               {{'QUESTION_CATEGORIES.ERRORS.MISSING_THUMBNAIL' | translate}}

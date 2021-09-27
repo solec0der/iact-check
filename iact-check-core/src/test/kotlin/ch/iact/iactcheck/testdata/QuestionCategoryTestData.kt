@@ -1,6 +1,8 @@
 package ch.iact.iactcheck.testdata
 
+import ch.iact.iactcheck.domain.model.Language
 import ch.iact.iactcheck.domain.model.QuestionCategory
+import ch.iact.iactcheck.dto.LanguageDTO
 import ch.iact.iactcheck.dto.QuestionCategoryDTO
 
 object QuestionCategoryTestData {
@@ -9,6 +11,7 @@ object QuestionCategoryTestData {
         id = 1L,
         title = "Technology",
         thumbnail = ByteArray(100),
+        language = Language.GERMAN,
         check = CheckTestData.check,
         rangeQuestions = emptyList(),
         possibleOutcomes = emptyList()
@@ -18,6 +21,7 @@ object QuestionCategoryTestData {
         id = 1L,
         title = "Technology",
         thumbnail = ByteArray(100),
+        language = Language.GERMAN,
         check = CheckTestData.check,
         rangeQuestions = listOf(RangeQuestionTestData.question),
         possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcome)
@@ -27,6 +31,10 @@ object QuestionCategoryTestData {
         id = 1L,
         title = "Technology",
         checkId = 1L,
+        language = LanguageDTO(
+            language = "GERMAN",
+            locale = "de-CH"
+        ),
         rangeQuestions = emptyList(),
         possibleOutcomes = emptyList()
     )
@@ -34,6 +42,10 @@ object QuestionCategoryTestData {
     val questionCategoryDTOWithPossibleOutcomesAndQuestions = QuestionCategoryDTO(
         id = 1L,
         title = "Technology",
+        language = LanguageDTO(
+            language = "GERMAN",
+            locale = "de-CH"
+        ),
         checkId = 1L,
         rangeQuestions = listOf(RangeQuestionTestData.questionDTO),
         possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcomeDTO)

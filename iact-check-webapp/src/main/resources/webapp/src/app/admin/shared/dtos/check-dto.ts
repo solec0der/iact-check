@@ -5,7 +5,7 @@ export interface CheckDTO {
   id: number;
   customerId: number;
   title: string;
-  language: LanguageDTO;
+  requiredLanguages: LanguageDTO[];
   activeFrom: Date;
   activeTo: Date;
   questionCategories: QuestionCategoryDTO[];

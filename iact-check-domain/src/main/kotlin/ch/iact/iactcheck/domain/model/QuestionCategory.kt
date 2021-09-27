@@ -17,6 +17,9 @@ data class QuestionCategory(
     @ManyToOne
     val check: Check,
 
+    @Enumerated(EnumType.STRING)
+    val language: Language,
+
     @OneToMany(targetEntity = RangeQuestion::class, mappedBy = "questionCategory")
     val rangeQuestions: List<RangeQuestion>,
 

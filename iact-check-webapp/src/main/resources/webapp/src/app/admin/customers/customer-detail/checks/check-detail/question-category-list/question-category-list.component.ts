@@ -16,7 +16,7 @@ import { QuestionCategoryDTO } from '../../../../../shared/dtos/question-categor
 export class QuestionCategoryListComponent implements OnInit {
   @Input('check') public checkDTO!: CheckDTO;
 
-  public displayedColumnsQuestionCategories = ['id', 'title', 'actions'];
+  public displayedColumnsQuestionCategories = ['id', 'title', 'language', 'actions'];
 
   @ViewChild('questionCategoriesTable')
   private questionCategoriesTable!: MatTable<QuestionCategoryDTO>;
@@ -33,18 +33,10 @@ export class QuestionCategoryListComponent implements OnInit {
   public showQuestionCategoryDeletionDialog(questionCategoryId: number): void {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       data: {
-        title: this.translateService.instant(
-          'QUESTION_CATEGORIES.DELETION_DIALOG.TITLE'
-        ),
-        message: this.translateService.instant(
-          'QUESTION_CATEGORIES.DELETION_DIALOG.MESSAGE'
-        ),
-        buttonTextCancel: this.translateService.instant(
-          'QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        title: this.translateService.instant('QUESTION_CATEGORIES.DELETION_DIALOG.TITLE'),
+        message: this.translateService.instant('QUESTION_CATEGORIES.DELETION_DIALOG.MESSAGE'),
+        buttonTextCancel: this.translateService.instant('QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('QUESTION_CATEGORIES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -56,24 +48,20 @@ export class QuestionCategoryListComponent implements OnInit {
   }
 
   private deleteQuestionCategoryById(questionCategoryId: number): void {
-    this.questionCategoryService
-      .deleteQuestionCategoryById(questionCategoryId)
-      .subscribe(() => {
-        this.matSnackBar.open(
-          this.translateService.instant('QUESTION_CATEGORIES.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.checkDTO.questionCategories.splice(
-          this.checkDTO.questionCategories.findIndex(
-            (q) => (q.id === questionCategoryId)
-          ),
-          1
-        );
+    this.questionCategoryService.deleteQuestionCategoryById(questionCategoryId).subscribe(() => {
+      this.matSnackBar.open(
+        this.translateService.instant('QUESTION_CATEGORIES.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.checkDTO.questionCategories.splice(
+        this.checkDTO.questionCategories.findIndex((q) => q.id === questionCategoryId),
+        1
+      );
 
-        this.questionCategoriesTable.renderRows();
-      });
+      this.questionCategoriesTable.renderRows();
+    });
   }
 }
