@@ -13,6 +13,7 @@ object CheckTestData {
         id = 1L,
         customer = CustomerTestData.customer,
         title = Translations.fromMap(mapOf(Pair("de-CH", "Check One"))),
+        subtitle = Translations.fromMap(mapOf(Pair("de-CH", "Subtitle"))),
         requiredLanguages = setOf(Language.GERMAN),
         defaultLanguage = Language.GERMAN,
         activeFrom = Instant.parse("2020-01-01T09:00:00Z"),
@@ -26,6 +27,7 @@ object CheckTestData {
         customer = CustomerTestData.customer,
         requiredLanguages = setOf(Language.GERMAN),
         title = Translations.fromMap(mapOf(Pair("de-CH", "Check One"))),
+        subtitle = Translations.fromMap(mapOf(Pair("de-CH", "Subtitle"))),
         defaultLanguage = Language.GERMAN,
         activeFrom = Instant.parse("2020-01-01T09:00:00Z"),
         activeTo = Instant.parse("2020-01-04T09:00:00Z"),
@@ -43,6 +45,7 @@ object CheckTestData {
             )
         ),
         title = mapOf(Pair("de-CH", "Check One")),
+        subtitle = mapOf(Pair("de-CH", "Subtitle")),
         defaultLanguage = LanguageDTO(language = "GERMAN", locale = "de-CH"),
         activeFrom = Instant.parse("2020-01-01T09:00:00Z"),
         activeTo = Instant.parse("2020-01-04T09:00:00Z"),
@@ -59,6 +62,7 @@ object CheckTestData {
             )
         ),
         title = mapOf(Pair("de-CH", "Check One")),
+        subtitle = mapOf(Pair("de-CH", "Subtitle")),
         defaultLanguage = LanguageDTO(language = "GERMAN", locale = "de-CH"),
         activeFrom = Instant.parse("2020-01-01T09:00:00Z"),
         activeTo = Instant.parse("2020-01-04T09:00:00Z"),

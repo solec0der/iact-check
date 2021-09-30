@@ -17,6 +17,9 @@ data class Check(
     @Convert(converter = TranslationsPersistenceConverter::class)
     val title: Translations,
 
+    @Convert(converter = TranslationsPersistenceConverter::class)
+    val subtitle: Translations,
+
     @ElementCollection(targetClass = Language::class)
     @CollectionTable(name = "check_required_language", joinColumns = [JoinColumn(name = "check_id")])
     @Enumerated(EnumType.STRING)

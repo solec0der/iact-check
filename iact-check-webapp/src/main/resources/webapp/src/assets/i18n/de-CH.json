@@ -125,7 +125,9 @@
   "CHECKS": {
     "CHECKS": "Checks",
     "TITLE": "Titel",
+    "SUBTITLE": "Untertitel",
     "LANGUAGE": "Sprachen",
+    "GENERAL": "Allgemein",
     "DEFAULT_LANGUAGE": "Standard Sprache",
     "GERMAN": "Deutsch",
     "ENGLISH": "Englisch",
@@ -140,13 +142,15 @@
     "DELETED_MESSAGE": "Der Check wurde erfolgreich gelöscht.",
     "PLACEHOLDER": {
       "TITLE": "Bitte Titel des Checks eingeben",
+      "SUBTITLE": "Bitte Untertitel des Checks eingeben",
       "ACTIVE_FROM": "Bitte Aktiv Von Datum des Checks eingeben",
       "ACTIVE_TO": "Bitte Aktiv Bis Datum des Checks eingeben"
     },
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
+      "MISSING_SUBTITLE": "Bitte gültigen Untertitel eingeben",
       "MISSING_LANGUAGE": "Bitte gültige Sprache(n) auswählen",
-      "DEFAULT_DEFAULT_LANGUAGE": "Bitte gültige Standard Sprache auswählen",
+      "MISSING_DEFAULT_LANGUAGE": "Bitte gültige Standard Sprache auswählen",
       "MISSING_OR_INVALID_ACTIVE_FROM": "Bitte gültiges Aktiv von Datum setzten",
       "MISSING_OR_INVALID_ACTIVE_TO": "Bitte gültiges Aktiv bis Datum setzten"
     },

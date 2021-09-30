@@ -26,6 +26,7 @@ export class CheckDetailComponent implements OnInit {
   public checkFormGroup!: FormGroup;
 
   public titleTranslationsFormArray = new FormArray([]);
+  public subtitleTranslationsFormArray = new FormArray([]);
 
   constructor(
     private router: Router,
@@ -89,11 +90,16 @@ export class CheckDetailComponent implements OnInit {
       this.titleTranslationsFormArray
     );
 
+    const subtitleTranslationsBeforeChange = TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+      this.subtitleTranslationsFormArray
+    );
+
     if (!requiredLanguages.some((language) => language.locale === this.checkFormGroup.value.defaultLanguage)) {
       this.checkFormGroup.get('defaultLanguage')?.setValue('');
     }
 
     this.titleTranslationsFormArray.clear();
+    this.subtitleTranslationsFormArray.clear();
     requiredLanguages
       .sort((a, b) => a.language.localeCompare(b.language))
       .forEach((language) => {
@@ -104,11 +110,18 @@ export class CheckDetailComponent implements OnInit {
             this.checkDTO.title[language.locale] = '';
           }
 
+          if (subtitleTranslationsBeforeChange[language.locale]) {
+            this.checkDTO.subtitle[language.locale] = subtitleTranslationsBeforeChange[language.locale];
+          } else if (!this.checkDTO.subtitle[language.locale]) {
+            this.checkDTO.subtitle[language.locale] = '';
+          }
+
           this.titleTranslationsFormArray.push(
-            new FormGroup({
-              translation: new FormControl(this.checkDTO.title[language.locale], Validators.required),
-              language: new FormControl(language, Validators.required),
-            })
+            TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.title[language.locale])
+          );
+
+          this.subtitleTranslationsFormArray.push(
+            TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.subtitle[language.locale])
           );
         }
       });
@@ -129,6 +142,7 @@ export class CheckDetailComponent implements OnInit {
     const checkDTO: CheckDTO = {
       customerId: this.customerId,
       title: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.titleTranslationsFormArray),
+      subtitle: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.subtitleTranslationsFormArray),
       defaultLanguage: getLanguageByLocale(this.checkFormGroup.value.defaultLanguage)!,
       requiredLanguages: this.checkFormGroup.value.requiredLanguages,
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
@@ -155,6 +169,7 @@ export class CheckDetailComponent implements OnInit {
       id: this.checkDTO.id,
       customerId: this.checkDTO.customerId,
       title: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.titleTranslationsFormArray),
+      subtitle: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.subtitleTranslationsFormArray),
       defaultLanguage: getLanguageByLocale(this.checkFormGroup.value.defaultLanguage)!,
       requiredLanguages: this.checkFormGroup.value.requiredLanguages,
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
@@ -186,14 +201,16 @@ export class CheckDetailComponent implements OnInit {
     });
 
     this.titleTranslationsFormArray.clear();
+    this.subtitleTranslationsFormArray.clear();
     this.checkDTO.requiredLanguages
       .sort((a, b) => a.locale.localeCompare(b.locale))
       .forEach((value) => {
         this.titleTranslationsFormArray.push(
-          new FormGroup({
-            translation: new FormControl(this.checkDTO.title[value.locale], Validators.required),
-            language: new FormControl(value, Validators.required),
-          })
+          TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.title[value.locale])
+        );
+
+        this.subtitleTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.subtitle[value.locale])
         );
       });
   }
@@ -202,6 +219,9 @@ export class CheckDetailComponent implements OnInit {
     this.checkDTO = {
       customerId: this.customerId,
       title: {
+        'de-CH': '',
+      },
+      subtitle: {
         'de-CH': '',
       },
       defaultLanguage: DEFAULT_LANGUAGE,

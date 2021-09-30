@@ -11,6 +11,7 @@ object CheckConverter {
             id = check.id,
             customerId = check.customer.id,
             title = check.title.toMap(),
+            subtitle = check.subtitle.toMap(),
             requiredLanguages = check.requiredLanguages.map { LanguageDTO(it.name, it.locale) }.toSet(),
             defaultLanguage = LanguageDTO(check.defaultLanguage.name, check.defaultLanguage.locale),
             activeFrom = check.activeFrom,

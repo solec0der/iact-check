@@ -32,12 +32,13 @@ CREATE TABLE user_customer_access
 
 CREATE TABLE `check`
 (
-    id               bigint       NOT NULL AUTO_INCREMENT,
-    customer_id      bigint       NOT NULL,
-    title            varchar(255) NOT NULL,
-    default_language varchar(32)  NOT NULL,
-    active_from      datetime     NOT NULL,
-    active_to        datetime     NOT NULL,
+    id               bigint      NOT NULL AUTO_INCREMENT,
+    customer_id      bigint      NOT NULL,
+    title            text        NOT NULL,
+    subtitle         text        NOT NULL,
+    default_language varchar(32) NOT NULL,
+    active_from      datetime    NOT NULL,
+    active_to        datetime    NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (customer_id) REFERENCES customer (id)
 );

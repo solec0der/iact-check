@@ -9,6 +9,7 @@ import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-regi
 import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { Steps } from '../steps';
+import {SubmissionDTO} from "../../../shared/dtos/submission-dto";
 
 @Component({
   selector: 'app-user-registration',
@@ -47,7 +48,7 @@ export class UserRegistrationComponent implements OnInit {
 
   private saveUserRegistration(): void {
     const submission = {
-      correlatingCheckId: this.checkDTO.id,
+      correlatingCheckId: this.checkDTO.id!,
       firstName: this.userRegistrationFormGroup.value.firstName,
       lastName: this.userRegistrationFormGroup.value.lastName,
       street: this.userRegistrationFormGroup.value.street,

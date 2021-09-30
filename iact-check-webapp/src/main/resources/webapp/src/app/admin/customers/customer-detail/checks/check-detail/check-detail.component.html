@@ -41,6 +41,32 @@
         </ng-container>
       </div>
 
+      <br>
+      <h2 class="subtitle">{{'CHECKS.SUBTITLE' | translate}}</h2>
+
+      <div class="half-width">
+        <ng-container
+          *ngFor="let subtitleTranslationsFormGroup of this.subtitleTranslationsFormArray.controls; let i = index">
+          <div [formGroup]="$any(subtitleTranslationsFormGroup)" class="full-width">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{'CHECKS.SUBTITLE' | translate}}
+                ({{'CHECKS.' + subtitleTranslationsFormGroup.value.language.language | translate}})
+              </mat-label>
+              <mat-error>
+                {{'CHECKS.ERRORS.MISSING_SUBTITLE' | translate}}
+              </mat-error>
+              <label>
+                <input matInput [placeholder]="'CHECKS.PLACEHOLDER.SUBTITLE' | translate" formControlName="translation"
+                       required/>
+              </label>
+            </mat-form-field>
+          </div>
+        </ng-container>
+      </div>
+
+      <br>
+      <h2 class="subtitle">{{'CHECKS.GENERAL' | translate}}</h2>
+
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>{{'CHECKS.LANGUAGE' | translate}}</mat-label>
         <mat-error>

@@ -31,6 +31,7 @@ class CheckService(
             id = -1,
             customer = customer,
             title = Translations.fromMap(checkDTO.title),
+            subtitle = Translations.fromMap(checkDTO.subtitle),
             requiredLanguages = checkDTO.requiredLanguages.map {
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
@@ -67,6 +68,7 @@ class CheckService(
 
         check = check.copy(
             title = Translations.fromMap(checkDTO.title),
+            subtitle = Translations.fromMap(checkDTO.subtitle),
             requiredLanguages = checkDTO.requiredLanguages.map {
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
