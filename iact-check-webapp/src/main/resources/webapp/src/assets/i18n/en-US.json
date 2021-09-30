@@ -32,6 +32,7 @@
     "RELOAD": "Reload",
     "ACTIONS": "Actions",
     "SAVE": "Save",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "LANGUAGE": "Language"
   }
 }

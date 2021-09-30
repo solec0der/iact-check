@@ -1,5 +1,7 @@
 package ch.iact.iactcheck.domain.model
 
+import ch.iact.iactcheck.domain.converter.TranslationsPersistenceConverter
+import ch.iact.iactcheck.domain.model.common.Translations
 import java.time.Instant
 import javax.persistence.*
 
@@ -11,13 +13,18 @@ data class Check(
     val id: Long,
     @ManyToOne
     val customer: Customer,
-    val title: String,
+
+    @Convert(converter = TranslationsPersistenceConverter::class)
+    val title: Translations,
 
     @ElementCollection(targetClass = Language::class)
     @CollectionTable(name = "check_required_language", joinColumns = [JoinColumn(name = "check_id")])
     @Enumerated(EnumType.STRING)
     @Column(name = "language")
     val requiredLanguages: Set<Language>,
+
+    @Enumerated(EnumType.STRING)
+    val defaultLanguage: Language,
 
     val activeFrom: Instant,
     val activeTo: Instant,

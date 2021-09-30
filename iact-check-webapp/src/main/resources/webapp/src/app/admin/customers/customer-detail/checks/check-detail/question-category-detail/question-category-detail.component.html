@@ -67,18 +67,18 @@
           </mat-form-field>
         </form>
       </mat-tab>
-      <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate">
-        <mat-tab-group *ngIf="this.questionCategoryDTO">
+      <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate" *ngIf="this.questionCategoryDTO">
+        <mat-tab-group>
           <mat-tab [label]="'QUESTIONS.RANGE_QUESTIONS' | translate">
             <br/>
             <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
           </mat-tab>
         </mat-tab-group>
       </mat-tab>
-      <mat-tab [label]="'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate">
+      <mat-tab [label]="'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate" *ngIf="this.questionCategoryDTO">
         <br>
-        <app-possible-outcome-list *ngIf="this.questionCategoryDTO"
-                                   [questionCategory]="this.questionCategoryDTO"></app-possible-outcome-list>
+        <app-possible-outcome-list
+          [questionCategory]="this.questionCategoryDTO"></app-possible-outcome-list>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

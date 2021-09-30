@@ -126,8 +126,11 @@
     "CHECKS": "Checks",
     "TITLE": "Titel",
     "LANGUAGE": "Sprachen",
+    "DEFAULT_LANGUAGE": "Standard Sprache",
     "GERMAN": "Deutsch",
     "ENGLISH": "Englisch",
+    "FRENCH": "Französisch",
+    "ITALIAN": "Italienisch",
     "ACTIVE_FROM": "Aktiv von",
     "ACTIVE_TO": "Aktiv bis",
     "ADD_CHECK": "Check erstellen",
@@ -143,6 +146,7 @@
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
       "MISSING_LANGUAGE": "Bitte gültige Sprache(n) auswählen",
+      "DEFAULT_DEFAULT_LANGUAGE": "Bitte gültige Standard Sprache auswählen",
       "MISSING_OR_INVALID_ACTIVE_FROM": "Bitte gültiges Aktiv von Datum setzten",
       "MISSING_OR_INVALID_ACTIVE_TO": "Bitte gültiges Aktiv bis Datum setzten"
     },
@@ -171,7 +175,8 @@
     },
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
-      "MISSING_THUMBNAIL": "Bitte gültiges Thumbnail hochladen"
+      "MISSING_THUMBNAIL": "Bitte gültiges Thumbnail hochladen",
+      "MISSING_LANGUAGE": "Bitte gültige Sprache eingeben"
     },
     "DELETION_DIALOG": {
       "TITLE": "Sind Sie sicher, dass Sie diese Fragekategorie löschen möchten?",
@@ -263,7 +268,8 @@
     "START": "Start",
     "BACK": "Zurück",
     "NEXT": "Weiter",
-    "FINISH": "Abschliessen"
+    "FINISH": "Abschliessen",
+    "LANGUAGE": "Sprache"
   },
   "USER": {
     "USERNAME": "Benutzername"

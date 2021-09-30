@@ -5,6 +5,7 @@ import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
 import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.domain.model.Check
 import ch.iact.iactcheck.domain.model.Language
+import ch.iact.iactcheck.domain.model.common.Translations
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
 import ch.iact.iactcheck.dto.CheckDTO
@@ -29,10 +30,11 @@ class CheckService(
         val check = Check(
             id = -1,
             customer = customer,
-            title = checkDTO.title,
+            title = Translations.fromMap(checkDTO.title),
             requiredLanguages = checkDTO.requiredLanguages.map {
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
+            defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
             questionCategories = emptyList(),
@@ -64,10 +66,11 @@ class CheckService(
         var check = checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
 
         check = check.copy(
-            title = checkDTO.title,
+            title = Translations.fromMap(checkDTO.title),
             requiredLanguages = checkDTO.requiredLanguages.map {
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
+            defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo
         )

@@ -10,8 +10,9 @@ object CheckConverter {
         return CheckDTO(
             id = check.id,
             customerId = check.customer.id,
-            title = check.title,
+            title = check.title.toMap(),
             requiredLanguages = check.requiredLanguages.map { LanguageDTO(it.name, it.locale) }.toSet(),
+            defaultLanguage = LanguageDTO(check.defaultLanguage.name, check.defaultLanguage.locale),
             activeFrom = check.activeFrom,
             activeTo = check.activeTo,
             questionCategories = check.questionCategories.map {

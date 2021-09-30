@@ -4,6 +4,7 @@ import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { ActivatedRoute } from '@angular/router';
 import { Steps } from '../steps';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-welcome-screen',
@@ -16,7 +17,8 @@ export class WelcomeScreenComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly checkStateService: CheckStateService
+    private readonly checkStateService: CheckStateService,
+    private readonly translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +28,10 @@ export class WelcomeScreenComponent implements OnInit {
 
   public nextStep(): void {
     this.checkStateService.nextStep(this.activatedRoute);
+  }
+
+  public changeLanguage(language: string): void {
+    this.translateService.use(language);
   }
 
   private loadData(): void {

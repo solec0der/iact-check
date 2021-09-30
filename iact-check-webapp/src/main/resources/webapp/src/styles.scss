@@ -23,6 +23,11 @@ h2 {
   font-weight: 700;
 }
 
+h2.subtitle {
+  margin-bottom: 12px;
+  font-weight: normal;
+}
+
 .full-width-and-height {
   width: 100%;
   height: 100%;
@@ -30,6 +35,14 @@ h2 {
 
 .full-width {
   width: 100%;
+}
+
+.third-width {
+  width: 33%;
+}
+
+.two-third-width {
+  width: 67%;
 }
 
 .half-width {

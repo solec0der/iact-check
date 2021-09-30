@@ -11,7 +11,7 @@
         {{'SHARED.DELETE' | translate}}
       </button>
       <button mat-stroked-button (click)="this.save()"
-              [disabled]="this.checkFormGroup.invalid">
+              [disabled]="this.checkFormGroup.invalid || this.titleTranslationsFormArray.invalid">
         <mat-icon>save</mat-icon>
         {{'SHARED.SAVE' | translate}}
       </button>
@@ -19,28 +19,57 @@
   </div>
   <mat-card-content>
     <form [formGroup]="this.checkFormGroup">
-      <mat-form-field appearance="outline" class="half-width">
-        <mat-label>{{'CHECKS.TITLE' | translate}}</mat-label>
-        <mat-error>
-          {{'CHECKS.ERRORS.MISSING_TITLE' | translate}}
-        </mat-error>
-        <label>
-          <input matInput [placeholder]="'CHECKS.PLACEHOLDER.TITLE' | translate" formControlName="title" required/>
-        </label>
-      </mat-form-field>
-      <br>
+      <h2 class="subtitle">{{'CHECKS.TITLE' | translate}}</h2>
+
+      <div class="display-flex-space-between two-third-width" style="flex-wrap:  wrap">
+        <ng-container
+          *ngFor="let titleTranslationsFormGroup of this.titleTranslationsFormArray.controls; let i = index">
+          <div [formGroup]="$any(titleTranslationsFormGroup)" style="width: 49%">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{'CHECKS.TITLE' | translate}}
+                ({{'CHECKS.' + titleTranslationsFormGroup.value.language.language | translate}})
+              </mat-label>
+              <mat-error>
+                {{'CHECKS.ERRORS.MISSING_TITLE' | translate}}
+              </mat-error>
+              <label>
+                <input matInput [placeholder]="'CHECKS.PLACEHOLDER.TITLE' | translate" formControlName="translation"
+                       required/>
+              </label>
+            </mat-form-field>
+          </div>
+        </ng-container>
+      </div>
+
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>{{'CHECKS.LANGUAGE' | translate}}</mat-label>
         <mat-error>
           {{'CHECKS.ERRORS.MISSING_LANGUAGE' | translate}}
         </mat-error>
-        <mat-select formControlName="requiredLanguages" multiple>
-          <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage.locale">
+        <mat-select formControlName="requiredLanguages" multiple [compareWith]="this.compare"
+                    (selectionChange)="this.onRequiredLanguagesChange($event.value)">
+          <mat-option *ngFor="let availableLanguage of this.availableLanguages" [value]="availableLanguage">
             {{'CHECKS.' + availableLanguage.language | translate}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <br>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'CHECKS.DEFAULT_LANGUAGE' | translate}}</mat-label>
+        <mat-error>
+          {{'CHECKS.ERRORS.MISSING_DEFAULT_LANGUAGE' | translate}}
+        </mat-error>
+        <mat-select formControlName="defaultLanguage">
+          <mat-option *ngFor="let language of this.checkFormGroup.get('requiredLanguages').value"
+                      [value]="language.locale">
+            {{'CHECKS.' + language.language | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>{{'CHECKS.ACTIVE_FROM' | translate}}</mat-label>
         <mat-error>
@@ -69,11 +98,12 @@
         <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
       </mat-form-field>
     </form>
-    <mat-divider *ngIf="this.checkDTO"></mat-divider>
-    <br/>
-    <app-question-category-list *ngIf="this.checkDTO" [check]="this.checkDTO"></app-question-category-list>
   </mat-card-content>
+</mat-card>
+<br/>
 
-  <mat-card-actions>
-  </mat-card-actions>
+<mat-card *ngIf="this.action === 'edit'">
+  <mat-card-content>
+    <app-question-category-list [check]="this.checkDTO"></app-question-category-list>
+  </mat-card-content>
 </mat-card>

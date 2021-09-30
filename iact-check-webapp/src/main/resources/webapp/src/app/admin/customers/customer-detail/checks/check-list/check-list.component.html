@@ -20,7 +20,7 @@
         <th mat-header-cell *matHeaderCellDef>
           {{'CHECKS.TITLE' | translate}}
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.title[element.defaultLanguage.locale]}} </td>
       </ng-container>
       <ng-container matColumnDef="requiredLanguages">
         <th mat-header-cell *matHeaderCellDef>
