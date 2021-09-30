@@ -87,7 +87,7 @@
           {{'CHECKS.ERRORS.MISSING_DEFAULT_LANGUAGE' | translate}}
         </mat-error>
         <mat-select formControlName="defaultLanguage">
-          <mat-option *ngFor="let language of this.checkFormGroup.get('requiredLanguages').value"
+          <mat-option *ngFor="let language of this.checkFormGroup.get('requiredLanguages')?.value"
                       [value]="language.locale">
             {{'CHECKS.' + language.language | translate}}
           </mat-option>
