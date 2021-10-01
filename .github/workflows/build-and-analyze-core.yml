@@ -41,6 +41,7 @@ jobs:
           name: iact-check-webapp
           path: iact-check-webapp/target/iact-check-webapp.jar
   build_docker_images:
+    needs: build_and_analyze_application
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/master' }}
     steps:
