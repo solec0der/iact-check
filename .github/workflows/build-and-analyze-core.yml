@@ -24,5 +24,56 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Set Version
+        run: mvn versions:set -DnewVersion=nightly#$(git rev-parse --short "$GITHUB_SHA")
       - name: Build and Test with Maven
         run: mvn -B clean verify
+      - name: Rename Jars
+        run: |
+          mv iact-check-core/target/iact-check-core*.jar iact-check-core/target/iact-check-core.jar
+          mv iact-check-webapp/target/iact-check-webapp*.jar iact-check-webapp/target/iact-check-webapp.jar
+      - uses: actions/upload-artifact@master
+        with:
+          name: iact-check-core
+          path: iact-check-core/target/iact-check-core.jar
+      - uses: actions/upload-artifact@master
+        with:
+          name: iact-check-webapp
+          path: iact-check-webapp/target/iact-check-webapp.jar
+  build_docker_images:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@master
+        with:
+          name: iact-check-core
+          path: iact-check-core/target/iact-check-core.jar
+      - uses: actions/download-artifact@master
+        with:
+          name: iact-check-webapp
+          path: iact-check-webapp/target/iact-check-webapp.jar
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push Iact-Check-Core
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./iact-check-core
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iact-check-core:nightly
+      - name: Build and push Iact-Check-Webapp
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./iact-check-webapp
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iact-check-webapp:nightly
