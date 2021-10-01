@@ -64,14 +64,14 @@ jobs:
       - name: Build and push Iact-Check-Core
         uses: docker/build-push-action@v2
         with:
-          context: ./iact-check-core
-          file: ./Dockerfile
+          context: .
+          file: ./iact-check-core/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iact-check-core:nightly
+          tags: mortimercold/iact-check-core:nightly
       - name: Build and push Iact-Check-Webapp
         uses: docker/build-push-action@v2
         with:
-          context: ./iact-check-webapp
-          file: ./Dockerfile
+          context: .
+          file: ./iact-check-webapp/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iact-check-webapp:nightly
+          tags: mortimercold/iact-check-webapp:nightly
