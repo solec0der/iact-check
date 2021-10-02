@@ -28,32 +28,6 @@ jobs:
         run: mvn versions:set -DnewVersion=nightly#$(git rev-parse --short "$GITHUB_SHA")
       - name: Build and Test with Maven
         run: mvn -B clean verify
-      - name: Rename Jars
-        run: |
-          mv iact-check-core/target/iact-check-core*.jar iact-check-core/target/iact-check-core.jar
-          mv iact-check-webapp/target/iact-check-webapp*.jar iact-check-webapp/target/iact-check-webapp.jar
-      - uses: actions/upload-artifact@master
-        with:
-          name: iact-check-core
-          path: iact-check-core/target/iact-check-core.jar
-      - uses: actions/upload-artifact@master
-        with:
-          name: iact-check-webapp
-          path: iact-check-webapp/target/iact-check-webapp.jar
-  build_docker_images:
-    needs: build_and_analyze_application
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/master' }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@master
-        with:
-          name: iact-check-core
-          path: iact-check-core/target/iact-check-core.jar
-      - uses: actions/download-artifact@master
-        with:
-          name: iact-check-webapp
-          path: iact-check-webapp/target/iact-check-webapp.jar
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -69,6 +43,7 @@ jobs:
           cd iact-check-webapp
           docker build -t mortimercold/iact-check-webapp:nightly .
           docker push mortimercold/iact-check-webapp:nightly
+
   deploy_ct:
     needs: build_docker_images
     runs-on: ubuntu-latest
@@ -85,6 +60,6 @@ jobs:
             cd nomad-consul-configuration
             nomad job stop iact-check-core
             nomad job stop iact-check-webapp
-            nomad job run jobs/iact-check-core.nomad
-            nomad job run jobs/iact-check-webapp.nomad
+            nomad job run -detach jobs/iact-check-core.nomad
+            nomad job run -detach jobs/iact-check-webapp.nomad
 
