@@ -69,3 +69,22 @@ jobs:
           cd iact-check-webapp
           docker build -t mortimercold/iact-check-webapp:nightly .
           docker push mortimercold/iact-check-webapp:nightly
+  deploy_ct:
+    needs: build_docker_images
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+    steps:
+      - name: Restart Iact-Check-Core and Iact-Check-Webapp
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CT_NOMAD_HOST }}
+          username: ${{ secrets.CT_NOMAD_USERNAME }}
+          key: ${{ secrets.CT_NOMAD_SSH_KEY }}
+          port: ${{ secrets.CT_NOMAD_PORT }}
+          script: |
+            cd nomad-consul-configuration
+            nomad job stop iact-check-core
+            nomad job stop iact-check-webapp
+            nomad job run jobs/iact-check-core.nomad
+            nomad job run jobs/iact-check-webapp.nomad
+
