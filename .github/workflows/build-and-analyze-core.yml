@@ -25,7 +25,7 @@ jobs:
         with:
           java-version: 11
       - name: Set Version
-        run: mvn versions:set -DnewVersion=nightly#$(git rev-parse --short "$GITHUB_SHA")
+        run: mvn versions:set -DnewVersion=nightly-$(git rev-parse --short "$GITHUB_SHA")
       - name: Build and Test with Maven
         run: mvn -B clean verify
       - name: Login to Docker Hub
