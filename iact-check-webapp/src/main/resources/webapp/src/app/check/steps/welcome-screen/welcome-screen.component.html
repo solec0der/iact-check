@@ -10,9 +10,9 @@
     </mat-form-field>
 
     <div class="align-center">
-      <h1>{{this.checkDTO?.title}}</h1>
+      <h1>{{this.checkDTO.title[this.getCurrentLanguage().locale]}}</h1>
       <br>
-      <h2>Klicke auf Start, um mit dem Check loszulegen</h2>
+      <h2>{{this.checkDTO.subtitle[this.getCurrentLanguage().locale]}}</h2>
     </div>
 
     <div class="check-content">

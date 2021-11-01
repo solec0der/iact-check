@@ -14,6 +14,8 @@ data class CustomerBranding(
     val accentColour: String,
     val textColour: String,
     val font: String,
+    @Enumerated(EnumType.STRING)
+    val theme: Theme,
 
     @Lob
     @Basic(fetch = FetchType.LAZY)

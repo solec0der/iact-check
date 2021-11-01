@@ -7,5 +7,6 @@ data class CustomerBrandingDTO(
     val backgroundColour: String,
     val accentColour: String,
     val textColour: String,
-    val font: String
+    val font: String,
+    val theme: String
 )

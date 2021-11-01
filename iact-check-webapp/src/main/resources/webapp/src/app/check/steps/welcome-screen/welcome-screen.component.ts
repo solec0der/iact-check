@@ -4,7 +4,8 @@ import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
 import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
 import { ActivatedRoute } from '@angular/router';
 import { Steps } from '../steps';
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
+import { DEFAULT_LANGUAGE, getLanguageByLocale, LanguageDTO } from '../../../shared/dtos/language-dto';
 
 @Component({
   selector: 'app-welcome-screen',
@@ -28,6 +29,10 @@ export class WelcomeScreenComponent implements OnInit {
 
   public nextStep(): void {
     this.checkStateService.nextStep(this.activatedRoute);
+  }
+
+  public getCurrentLanguage(): LanguageDTO {
+    return getLanguageByLocale(this.translateService.currentLang) || DEFAULT_LANGUAGE;
   }
 
   public changeLanguage(language: string): void {

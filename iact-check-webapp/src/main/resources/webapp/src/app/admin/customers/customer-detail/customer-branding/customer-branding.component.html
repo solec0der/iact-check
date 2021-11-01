@@ -75,4 +75,17 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <br/>
+  <mat-form-field appearance="outline" class="half-width">
+    <mat-label>{{'SHARED.THEME' | translate}}</mat-label>
+    <mat-error>
+      {{'CUSTOMERS.ERRORS.MISSING_THEME' | translate}}
+    </mat-error>
+    <mat-select formControlName="theme" required>
+      <mat-option *ngFor="let availableTheme of this.availableThemes" [value]="availableTheme">
+        {{'SHARED.' + availableTheme + '_THEME' | translate}}
+      </mat-option>
+    </mat-select>
+    <mat-hint>{{'CUSTOMERS.HINTS.THEME' | translate}}</mat-hint>
+  </mat-form-field>
 </form>

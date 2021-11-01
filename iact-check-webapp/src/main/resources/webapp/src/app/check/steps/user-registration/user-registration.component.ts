@@ -49,13 +49,13 @@ export class UserRegistrationComponent implements OnInit {
   private saveUserRegistration(): void {
     const submission = {
       correlatingCheckId: this.checkDTO.id!,
-      firstName: this.userRegistrationFormGroup.value.firstName,
-      lastName: this.userRegistrationFormGroup.value.lastName,
-      street: this.userRegistrationFormGroup.value.street,
-      zipCode: this.userRegistrationFormGroup.value.zipCode,
-      city: this.userRegistrationFormGroup.value.city,
-      phoneNumber: this.userRegistrationFormGroup.value.phoneNumber,
-      email: this.userRegistrationFormGroup.value.email,
+      firstName: this.userRegistrationFormGroup.value.firstName || '',
+      lastName: this.userRegistrationFormGroup.value.lastName || '',
+      street: this.userRegistrationFormGroup.value.street || '',
+      zipCode: this.userRegistrationFormGroup.value.zipCode || '',
+      city: this.userRegistrationFormGroup.value.city || '',
+      phoneNumber: this.userRegistrationFormGroup.value.phoneNumber || '',
+      email: this.userRegistrationFormGroup.value.email || '',
       rangeQuestionAnswers: [],
       bookmarkedPossibleOutcomes: []
     };

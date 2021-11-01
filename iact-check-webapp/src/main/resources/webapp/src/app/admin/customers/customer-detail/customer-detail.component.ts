@@ -65,15 +65,9 @@ export class CustomerDetailComponent implements OnInit {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: this.translateService.instant('CUSTOMERS.DELETION_DIALOG.TITLE'),
-        message: this.translateService.instant(
-          'CUSTOMERS.DELETION_DIALOG.MESSAGE'
-        ),
-        buttonTextCancel: this.translateService.instant(
-          'CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        message: this.translateService.instant('CUSTOMERS.DELETION_DIALOG.MESSAGE'),
+        buttonTextCancel: this.translateService.instant('CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('CUSTOMERS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -85,18 +79,16 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   private deleteCustomer() {
-    this.customerService
-      .deleteCustomerById(<number>this.customerDTO.id)
-      .subscribe((_) => {
-        this.matSnackBar.open(
-          this.translateService.instant('CUSTOMERS.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.router.navigate(['admin', 'customers']).then();
-      });
+    this.customerService.deleteCustomerById(<number>this.customerDTO.id).subscribe((_) => {
+      this.matSnackBar.open(
+        this.translateService.instant('CUSTOMERS.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.router.navigate(['admin', 'customers']).then();
+    });
   }
 
   private loadData(): void {
@@ -114,10 +106,7 @@ export class CustomerDetailComponent implements OnInit {
         })
       )
       .subscribe((logo) => {
-        this.logo = FileReaderUtil.convertBlobToFile(
-          logo,
-          this.customerDTO.name + '.png'
-        );
+        this.logo = FileReaderUtil.convertBlobToFile(logo, this.customerDTO.name + '.png');
         this.createCustomerFromGroup();
         this.createCustomerBrandingFormGroup();
       });
@@ -135,20 +124,18 @@ export class CustomerDetailComponent implements OnInit {
 
       this.activeCustomerService.setActiveCustomer(response);
 
-      this.router
-        .navigate(['admin', 'customers', response.id, 'edit'])
-        .then(() => {
-          this.createCustomerFromGroup();
-          this.createCustomerBrandingFormGroup();
+      this.router.navigate(['admin', 'customers', response.id, 'edit']).then(() => {
+        this.createCustomerFromGroup();
+        this.createCustomerBrandingFormGroup();
 
-          this.matSnackBar.open(
-            this.translateService.instant('CUSTOMERS.CREATED_MESSAGE'),
-            this.translateService.instant('SHARED.CLOSE'),
-            {
-              duration: 5000,
-            }
-          );
-        });
+        this.matSnackBar.open(
+          this.translateService.instant('CUSTOMERS.CREATED_MESSAGE'),
+          this.translateService.instant('SHARED.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+      });
     });
   }
 
@@ -162,14 +149,12 @@ export class CustomerDetailComponent implements OnInit {
       customerBranding: {
         id: this.customerDTO.customerBranding?.id!,
         customerId: this.customerId,
-        primaryColour:
-          '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
-        backgroundColour:
-          '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
-        accentColour:
-          '#' + this.customerBrandingFormGroup.value.accentColour.hex,
+        primaryColour: '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
+        backgroundColour: '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
+        accentColour: '#' + this.customerBrandingFormGroup.value.accentColour.hex,
         textColour: '#' + this.customerBrandingFormGroup.value.textColour.hex,
         font: this.customerBrandingFormGroup.value.font,
+        theme: this.customerBrandingFormGroup.value.theme,
       },
     };
 
@@ -218,60 +203,36 @@ export class CustomerDetailComponent implements OnInit {
 
   private createCustomerFromGroup(): void {
     this.customerFormGroup = new FormGroup({
-      name: new FormControl(
-        this.action === 'edit' ? this.customerDTO?.name : '',
-        Validators.required
-      ),
+      name: new FormControl(this.action === 'edit' ? this.customerDTO?.name : '', Validators.required),
     });
   }
 
   private createCustomerBrandingFormGroup(): void {
     const primaryColour = ColourUtility.convertHexToColor(
-      this.customerDTO.customerBranding
-        ? this.customerDTO.customerBranding.primaryColour
-        : null
+      this.customerDTO.customerBranding ? this.customerDTO.customerBranding.primaryColour : null
     );
     const backgroundColour = ColourUtility.convertHexToColor(
-      this.customerDTO.customerBranding
-        ? this.customerDTO.customerBranding.backgroundColour
-        : null
+      this.customerDTO.customerBranding ? this.customerDTO.customerBranding.backgroundColour : null
     );
     const accentColour = ColourUtility.convertHexToColor(
-      this.customerDTO.customerBranding
-        ? this.customerDTO.customerBranding.accentColour
-        : null
+      this.customerDTO.customerBranding ? this.customerDTO.customerBranding.accentColour : null
     );
     const textColour = ColourUtility.convertHexToColor(
-      this.customerDTO.customerBranding
-        ? this.customerDTO.customerBranding.textColour
-        : null
+      this.customerDTO.customerBranding ? this.customerDTO.customerBranding.textColour : null
     );
 
     this.customerBrandingFormGroup = new FormGroup({
-      logo: new FormControl(
-        this.logo && this.logo.size > 0 ? this.logo : new File([], ''),
-        Validators.required
-      ),
-      primaryColour: new FormControl(
-        this.customerDTO.customerBranding ? primaryColour : '',
-        Validators.required
-      ),
-      backgroundColour: new FormControl(
-        this.customerDTO.customerBranding ? backgroundColour : '',
-        Validators.required
-      ),
-      accentColour: new FormControl(
-        this.customerDTO.customerBranding ? accentColour : '',
-        Validators.required
-      ),
-      textColour: new FormControl(
-        this.customerDTO.customerBranding ? textColour : '',
-        Validators.required
-      ),
+      logo: new FormControl(this.logo && this.logo.size > 0 ? this.logo : new File([], ''), Validators.required),
+      primaryColour: new FormControl(this.customerDTO.customerBranding ? primaryColour : '', Validators.required),
+      backgroundColour: new FormControl(this.customerDTO.customerBranding ? backgroundColour : '', Validators.required),
+      accentColour: new FormControl(this.customerDTO.customerBranding ? accentColour : '', Validators.required),
+      textColour: new FormControl(this.customerDTO.customerBranding ? textColour : '', Validators.required),
       font: new FormControl(
-        this.customerDTO.customerBranding
-          ? this.customerDTO.customerBranding.font
-          : '',
+        this.customerDTO.customerBranding ? this.customerDTO.customerBranding.font : '',
+        Validators.required
+      ),
+      theme: new FormControl(
+        this.customerDTO.customerBranding ? this.customerDTO.customerBranding.theme : '',
         Validators.required
       ),
     });

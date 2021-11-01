@@ -1,3 +1,5 @@
+import {Theme} from "../../../shared/model/theme";
+
 export interface CustomerBrandingDTO {
   id: number;
   customerId: number;
@@ -6,4 +8,5 @@ export interface CustomerBrandingDTO {
   accentColour: string;
   textColour: string;
   font: string;
+  theme: Theme;
 }

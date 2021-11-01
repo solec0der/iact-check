@@ -37,8 +37,7 @@ const routes: Routes = [
         component: CheckDetailComponent,
       },
       {
-        path:
-          'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/:action',
+        path: 'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/:action',
         component: QuestionCategoryDetailComponent,
       },
       {

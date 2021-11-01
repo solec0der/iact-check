@@ -3,6 +3,7 @@ import { CheckStateService } from '../check-state.service';
 import { CustomerService } from '../../admin/shared/services/customer.service';
 import { CORE_URL } from '../../app.config';
 import { CustomerDTO } from '../../admin/shared/dtos/customer-dto';
+import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
   selector: 'app-steps',
@@ -14,25 +15,29 @@ export class StepsComponent implements OnInit {
   public customerDTO!: CustomerDTO;
 
   constructor(
+    private readonly themeService: ThemeService,
     private readonly customerService: CustomerService,
     private readonly checkStateService: CheckStateService
   ) {}
 
   ngOnInit(): void {
-    this.checkStateService
-      .getCurrentProgressPercentage()
-      .subscribe((currentProgressPercentage) => {
-        this.currentProgressPercentage = currentProgressPercentage;
-      });
+    this.checkStateService.getCurrentProgressPercentage().subscribe((currentProgressPercentage) => {
+      this.currentProgressPercentage = currentProgressPercentage;
+    });
 
     this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
       this.customerDTO = customerDTO;
+      if (customerDTO.customerBranding) {
+        this.themeService.setColors(
+          customerDTO.customerBranding.primaryColour,
+          customerDTO.customerBranding.accentColour,
+          customerDTO.customerBranding.theme
+        );
+      }
     });
   }
 
   public getCustomerLogoUrl(): string {
-    return (
-      CORE_URL + '/api/customers/' + this.customerDTO.id + '/branding/logo'
-    );
+    return CORE_URL + '/api/customers/' + this.customerDTO.id + '/branding/logo';
   }
 }

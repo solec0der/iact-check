@@ -3,15 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../../shared/services/user.service';
-import { CustomerService } from '../../../shared/services/customer.service';
 import { CustomerDTO } from '../../../shared/dtos/customer-dto';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AVAILABLE_FONTS } from '../../../../shared/model/available-fonts';
-import { ColourUtility } from '../../../../shared/utils/colour.utility';
-import { map, mergeMap } from 'rxjs/operators';
-import { FileReaderUtil } from '../../../shared/util/file-reader.util';
-import { CustomerBrandingDTO } from '../../../shared/dtos/customer-branding-dto';
 import { CORE_URL } from '../../../../app.config';
+import {Theme} from "../../../../shared/model/theme";
 
 @Component({
   selector: 'app-customer-branding',
@@ -45,41 +41,11 @@ export class CustomerBrandingComponent implements OnInit {
     return AVAILABLE_FONTS;
   }
 
-  public showLogo(): void {
-    window.open(
-      CORE_URL + '/api/customers/' + this.customerId + '/branding/logo',
-      '_blank'
-    );
+  public get availableThemes(): Theme[] {
+    return [Theme.LIGHT, Theme.DARK];
   }
 
-  // private updateCustomerBranding(): void {
-  //   const customerBrandingDTO: CustomerBrandingDTO = {
-  //     id: this.customerDTO.customerBranding?.id!,
-  //     customerId: this.customerId,
-  //     primaryColour:
-  //       '#' + this.customerBrandingFormGroup.value.primaryColour.hex,
-  //     backgroundColour:
-  //       '#' + this.customerBrandingFormGroup.value.backgroundColour.hex,
-  //     accentColour: '#' + this.customerBrandingFormGroup.value.accentColour.hex,
-  //     textColour: '#' + this.customerBrandingFormGroup.value.textColour.hex,
-  //     font: this.customerBrandingFormGroup.value.font,
-  //   };
-  //
-  //   this.customerService
-  //     .updateCustomerBrandingByCustomerId(this.customerId, customerBrandingDTO)
-  //     .pipe(
-  //       map((updatedCustomerBranding) => {
-  //         this.customerDTO.customerBranding = updatedCustomerBranding;
-  //         return updatedCustomerBranding;
-  //       }),
-  //       mergeMap((updatedCustomerBranding) => {
-  //         return this.customerService.uploadLogoByCustomerId(
-  //           updatedCustomerBranding.customerId,
-  //           this.customerBrandingFormGroup.value.logo
-  //         );
-  //       })
-  //     )
-  //     .subscribe(() => {
-  //     });
-  // }
+  public showLogo(): void {
+    window.open(CORE_URL + '/api/customers/' + this.customerId + '/branding/logo', '_blank');
+  }
 }

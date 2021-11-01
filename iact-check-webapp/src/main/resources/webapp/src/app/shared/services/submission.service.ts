@@ -12,14 +12,9 @@ import { BookmarkedPossibleOutcomeDTO } from '../dtos/bookmarked-possible-outcom
 export class SubmissionService {
   constructor(private httpClient: HttpClient) {}
 
-  public createSubmission(
-    submission: SubmissionDTO
-  ): Observable<SubmissionDTO> {
+  public createSubmission(submission: SubmissionDTO): Observable<SubmissionDTO> {
     const body = JSON.stringify(submission);
-    return this.httpClient.post<SubmissionDTO>(
-      CORE_URL + '/api/submissions',
-      body
-    );
+    return this.httpClient.post<SubmissionDTO>(CORE_URL + '/api/submissions', body);
   }
 
   public addRangeQuestionAnswersToSubmission(
@@ -39,10 +34,7 @@ export class SubmissionService {
   ): Observable<SubmissionDTO> {
     const body = JSON.stringify(bookmarkedPossibleOutcomes);
     return this.httpClient.put<SubmissionDTO>(
-      CORE_URL +
-        '/api/submissions/' +
-        submissionId +
-        '/bookmarked-possible-outcomes',
+      CORE_URL + '/api/submissions/' + submissionId + '/bookmarked-possible-outcomes',
       body
     );
   }

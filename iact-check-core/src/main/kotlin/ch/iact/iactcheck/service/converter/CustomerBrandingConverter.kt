@@ -2,6 +2,7 @@ package ch.iact.iactcheck.service.converter
 
 import ch.iact.iactcheck.domain.model.Customer
 import ch.iact.iactcheck.domain.model.CustomerBranding
+import ch.iact.iactcheck.domain.model.Theme
 import ch.iact.iactcheck.dto.CustomerBrandingDTO
 
 object CustomerBrandingConverter {
@@ -18,7 +19,8 @@ object CustomerBrandingConverter {
             backgroundColour = customerBranding.backgroundColour,
             accentColour = customerBranding.accentColour,
             textColour = customerBranding.textColour,
-            font = customerBranding.font
+            font = customerBranding.font,
+            theme = customerBranding.theme.name
         )
     }
 
@@ -37,7 +39,8 @@ object CustomerBrandingConverter {
             backgroundColour = customerBrandingDTO.backgroundColour,
             accentColour = customerBrandingDTO.accentColour,
             textColour = customerBrandingDTO.textColour,
-            font = customerBrandingDTO.font
+            font = customerBrandingDTO.font,
+            theme = Theme.valueOf(customerBrandingDTO.theme)
         )
     }
 }
