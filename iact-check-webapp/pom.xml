@@ -140,7 +140,7 @@
                         <phase>none</phase>
                     </execution>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>webapp-resources</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -150,11 +150,21 @@
                             <resources>
                                 <resource>
                                     <directory>${basedir}/src/main/resources/webapp/dist/webapp</directory>
-                                    <excludes>
-                                        <exclude>node_modules/**</exclude>
-                                        <exclude>src/**</exclude>
-                                        <exclude>e2e/**</exclude>
-                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>config-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources/config/</directory>
                                 </resource>
                             </resources>
                         </configuration>
