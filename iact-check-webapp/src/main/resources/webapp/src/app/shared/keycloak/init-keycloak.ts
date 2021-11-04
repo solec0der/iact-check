@@ -18,7 +18,7 @@ export function initializer(
             },
             loadUserProfileAtStartUp: true,
             initOptions: {
-              checkLoginIframe: true,
+              checkLoginIframe: false,
               flow: 'implicit'
             },
             bearerExcludedUrls: [],
