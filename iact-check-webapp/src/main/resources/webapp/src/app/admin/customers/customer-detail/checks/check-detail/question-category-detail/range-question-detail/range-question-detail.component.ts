@@ -75,9 +75,7 @@ export class RangeQuestionDetailComponent implements OnInit {
   }
 
   public addRangeStepFormGroup(): void {
-    this.rangeStepsFormArray.push(
-      RangeQuestionDetailComponent.createEmptyRangeStepFormGroup()
-    );
+    this.rangeStepsFormArray.push(RangeQuestionDetailComponent.createEmptyRangeStepFormGroup());
   }
 
   public removeRangeStepByIndex(index: number): void {
@@ -92,12 +90,8 @@ export class RangeQuestionDetailComponent implements OnInit {
       data: {
         title: this.translateService.instant('QUESTIONS.DELETION_DIALOG.TITLE'),
         message: '',
-        buttonTextCancel: this.translateService.instant(
-          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        buttonTextCancel: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -109,32 +103,22 @@ export class RangeQuestionDetailComponent implements OnInit {
   }
 
   public showIcon(): void {
-    window.open(
-      CORE_URL + '/api/range-questions/' + this.rangeQuestionId + '/icon',
-      '_blank'
-    );
+    window.open(CORE_URL + '/api/range-questions/' + this.rangeQuestionId + '/icon', '_blank');
   }
 
   private loadData(): void {
-    this.rangeQuestionService
-      .getRangeQuestionById(this.rangeQuestionId)
-      .subscribe((rangeQuestionDTO) => {
-        this.rangeQuestionDTO = rangeQuestionDTO;
-        this.loadIcon();
-      });
+    this.rangeQuestionService.getRangeQuestionById(this.rangeQuestionId).subscribe((rangeQuestionDTO) => {
+      this.rangeQuestionDTO = rangeQuestionDTO;
+      this.loadIcon();
+    });
   }
 
   private loadIcon(): void {
-    this.rangeQuestionService
-      .getIconByRangeQuestionId(this.rangeQuestionId)
-      .subscribe((icon) => {
-        this.icon = FileReaderUtil.convertBlobToFile(
-          icon,
-          this.rangeQuestionDTO.questionText + '.png'
-        );
-        this.createRangeQuestionFormGroup();
-        this.createRangeStepsFormArray();
-      });
+    this.rangeQuestionService.getIconByRangeQuestionId(this.rangeQuestionId).subscribe((icon) => {
+      this.icon = FileReaderUtil.convertBlobToFile(icon, this.rangeQuestionDTO.questionText + '.png');
+      this.createRangeQuestionFormGroup();
+      this.createRangeStepsFormArray();
+    });
   }
 
   private createRangeQuestion(): void {
@@ -145,26 +129,24 @@ export class RangeQuestionDetailComponent implements OnInit {
       rangeSteps: this.getRangeStepsFromFormArray(),
     };
 
-    this.rangeQuestionService
-      .createRangeQuestion(rangeQuestionDTO)
-      .subscribe((createdRangeQuestionDTO) => {
-        this.rangeQuestionDTO = createdRangeQuestionDTO;
+    this.rangeQuestionService.createRangeQuestion(rangeQuestionDTO).subscribe((createdRangeQuestionDTO) => {
+      this.rangeQuestionDTO = createdRangeQuestionDTO;
 
-        this.router
-          .navigate(['../../' + createdRangeQuestionDTO.id + '/edit'], {
-            relativeTo: this.activatedRoute,
-          })
-          .then(() => {
-            this.matSnackBar.open(
-              this.translateService.instant('QUESTIONS.CREATED_MESSAGE'),
-              this.translateService.instant('SHARED.CLOSE'),
-              {
-                duration: 5000,
-              }
-            );
-            this.uploadIcon();
-          });
-      });
+      this.router
+        .navigate(['../../' + createdRangeQuestionDTO.id + '/edit'], {
+          relativeTo: this.activatedRoute,
+        })
+        .then(() => {
+          this.matSnackBar.open(
+            this.translateService.instant('QUESTIONS.CREATED_MESSAGE'),
+            this.translateService.instant('SHARED.CLOSE'),
+            {
+              duration: 5000,
+            }
+          );
+          this.uploadIcon();
+        });
+    });
   }
 
   private updateRangeQuestion(): void {
@@ -192,10 +174,7 @@ export class RangeQuestionDetailComponent implements OnInit {
 
   private uploadIcon(): void {
     this.rangeQuestionService
-      .uploadIconByRangeQuestionId(
-        this.rangeQuestionId,
-        this.rangeQuestionFormGroup.value.icon
-      )
+      .uploadIconByRangeQuestionId(this.rangeQuestionId, this.rangeQuestionFormGroup.value.icon)
       .subscribe(() => {
         this.loadIcon();
       });
@@ -207,14 +186,13 @@ export class RangeQuestionDetailComponent implements OnInit {
     this.rangeStepsFormArray.controls.forEach((formGroup) => {
       if (formGroup.valid) {
         rangeSteps.push({
-          id: -1,
+          id: formGroup.value.id,
           rangeQuestionId: -1,
           score: formGroup.value.score,
           description: formGroup.value.description,
         });
       }
     });
-
     return rangeSteps;
   }
 
@@ -229,42 +207,34 @@ export class RangeQuestionDetailComponent implements OnInit {
   }
 
   private createInitialRangeStepsFormArray(): void {
-    this.rangeStepsFormArray = new FormArray([
-      RangeQuestionDetailComponent.createEmptyRangeStepFormGroup(),
-    ]);
+    this.rangeStepsFormArray = new FormArray([RangeQuestionDetailComponent.createEmptyRangeStepFormGroup()]);
   }
 
   private createRangeStepsFormArray(): void {
     const formGroups: FormGroup[] = [];
 
     this.rangeQuestionDTO.rangeSteps.forEach((rangeStep) => {
-      formGroups.push(
-        RangeQuestionDetailComponent.createRangeStepFormGroupFromRangeStep(
-          rangeStep
-        )
-      );
+      formGroups.push(RangeQuestionDetailComponent.createRangeStepFormGroupFromRangeStep(rangeStep));
     });
 
     this.rangeStepsFormArray = new FormArray(formGroups);
   }
 
   private deleteRangeQuestion(): void {
-    this.rangeQuestionService
-      .deleteRangeQuestionById(this.rangeQuestionId)
-      .subscribe(() => {
-        this.matSnackBar.open(
-          this.translateService.instant('QUESTIONS.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.router
-          .navigate(['../../../edit'], {
-            relativeTo: this.activatedRoute,
-          })
-          .then();
-      });
+    this.rangeQuestionService.deleteRangeQuestionById(this.rangeQuestionId).subscribe(() => {
+      this.matSnackBar.open(
+        this.translateService.instant('QUESTIONS.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.router
+        .navigate(['../../../edit'], {
+          relativeTo: this.activatedRoute,
+        })
+        .then();
+    });
   }
 
   private static createEmptyRangeStepFormGroup(): FormGroup {
@@ -274,10 +244,9 @@ export class RangeQuestionDetailComponent implements OnInit {
     });
   }
 
-  private static createRangeStepFormGroupFromRangeStep(
-    rangeStep: RangeStepDTO
-  ): FormGroup {
+  private static createRangeStepFormGroupFromRangeStep(rangeStep: RangeStepDTO): FormGroup {
     return new FormGroup({
+      id: new FormControl(rangeStep.id, Validators.required),
       score: new FormControl(rangeStep.score, Validators.required),
       description: new FormControl(rangeStep.description),
     });

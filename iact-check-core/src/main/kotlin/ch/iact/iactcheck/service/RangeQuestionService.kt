@@ -31,7 +31,7 @@ class RangeQuestionService(
         rangeQuestion = rangeQuestionRepository.save(rangeQuestion);
         rangeQuestion = rangeQuestion.copy(
             rangeSteps = rangeQuestionDTO.rangeSteps.map {
-                RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
+                RangeStep(id = it.id, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
             }
         )
 
@@ -45,14 +45,14 @@ class RangeQuestionService(
     }
 
     fun updateRangeQuestionById(rangeQuestionId: Long, rangeQuestionDTO: RangeQuestionDTO): RangeQuestionDTO {
-        var rangeQuestion =
-            rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
+        var rangeQuestion = rangeQuestionRepository
+            .findById(rangeQuestionId)
+            .orElseThrow { throw QuestionNotFoundException() }
 
-        // TODO: Keep track of the old range-step ids, so foreign keys to submissions are not deleted.
         rangeQuestion = rangeQuestion.copy(
             questionText = rangeQuestionDTO.questionText,
             rangeSteps = rangeQuestionDTO.rangeSteps.map {
-                RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
+                RangeStep(id = it.id, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
             }
         )
 
@@ -60,19 +60,19 @@ class RangeQuestionService(
     }
 
     fun uploadIconForRangeQuestion(rangeQuestionId: Long, icon: ByteArray) {
-        var rangeQuestion =
-            rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
-
-        rangeQuestion = rangeQuestion.copy(icon = icon)
+        val rangeQuestion = rangeQuestionRepository
+            .findById(rangeQuestionId)
+            .orElseThrow { throw QuestionNotFoundException() }
+            .copy(icon = icon)
 
         rangeQuestionRepository.save(rangeQuestion)
     }
 
     fun getIconByRangeQuestionId(questionId: Long): ByteArray {
-        val rangeQuestion =
-            rangeQuestionRepository.findById(questionId).orElseThrow { throw QuestionNotFoundException() }
-
-        return rangeQuestion.icon
+        return rangeQuestionRepository
+            .findById(questionId)
+            .orElseThrow { throw QuestionNotFoundException() }
+            .icon
     }
 
     fun deleteRangeQuestionById(rangeQuestionId: Long) {
