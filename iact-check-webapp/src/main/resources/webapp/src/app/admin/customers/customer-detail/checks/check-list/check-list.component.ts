@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../../../shared/services/customer.service';
-import { CheckDTO } from '../../../../shared/dtos/check-dto';
-import { CheckService } from '../../../../shared/services/check.service';
+import { CustomerService } from '../../../../../shared/services/customer.service';
+import { CheckDTO } from '../../../../../shared/dtos/check-dto';
+import { CheckService } from '../../../../../shared/services/check.service';
 import { ConfirmDialogComponent } from '../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';

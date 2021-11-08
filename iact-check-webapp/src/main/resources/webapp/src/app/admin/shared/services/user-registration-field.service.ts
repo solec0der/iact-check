@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserRegistrationFieldsDTO } from '../dtos/user-registration-fields-dto';
+import { UserRegistrationFieldsDTO } from '../../../shared/dtos/user-registration-fields-dto';
 import { CORE_URL } from '../../../app.config';
 
 @Injectable({

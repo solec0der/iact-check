@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
-import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
-import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
+import { CheckDTO } from '../../../shared/dtos/check-dto';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { ActivatedRoute } from '@angular/router';
 import { Steps } from '../steps';
 import { TranslateService } from '@ngx-translate/core';

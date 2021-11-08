@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CheckDTO } from '../admin/shared/dtos/check-dto';
-import { AsyncSubject, BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
-import { CustomerDTO } from '../admin/shared/dtos/customer-dto';
+import { CheckDTO } from '../shared/dtos/check-dto';
+import { Observable, ReplaySubject } from 'rxjs';
+import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionCategoryDTO } from '../admin/shared/dtos/question-category-dto';
+import { QuestionCategoryDTO } from '../shared/dtos/question-category-dto';
 import { SubmissionDTO } from '../shared/dtos/submission-dto';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +20,12 @@ export class CheckStateService {
   private currentStep = 1;
   private readonly numberOfSteps = 5;
 
-  constructor(private readonly router: Router, private readonly translateService: TranslateService) {
+  constructor(private readonly router: Router) {
     this.calculateProgressBarPercentage();
   }
 
   public setActiveCheck(checkDTO: CheckDTO): void {
     this.activeCheck.next(checkDTO);
-    // this.translateService.use(checkDTO.language.locale);
   }
 
   public setActiveCustomer(customerDTO: CustomerDTO): void {

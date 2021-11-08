@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PossibleOutcomeDTO } from '../../../../admin/shared/dtos/possible-outcome-dto';
+import { PossibleOutcomeDTO } from '../../../../shared/dtos/possible-outcome-dto';
 import { CORE_URL } from '../../../../app.config';
 import { BookmarkedPossibleOutcomeDTO } from '../../../../shared/dtos/bookmarked-possible-outcome-dto';
 

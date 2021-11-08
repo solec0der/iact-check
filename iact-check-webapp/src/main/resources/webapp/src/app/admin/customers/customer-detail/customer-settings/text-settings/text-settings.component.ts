@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TextMessageSettingsDTO } from '../../../../shared/dtos/text-message-settings-dto';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../shared/services/customer.service';
 import { TextMessageSettingsService } from '../../../../shared/services/text-message-settings.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
@@ -61,8 +61,8 @@ export class TextSettingsComponent implements OnInit {
         this.customerId,
         textMessageSettingsDTO
       )
-      .subscribe((textMessageSettingsDTO) => {
-        this.textMessageSettings = textMessageSettingsDTO;
+      .subscribe((createdTextMessageSettingsDTO) => {
+        this.textMessageSettings = createdTextMessageSettingsDTO;
         this.createTextMessageSettingsFormGroup();
       });
   }
@@ -75,8 +75,8 @@ export class TextSettingsComponent implements OnInit {
         this.customerId,
         textMessageSettingsDTO
       )
-      .subscribe((textMessageSettingsDTO) => {
-        this.textMessageSettings = textMessageSettingsDTO;
+      .subscribe((updatedTextMessageSettingsDTO) => {
+        this.textMessageSettings = updatedTextMessageSettingsDTO;
         this.createTextMessageSettingsFormGroup();
       });
   }

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { QuestionCategoryDTO } from '../../../../../../shared/dtos/question-category-dto';
+import { QuestionCategoryDTO } from '../../../../../../../shared/dtos/question-category-dto';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatTable } from '@angular/material/table';
-import { PossibleOutcomeDTO } from '../../../../../../shared/dtos/possible-outcome-dto';
+import { PossibleOutcomeDTO } from '../../../../../../../shared/dtos/possible-outcome-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';

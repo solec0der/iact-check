@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../../shared/services/customer.service';
-import { CustomerDTO } from '../../shared/dtos/customer-dto';
+import { CustomerService } from '../../../shared/services/customer.service';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { UserService } from '../../../shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmailSettingsService } from '../../../../shared/services/email-settings.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../shared/services/customer.service';
 import { EmailSettingsDTO } from '../../../../shared/dtos/email-settings-dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -59,8 +59,8 @@ export class EmailSettingsComponent implements OnInit {
 
     this.emailSettingsService
       .createEmailSettingsByCustomerId(this.customerId, emailSettingsDTO)
-      .subscribe((emailSettingsDTO) => {
-        this.emailSettings = emailSettingsDTO;
+      .subscribe((createdEmailSettingsDTO) => {
+        this.emailSettings = createdEmailSettingsDTO;
         this.createEmailSettingsFormGroup();
       });
   }
@@ -70,8 +70,8 @@ export class EmailSettingsComponent implements OnInit {
 
     this.emailSettingsService
       .updateEmailSettingsByCustomerId(this.customerId, emailSettingsDTO)
-      .subscribe((emailSettingsDTO) => {
-        this.emailSettings = emailSettingsDTO;
+      .subscribe((updatedEmailSettingsDTO) => {
+        this.emailSettings = updatedEmailSettingsDTO;
         this.createEmailSettingsFormGroup();
       });
   }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CheckService } from '../../../../shared/services/check.service';
-import { CheckDTO } from '../../../../shared/dtos/check-dto';
+import { CheckService } from '../../../../../shared/services/check.service';
+import { CheckDTO } from '../../../../../shared/dtos/check-dto';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../shared/services/customer.service';
 import { ConfirmDialogComponent } from '../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DEFAULT_LANGUAGE, getLanguageByLocale, LanguageDTO } from '../../../../../shared/dtos/language-dto';
@@ -100,31 +100,31 @@ export class CheckDetailComponent implements OnInit {
 
     this.titleTranslationsFormArray.clear();
     this.subtitleTranslationsFormArray.clear();
-    requiredLanguages
-      .sort((a, b) => a.language.localeCompare(b.language))
-      .forEach((language) => {
-        if (language) {
-          if (titleTranslationsBeforeChange[language.locale]) {
-            this.checkDTO.title[language.locale] = titleTranslationsBeforeChange[language.locale];
-          } else if (!this.checkDTO.title[language.locale]) {
-            this.checkDTO.title[language.locale] = '';
-          }
+    requiredLanguages.sort((a, b) => a.language.localeCompare(b.language));
 
-          if (subtitleTranslationsBeforeChange[language.locale]) {
-            this.checkDTO.subtitle[language.locale] = subtitleTranslationsBeforeChange[language.locale];
-          } else if (!this.checkDTO.subtitle[language.locale]) {
-            this.checkDTO.subtitle[language.locale] = '';
-          }
-
-          this.titleTranslationsFormArray.push(
-            TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.title[language.locale])
-          );
-
-          this.subtitleTranslationsFormArray.push(
-            TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.subtitle[language.locale])
-          );
+    requiredLanguages.forEach((language) => {
+      if (language) {
+        if (titleTranslationsBeforeChange[language.locale]) {
+          this.checkDTO.title[language.locale] = titleTranslationsBeforeChange[language.locale];
+        } else if (!this.checkDTO.title[language.locale]) {
+          this.checkDTO.title[language.locale] = '';
         }
-      });
+
+        if (subtitleTranslationsBeforeChange[language.locale]) {
+          this.checkDTO.subtitle[language.locale] = subtitleTranslationsBeforeChange[language.locale];
+        } else if (!this.checkDTO.subtitle[language.locale]) {
+          this.checkDTO.subtitle[language.locale] = '';
+        }
+
+        this.titleTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.title[language.locale])
+        );
+
+        this.subtitleTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.subtitle[language.locale])
+        );
+      }
+    });
   }
 
   public compare(first: LanguageDTO, second: LanguageDTO): boolean {
@@ -202,17 +202,17 @@ export class CheckDetailComponent implements OnInit {
 
     this.titleTranslationsFormArray.clear();
     this.subtitleTranslationsFormArray.clear();
-    this.checkDTO.requiredLanguages
-      .sort((a, b) => a.locale.localeCompare(b.locale))
-      .forEach((value) => {
-        this.titleTranslationsFormArray.push(
-          TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.title[value.locale])
-        );
+    this.checkDTO.requiredLanguages.sort((a, b) => a.locale.localeCompare(b.locale));
 
-        this.subtitleTranslationsFormArray.push(
-          TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.subtitle[value.locale])
-        );
-      });
+    this.checkDTO.requiredLanguages.forEach((value) => {
+      this.titleTranslationsFormArray.push(
+        TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.title[value.locale])
+      );
+
+      this.subtitleTranslationsFormArray.push(
+        TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.subtitle[value.locale])
+      );
+    });
   }
 
   private createEmptyCheckDTO(): void {

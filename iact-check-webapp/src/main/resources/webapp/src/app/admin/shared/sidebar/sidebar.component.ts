@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CUSTOMER_MENU_ITEMS, GENERAL_MENU_ITEMS } from '../menu-items';
 import { KeycloakService } from 'keycloak-angular';
-import { CustomerDTO } from '../dtos/customer-dto';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { ActiveCustomerService } from '../services/active-customer.service';
 import { ActuatorInfoService } from '../services/actuator-info.service';
 import { ActuatorInfo } from '../dtos/actuator-info';

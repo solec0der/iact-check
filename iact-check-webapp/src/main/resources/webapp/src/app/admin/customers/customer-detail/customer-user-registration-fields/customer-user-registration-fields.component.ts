@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomerDTO } from '../../../shared/dtos/customer-dto';
+import { CustomerDTO } from '../../../../shared/dtos/customer-dto';
 import { UserRegistrationFieldService } from '../../../shared/services/user-registration-field.service';
-import { UserRegistrationFieldsDTO } from '../../../shared/dtos/user-registration-fields-dto';
-import { ActiveUserRegistrationFieldDTO } from '../../../shared/dtos/active-user-registration-field-dto';
+import { UserRegistrationFieldsDTO } from '../../../../shared/dtos/user-registration-fields-dto';
+import { ActiveUserRegistrationFieldDTO } from '../../../../shared/dtos/active-user-registration-field-dto';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({

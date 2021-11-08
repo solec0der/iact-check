@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CustomerDTO } from '../../../shared/dtos/customer-dto';
+import { CustomerDTO } from '../../../../shared/dtos/customer-dto';
 import { UserService } from '../../../../shared/services/user.service';
 import { KeycloakUserDto } from '../../../shared/dtos/keycloak-user-dto';
 import { MatTableDataSource } from '@angular/material/table';

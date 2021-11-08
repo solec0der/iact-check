@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
+import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { ActivatedRoute } from '@angular/router';
 import { CheckStateService } from '../../check-state.service';
-import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
+import { QuestionCategoryDTO } from '../../../shared/dtos/question-category-dto';
 import { CORE_URL } from '../../../app.config';
 import { MatSliderChange } from '@angular/material/slider';
-import { RangeQuestionDTO } from '../../../admin/shared/dtos/range-question-dto';
+import { RangeQuestionDTO } from '../../../shared/dtos/range-question-dto';
 import { RangeQuestionAnswerDTO } from '../../../shared/dtos/range-question-answer-dto';
-import { RangeStepDTO } from '../../../admin/shared/dtos/range-step-dto';
+import { RangeStepDTO } from '../../../shared/dtos/range-step-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { Steps } from '../steps';
 
@@ -84,8 +84,8 @@ export class QuestionsFormComponent implements OnInit {
         <number>submission?.id,
         rangeQuestionAnswers
       )
-      .subscribe((submission) => {
-        this.checkStateService.submission!.rangeQuestionAnswers = submission.rangeQuestionAnswers;
+      .subscribe((updatedSubmission) => {
+        this.checkStateService.submission!.rangeQuestionAnswers = updatedSubmission.rangeQuestionAnswers;
         this.checkStateService.nextStep(this.activatedRoute);
       });
   }

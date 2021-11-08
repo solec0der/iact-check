@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PossibleOutcomeDTO } from '../../../../../../shared/dtos/possible-outcome-dto';
+import { PossibleOutcomeDTO } from '../../../../../../../shared/dtos/possible-outcome-dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomerService } from '../../../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../../../shared/services/customer.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PossibleOutcomeService } from '../../../../../../shared/services/possible-outcome.service';
 import { map, mergeMap } from 'rxjs/operators';

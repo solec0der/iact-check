@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckService } from '../admin/shared/services/check.service';
+import { CheckService } from '../shared/services/check.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../admin/shared/services/customer.service';
+import { CustomerService } from '../shared/services/customer.service';
 import { forkJoin } from 'rxjs';
 import { CheckStateService } from './check-state.service';
-import { CustomerDTO } from '../admin/shared/dtos/customer-dto';
-import { CheckDTO } from '../admin/shared/dtos/check-dto';
+import { CustomerDTO } from '../shared/dtos/customer-dto';
+import { CheckDTO } from '../shared/dtos/check-dto';
 
 @Component({
   selector: 'app-check',

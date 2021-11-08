@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerDTO } from '../../../admin/shared/dtos/customer-dto';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegistrationFieldService } from '../../../admin/shared/services/user-registration-field.service';
-import { UserRegistrationFieldsDTO } from '../../../admin/shared/dtos/user-registration-fields-dto';
+import { UserRegistrationFieldsDTO } from '../../../shared/dtos/user-registration-fields-dto';
 import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-registration-field-mappings';
-import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
+import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { Steps } from '../steps';
-import {SubmissionDTO} from "../../../shared/dtos/submission-dto";
 
 @Component({
   selector: 'app-user-registration',
@@ -57,15 +56,13 @@ export class UserRegistrationComponent implements OnInit {
       phoneNumber: this.userRegistrationFormGroup.value.phoneNumber || '',
       email: this.userRegistrationFormGroup.value.email || '',
       rangeQuestionAnswers: [],
-      bookmarkedPossibleOutcomes: []
+      bookmarkedPossibleOutcomes: [],
     };
 
-    this.submissionService
-      .createSubmission(submission)
-      .subscribe((submission) => {
-        this.checkStateService.submission = submission;
-        this.checkStateService.nextStep(this.activatedRoute);
-      });
+    this.submissionService.createSubmission(submission).subscribe((submission) => {
+      this.checkStateService.submission = submission;
+      this.checkStateService.nextStep(this.activatedRoute);
+    });
   }
 
   private loadData(): void {
@@ -77,37 +74,28 @@ export class UserRegistrationComponent implements OnInit {
       this.checkDTO = checkDTO;
     });
 
-    this.userRegistrationFieldService
-      .getUserRegistrationFields()
-      .subscribe((userRegistrationFields) => {
-        this.userRegistrationFields = userRegistrationFields;
-        this.createUserRegistrationForm();
-      });
+    this.userRegistrationFieldService.getUserRegistrationFields().subscribe((userRegistrationFields) => {
+      this.userRegistrationFields = userRegistrationFields;
+      this.createUserRegistrationForm();
+    });
   }
 
   private createUserRegistrationForm(): void {
     this.userRegistrationFormGroup = new FormGroup({});
 
-    this.userRegistrationFields.userRegistrationFields.forEach(
-      (userRegistrationField) => {
-        const formControlName =
-          USER_REGISTRATION_FIELD_MAPPING[userRegistrationField.fieldName]
-            .formControlName;
+    this.userRegistrationFields.userRegistrationFields.forEach((userRegistrationField) => {
+      const formControlName = USER_REGISTRATION_FIELD_MAPPING[userRegistrationField.fieldName].formControlName;
 
-        const activeUserRegistrationField = this.customerDTO.activeUserRegistrationFields.find(
-          (field) => field.userRegistrationFieldId === userRegistrationField.id
+      const activeUserRegistrationField = this.customerDTO.activeUserRegistrationFields.find(
+        (field) => field.userRegistrationFieldId === userRegistrationField.id
+      );
+
+      if (activeUserRegistrationField) {
+        this.userRegistrationFormGroup.addControl(
+          formControlName,
+          new FormControl('', Validators.pattern(activeUserRegistrationField.validationRegex))
         );
-
-        if (activeUserRegistrationField) {
-          this.userRegistrationFormGroup.addControl(
-            formControlName,
-            new FormControl(
-              '',
-              Validators.pattern(activeUserRegistrationField.validationRegex)
-            )
-          );
-        }
       }
-    );
+    });
   }
 }

@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../../shared/services/user.service';
-import { CustomerDTO } from '../../../shared/dtos/customer-dto';
+import { CustomerDTO } from '../../../../shared/dtos/customer-dto';
 import { FormGroup } from '@angular/forms';
 import { AVAILABLE_FONTS } from '../../../../shared/model/available-fonts';
 import { CORE_URL } from '../../../../app.config';
-import {Theme} from "../../../../shared/model/theme";
+import { Theme } from '../../../../shared/model/theme';
 
 @Component({
   selector: 'app-customer-branding',

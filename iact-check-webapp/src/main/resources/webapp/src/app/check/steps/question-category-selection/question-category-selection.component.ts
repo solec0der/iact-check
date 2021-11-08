@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
 import { ActivatedRoute } from '@angular/router';
-import { CheckDTO } from '../../../admin/shared/dtos/check-dto';
+import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { CORE_URL } from '../../../app.config';
-import { QuestionCategoryDTO } from '../../../admin/shared/dtos/question-category-dto';
+import { QuestionCategoryDTO } from '../../../shared/dtos/question-category-dto';
 import { Steps } from '../steps';
 
 @Component({

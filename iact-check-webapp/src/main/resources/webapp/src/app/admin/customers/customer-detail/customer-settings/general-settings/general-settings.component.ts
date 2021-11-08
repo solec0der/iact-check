@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../shared/services/customer.service';
 
 @Component({
   selector: 'app-general-settings',

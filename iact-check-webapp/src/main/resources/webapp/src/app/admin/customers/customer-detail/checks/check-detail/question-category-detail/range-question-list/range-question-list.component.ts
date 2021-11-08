@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { QuestionCategoryDTO } from '../../../../../../shared/dtos/question-category-dto';
+import { QuestionCategoryDTO } from '../../../../../../../shared/dtos/question-category-dto';
 import { RangeQuestionService } from '../../../../../../shared/services/range-question.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import {RangeQuestionDTO} from "../../../../../../shared/dtos/range-question-dto";
+import {RangeQuestionDTO} from "../../../../../../../shared/dtos/range-question-dto";
 
 @Component({
   selector: 'app-range-question-list',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CORE_URL } from '../../../app.config';
-import { PossibleOutcomeDTO } from '../dtos/possible-outcome-dto';
+import { PossibleOutcomeDTO } from '../../../shared/dtos/possible-outcome-dto';
 
 @Injectable({
   providedIn: 'root',

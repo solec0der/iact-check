@@ -3,14 +3,14 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomerService } from '../../../../../../shared/services/customer.service';
+import { CustomerService } from '../../../../../../../shared/services/customer.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RangeQuestionService } from '../../../../../../shared/services/range-question.service';
-import { RangeStepDTO } from '../../../../../../shared/dtos/range-step-dto';
+import { RangeStepDTO } from '../../../../../../../shared/dtos/range-step-dto';
 import { FileReaderUtil } from '../../../../../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../../../../../app.config';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
-import { RangeQuestionDTO } from '../../../../../../shared/dtos/range-question-dto';
+import { RangeQuestionDTO } from '../../../../../../../shared/dtos/range-question-dto';
 
 @Component({
   selector: 'app-range-question-detail',

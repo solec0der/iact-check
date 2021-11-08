@@ -1,5 +1,5 @@
 import { QuestionCategoryDTO } from './question-category-dto';
-import { LanguageDTO } from '../../../shared/dtos/language-dto';
+import { LanguageDTO } from './language-dto';
 
 export interface CheckDTO {
   id?: number;

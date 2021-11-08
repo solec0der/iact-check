@@ -1,4 +1,4 @@
-import {Theme} from "../../../shared/model/theme";
+import {Theme} from "../model/theme";
 
 export interface CustomerBrandingDTO {
   id: number;

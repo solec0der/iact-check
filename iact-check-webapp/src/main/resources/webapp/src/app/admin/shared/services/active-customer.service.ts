@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CustomerDTO } from '../dtos/customer-dto';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActiveCustomerService {
-  private activeCustomer: BehaviorSubject<
-    CustomerDTO | undefined
-  > = new BehaviorSubject<CustomerDTO | undefined>(undefined);
-
-  constructor() {}
+  private activeCustomer: BehaviorSubject<CustomerDTO | undefined> = new BehaviorSubject<CustomerDTO | undefined>(
+    undefined
+  );
 
   public setActiveCustomer(customerDTO: CustomerDTO): void {
     this.activeCustomer.next(customerDTO);

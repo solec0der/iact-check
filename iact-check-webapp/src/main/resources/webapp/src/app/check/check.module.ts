@@ -11,7 +11,6 @@ import { UserRegistrationComponent } from './steps/user-registration/user-regist
 import { SharedTranslateModule } from '../shared/translation/shared-translate.module';
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possible-outcome-detail/possible-outcome-detail.component';
 import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
@@ -34,7 +33,7 @@ import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirm
     MaterialModule,
     ReactiveFormsModule,
     MatRippleModule,
-    SharedTranslateModule
+    SharedTranslateModule,
   ],
 })
 export class CheckModule {}

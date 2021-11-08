@@ -1,6 +1,6 @@
 import { PossibleOutcomeDTO } from './possible-outcome-dto';
 import { RangeQuestionDTO } from './range-question-dto';
-import { LanguageDTO } from '../../../shared/dtos/language-dto';
+import { LanguageDTO } from './language-dto';
 
 export interface QuestionCategoryDTO {
   id: number;

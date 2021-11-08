@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../check-state.service';
-import { CustomerService } from '../../admin/shared/services/customer.service';
+import { CustomerService } from '../../shared/services/customer.service';
 import { CORE_URL } from '../../app.config';
-import { CustomerDTO } from '../../admin/shared/dtos/customer-dto';
+import { CustomerDTO } from '../../shared/dtos/customer-dto';
 import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({

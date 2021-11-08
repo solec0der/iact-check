@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerService } from '../../shared/services/customer.service';
-import { CustomerDTO } from '../../shared/dtos/customer-dto';
+import { CustomerService } from '../../../shared/services/customer.service';
+import { CustomerDTO } from '../../../shared/dtos/customer-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { ActiveCustomerService } from '../../shared/services/active-customer.service';
@@ -11,7 +11,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ColourUtility } from '../../../shared/utils/colour.utility';
 import { map, mergeMap } from 'rxjs/operators';
 import { FileReaderUtil } from '../../shared/util/file-reader.util';
-import { ActiveUserRegistrationFieldDTO } from '../../shared/dtos/active-user-registration-field-dto';
+import { ActiveUserRegistrationFieldDTO } from '../../../shared/dtos/active-user-registration-field-dto';
 
 @Component({
   selector: 'app-customer-detail',
