@@ -16,6 +16,7 @@ import ch.iact.iactcheck.service.converter.SubmissionConverter
 import ch.iact.iactcheck.util.PhoneNumberUtil
 import org.apache.commons.validator.routines.EmailValidator
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class SubmissionService(
@@ -43,7 +44,7 @@ class SubmissionService(
             zipCode = submissionDTO.zipCode,
             city = submissionDTO.city,
             phoneNumber = submissionDTO.phoneNumber.trim(),
-            email = submissionDTO.email.trim().toLowerCase()
+            email = submissionDTO.email.trim().lowercase(Locale.getDefault())
         )
 
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))

@@ -48,6 +48,7 @@ class RangeQuestionService(
         var rangeQuestion =
             rangeQuestionRepository.findById(rangeQuestionId).orElseThrow { throw QuestionNotFoundException() }
 
+        // TODO: Keep track of the old range-step ids, so foreign keys to submissions are not deleted.
         rangeQuestion = rangeQuestion.copy(
             questionText = rangeQuestionDTO.questionText,
             rangeSteps = rangeQuestionDTO.rangeSteps.map {
