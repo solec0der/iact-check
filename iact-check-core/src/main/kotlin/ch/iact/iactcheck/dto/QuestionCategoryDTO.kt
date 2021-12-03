@@ -6,5 +6,6 @@ data class QuestionCategoryDTO(
     val title: String,
     val language: LanguageDTO,
     val rangeQuestions: List<RangeQuestionDTO>,
+    val imageQuestions: List<ImageQuestionDTO>,
     val possibleOutcomes: List<PossibleOutcomeDTO>
 )

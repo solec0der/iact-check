@@ -14,6 +14,7 @@ object QuestionCategoryTestData {
         language = Language.GERMAN,
         check = CheckTestData.check,
         rangeQuestions = emptyList(),
+        imageQuestions = emptyList(),
         possibleOutcomes = emptyList()
     )
 
@@ -24,6 +25,7 @@ object QuestionCategoryTestData {
         language = Language.GERMAN,
         check = CheckTestData.check,
         rangeQuestions = listOf(RangeQuestionTestData.question),
+        imageQuestions = emptyList(),
         possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcome)
     )
 
@@ -36,6 +38,7 @@ object QuestionCategoryTestData {
             locale = "de-CH"
         ),
         rangeQuestions = emptyList(),
+        imageQuestions = emptyList(),
         possibleOutcomes = emptyList()
     )
 
@@ -48,6 +51,7 @@ object QuestionCategoryTestData {
         ),
         checkId = 1L,
         rangeQuestions = listOf(RangeQuestionTestData.questionDTO),
+        imageQuestions = emptyList(),
         possibleOutcomes = listOf(PossibleOutcomeTestData.possibleOutcomeDTO)
     )
 }

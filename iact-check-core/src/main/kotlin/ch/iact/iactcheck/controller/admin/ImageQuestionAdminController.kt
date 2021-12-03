@@ -32,7 +32,7 @@ internal class ImageQuestionAdminController(
     }
 
     @PutMapping("/image-answers/{imageAnswerId}/image")
-    fun uploadIconForImageQuestion(
+    fun uploadImageForImageQuestion(
         @PathVariable("imageAnswerId") imageAnswerId: Long,
         @RequestParam("image") file: MultipartFile
     ) {

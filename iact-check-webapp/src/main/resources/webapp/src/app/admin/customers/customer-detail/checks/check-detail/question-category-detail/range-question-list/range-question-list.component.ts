@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import {RangeQuestionDTO} from "../../../../../../../shared/dtos/range-question-dto";
+import { RangeQuestionDTO } from '../../../../../../../shared/dtos/range-question-dto';
 
 @Component({
   selector: 'app-range-question-list',
@@ -35,12 +35,8 @@ export class RangeQuestionListComponent implements OnInit {
       data: {
         title: this.translateService.instant('QUESTIONS.DELETION_DIALOG.TITLE'),
         message: '',
-        buttonTextCancel: this.translateService.instant(
-          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        buttonTextCancel: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -52,23 +48,19 @@ export class RangeQuestionListComponent implements OnInit {
   }
 
   private deleteRangeQuestionById(rangeQuestionId: number): void {
-    this.rangeQuestionService
-      .deleteRangeQuestionById(rangeQuestionId)
-      .subscribe(() => {
-        this.matSnackBar.open(
-          this.translateService.instant('QUESTIONS.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.questionCategoryDTO.rangeQuestions.splice(
-          this.questionCategoryDTO.rangeQuestions.findIndex(
-            (r) => r.id === rangeQuestionId
-          ),
-          1
-        );
-        this.rangeQuestionsTable.renderRows();
-      });
+    this.rangeQuestionService.deleteRangeQuestionById(rangeQuestionId).subscribe(() => {
+      this.matSnackBar.open(
+        this.translateService.instant('QUESTIONS.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.questionCategoryDTO.rangeQuestions.splice(
+        this.questionCategoryDTO.rangeQuestions.findIndex((r) => r.id === rangeQuestionId),
+        1
+      );
+      this.rangeQuestionsTable.renderRows();
+    });
   }
 }

@@ -13,6 +13,7 @@ import { GeneralSettingsComponent } from './customers/customer-detail/customer-s
 import { EmailSettingsComponent } from './customers/customer-detail/customer-settings/email-settings/email-settings.component';
 import { TextSettingsComponent } from './customers/customer-detail/customer-settings/text-settings/text-settings.component';
 import { CustomerSettingsComponent } from './customers/customer-detail/customer-settings/customer-settings.component';
+import {ImageQuestionDetailComponent} from "./customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component";
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         path:
           'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/range-questions/:rangeQuestionId/:action',
         component: RangeQuestionDetailComponent,
+      },
+      {
+        path:
+          'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/image-questions/:imageQuestionId/:action',
+        component: ImageQuestionDetailComponent,
       },
       {
         path:

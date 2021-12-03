@@ -26,6 +26,8 @@ import { TextSettingsComponent } from './customers/customer-detail/customer-sett
 import { CustomerSettingsComponent } from './customers/customer-detail/customer-settings/customer-settings.component';
 import { CustomerGeneralComponent } from './customers/customer-detail/customer-general/customer-general.component';
 import { CustomerUserRegistrationFieldsComponent } from './customers/customer-detail/customer-user-registration-fields/customer-user-registration-fields.component';
+import { ImageQuestionListComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-list/image-question-list.component';
+import { ImageQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { CustomerUserRegistrationFieldsComponent } from './customers/customer-de
     CustomerSettingsComponent,
     CustomerGeneralComponent,
     CustomerUserRegistrationFieldsComponent,
+    ImageQuestionListComponent,
+    ImageQuestionDetailComponent,
   ],
   imports: [
     CommonModule,

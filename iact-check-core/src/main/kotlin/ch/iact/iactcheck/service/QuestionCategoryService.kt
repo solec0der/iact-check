@@ -25,6 +25,7 @@ class QuestionCategoryService(
             title = questionCategoryDTO.title,
             language = Language.findLanguageByLocale(questionCategoryDTO.language.locale),
             rangeQuestions = emptyList(),
+            imageQuestions = emptyList(),
             possibleOutcomes = emptyList()
         )
 

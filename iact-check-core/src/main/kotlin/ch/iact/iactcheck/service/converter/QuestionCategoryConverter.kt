@@ -17,7 +17,8 @@ object QuestionCategoryConverter {
             }.toList(),
             rangeQuestions = questionCategory.rangeQuestions.map {
                 RangeQuestionConverter.convertQuestionToDTO(it)
-            }.toList()
+            }.toList(),
+            imageQuestions = questionCategory.imageQuestions.mapTo(mutableListOf(), ImageQuestionConverter::map)
         )
     }
 }

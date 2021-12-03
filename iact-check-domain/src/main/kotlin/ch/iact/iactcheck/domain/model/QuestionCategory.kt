@@ -23,6 +23,9 @@ data class QuestionCategory(
     @OneToMany(targetEntity = RangeQuestion::class, mappedBy = "questionCategory")
     val rangeQuestions: List<RangeQuestion>,
 
+    @OneToMany(targetEntity = ImageQuestion::class, mappedBy = "questionCategory")
+    val imageQuestions: List<ImageQuestion>,
+
     @OneToMany(targetEntity = PossibleOutcome::class, mappedBy = "questionCategory")
     val possibleOutcomes: List<PossibleOutcome>
 )

@@ -116,6 +116,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       language: getLanguageByLocale(this.questionCategoryFromGroup.value.language)!,
       title: this.questionCategoryFromGroup.value.title,
       rangeQuestions: [],
+      imageQuestions: [],
       possibleOutcomes: [],
     };
 
@@ -146,6 +147,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       title: this.questionCategoryFromGroup.value.title,
       language: getLanguageByLocale(this.questionCategoryFromGroup.value.language)!,
       rangeQuestions: [],
+      imageQuestions: [],
       possibleOutcomes: [],
     };
 

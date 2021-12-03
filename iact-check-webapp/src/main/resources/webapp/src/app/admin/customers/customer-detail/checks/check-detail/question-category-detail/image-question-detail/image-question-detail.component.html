@@ -1,0 +1,99 @@
+<mat-card *ngIf="this.imageQuestionFormGroup">
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <mat-card-title
+        *ngIf="this.action === 'create' || this.action === 'copy'">{{'QUESTIONS.ADD_IMAGE_QUESTION' | translate}}</mat-card-title>
+      <mat-card-title *ngIf="this.action === 'edit'">{{'QUESTIONS.EDIT_IMAGE_QUESTION' | translate}}</mat-card-title>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.goBackToQuestionCategory()" style="margin-right: 10px;">
+        <mat-icon>arrow_back</mat-icon>
+        {{'QUESTIONS.BACK_TO_QUESTION_CATEGORY' | translate}}
+      </button>
+      <!--      <button mat-stroked-button *ngIf="this.action === 'edit'"-->
+      <!--              (click)="this.showRangeQuestionDeletionDialog()" style="margin-right: 10px;">-->
+      <!--        <mat-icon>delete</mat-icon>-->
+      <!--        {{'SHARED.DELETE' | translate}}-->
+      <!--      </button>-->
+      <!--      <button mat-stroked-button (click)="this.save()"-->
+      <!--              [disabled]="this.rangeQuestionFormGroup.invalid || this.rangeStepsFormArray.invalid">-->
+      <!--        <mat-icon>save</mat-icon>-->
+      <!--        {{'SHARED.SAVE' | translate}}-->
+      <!--      </button>-->
+    </div>
+  </div>
+
+  <mat-card-content>
+    <form [formGroup]="this.imageQuestionFormGroup">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>{{'QUESTIONS.QUESTION_TEXT' | translate}}</mat-label>
+        <mat-error>
+          {{'QUESTIONS.ERRORS.MISSING_QUESTION_TEXT' | translate}}
+        </mat-error>
+        <label>
+          <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.QUESTION_TEXT' | translate"
+                 formControlName="questionText"
+                 required/>
+        </label>
+      </mat-form-field>
+      <br/>
+      <!--      <mat-form-field appearance="outline" class="half-width">-->
+      <!--        <mat-label>{{'QUESTIONS.ICON' | translate}}</mat-label>-->
+      <!--        <mat-error>-->
+      <!--          {{'QUESTIONS.ERRORS.MISSING_ICON' | translate}}-->
+      <!--        </mat-error>-->
+      <!--        <ngx-mat-file-input color="accent" formControlName="icon" accept="image/*" [required]="true">-->
+      <!--        </ngx-mat-file-input>-->
+      <!--        <mat-hint>{{'QUESTIONS.ICON_HINT' | translate}}</mat-hint>-->
+      <!--        <button mat-icon-button matSuffix (click)="this.showIcon()" *ngIf="this.icon">-->
+      <!--          <mat-icon>visibility</mat-icon>-->
+      <!--        </button>-->
+      <!--      </mat-form-field>-->
+    </form>
+    <br/>
+    <div class="display-flex-wrap gap" style="align-content: stretch; align-items: stretch;">
+      <ng-container *ngFor="let imageAnswerFormGroup of this.imageAnswersFormArray.controls; let i = index">
+        <div [formGroup]="$any(imageAnswerFormGroup)" class="display-flex-space-between quarter-width-with-gap"
+             style="align-content: stretch; align-items: stretch;">
+
+          <mat-card class="full-width">
+            <mat-card-content>
+
+              <div class="image-container" (click)="imageUpload.click()">
+                <img class="image" *ngIf="imageUpload.files?.length === 1" [src]="this.imageUrls[i]">
+                <p *ngIf="imageUpload.files?.length === 0" class="align-center">{{'QUESTIONS.CLICK_TO_UPLOAD_IMAGE' | translate}}</p>
+                <input type="file" hidden #imageUpload accept="image/png" formControlName="image" (change)="this.createPreviewUrlOfImage(imageUpload.files, i)">
+              </div>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>{{'QUESTIONS.SCORE' | translate}}</mat-label>
+                <mat-error>
+                  {{'QUESTIONS.ERRORS.MISSING_SCORE' | translate}}
+                </mat-error>
+                <label>
+                  <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.SCORE' | translate"
+                         formControlName="score"
+                         required/>
+                </label>
+              </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-actions>
+              <button mat-stroked-button>
+                <mat-icon>
+                  delete
+                </mat-icon>
+                {{ 'QUESTIONS.DELETE_IMAGE_ANSWER' | translate}}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+    </div>
+
+    <button mat-stroked-button (click)="this.addImageAnswerFormGroup()">
+      <mat-icon>add</mat-icon>
+      {{'QUESTIONS.ADD_IMAGE_ANSWER' | translate}}
+    </button>
+  </mat-card-content>
+</mat-card>

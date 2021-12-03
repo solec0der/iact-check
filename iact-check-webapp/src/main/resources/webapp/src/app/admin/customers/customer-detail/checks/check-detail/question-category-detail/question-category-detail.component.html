@@ -68,12 +68,32 @@
         </form>
       </mat-tab>
       <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate" *ngIf="this.questionCategoryDTO">
-        <mat-tab-group>
-          <mat-tab [label]="'QUESTIONS.RANGE_QUESTIONS' | translate">
-            <br/>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ 'QUESTIONS.RANGE_QUESTIONS' | translate }}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ this.questionCategoryDTO.rangeQuestions.length + ' ' }}
+                {{ (this.questionCategoryDTO.rangeQuestions.length === 1 ? 'QUESTIONS.RANGE_QUESTION' : 'QUESTIONS.RANGE_QUESTIONS') | translate }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
             <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
-          </mat-tab>
-        </mat-tab-group>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ 'QUESTIONS.IMAGE_QUESTIONS' | translate }}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ this.questionCategoryDTO.rangeQuestions.length + ' ' }}
+                {{ (this.questionCategoryDTO.rangeQuestions.length === 1 ? 'QUESTIONS.IMAGE_QUESTION' : 'QUESTIONS.IMAGE_QUESTIONS') | translate }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-image-question-list [questionCategory]="this.questionCategoryDTO"></app-image-question-list>
+          </mat-expansion-panel>
+        </mat-accordion>
       </mat-tab>
       <mat-tab [label]="'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate" *ngIf="this.questionCategoryDTO">
         <br>

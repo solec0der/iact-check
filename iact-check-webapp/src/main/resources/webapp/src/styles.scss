@@ -49,6 +49,14 @@ h2.subtitle {
   width: 50%;
 }
 
+.quarter-width-with-gap {
+  width: calc(25% - 8px);
+}
+
+.gap {
+  gap: 8px;
+}
+
 span.color-preview-dot {
   border-radius: 50%;
   width: 16px;
@@ -62,6 +70,12 @@ span.color-preview-dot {
   align-content: center;
   align-items: center;
 }
+
+.display-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 
 .margin-bottom-after-title {
   margin-bottom: 20px;
