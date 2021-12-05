@@ -10,6 +10,7 @@ import { ImageQuestionService } from '../../../../../../shared/services/image-qu
 import { CORE_URL } from '../../../../../../../app.config';
 import { forkJoin, Observable } from 'rxjs';
 import { SnackBarService } from '../../../../../../../shared/services/snack-bar.service';
+import {ConfirmDialogComponent} from "../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-image-question-detail',
@@ -102,6 +103,30 @@ export class ImageQuestionDetailComponent implements OnInit {
     }
   }
 
+  public showImageQuestionDeletionDialog(): void {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: this.translateService.instant('QUESTIONS.DELETION_DIALOG.TITLE'),
+        message: '',
+        buttonTextCancel: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('QUESTIONS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((hasConfirmed) => {
+      if (hasConfirmed) {
+        this.deleteImageQuestionById(this.imageQuestionId);
+      }
+    });
+  }
+
+  private deleteImageQuestionById(imageQuestionId: number): void {
+    this.imageQuestionService.deleteImageQuestionById(imageQuestionId).subscribe(() => {
+      this.snackBarService.open(this.translateService.instant('QUESTIONS.DELETED_MESSAGE'));
+      this.goBackToQuestionCategory();
+    });
+  }
+
   private createImageQuestion(): void {
     const imageQuestionDTO: ImageQuestionDTO = {
       questionCategoryId: this.questionCategoryId,
@@ -136,6 +161,7 @@ export class ImageQuestionDetailComponent implements OnInit {
       .updateImageQuestionById(this.imageQuestionId, imageQuestionDTO)
       .subscribe((updatedImageQuestionDTO) => {
         this.imageQuestionDTO = updatedImageQuestionDTO;
+        this.snackBarService.open(this.translateService.instant('QUESTIONS.UPDATED_MESSAGE'));
         this.createImageQuestionFormGroup();
         this.createImageAnswersFormArray();
         this.uploadImages();

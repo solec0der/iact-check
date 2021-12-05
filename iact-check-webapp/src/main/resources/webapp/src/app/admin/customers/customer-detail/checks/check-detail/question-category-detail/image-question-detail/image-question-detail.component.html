@@ -10,11 +10,11 @@
         <mat-icon>arrow_back</mat-icon>
         {{'QUESTIONS.BACK_TO_QUESTION_CATEGORY' | translate}}
       </button>
-      <!--      <button mat-stroked-button *ngIf="this.action === 'edit'"-->
-      <!--              (click)="this.showRangeQuestionDeletionDialog()" style="margin-right: 10px;">-->
-      <!--        <mat-icon>delete</mat-icon>-->
-      <!--        {{'SHARED.DELETE' | translate}}-->
-      <!--      </button>-->
+      <button mat-stroked-button *ngIf="this.action === 'edit'"
+              (click)="this.showImageQuestionDeletionDialog()" style="margin-right: 10px;">
+        <mat-icon>delete</mat-icon>
+        {{'SHARED.DELETE' | translate}}
+      </button>
       <button mat-stroked-button (click)="this.save()"
               [disabled]="this.imageQuestionFormGroup.invalid || this.imageAnswersFormArray.invalid">
         <mat-icon>save</mat-icon>
