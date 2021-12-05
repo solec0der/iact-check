@@ -61,7 +61,13 @@ class ImageQuestionService(
         imageQuestion = imageQuestion.copy(
             questionText = imageQuestionDTO.questionText,
             imageAnswers = imageQuestionDTO.imageAnswers.map {
-                ImageAnswer(id = it.id, imageQuestion = imageQuestion, score = it.score)
+                ImageAnswer(
+                    id = it.id,
+                    imageQuestion = imageQuestion,
+                    score = it.score,
+                    image = imageQuestion.imageAnswers.find { imageAnswer -> imageAnswer.id == it.id }?.image
+                        ?: ByteArray(0)
+                )
             }
         )
         return ImageQuestionConverter.map(imageQuestionRepository.save(imageQuestion))

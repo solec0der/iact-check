@@ -19,6 +19,7 @@ export class JsonInterceptor implements HttpInterceptor {
       !req.url.includes('thumbnail') &&
       !req.url.includes('logo') &&
       !req.url.includes('icon') &&
+      !req.url.includes('file') &&
       !req.url.includes('assets')
     ) {
       req = req.clone({

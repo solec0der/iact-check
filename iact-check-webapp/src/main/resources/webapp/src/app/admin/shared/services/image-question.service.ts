@@ -27,11 +27,11 @@ export class ImageQuestionService {
     return this.httpClient.put<ImageQuestionDTO>(`${CORE_URL}/api/admin/image-questions/${imageQuestionId}`, body);
   }
 
-  public uploadImageForImageQuestion(imageQuestionId: number, image: File): Observable<void> {
+  public uploadImageForImageAnswer(imageAnswerId: number, image: File): Observable<void> {
     const body: FormData = new FormData();
     body.append('image', image, image.name);
 
-    return this.httpClient.put<void>(`${CORE_URL}/api/admin/image-questions/${imageQuestionId}`, body);
+    return this.httpClient.put<void>(`${CORE_URL}/api/admin/image-questions/image-answers/${imageAnswerId}/assets`, body);
   }
 
   public deleteImageQuestionById(imageQuestionId: number): Observable<void> {

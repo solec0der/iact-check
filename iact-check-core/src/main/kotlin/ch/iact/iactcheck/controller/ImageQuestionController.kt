@@ -14,7 +14,7 @@ internal class ImageQuestionController(
 ) {
 
     @GetMapping("/image-answers/{imageAnswerId}/image", produces = [MediaType.IMAGE_PNG_VALUE])
-    fun getIconByQuestionId(@PathVariable("imageAnswerId") imageAnswerId: Long): ByteArray {
+    fun getImageByImageAnswerId(@PathVariable("imageAnswerId") imageAnswerId: Long): ByteArray {
         return imageQuestionService.getImageByImageAnswerId(imageAnswerId)
     }
 }

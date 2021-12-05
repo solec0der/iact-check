@@ -31,8 +31,8 @@ internal class ImageQuestionAdminController(
         return imageQuestionService.updateImageQuestionById(imageQuestionId, imageQuestionDTO)
     }
 
-    @PutMapping("/image-answers/{imageAnswerId}/image")
-    fun uploadImageForImageQuestion(
+    @PutMapping("/image-answers/{imageAnswerId}/assets")
+    fun uploadImageForImageAnswer(
         @PathVariable("imageAnswerId") imageAnswerId: Long,
         @RequestParam("image") file: MultipartFile
     ) {

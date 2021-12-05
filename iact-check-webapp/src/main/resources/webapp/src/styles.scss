@@ -49,6 +49,11 @@ h2.subtitle {
   width: 50%;
 }
 
+.display-flex-row-gap {
+  display: flex;
+  row-gap: 8px;
+}
+
 .quarter-width-with-gap {
   width: calc(25% - 8px);
 }
@@ -112,4 +117,11 @@ div.controls {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.invisible{
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
 }
