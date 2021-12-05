@@ -87,8 +87,8 @@
                 {{ 'QUESTIONS.IMAGE_QUESTIONS' | translate }}
               </mat-panel-title>
               <mat-panel-description>
-                {{ this.questionCategoryDTO.rangeQuestions.length + ' ' }}
-                {{ (this.questionCategoryDTO.rangeQuestions.length === 1 ? 'QUESTIONS.IMAGE_QUESTION' : 'QUESTIONS.IMAGE_QUESTIONS') | translate }}
+                {{ this.questionCategoryDTO.imageQuestions.length + ' ' }}
+                {{ (this.questionCategoryDTO.imageQuestions.length === 1 ? 'QUESTIONS.IMAGE_QUESTION' : 'QUESTIONS.IMAGE_QUESTIONS') | translate }}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <app-image-question-list [questionCategory]="this.questionCategoryDTO"></app-image-question-list>
