@@ -12,6 +12,14 @@ data class ImageAnswer(
     @ManyToOne
     val imageQuestion: ImageQuestion,
 
+    @OneToMany(
+        targetEntity = ImageQuestionAnswer::class,
+        mappedBy = "imageAnswer",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val imageQuestionAnswers: List<ImageQuestionAnswer> = emptyList(),
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     val image: ByteArray = ByteArray(0),

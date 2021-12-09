@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CORE_URL } from '../../app.config';
 import { RangeQuestionAnswerDTO } from '../dtos/range-question-answer-dto';
 import { BookmarkedPossibleOutcomeDTO } from '../dtos/bookmarked-possible-outcome-dto';
+import { ImageQuestionAnswerDTO } from '../dtos/image-question-answer-dto';
+import { ScoreDTO } from '../dtos/score-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +30,17 @@ export class SubmissionService {
     );
   }
 
+  public addImageQuestionAnswersToSubmission(
+    submissionId: number,
+    imageQuestionAnswers: ImageQuestionAnswerDTO[]
+  ): Observable<SubmissionDTO> {
+    const body = JSON.stringify(imageQuestionAnswers);
+    return this.httpClient.put<SubmissionDTO>(
+      CORE_URL + '/api/submissions/' + submissionId + '/image-question-answers',
+      body
+    );
+  }
+
   public addBookmarkedPossibleOutcomesToSubmission(
     submissionId: number,
     bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[]
@@ -37,5 +50,9 @@ export class SubmissionService {
       CORE_URL + '/api/submissions/' + submissionId + '/bookmarked-possible-outcomes',
       body
     );
+  }
+
+  public getScoresGroupedByQuestionCategoryId(submissionId: number): Observable<ScoreDTO[]> {
+    return this.httpClient.get<ScoreDTO[]>(CORE_URL + '/api/submissions/' + submissionId + '/scores');
   }
 }

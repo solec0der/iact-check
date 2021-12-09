@@ -3,10 +3,7 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.controller.exception.*
 import ch.iact.iactcheck.domain.model.*
 import ch.iact.iactcheck.domain.repository.*
-import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
-import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
-import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
-import ch.iact.iactcheck.dto.SubmissionDTO
+import ch.iact.iactcheck.dto.*
 import ch.iact.iactcheck.service.converter.SubmissionConverter
 import ch.iact.iactcheck.util.PhoneNumberUtil
 import org.apache.commons.validator.routines.EmailValidator
@@ -18,7 +15,7 @@ class SubmissionService(
     private val checkRepository: CheckRepository,
     private val submissionRepository: SubmissionRepository,
     private val rangeQuestionRepository: RangeQuestionRepository,
-    private val imageQuestionRepository: ImageQuestionRepository,
+    private val imageAnswerRepository: ImageAnswerRepository,
     private val possibleOutcomeRepository: PossibleOutcomeRepository
 ) {
 
@@ -83,8 +80,8 @@ class SubmissionService(
         val convertedImageQuestionAnswers = imageQuestionAnswers.map {
             ImageQuestionAnswer(
                 id = -1,
-                imageQuestion = imageQuestionRepository.findById(it.imageQuestionId)
-                    .orElseThrow { throw ImageQuestionNotFoundException() },
+                imageAnswer = imageAnswerRepository.findById(it.imageAnswerId)
+                    .orElseThrow { throw ImageAnswerNotFoundException() },
                 submission = submission,
                 value = it.value
             )
@@ -120,6 +117,36 @@ class SubmissionService(
         )
 
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
+    }
+
+    fun getScoresGroupedByQuestionCategoryId(submissionId: Long): List<ScoreDTO> {
+        val submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val scoresByQuestionCategory = HashMap<Long, Int>()
+
+        submission.imageQuestionAnswers.forEach {
+            val questionCategoryId = it.imageAnswer.imageQuestion.questionCategory.id
+
+            if (!scoresByQuestionCategory.containsKey(questionCategoryId)) {
+                scoresByQuestionCategory[questionCategoryId] = 0;
+            }
+            val previousValue = scoresByQuestionCategory[questionCategoryId]
+            scoresByQuestionCategory[questionCategoryId] = previousValue!! + it.imageAnswer.score
+        }
+
+        submission.rangeQuestionAnswers.forEach {
+            val questionCategoryId = it.rangeQuestion.questionCategory.id
+
+            if (!scoresByQuestionCategory.containsKey(questionCategoryId)) {
+                scoresByQuestionCategory[questionCategoryId] = 0;
+            }
+            val previousValue = scoresByQuestionCategory[questionCategoryId]
+            scoresByQuestionCategory[questionCategoryId] = previousValue!! + it.value
+        }
+
+        return scoresByQuestionCategory.map { ScoreDTO(it.key, it.value) }
     }
 
     private fun validateSubmission(

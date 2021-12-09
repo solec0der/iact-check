@@ -1,1 +1,30 @@
-<p>image-question works!</p>
+<div class="question-container" *ngIf="this.questionCategoryDTO">
+  <div class="question-title">
+    <h2>{{this.getCurrentImageQuestion().questionText}}</h2>
+  </div>
+
+  <div class="image-answers">
+    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10">
+      <mat-grid-tile *ngFor="let imageAnswer of this.getCurrentImageQuestion().imageAnswers">
+        <div class="image-answer" [class.selected]="this.isAnswerSelected(imageAnswer.id)"
+             (click)="this.selectImageAnswer(this.imageAnswer.id)">
+          <img [src]="this.getImageUrlByImageAnswerId(imageAnswer.id)" class="image-answer">
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+<div class="display-flex-space-between full-width">
+  <div>
+    <button mat-stroked-button (click)="this.previousStep()">
+      <mat-icon>navigate_before</mat-icon>
+      {{'SHARED.BACK' | translate}}
+    </button>
+  </div>
+  <div>
+    <button mat-stroked-button (click)="this.nextStep()">
+      {{'SHARED.NEXT' | translate}}
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+</div>

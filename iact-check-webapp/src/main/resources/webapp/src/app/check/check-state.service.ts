@@ -5,6 +5,7 @@ import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionCategoryDTO } from '../shared/dtos/question-category-dto';
 import { SubmissionDTO } from '../shared/dtos/submission-dto';
+import { CheckService } from '../shared/services/check.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,14 @@ export class CheckStateService {
   private currentStep = 1;
   private readonly numberOfSteps = 5;
 
-  constructor(private readonly router: Router) {
+  constructor(private readonly router: Router, private readonly checkService: CheckService) {
     this.calculateProgressBarPercentage();
+
+    // TEST
+    // this.checkService.getCheckById(1).subscribe((check) => {
+    //   this.activeCheck.next(check);
+    //   this.activeQuestionCategory.next(check.questionCategories[0]);
+    // });
   }
 
   public setActiveCheck(checkDTO: CheckDTO): void {
@@ -67,18 +74,18 @@ export class CheckStateService {
     this.navigateToCurrentStep(currentRoute);
   }
 
-  public getScoreByQuestionCategoryId(questionCategoryId: number): number {
-    if (this.submission) {
-      const scores = this.submission.rangeQuestionAnswers
-        .filter((rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === questionCategoryId)
-        .map((value) => value.value);
-
-      if (scores.length > 0) {
-        return scores.reduce((previousValue, currentValue) => previousValue + currentValue);
-      }
-    }
-    return 0;
-  }
+  // public getScoreByQuestionCategoryId(questionCategoryId: number): number {
+  //   if (this.submission) {
+  //     const scores = this.submission.rangeQuestionAnswers
+  //       .filter((rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === questionCategoryId)
+  //       .map((value) => value.value);
+  //
+  //     if (scores.length > 0) {
+  //       return scores.reduce((previousValue, currentValue) => previousValue + currentValue);
+  //     }
+  //   }
+  //   return 0;
+  // }
 
   get submission(): SubmissionDTO | undefined {
     return this._submission;

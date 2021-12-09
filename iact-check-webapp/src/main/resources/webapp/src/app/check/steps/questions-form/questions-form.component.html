@@ -3,8 +3,11 @@
   *ngIf="this.checkDTO && this.questionCategoryDTO">
   <div class="check-container" style="width: 65%">
     <div class="check-content">
-      <app-range-question [checkDTO]="this.checkDTO"
+      <app-range-question *ngIf="this.questionCategoryDTO.rangeQuestions.length > 0" [checkDTO]="this.checkDTO"
                           [questionCategoryDTO]="this.questionCategoryDTO"></app-range-question>
+
+      <app-image-question style="width: 100%" *ngIf="this.questionCategoryDTO.imageQuestions.length > 0" [checkDTO]="this.checkDTO"
+                          [questionCategoryDTO]="this.questionCategoryDTO"></app-image-question>
     </div>
   </div>
 </div>

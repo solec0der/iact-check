@@ -1,5 +1,6 @@
 import {RangeQuestionAnswerDTO} from "./range-question-answer-dto";
 import {BookmarkedPossibleOutcomeDTO} from "./bookmarked-possible-outcome-dto";
+import {ImageQuestionAnswerDTO} from "./image-question-answer-dto";
 
 export interface SubmissionDTO {
   id?: number;
@@ -12,5 +13,6 @@ export interface SubmissionDTO {
   phoneNumber: string;
   email: string;
   rangeQuestionAnswers: RangeQuestionAnswerDTO[];
+  imageQuestionAnswers: ImageQuestionAnswerDTO[];
   bookmarkedPossibleOutcomes: BookmarkedPossibleOutcomeDTO[];
 }

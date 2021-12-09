@@ -39,12 +39,13 @@ object SubmissionConverter {
         )
     }
 
-    private fun convertImageQuestionAnswerToDTO(rangeQuestionAnswer: ImageQuestionAnswer): ImageQuestionAnswerDTO {
+    private fun convertImageQuestionAnswerToDTO(imageQuestionAnswer: ImageQuestionAnswer): ImageQuestionAnswerDTO {
         return ImageQuestionAnswerDTO(
-            id = rangeQuestionAnswer.id,
-            value = rangeQuestionAnswer.value,
-            imageQuestionId = rangeQuestionAnswer.imageQuestion.id,
-            questionCategoryId = rangeQuestionAnswer.imageQuestion.questionCategory.id
+            id = imageQuestionAnswer.id,
+            value = imageQuestionAnswer.value,
+            imageQuestionId = imageQuestionAnswer.imageAnswer.imageQuestion.id,
+            imageAnswerId = imageQuestionAnswer.imageAnswer.id,
+            questionCategoryId = imageQuestionAnswer.imageAnswer.imageQuestion.questionCategory.id
         )
     }
 

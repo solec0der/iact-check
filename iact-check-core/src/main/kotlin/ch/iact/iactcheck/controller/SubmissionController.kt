@@ -1,9 +1,6 @@
 package ch.iact.iactcheck.controller
 
-import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
-import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
-import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
-import ch.iact.iactcheck.dto.SubmissionDTO
+import ch.iact.iactcheck.dto.*
 import ch.iact.iactcheck.service.SubmissionService
 import org.springframework.web.bind.annotation.*
 
@@ -38,5 +35,10 @@ internal class SubmissionController(private val submissionService: SubmissionSer
         @RequestBody bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcomeDTO>
     ): SubmissionDTO {
         return submissionService.addBookmarkedPossibleOutcomesToSubmission(submissionId, bookmarkedPossibleOutcomes)
+    }
+
+    @GetMapping("/{submissionId}/scores")
+    fun getScoresGroupedByQuestionCategoryId(@PathVariable("submissionId") submissionId: Long): List<ScoreDTO> {
+        return submissionService.getScoresGroupedByQuestionCategoryId(submissionId)
     }
 }

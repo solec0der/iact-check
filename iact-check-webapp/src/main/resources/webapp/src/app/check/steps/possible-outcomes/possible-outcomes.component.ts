@@ -49,12 +49,8 @@ export class PossibleOutcomesComponent implements OnInit {
     this.loadData();
   }
 
-  public getBackgroundColorOfPossibleOutcome(
-    possibleOutcome: PossibleOutcomeDTO
-  ): string {
-    const accentColour = <string>(
-      this.customerDTO.customerBranding?.accentColour
-    );
+  public getBackgroundColorOfPossibleOutcome(possibleOutcome: PossibleOutcomeDTO): string {
+    const accentColour = <string>this.customerDTO.customerBranding?.accentColour;
     if (this.isScoreInPossibleScores(possibleOutcome.possibleScores)) {
       return accentColour;
     } else {
@@ -63,10 +59,7 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   public goBackToQuestionCategories(): void {
-    this.checkStateService.setStep(
-      Steps.QuestionCategorySelection,
-      this.activatedRoute
-    );
+    this.checkStateService.setStep(Steps.QuestionCategorySelection, this.activatedRoute);
   }
 
   public showPossibleOutcomeDetail(possibleOutcome: PossibleOutcomeDTO): void {
@@ -82,35 +75,21 @@ export class PossibleOutcomesComponent implements OnInit {
     });
   }
 
-  public isPossibleOutcomeInBookmarkedPossibleOutcomes(
-    possibleOutcomeId: number
-  ): boolean {
-    return this.bookmarkedPossibleOutcomes.some(
-      (value) => value.possibleOutcomeId === possibleOutcomeId
-    );
+  public isPossibleOutcomeInBookmarkedPossibleOutcomes(possibleOutcomeId: number): boolean {
+    return this.bookmarkedPossibleOutcomes.some((value) => value.possibleOutcomeId === possibleOutcomeId);
   }
 
   public submitForm(): void {
     this.submissionService
-      .addBookmarkedPossibleOutcomesToSubmission(
-        <number>this.submission.id,
-        this.bookmarkedPossibleOutcomes
-      )
+      .addBookmarkedPossibleOutcomesToSubmission(<number>this.submission.id, this.bookmarkedPossibleOutcomes)
       .subscribe((submissionDTO) => {
         this.checkStateService.submission = submissionDTO;
-        this.checkStateService.setStep(
-          Steps.ConfirmationScreen,
-          this.activatedRoute
-        );
+        this.checkStateService.setStep(Steps.ConfirmationScreen, this.activatedRoute);
       });
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {
-    return (
-      possibleScores.find(
-        (possibleScore) => possibleScore.score === this.score
-      ) !== undefined
-    );
+    return possibleScores.find((possibleScore) => possibleScore.score === this.score) !== undefined;
   }
 
   private loadData(): void {
@@ -118,27 +97,24 @@ export class PossibleOutcomesComponent implements OnInit {
       this.customerDTO = customerDTO!;
     });
 
-    this.checkStateService
-      .getActiveQuestionCategory()
-      .subscribe((questionCategoryDTO) => {
-        this.questionCategoryDTO = questionCategoryDTO;
+    this.checkStateService.getActiveQuestionCategory().subscribe((questionCategoryDTO) => {
+      this.questionCategoryDTO = questionCategoryDTO;
 
-        if (
-          this.checkStateService.submission &&
-          this.checkStateService.submission.rangeQuestionAnswers.length > 0
-        ) {
-          this.score = this.checkStateService.getScoreByQuestionCategoryId(
-            this.questionCategoryDTO.id
-          );
+      if (
+        this.checkStateService.submission &&
+        (this.checkStateService.submission.rangeQuestionAnswers.length > 0 ||
+          this.checkStateService.submission.imageQuestionAnswers.length > 0)
+      ) {
+        this.submissionService.getScoresGroupedByQuestionCategoryId(<number>this.submission.id).subscribe((scores) => {
+          this.score = <number>scores.find((score) => score.questionCategoryId === this.questionCategoryDTO.id)?.score;
+
           this.possibleOutcomeService
-            .getPossibleOutcomesByScoreAndQuestionCategoryId(
-              this.score,
-              this.questionCategoryDTO.id
-            )
+            .getPossibleOutcomesByScoreAndQuestionCategoryId(this.score, this.questionCategoryDTO.id)
             .subscribe((possibleOutcomes) => {
               this.possibleOutcomes = possibleOutcomes;
             });
-        }
-      });
+        });
+      }
+    });
   }
 }

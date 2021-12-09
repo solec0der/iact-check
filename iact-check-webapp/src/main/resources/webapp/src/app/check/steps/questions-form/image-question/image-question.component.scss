@@ -1,0 +1,32 @@
+@import "src/iact-check-theme";
+
+div.question-title {
+  width: 100%;
+  text-align: center;
+}
+
+div.question-container {
+  width: 100%;
+}
+
+div.image-answers {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+img.image-answer {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+div.image-answer {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: 0.2s border;
+}
+
+div.image-answer.selected {
+  border: 5px white solid;
+}

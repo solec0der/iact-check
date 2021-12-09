@@ -13,6 +13,7 @@ data class ImageQuestionAnswer(
     val submission: Submission,
 
     @ManyToOne
-    val imageQuestion: ImageQuestion,
+    val imageAnswer: ImageAnswer,
+
     val value: Int
 )
