@@ -11,6 +11,7 @@ import { DEFAULT_LANGUAGE, getLanguageByLocale, LanguageDTO } from '../../../../
 import { AVAILABLE_LANGUAGES } from '../../../../../shared/model/available-languages';
 import { TranslationUtil } from '../../../../shared/util/translation.util';
 import { SnackBarService } from '../../../../../shared/services/snack-bar.service';
+import {CORE_URL} from "../../../../../app.config";
 
 @Component({
   selector: 'app-check-detail',

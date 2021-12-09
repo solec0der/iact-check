@@ -1,57 +1,10 @@
 <div
   class="full-width-and-height-absolute display-flex-align-center"
-  *ngIf="this.checkDTO"
->
+  *ngIf="this.checkDTO && this.questionCategoryDTO">
   <div class="check-container" style="width: 65%">
     <div class="check-content">
-      <div class="questions-container" *ngIf="this.questionCategoryDTO">
-        <div
-          *ngFor="let question of this.questionCategoryDTO?.rangeQuestions"
-          class="question-container"
-        >
-          <div style="width: 15%">
-            <img
-              [src]="this.getIconUrlByRangeQuestionId(question.id)"
-              style="width: 100%"
-              alt="question-icon"/>
-          </div>
-          <div style="width: 80%">
-            <div class="full-width">
-              <p>{{question.questionText}}</p>
-              <mat-slider
-                thumbLabel
-                style="width: 100%"
-                [min]="0"
-                [max]="question.rangeSteps.length - 1"
-                [value]="(question.rangeSteps.length - 1) / 2"
-                (input)="this.onSliderChange($event, question)"
-              ></mat-slider>
-            </div>
-            <div class="full-width display-flex-space-between">
-              <div>
-                {{question.rangeSteps[0].description}}
-              </div>
-              <div>
-                {{question.rangeSteps[question.rangeSteps.length - 1].description}}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="display-flex-space-between full-width">
-        <div>
-          <button mat-stroked-button (click)="this.previousStep()">
-            <mat-icon>navigate_before</mat-icon>
-            {{'SHARED.BACK' | translate}}
-          </button>
-        </div>
-        <div>
-          <button mat-stroked-button (click)="this.nextStep()">
-            {{'SHARED.NEXT' | translate}}
-            <mat-icon>navigate_next</mat-icon>
-          </button>
-        </div>
-      </div>
+      <app-range-question [checkDTO]="this.checkDTO"
+                          [questionCategoryDTO]="this.questionCategoryDTO"></app-range-question>
     </div>
   </div>
 </div>

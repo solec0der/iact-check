@@ -14,6 +14,8 @@ import { QuestionsFormComponent } from './steps/questions-form/questions-form.co
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possible-outcome-detail/possible-outcome-detail.component';
 import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
+import { RangeQuestionComponent } from './steps/questions-form/range-question/range-question.component';
+import { ImageQuestionComponent } from './steps/questions-form/image-question/image-question.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirm
     PossibleOutcomesComponent,
     PossibleOutcomeDetailComponent,
     ConfirmationScreenComponent,
+    RangeQuestionComponent,
+    ImageQuestionComponent,
   ],
   imports: [
     CommonModule,
