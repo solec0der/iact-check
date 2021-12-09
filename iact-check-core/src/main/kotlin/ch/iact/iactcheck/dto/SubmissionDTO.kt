@@ -11,5 +11,6 @@ data class SubmissionDTO(
     val phoneNumber: String,
     val email: String,
     val rangeQuestionAnswers: List<RangeQuestionAnswerDTO> = emptyList(),
+    val imageQuestionAnswers: List<ImageQuestionAnswerDTO> = emptyList(),
     val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcomeDTO> = emptyList()
 )

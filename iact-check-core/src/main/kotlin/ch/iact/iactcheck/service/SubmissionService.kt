@@ -1,15 +1,10 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.controller.exception.*
-import ch.iact.iactcheck.domain.model.ActiveUserRegistrationField
-import ch.iact.iactcheck.domain.model.BookmarkedPossibleOutcome
-import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
-import ch.iact.iactcheck.domain.model.Submission
-import ch.iact.iactcheck.domain.repository.CheckRepository
-import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
-import ch.iact.iactcheck.domain.repository.RangeQuestionRepository
-import ch.iact.iactcheck.domain.repository.SubmissionRepository
+import ch.iact.iactcheck.domain.model.*
+import ch.iact.iactcheck.domain.repository.*
 import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
+import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 import ch.iact.iactcheck.service.converter.SubmissionConverter
@@ -23,6 +18,7 @@ class SubmissionService(
     private val checkRepository: CheckRepository,
     private val submissionRepository: SubmissionRepository,
     private val rangeQuestionRepository: RangeQuestionRepository,
+    private val imageQuestionRepository: ImageQuestionRepository,
     private val possibleOutcomeRepository: PossibleOutcomeRepository
 ) {
 
@@ -71,6 +67,31 @@ class SubmissionService(
 
         submission = submission.copy(
             rangeQuestionAnswers = convertedRangeQuestionAnswers
+        )
+
+        return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
+    }
+
+    fun addImageQuestionAnswersToSubmission(
+        submissionId: Long,
+        imageQuestionAnswers: List<ImageQuestionAnswerDTO>
+    ): SubmissionDTO {
+        var submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val convertedImageQuestionAnswers = imageQuestionAnswers.map {
+            ImageQuestionAnswer(
+                id = -1,
+                imageQuestion = imageQuestionRepository.findById(it.imageQuestionId)
+                    .orElseThrow { throw ImageQuestionNotFoundException() },
+                submission = submission,
+                value = it.value
+            )
+        }
+
+        submission = submission.copy(
+            imageQuestionAnswers = convertedImageQuestionAnswers
         )
 
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))

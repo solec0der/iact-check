@@ -18,6 +18,14 @@ data class ImageQuestion(
     )
     val imageAnswers: List<ImageAnswer>,
 
+    @OneToMany(
+        targetEntity = ImageQuestionAnswer::class,
+        mappedBy = "imageQuestion",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val imageQuestionAnswers: List<ImageQuestionAnswer> = emptyList(),
+
     @ManyToOne
     val questionCategory: QuestionCategory
 )

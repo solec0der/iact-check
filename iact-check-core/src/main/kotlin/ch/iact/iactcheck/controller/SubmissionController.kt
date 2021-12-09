@@ -1,6 +1,7 @@
 package ch.iact.iactcheck.controller
 
 import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
+import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 import ch.iact.iactcheck.service.SubmissionService
@@ -8,9 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/submissions")
-internal class SubmissionController(
-    private val submissionService: SubmissionService
-) {
+internal class SubmissionController(private val submissionService: SubmissionService) {
 
     @PostMapping
     fun createSubmission(@RequestBody submissionDTO: SubmissionDTO): SubmissionDTO {
@@ -23,6 +22,14 @@ internal class SubmissionController(
         @RequestBody rangeQuestionAnswers: List<RangeQuestionAnswerDTO>
     ): SubmissionDTO {
         return submissionService.addRangeQuestionAnswersToSubmission(submissionId, rangeQuestionAnswers)
+    }
+
+    @PutMapping("/{submissionId}/image-question-answers")
+    fun addImageQuestionAnswersToSubmission(
+        @PathVariable("submissionId") submissionId: Long,
+        @RequestBody imageQuestionAnswers: List<ImageQuestionAnswerDTO>
+    ): SubmissionDTO {
+        return submissionService.addImageQuestionAnswersToSubmission(submissionId, imageQuestionAnswers)
     }
 
     @PutMapping("/{submissionId}/bookmarked-possible-outcomes")

@@ -1,9 +1,11 @@
 package ch.iact.iactcheck.service.converter
 
 import ch.iact.iactcheck.domain.model.BookmarkedPossibleOutcome
+import ch.iact.iactcheck.domain.model.ImageQuestionAnswer
 import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.model.Submission
 import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
+import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
 import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
 import ch.iact.iactcheck.dto.SubmissionDTO
 
@@ -21,6 +23,7 @@ object SubmissionConverter {
             phoneNumber = submission.phoneNumber,
             email = submission.email,
             rangeQuestionAnswers = submission.rangeQuestionAnswers.map { convertRangeQuestionAnswerToDTO(it) },
+            imageQuestionAnswers = submission.imageQuestionAnswers.map { convertImageQuestionAnswerToDTO(it) },
             bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes.map {
                 convertBookmarkedPossibleOutcomeToDTO(it)
             }
@@ -35,6 +38,16 @@ object SubmissionConverter {
             questionCategoryId = rangeQuestionAnswer.rangeQuestion.questionCategory.id
         )
     }
+
+    private fun convertImageQuestionAnswerToDTO(rangeQuestionAnswer: ImageQuestionAnswer): ImageQuestionAnswerDTO {
+        return ImageQuestionAnswerDTO(
+            id = rangeQuestionAnswer.id,
+            value = rangeQuestionAnswer.value,
+            imageQuestionId = rangeQuestionAnswer.imageQuestion.id,
+            questionCategoryId = rangeQuestionAnswer.imageQuestion.questionCategory.id
+        )
+    }
+
 
     private fun convertBookmarkedPossibleOutcomeToDTO(
         bookmarkedPossibleOutcome: BookmarkedPossibleOutcome
