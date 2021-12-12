@@ -23,9 +23,9 @@ export class PossibleOutcomesComponent implements OnInit {
   public possibleOutcomes!: PossibleOutcomeDTO[];
   public customerDTO!: CustomerDTO;
   public readonly colourAdjuster = ColourUtility.adjustColour;
+  public questionCategoryDTO!: QuestionCategoryDTO;
 
   private score: number = 0;
-  private questionCategoryDTO!: QuestionCategoryDTO;
   private bookmarkedPossibleOutcomes!: BookmarkedPossibleOutcomeDTO[];
   private submission!: SubmissionDTO;
 
@@ -40,13 +40,11 @@ export class PossibleOutcomesComponent implements OnInit {
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
 
-    const submission = this.checkStateService.submission!;
-    if (submission) {
+    this.checkStateService.getSubmission().subscribe((submission) => {
       this.submission = submission;
       this.bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes;
-    }
-
-    this.loadData();
+      this.loadData();
+    });
   }
 
   public getBackgroundColorOfPossibleOutcome(possibleOutcome: PossibleOutcomeDTO): string {
@@ -63,15 +61,11 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   public showPossibleOutcomeDetail(possibleOutcome: PossibleOutcomeDTO): void {
-    const dialogRef = this.matDialog.open(PossibleOutcomeDetailComponent, {
+    this.matDialog.open(PossibleOutcomeDetailComponent, {
       data: {
         possibleOutcome: possibleOutcome,
         bookmarkedPossibleOutcomes: this.bookmarkedPossibleOutcomes,
       },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      console.log(this.bookmarkedPossibleOutcomes);
     });
   }
 
@@ -83,7 +77,7 @@ export class PossibleOutcomesComponent implements OnInit {
     this.submissionService
       .addBookmarkedPossibleOutcomesToSubmission(<number>this.submission.id, this.bookmarkedPossibleOutcomes)
       .subscribe((submissionDTO) => {
-        this.checkStateService.submission = submissionDTO;
+        this.checkStateService.setSubmission(submissionDTO);
         this.checkStateService.setStep(Steps.ConfirmationScreen, this.activatedRoute);
       });
   }
@@ -101,20 +95,35 @@ export class PossibleOutcomesComponent implements OnInit {
       this.questionCategoryDTO = questionCategoryDTO;
 
       if (
-        this.checkStateService.submission &&
-        (this.checkStateService.submission.rangeQuestionAnswers.length > 0 ||
-          this.checkStateService.submission.imageQuestionAnswers.length > 0)
+        this.submission &&
+        (this.submission.rangeQuestionAnswers.length > 0 || this.submission.imageQuestionAnswers.length > 0)
       ) {
-        this.submissionService.getScoresGroupedByQuestionCategoryId(<number>this.submission.id).subscribe((scores) => {
-          this.score = <number>scores.find((score) => score.questionCategoryId === this.questionCategoryDTO.id)?.score;
-
-          this.possibleOutcomeService
-            .getPossibleOutcomesByScoreAndQuestionCategoryId(this.score, this.questionCategoryDTO.id)
-            .subscribe((possibleOutcomes) => {
-              this.possibleOutcomes = possibleOutcomes;
-            });
-        });
+        if (questionCategoryDTO.showOnlyBestMatchingPossibleOutcome) {
+          this.loadBestMatchingPossibleOutcome(this.submission);
+        } else {
+          this.loadMultiplePossibleOutcomes();
+        }
       }
     });
+  }
+
+  private loadMultiplePossibleOutcomes(): void {
+    this.submissionService.getScoresGroupedByQuestionCategoryId(<number>this.submission.id).subscribe((scores) => {
+      this.score = <number>scores.find((score) => score.questionCategoryId === this.questionCategoryDTO.id)?.score;
+
+      this.possibleOutcomeService
+        .getPossibleOutcomesByScoreAndQuestionCategoryId(this.score, this.questionCategoryDTO.id)
+        .subscribe((possibleOutcomes) => {
+          this.possibleOutcomes = possibleOutcomes;
+        });
+    });
+  }
+
+  private loadBestMatchingPossibleOutcome(submission: SubmissionDTO): void {
+    this.possibleOutcomeService
+      .getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(<number>submission.id, this.questionCategoryDTO.id)
+      .subscribe((possibleOutcome) => {
+        this.possibleOutcomes = [possibleOutcome];
+      });
   }
 }

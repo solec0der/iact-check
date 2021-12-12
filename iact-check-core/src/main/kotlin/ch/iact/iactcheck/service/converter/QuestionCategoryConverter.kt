@@ -12,6 +12,7 @@ object QuestionCategoryConverter {
             checkId = questionCategory.check.id,
             title = questionCategory.title,
             language = LanguageDTO(questionCategory.language.name, questionCategory.language.locale),
+            showOnlyBestMatchingPossibleOutcome = questionCategory.showOnlyBestMatchingPossibleOutcome,
             possibleOutcomes = questionCategory.possibleOutcomes.map {
                 PossibleOutcomeConverter.convertPossibleOutcomeToDTO(it)
             }.toList(),

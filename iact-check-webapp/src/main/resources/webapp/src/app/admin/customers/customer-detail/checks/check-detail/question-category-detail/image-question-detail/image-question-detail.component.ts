@@ -10,7 +10,11 @@ import { ImageQuestionService } from '../../../../../../shared/services/image-qu
 import { CORE_URL } from '../../../../../../../app.config';
 import { forkJoin, Observable } from 'rxjs';
 import { SnackBarService } from '../../../../../../../shared/services/snack-bar.service';
-import {ConfirmDialogComponent} from "../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component";
+import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { CheckStateService } from '../../../../../../../check/check-state.service';
+import { PossibleOutcomeDTO } from '../../../../../../../shared/dtos/possible-outcome-dto';
+import { PossibleOutcomeService } from '../../../../../../shared/services/possible-outcome.service';
+import { QuestionCategoryService } from '../../../../../../shared/services/question-category.service';
 
 @Component({
   selector: 'app-image-question-detail',
@@ -29,6 +33,7 @@ export class ImageQuestionDetailComponent implements OnInit {
   public imageQuestionDTO!: ImageQuestionDTO;
   public imageQuestionFormGroup!: FormGroup;
   public imageAnswersFormArray!: FormArray;
+  public possibleOutcomes: PossibleOutcomeDTO[] = [];
 
   constructor(
     private readonly router: Router,
@@ -37,7 +42,8 @@ export class ImageQuestionDetailComponent implements OnInit {
     private readonly customerService: CustomerService,
     private readonly snackBarService: SnackBarService,
     private readonly translateService: TranslateService,
-    private readonly imageQuestionService: ImageQuestionService
+    private readonly imageQuestionService: ImageQuestionService,
+    private readonly questionCategoryService: QuestionCategoryService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.action = String(params.get('action'));
@@ -49,6 +55,10 @@ export class ImageQuestionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerService.setActiveCustomerIfNotSet(this.customerId);
+
+    this.questionCategoryService.getQuestionCategoryById(this.questionCategoryId).subscribe((questionCategory) => {
+      this.possibleOutcomes = questionCategory.possibleOutcomes;
+    });
 
     if (this.action === 'edit') {
       this.loadData();
@@ -176,7 +186,7 @@ export class ImageQuestionDetailComponent implements OnInit {
         imageAnswers.push({
           id: formGroup.value.id,
           imageQuestionId: -1,
-          score: formGroup.value.score,
+          possibleOutcomeId: formGroup.value.possibleOutcomeId,
         });
       }
     });
@@ -235,7 +245,7 @@ export class ImageQuestionDetailComponent implements OnInit {
 
   private static createEmptyImageAnswerFormGroup(): FormGroup {
     return new FormGroup({
-      score: new FormControl('', Validators.required),
+      possibleOutcomeId: new FormControl('', Validators.required),
       image: new FormControl('', Validators.required),
     });
   }
@@ -243,7 +253,7 @@ export class ImageQuestionDetailComponent implements OnInit {
   private static createImageAnswerFormGroupFromImageAnswer(imageAnswerDTO: ImageAnswerDTO): FormGroup {
     return new FormGroup({
       id: new FormControl(imageAnswerDTO.id, Validators.required),
-      score: new FormControl(imageAnswerDTO.score, Validators.required),
+      possibleOutcomeId: new FormControl(imageAnswerDTO.possibleOutcomeId, Validators.required),
       image: new FormControl(''),
     });
   }

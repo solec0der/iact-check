@@ -5,6 +5,7 @@ data class QuestionCategoryDTO(
     val checkId: Long,
     val title: String,
     val language: LanguageDTO,
+    val showOnlyBestMatchingPossibleOutcome: Boolean,
     val rangeQuestions: List<RangeQuestionDTO>,
     val imageQuestions: List<ImageQuestionDTO>,
     val possibleOutcomes: List<PossibleOutcomeDTO>

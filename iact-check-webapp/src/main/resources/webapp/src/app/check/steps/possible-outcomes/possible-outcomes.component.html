@@ -3,7 +3,14 @@
   *ngIf="this.possibleOutcomes && this.customerDTO && this.customerDTO.customerBranding"
 >
   <div class="check-container" style="width: 65%">
-    <div class="check-content">
+    <div class="check-content" *ngIf="this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">
+      <div class="display-flex-align-center">
+        <h1>
+          {{this.possibleOutcomes[0].title}}
+        </h1>
+      </div>
+    </div>
+    <div class="check-content" *ngIf="!this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">
       <div class="align-center full-width" style="margin-bottom: 25px">
         <h1>{{'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate}}</h1>
 

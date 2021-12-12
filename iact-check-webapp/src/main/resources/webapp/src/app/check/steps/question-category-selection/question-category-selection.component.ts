@@ -29,6 +29,9 @@ export class QuestionCategorySelectionComponent implements OnInit {
   }
 
   public getWidthOfQuestionCategory(): string {
+    if (this.checkDTO?.questionCategories.length === 1) {
+      return '25%';
+    }
     return 100 / this.checkDTO?.questionCategories.length - 4 + '%';
   }
 

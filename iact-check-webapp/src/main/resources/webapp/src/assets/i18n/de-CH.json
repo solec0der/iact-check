@@ -178,6 +178,7 @@
     "CREATED_MESSAGE": "Die Fragekategorie wurde erfolgreich erstellt.",
     "UPDATED_MESSAGE": "Die Fragekategorie wurde erfolgreich modifiziert.",
     "DELETED_MESSAGE": "Die Fragekategorie wurde erfolgreich gelöscht.",
+    "SHOW_ONLY_BEST_MATCHING_POSSIBLE_OUTCOME": "Nur ein mögliches Ergebnis anzeigen (Das Ergebnis mit dem besten Match wird angezeigt)",
     "PLACEHOLDER": {
       "TITLE": "Bitte Titel des Checks eingeben"
     },
@@ -235,6 +236,7 @@
   },
   "POSSIBLE_OUTCOMES": {
     "POSSIBLE_OUTCOMES": "Mögliche Ergebnisse",
+    "POSSIBLE_OUTCOME": "Mögliches Ergebnis",
     "CREATE_POSSIBLE_OUTCOME": "Mögliches Ergebnis erstellen",
     "ADD_POSSIBLE_OUTCOME": "Mögliches Ergebnis erstellen",
     "EDIT_POSSIBLE_OUTCOME": "Mögliches Ergebnis bearbeiten",
@@ -255,6 +257,7 @@
     "BOOKMARK": "Merken",
     "REMOVE_BOOKMARK": "Vergessen",
     "ERRORS": {
+      "MISSING_POSSIBLE_OUTCOME": "Bitte mögliches Ergebnis wählen",
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
       "MISSING_SUBTITLE": "Bitte gültigen Untertitel hochladen",
       "MISSING_DESCRIPTION": "Bitte gültige Beschreibung eingeben",

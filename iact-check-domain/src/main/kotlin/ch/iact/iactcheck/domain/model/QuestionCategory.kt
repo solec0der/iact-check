@@ -20,6 +20,8 @@ data class QuestionCategory(
     @Enumerated(EnumType.STRING)
     val language: Language,
 
+    val showOnlyBestMatchingPossibleOutcome: Boolean,
+
     @OneToMany(targetEntity = RangeQuestion::class, mappedBy = "questionCategory")
     val rangeQuestions: List<RangeQuestion>,
 

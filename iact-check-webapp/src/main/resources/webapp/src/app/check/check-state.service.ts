@@ -16,19 +16,38 @@ export class CheckStateService {
   private activeQuestionCategory = new ReplaySubject<QuestionCategoryDTO>(1);
   private currentProgressPercentage = new ReplaySubject<number>();
 
-  private _submission: SubmissionDTO | undefined;
+  private submission = new ReplaySubject<SubmissionDTO>(1);
 
   private currentStep = 1;
   private readonly numberOfSteps = 5;
 
   constructor(private readonly router: Router, private readonly checkService: CheckService) {
     this.calculateProgressBarPercentage();
+    this.loadCheckDataFromLocalStorageIfPresent();
+    this.saveChangesToActiveCheckToLocalStorage();
 
     // TEST
     // this.checkService.getCheckById(1).subscribe((check) => {
     //   this.activeCheck.next(check);
     //   this.activeQuestionCategory.next(check.questionCategories[0]);
     // });
+  }
+
+  public resetCheck(): void {
+    this.activeCheck
+      .subscribe((check) => {
+        if (check) {
+          this.router.navigate(['customers', check.customerId, 'checks', check.id, 'steps', 1]).then();
+        }
+      })
+      .unsubscribe();
+
+    this.activeQuestionCategory.next(undefined);
+    this.submission.next(undefined);
+
+    localStorage.removeItem('check');
+    localStorage.removeItem('questionCategory');
+    localStorage.removeItem('submission');
   }
 
   public setActiveCheck(checkDTO: CheckDTO): void {
@@ -87,12 +106,12 @@ export class CheckStateService {
   //   return 0;
   // }
 
-  get submission(): SubmissionDTO | undefined {
-    return this._submission;
+  public getSubmission(): Observable<SubmissionDTO> {
+    return this.submission;
   }
 
-  set submission(value: SubmissionDTO | undefined) {
-    this._submission = value;
+  public setSubmission(submission: SubmissionDTO): void {
+    this.submission.next(submission);
   }
 
   private navigateToCurrentStep(currentRoute: ActivatedRoute): void {
@@ -103,5 +122,45 @@ export class CheckStateService {
 
   private calculateProgressBarPercentage(): void {
     this.currentProgressPercentage.next((100 / this.numberOfSteps) * this.currentStep);
+  }
+
+  private loadCheckDataFromLocalStorageIfPresent(): void {
+    const rawSubmission = localStorage.getItem('submission');
+    if (rawSubmission) {
+      const submission: SubmissionDTO = JSON.parse(rawSubmission);
+      this.setSubmission(submission);
+    }
+
+    const rawCheck = localStorage.getItem('check');
+    if (rawCheck) {
+      const check: CheckDTO = JSON.parse(rawCheck);
+      this.setActiveCheck(check);
+    }
+
+    const rawQuestionCategory = localStorage.getItem('questionCategory');
+    if (rawQuestionCategory) {
+      const questionCategory: QuestionCategoryDTO = JSON.parse(rawQuestionCategory);
+      this.setActiveQuestionCategory(questionCategory);
+    }
+  }
+
+  private saveChangesToActiveCheckToLocalStorage(): void {
+    this.submission.subscribe((submission) => {
+      if (submission) {
+        localStorage.setItem('submission', JSON.stringify(submission));
+      }
+    });
+
+    this.activeCheck.subscribe((check) => {
+      if (check) {
+        localStorage.setItem('check', JSON.stringify(check));
+      }
+    });
+
+    this.activeQuestionCategory.subscribe((questionCategory) => {
+      if (questionCategory) {
+        localStorage.setItem('questionCategory', JSON.stringify(questionCategory));
+      }
+    });
   }
 }

@@ -59,14 +59,16 @@
               </div>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>{{'QUESTIONS.SCORE' | translate}}</mat-label>
+                <mat-label>{{'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOME' | translate}}</mat-label>
                 <mat-error>
-                  {{'QUESTIONS.ERRORS.MISSING_SCORE' | translate}}
+                  {{'POSSIBLE_OUTCOMES.ERRORS.MISSING_POSSIBLE_OUTCOME' | translate}}
                 </mat-error>
                 <label>
-                  <input matInput [placeholder]="'QUESTIONS.PLACEHOLDER.SCORE' | translate"
-                         formControlName="score"
-                         required/>
+                  <mat-select formControlName="possibleOutcomeId">
+                    <mat-option *ngFor="let possibleOutcome of this.possibleOutcomes" [value]="possibleOutcome.id">
+                      {{possibleOutcome.title}}
+                    </mat-option>
+                  </mat-select>
                 </label>
               </mat-form-field>
             </mat-card-content>

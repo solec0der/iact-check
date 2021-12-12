@@ -2,11 +2,13 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.controller.exception.ImageAnswerNotFoundException
 import ch.iact.iactcheck.controller.exception.ImageQuestionNotFoundException
+import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
 import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.domain.model.ImageAnswer
 import ch.iact.iactcheck.domain.model.ImageQuestion
 import ch.iact.iactcheck.domain.repository.ImageAnswerRepository
 import ch.iact.iactcheck.domain.repository.ImageQuestionRepository
+import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.dto.ImageQuestionDTO
 import ch.iact.iactcheck.service.converter.ImageQuestionConverter
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Service
 class ImageQuestionService(
     private val questionCategoryRepository: QuestionCategoryRepository,
     private val imageQuestionRepository: ImageQuestionRepository,
-    private val imageAnswerRepository: ImageAnswerRepository
+    private val imageAnswerRepository: ImageAnswerRepository,
+    private val possibleOutcomeRepository: PossibleOutcomeRepository
 ) {
 
     fun createImageQuestion(imageQuestionDTO: ImageQuestionDTO): ImageQuestionDTO {
@@ -33,7 +36,12 @@ class ImageQuestionService(
         imageQuestion = imageQuestionRepository.save(imageQuestion)
         imageQuestion = imageQuestion.copy(
             imageAnswers = imageQuestionDTO.imageAnswers.map {
-                ImageAnswer(id = -1, imageQuestion = imageQuestion, score = it.score)
+                ImageAnswer(
+                    id = -1,
+                    imageQuestion = imageQuestion,
+                    possibleOutcome = possibleOutcomeRepository.findById(it.possibleOutcomeId)
+                        .orElseThrow { throw PossibleOutcomeNotFoundException() }
+                )
             }
         )
 
@@ -64,7 +72,8 @@ class ImageQuestionService(
                 ImageAnswer(
                     id = it.id,
                     imageQuestion = imageQuestion,
-                    score = it.score,
+                    possibleOutcome = possibleOutcomeRepository.findById(it.possibleOutcomeId)
+                        .orElseThrow { throw PossibleOutcomeNotFoundException() },
                     image = imageQuestion.imageAnswers.find { imageAnswer -> imageAnswer.id == it.id }?.image
                         ?: ByteArray(0)
                 )

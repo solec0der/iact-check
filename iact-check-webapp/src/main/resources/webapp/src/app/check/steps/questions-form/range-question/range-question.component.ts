@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CheckDTO } from '../../../../shared/dtos/check-dto';
 import { QuestionCategoryDTO } from '../../../../shared/dtos/question-category-dto';
 import { RangeQuestionAnswerDTO } from '../../../../shared/dtos/range-question-answer-dto';
+import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
 
 @Component({
   selector: 'app-range-question',
@@ -24,6 +25,7 @@ export class RangeQuestionComponent implements OnInit {
   public questionCategoryDTO!: QuestionCategoryDTO;
 
   private rangeQuestionAnswers: RangeQuestionAnswerDTO[] = [];
+  private submission!: SubmissionDTO;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -68,23 +70,26 @@ export class RangeQuestionComponent implements OnInit {
 
   private saveRangeQuestionAnswers(): void {
     const rangeQuestionAnswers = [];
-    const submission = this.checkStateService.submission;
 
     rangeQuestionAnswers.push(...this.rangeQuestionAnswers);
 
-    if (submission && submission.rangeQuestionAnswers.length > 0) {
-      rangeQuestionAnswers.push(...submission.rangeQuestionAnswers);
+    if (this.submission && this.submission.rangeQuestionAnswers.length > 0) {
+      rangeQuestionAnswers.push(...this.submission.rangeQuestionAnswers);
     }
 
     this.submissionService
-      .addRangeQuestionAnswersToSubmission(<number>submission?.id, rangeQuestionAnswers)
+      .addRangeQuestionAnswersToSubmission(<number>this.submission?.id, rangeQuestionAnswers)
       .subscribe((updatedSubmission) => {
-        this.checkStateService.submission!.rangeQuestionAnswers = updatedSubmission.rangeQuestionAnswers;
+        this.checkStateService.setSubmission(updatedSubmission);
         this.checkStateService.nextStep(this.activatedRoute);
       });
   }
 
   private loadData(): void {
+    this.checkStateService.getSubmission().subscribe((submission) => {
+      this.submission = submission;
+    });
+
     this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
       this.checkDTO = checkDTO;
     });
@@ -97,15 +102,12 @@ export class RangeQuestionComponent implements OnInit {
   }
 
   private checkIfQuestionsAreAlreadyAnswered(): void {
-    const submission = this.checkStateService.submission;
-    if (submission) {
-      if (
-        submission.rangeQuestionAnswers.find(
-          (rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === this.questionCategoryDTO.id
-        )
-      ) {
-        this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
-      }
+    if (
+      this.submission.rangeQuestionAnswers.find(
+        (rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === this.questionCategoryDTO.id
+      )
+    ) {
+      this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
     }
   }
 

@@ -3,5 +3,4 @@ export interface ImageQuestionAnswerDTO {
   imageAnswerId: number;
   imageQuestionId: number;
   questionCategoryId?: number;
-  value: number;
 }

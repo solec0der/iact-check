@@ -82,8 +82,7 @@ class SubmissionService(
                 id = -1,
                 imageAnswer = imageAnswerRepository.findById(it.imageAnswerId)
                     .orElseThrow { throw ImageAnswerNotFoundException() },
-                submission = submission,
-                value = it.value
+                submission = submission
             )
         }
 
@@ -125,16 +124,6 @@ class SubmissionService(
             .orElseThrow { throw SubmissionNotFoundException() }
 
         val scoresByQuestionCategory = HashMap<Long, Int>()
-
-        submission.imageQuestionAnswers.forEach {
-            val questionCategoryId = it.imageAnswer.imageQuestion.questionCategory.id
-
-            if (!scoresByQuestionCategory.containsKey(questionCategoryId)) {
-                scoresByQuestionCategory[questionCategoryId] = 0;
-            }
-            val previousValue = scoresByQuestionCategory[questionCategoryId]
-            scoresByQuestionCategory[questionCategoryId] = previousValue!! + it.imageAnswer.score
-        }
 
         submission.rangeQuestionAnswers.forEach {
             val questionCategoryId = it.rangeQuestion.questionCategory.id

@@ -42,7 +42,6 @@ object SubmissionConverter {
     private fun convertImageQuestionAnswerToDTO(imageQuestionAnswer: ImageQuestionAnswer): ImageQuestionAnswerDTO {
         return ImageQuestionAnswerDTO(
             id = imageQuestionAnswer.id,
-            value = imageQuestionAnswer.value,
             imageQuestionId = imageQuestionAnswer.imageAnswer.imageQuestion.id,
             imageAnswerId = imageQuestionAnswer.imageAnswer.id,
             questionCategoryId = imageQuestionAnswer.imageAnswer.imageQuestion.questionCategory.id

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../check-state.service';
 import { CustomerService } from '../../shared/services/customer.service';
 import { CORE_URL } from '../../app.config';
 import { CustomerDTO } from '../../shared/dtos/customer-dto';
 import { ThemeService } from '../../shared/services/theme.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-steps',
@@ -16,6 +17,7 @@ export class StepsComponent implements OnInit {
 
   constructor(
     private readonly themeService: ThemeService,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly customerService: CustomerService,
     private readonly checkStateService: CheckStateService
   ) {}
@@ -34,10 +36,21 @@ export class StepsComponent implements OnInit {
           customerDTO.customerBranding.theme
         );
       }
+      this.setupResetEventListener();
     });
   }
 
   public getCustomerLogoUrl(): string {
     return CORE_URL + '/api/customers/' + this.customerDTO.id + '/branding/logo';
+  }
+
+  private setupResetEventListener(): void {
+    setTimeout(() => {
+      document.getElementById('logo-wrapper')?.addEventListener('click', (event) => {
+        if (event.detail === 3) {
+          this.checkStateService.resetCheck(this.activatedRoute);
+        }
+      });
+    });
   }
 }

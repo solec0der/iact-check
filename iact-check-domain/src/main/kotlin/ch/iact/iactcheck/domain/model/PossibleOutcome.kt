@@ -38,5 +38,13 @@ data class PossibleOutcome(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList()
+    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList(),
+
+    @OneToMany(
+        targetEntity = ImageAnswer::class,
+        mappedBy = "possibleOutcome",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val imageAnswers: List<ImageAnswer> = emptyList()
 )

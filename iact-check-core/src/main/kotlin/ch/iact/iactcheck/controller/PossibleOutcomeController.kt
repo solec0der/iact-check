@@ -6,12 +6,12 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/possible-outcomes")
+@RequestMapping("/api")
 internal class PossibleOutcomeController(
     private val possibleOutcomeService: PossibleOutcomeService
 ) {
 
-    @GetMapping
+    @GetMapping("/possible-outcomes")
     fun getPossibleOutcomesByScoreAndQuestionCategoryId(
         @RequestParam("score") score: Int,
         @RequestParam("question-category-id") questionCategoryId: Long
@@ -19,12 +19,20 @@ internal class PossibleOutcomeController(
         return possibleOutcomeService.getPossibleOutcomesByScoreAndQuestionCategoryId(score, questionCategoryId)
     }
 
-    @GetMapping("/{possibleOutcomeId}/thumbnail", produces = [MediaType.IMAGE_PNG_VALUE])
+    @GetMapping("/submissions/{submissionId}/possible-outcomes")
+    fun getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(
+        @PathVariable("submissionId") submissionId: Long,
+        @RequestParam("question-category-id") questionCategoryId: Long
+    ): PossibleOutcomeDTO {
+        return possibleOutcomeService.getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(submissionId, questionCategoryId)
+    }
+
+    @GetMapping("/possible-outcomes/{possibleOutcomeId}/thumbnail", produces = [MediaType.IMAGE_PNG_VALUE])
     fun getThumbnailByPossibleOutcomeId(@PathVariable("possibleOutcomeId") possibleOutcomeId: Long): ByteArray {
         return possibleOutcomeService.getThumbnailByPossibleOutcomeId(possibleOutcomeId)
     }
 
-    @GetMapping("/{possibleOutcomeId}/pdf", produces = [MediaType.APPLICATION_PDF_VALUE])
+    @GetMapping("/possible-outcomes/{possibleOutcomeId}/pdf", produces = [MediaType.APPLICATION_PDF_VALUE])
     fun getPdfByPossibleOutcomeId(@PathVariable("possibleOutcomeId") possibleOutcomeId: Long): ByteArray {
         return possibleOutcomeService.getPdfByPossibleOutcomeId(possibleOutcomeId)
     }

@@ -7,6 +7,7 @@ import { SubmissionService } from '../../../../shared/services/submission.servic
 import { CheckStateService } from '../../../check-state.service';
 import { CORE_URL } from '../../../../app.config';
 import { ImageQuestionDTO } from '../../../../shared/dtos/image-question-dto';
+import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
 
 @Component({
   selector: 'app-image-question',
@@ -22,6 +23,7 @@ export class ImageQuestionComponent implements OnInit {
 
   private imageQuestionAnswers: ImageQuestionAnswerDTO[] = [];
   private currentImageQuestionIndex = 0;
+  private submission!: SubmissionDTO;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -29,7 +31,11 @@ export class ImageQuestionComponent implements OnInit {
     private readonly checkStateService: CheckStateService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkStateService.getSubmission().subscribe((submission) => {
+      this.submission = submission;
+    });
+  }
 
   public getImageUrlByImageAnswerId(imageAnswerId: number): string {
     return CORE_URL + '/api/image-questions/image-answers/' + imageAnswerId + '/image';
@@ -47,7 +53,6 @@ export class ImageQuestionComponent implements OnInit {
       imageQuestionId: <number>this.getCurrentImageQuestion().id,
       imageAnswerId: imageAnswerId,
       questionCategoryId: this.questionCategoryDTO.id,
-      value: 0,
     });
   }
 
@@ -84,16 +89,16 @@ export class ImageQuestionComponent implements OnInit {
   }
 
   private saveImageQuestionAnswers(): void {
-    const imageQuestionAnswers = [];
-    const submission = this.checkStateService.submission;
+    if (this.submission) {
+      const imageQuestionAnswers = [];
+      imageQuestionAnswers.push(...this.imageQuestionAnswers);
 
-    imageQuestionAnswers.push(...this.imageQuestionAnswers);
-
-    this.submissionService
-      .addImageQuestionAnswersToSubmission(<number>submission?.id, imageQuestionAnswers)
-      .subscribe((updatedSubmission) => {
-        this.checkStateService.submission!.imageQuestionAnswers = updatedSubmission.imageQuestionAnswers;
-        this.checkStateService.nextStep(this.activatedRoute);
-      });
+      this.submissionService
+        .addImageQuestionAnswersToSubmission(<number>this.submission?.id, imageQuestionAnswers)
+        .subscribe((updatedSubmission) => {
+          this.checkStateService.setSubmission(updatedSubmission);
+          this.checkStateService.nextStep(this.activatedRoute);
+        });
+    }
   }
 }

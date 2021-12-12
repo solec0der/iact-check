@@ -31,10 +31,6 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.UserRegistration, this.activatedRoute);
     this.loadData();
-
-    if (this.checkStateService.submission) {
-      this.checkStateService.nextStep(this.activatedRoute);
-    }
   }
 
   public previousStep(): void {
@@ -57,10 +53,11 @@ export class UserRegistrationComponent implements OnInit {
       email: this.userRegistrationFormGroup.value.email || '',
       rangeQuestionAnswers: [],
       bookmarkedPossibleOutcomes: [],
+      imageQuestionAnswers: [],
     };
 
     this.submissionService.createSubmission(submission).subscribe((submission) => {
-      this.checkStateService.submission = submission;
+      this.checkStateService.setSubmission(submission);
       this.checkStateService.nextStep(this.activatedRoute);
     });
   }

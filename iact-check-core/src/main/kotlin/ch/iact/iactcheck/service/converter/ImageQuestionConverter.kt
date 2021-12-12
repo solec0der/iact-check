@@ -20,7 +20,7 @@ object ImageQuestionConverter {
         return ImageAnswerDTO(
             id = imageAnswer.id,
             imageQuestionId = imageAnswer.imageQuestion.id,
-            score = imageAnswer.score
+            possibleOutcomeId = imageAnswer.possibleOutcome.id
         )
     }
 }

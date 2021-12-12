@@ -24,6 +24,7 @@ class QuestionCategoryService(
             check = check,
             title = questionCategoryDTO.title,
             language = Language.findLanguageByLocale(questionCategoryDTO.language.locale),
+            showOnlyBestMatchingPossibleOutcome = questionCategoryDTO.showOnlyBestMatchingPossibleOutcome,
             rangeQuestions = emptyList(),
             imageQuestions = emptyList(),
             possibleOutcomes = emptyList()
@@ -69,7 +70,8 @@ class QuestionCategoryService(
 
         questionCategory = questionCategory.copy(
             title = questionCategoryDTO.title,
-            language = Language.findLanguageByLocale(questionCategoryDTO.language.locale)
+            language = Language.findLanguageByLocale(questionCategoryDTO.language.locale),
+            showOnlyBestMatchingPossibleOutcome = questionCategoryDTO.showOnlyBestMatchingPossibleOutcome
         )
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))

@@ -10,22 +10,13 @@ import { PossibleOutcomeDTO } from '../../../shared/dtos/possible-outcome-dto';
 export class PossibleOutcomeService {
   constructor(private httpClient: HttpClient) {}
 
-  public createPossibleOutcome(
-    possibleOutcomeDTO: PossibleOutcomeDTO
-  ): Observable<PossibleOutcomeDTO> {
+  public createPossibleOutcome(possibleOutcomeDTO: PossibleOutcomeDTO): Observable<PossibleOutcomeDTO> {
     const body = JSON.stringify(possibleOutcomeDTO);
-    return this.httpClient.post<PossibleOutcomeDTO>(
-      CORE_URL + '/api/admin/possible-outcomes',
-      body
-    );
+    return this.httpClient.post<PossibleOutcomeDTO>(CORE_URL + '/api/admin/possible-outcomes', body);
   }
 
-  public getPossibleOutcomeById(
-    possibleOutcomeId: number
-  ): Observable<PossibleOutcomeDTO> {
-    return this.httpClient.get<PossibleOutcomeDTO>(
-      CORE_URL + '/api/admin/possible-outcomes/' + possibleOutcomeId
-    );
+  public getPossibleOutcomeById(possibleOutcomeId: number): Observable<PossibleOutcomeDTO> {
+    return this.httpClient.get<PossibleOutcomeDTO>(CORE_URL + '/api/admin/possible-outcomes/' + possibleOutcomeId);
   }
 
   public getPossibleOutcomesByScoreAndQuestionCategoryId(
@@ -33,30 +24,29 @@ export class PossibleOutcomeService {
     questionCategoryId: number
   ): Observable<PossibleOutcomeDTO[]> {
     return this.httpClient.get<PossibleOutcomeDTO[]>(
-      CORE_URL +
-        '/api/possible-outcomes?score=' +
-        score +
-        '&question-category-id=' +
-        questionCategoryId
+      CORE_URL + '/api/possible-outcomes?score=' + score + '&question-category-id=' + questionCategoryId
     );
   }
 
-  public getThumbnailByPossibleOutcomeId(
-    possibleOutcomeId: number
-  ): Observable<Blob> {
-    return this.httpClient.get(
-      CORE_URL + '/api/possible-outcomes/' + possibleOutcomeId + '/thumbnail',
-      { responseType: 'blob' }
+  public getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(
+    submissionId: number,
+    questionCategoryId: number
+  ): Observable<PossibleOutcomeDTO> {
+    return this.httpClient.get<PossibleOutcomeDTO>(
+      CORE_URL + '/api/submissions/' + submissionId + '/possible-outcomes?question-category-id=' + questionCategoryId
     );
   }
 
-  public getPdfByPossibleOutcomeId(
-    possibleOutcomeId: number
-  ): Observable<Blob> {
-    return this.httpClient.get(
-      CORE_URL + '/api/possible-outcomes/' + possibleOutcomeId + '/pdf',
-      { responseType: 'blob' }
-    );
+  public getThumbnailByPossibleOutcomeId(possibleOutcomeId: number): Observable<Blob> {
+    return this.httpClient.get(CORE_URL + '/api/possible-outcomes/' + possibleOutcomeId + '/thumbnail', {
+      responseType: 'blob',
+    });
+  }
+
+  public getPdfByPossibleOutcomeId(possibleOutcomeId: number): Observable<Blob> {
+    return this.httpClient.get(CORE_URL + '/api/possible-outcomes/' + possibleOutcomeId + '/pdf', {
+      responseType: 'blob',
+    });
   }
 
   public updatePossibleOutcomeById(
@@ -79,20 +69,10 @@ export class PossibleOutcomeService {
     body.append('thumbnail', thumbnail, thumbnail.name);
     body.append('pdf', pdf, pdf.name);
 
-    return this.httpClient.put<void>(
-      CORE_URL +
-        '/api/admin/possible-outcomes/' +
-        possibleOutcomeId +
-        '/assets',
-      body
-    );
+    return this.httpClient.put<void>(CORE_URL + '/api/admin/possible-outcomes/' + possibleOutcomeId + '/assets', body);
   }
 
-  public deletePossibleOutcomeById(
-    possibleOutcomeId: number
-  ): Observable<void> {
-    return this.httpClient.delete<void>(
-      CORE_URL + '/api/admin/possible-outcomes/' + possibleOutcomeId
-    );
+  public deletePossibleOutcomeById(possibleOutcomeId: number): Observable<void> {
+    return this.httpClient.delete<void>(CORE_URL + '/api/admin/possible-outcomes/' + possibleOutcomeId);
   }
 }

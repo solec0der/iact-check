@@ -24,5 +24,6 @@ data class ImageAnswer(
     @Basic(fetch = FetchType.LAZY)
     val image: ByteArray = ByteArray(0),
 
-    val score: Int
+    @ManyToOne
+    val possibleOutcome: PossibleOutcome
 )

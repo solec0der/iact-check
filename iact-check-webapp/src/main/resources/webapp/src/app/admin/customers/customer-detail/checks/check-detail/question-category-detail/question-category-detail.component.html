@@ -65,6 +65,12 @@
               <mat-icon>visibility</mat-icon>
             </button>
           </mat-form-field>
+          <br/><br/>
+          <div class="slide-toggle-spacing">
+            <mat-slide-toggle formControlName="showOnlyBestMatchingPossibleOutcome">
+              {{ 'QUESTION_CATEGORIES.SHOW_ONLY_BEST_MATCHING_POSSIBLE_OUTCOME' | translate }}
+            </mat-slide-toggle>
+          </div>
         </form>
       </mat-tab>
       <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate" *ngIf="this.questionCategoryDTO">

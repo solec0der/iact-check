@@ -12,6 +12,7 @@ object QuestionCategoryTestData {
         title = "Technology",
         thumbnail = ByteArray(100),
         language = Language.GERMAN,
+        showOnlyBestMatchingPossibleOutcome = false,
         check = CheckTestData.check,
         rangeQuestions = emptyList(),
         imageQuestions = emptyList(),
@@ -23,6 +24,7 @@ object QuestionCategoryTestData {
         title = "Technology",
         thumbnail = ByteArray(100),
         language = Language.GERMAN,
+        showOnlyBestMatchingPossibleOutcome = false,
         check = CheckTestData.check,
         rangeQuestions = listOf(RangeQuestionTestData.question),
         imageQuestions = emptyList(),
@@ -37,6 +39,7 @@ object QuestionCategoryTestData {
             language = "GERMAN",
             locale = "de-CH"
         ),
+        showOnlyBestMatchingPossibleOutcome = false,
         rangeQuestions = emptyList(),
         imageQuestions = emptyList(),
         possibleOutcomes = emptyList()
@@ -49,6 +52,7 @@ object QuestionCategoryTestData {
             language = "GERMAN",
             locale = "de-CH"
         ),
+        showOnlyBestMatchingPossibleOutcome = false,
         checkId = 1L,
         rangeQuestions = listOf(RangeQuestionTestData.questionDTO),
         imageQuestions = emptyList(),
