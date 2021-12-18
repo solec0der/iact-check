@@ -4,9 +4,12 @@
 >
   <div class="check-container" style="width: 65%">
     <div class="check-content" *ngIf="this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">
-      <div class="full-width align-center">
-        <h1>Hey {{this.submission.firstName}}</h1>
+      <div class="full-width align-center" style="margin-bottom: 24px">
+        <h1 class="large-title">Hey {{this.submission.firstName}}</h1>
+        <br />
         <h2>Anhand deiner Antworten passt du am besten in das Profil:</h2>
+      </div>
+      <div [style.background-color]="this.possibleOutcomes[0].backgroundColour" style="color: black" class="single-possible-outcome-container">
         <h1>
           {{this.possibleOutcomes[0].title}}
         </h1>

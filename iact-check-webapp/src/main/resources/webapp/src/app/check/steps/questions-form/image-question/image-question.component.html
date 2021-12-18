@@ -4,7 +4,7 @@
   </div>
 
   <div class="image-answers">
-    <mat-grid-list cols="2" rowHeight="300px" gutterSize="10">
+    <mat-grid-list cols="2" rowHeight="225px" gutterSize="10">
       <mat-grid-tile *ngFor="let imageAnswer of this.getCurrentImageQuestion().imageAnswers">
         <div class="image-answer"
              (click)="this.selectImageAnswer(this.imageAnswer?.id)">
