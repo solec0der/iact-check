@@ -7,6 +7,7 @@ import ch.iact.iactcheck.domain.model.PossibleOutcome
 import ch.iact.iactcheck.domain.model.PossibleScore
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
+import ch.iact.iactcheck.domain.repository.SubmissionRepository
 import ch.iact.iactcheck.dto.PossibleScoreDTO
 import ch.iact.iactcheck.testdata.PossibleOutcomeTestData
 import ch.iact.iactcheck.testdata.QuestionCategoryTestData
@@ -36,6 +37,9 @@ class PossibleOutcomeServiceTest {
     @Mock
     private val questionCategoryRepository: QuestionCategoryRepository? = null
 
+    @Mock
+    private val submissionRepository: SubmissionRepository? = null
+
     @Test
     fun shouldCreatePossibleOutcomeAndReturnCreatedPossibleOutcome() {
         `when`(questionCategoryRepository!!.findById(ArgumentMatchers.eq(1L))).thenReturn(
@@ -47,7 +51,7 @@ class PossibleOutcomeServiceTest {
 
         val actual =
             possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores)
-
+git 
         Assert.assertEquals(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores, actual)
     }
 
