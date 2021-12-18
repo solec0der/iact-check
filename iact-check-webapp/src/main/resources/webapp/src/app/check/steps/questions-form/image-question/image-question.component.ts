@@ -37,26 +37,28 @@ export class ImageQuestionComponent implements OnInit {
     });
   }
 
-  public getImageUrlByImageAnswerId(imageAnswerId: number): string {
+  public getImageUrlByImageAnswerId(imageAnswerId: number | undefined): string {
     return CORE_URL + '/api/image-questions/image-answers/' + imageAnswerId + '/image';
   }
 
-  public selectImageAnswer(imageAnswerId: number): void {
-    const index = this.imageQuestionAnswers.findIndex(
-      (value) => value.imageQuestionId === this.getCurrentImageQuestion().id
-    );
-    if (index >= 0) {
-      this.imageQuestionAnswers.splice(index, 1);
-    }
+  public selectImageAnswer(imageAnswerId: number | undefined): void {
+    if (imageAnswerId) {
+      const index = this.imageQuestionAnswers.findIndex(
+        (value) => value.imageQuestionId === this.getCurrentImageQuestion().id
+      );
+      if (index >= 0) {
+        this.imageQuestionAnswers.splice(index, 1);
+      }
 
-    this.imageQuestionAnswers.push({
-      imageQuestionId: <number>this.getCurrentImageQuestion().id,
-      imageAnswerId: imageAnswerId,
-      questionCategoryId: this.questionCategoryDTO.id,
-    });
+      this.imageQuestionAnswers.push({
+        imageQuestionId: <number>this.getCurrentImageQuestion().id,
+        imageAnswerId: imageAnswerId,
+        questionCategoryId: this.questionCategoryDTO.id,
+      });
+    }
   }
 
-  public isAnswerSelected(imageAnswerId: number): boolean {
+  public isAnswerSelected(imageAnswerId: number | undefined): boolean {
     return this.imageQuestionAnswers.some((value) => value.imageAnswerId === imageAnswerId);
   }
 

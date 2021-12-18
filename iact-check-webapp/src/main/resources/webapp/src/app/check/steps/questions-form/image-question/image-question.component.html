@@ -7,9 +7,9 @@
     <mat-grid-list cols="2" rowHeight="300px" gutterSize="10">
       <mat-grid-tile *ngFor="let imageAnswer of this.getCurrentImageQuestion().imageAnswers">
         <div class="image-answer"
-             (click)="this.selectImageAnswer(this.imageAnswer.id)">
-          <img [class.selected]="this.isAnswerSelected(imageAnswer.id)"
-               [src]="this.getImageUrlByImageAnswerId(imageAnswer.id)" class="image-answer">
+             (click)="this.selectImageAnswer(this.imageAnswer?.id)">
+          <img [class.selected]="this.isAnswerSelected(imageAnswer?.id)"
+               [src]="this.getImageUrlByImageAnswerId(imageAnswer?.id)" class="image-answer">
         </div>
       </mat-grid-tile>
     </mat-grid-list>

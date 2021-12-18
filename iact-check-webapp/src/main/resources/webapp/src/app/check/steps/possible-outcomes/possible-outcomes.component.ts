@@ -24,10 +24,10 @@ export class PossibleOutcomesComponent implements OnInit {
   public customerDTO!: CustomerDTO;
   public readonly colourAdjuster = ColourUtility.adjustColour;
   public questionCategoryDTO!: QuestionCategoryDTO;
+  public submission!: SubmissionDTO;
 
   private score: number = 0;
   private bookmarkedPossibleOutcomes!: BookmarkedPossibleOutcomeDTO[];
-  private submission!: SubmissionDTO;
 
   constructor(
     private readonly matDialog: MatDialog,
@@ -108,6 +108,8 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   private loadMultiplePossibleOutcomes(): void {
+    // TODO: Here, we should also directly get the possible outcomes according to the submission.id and questionCategoryId
+    // TODO: Or simply use the method: loadPossibleOutcome and handle the if/else in the backend, that way it will be easiest.
     this.submissionService.getScoresGroupedByQuestionCategoryId(<number>this.submission.id).subscribe((scores) => {
       this.score = <number>scores.find((score) => score.questionCategoryId === this.questionCategoryDTO.id)?.score;
 

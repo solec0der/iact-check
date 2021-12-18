@@ -48,7 +48,7 @@ export class StepsComponent implements OnInit {
     setTimeout(() => {
       document.getElementById('logo-wrapper')?.addEventListener('click', (event) => {
         if (event.detail === 3) {
-          this.checkStateService.resetCheck(this.activatedRoute);
+          this.checkStateService.resetCheck();
         }
       });
     });
