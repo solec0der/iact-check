@@ -7,5 +7,6 @@ export interface PossibleOutcomeDTO {
   subtitle: string;
   description: string;
   youtubeUrl: string;
+  backgroundColour: string;
   possibleScores: PossibleScoreDTO[];
 }

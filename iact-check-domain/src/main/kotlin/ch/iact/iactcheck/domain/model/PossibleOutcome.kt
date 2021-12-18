@@ -12,6 +12,7 @@ data class PossibleOutcome(
     val subtitle: String,
     val description: String,
     val youtubeUrl: String? = null,
+    val backgroundColour: String? = null,
 
     @Lob
     @Basic(fetch = FetchType.LAZY)

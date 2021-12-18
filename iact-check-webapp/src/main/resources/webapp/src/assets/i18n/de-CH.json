@@ -245,6 +245,7 @@
     "SUBTITLE": "Untertitel",
     "DESCRIPTION": "Beschreibung",
     "YOUTUBE_URL": "Youtube Video URL",
+    "BACKGROUND_COLOUR": "Hintergrundfarbe",
     "THUMBNAIL": "Thumbnail",
     "PDF": "PDF",
     "POSSIBLE_SCORES": "Mögliche Punkte",
@@ -268,7 +269,8 @@
       "SUBTITLE": "Bitte Untertitel eingeben",
       "DESCRIPTION": "Bitte Beschreibung eingeben",
       "POSSIBLE_SCORES": "Bitte mögliche Punkte eingeben (mit Komma trennen)",
-      "YOUTUBE_URL": "Bitte Youtube Video URL eingeben (optional)"
+      "YOUTUBE_URL": "Bitte Youtube Video URL eingeben (optional)",
+      "BACKGROUND_COLOUR": "Bitte Hintegrundfarbe eingeben (optional)"
     },
     "DELETION_DIALOG": {
       "TITLE": "Sind Sie sicher, dass Sie dieses mögliche Ergebnis löschen möchten?",

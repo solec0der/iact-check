@@ -80,6 +80,16 @@
     </mat-form-field>
     <br/>
     <mat-form-field appearance="outline" class="half-width">
+      <mat-label>{{'POSSIBLE_OUTCOMES.BACKGROUND_COLOUR' | translate}}</mat-label>
+      <label>
+        <input matInput [ngxMatColorPicker]="backgroundColourPicker" formControlName="backgroundColour"
+               [placeholder]="'POSSIBLE_OUTCOMES.PLACEHOLDER.BACKGROUND_COLOUR' | translate" required>
+      </label>
+      <ngx-mat-color-toggle matSuffix [for]="backgroundColourPicker"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #backgroundColourPicker></ngx-mat-color-picker>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline" class="half-width">
       <mat-label>{{'POSSIBLE_OUTCOMES.THUMBNAIL' | translate}}</mat-label>
       <ngx-mat-file-input color="accent" formControlName="thumbnail" accept="image/*">
       </ngx-mat-file-input>

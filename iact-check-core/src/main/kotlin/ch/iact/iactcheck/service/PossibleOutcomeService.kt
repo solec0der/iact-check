@@ -30,6 +30,7 @@ class PossibleOutcomeService(
             subtitle = possibleOutcomeDTO.subtitle,
             description = possibleOutcomeDTO.description,
             youtubeUrl = possibleOutcomeDTO.youtubeUrl,
+            backgroundColour = possibleOutcomeDTO.backgroundColour,
             questionCategory = questionCategory
         )
 
@@ -122,6 +123,7 @@ class PossibleOutcomeService(
             subtitle = possibleOutcomeDTO.subtitle,
             description = possibleOutcomeDTO.description,
             youtubeUrl = possibleOutcomeDTO.youtubeUrl,
+            backgroundColour = possibleOutcomeDTO.backgroundColour,
             possibleScores = possibleOutcomeDTO.possibleScores.map {
                 PossibleScore(id = -1, possibleOutcome = possibleOutcome, score = it.score)
             }

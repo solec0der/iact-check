@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs';
 import { FileReaderUtil } from '../../../../../../shared/util/file-reader.util';
 import { CORE_URL } from '../../../../../../../app.config';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { ColourUtility } from '../../../../../../../shared/utils/colour.utility';
 
 @Component({
   selector: 'app-possible-outcome-detail',
@@ -74,28 +75,16 @@ export class PossibleOutcomeDetailComponent implements OnInit {
   }
 
   public showThumbnail(): void {
-    window.open(
-      CORE_URL +
-        '/api/possible-outcomes/' +
-        this.possibleOutcomeId +
-        '/thumbnail',
-      '_blank'
-    );
+    window.open(CORE_URL + '/api/possible-outcomes/' + this.possibleOutcomeId + '/thumbnail', '_blank');
   }
 
   public showPdf(): void {
-    window.open(
-      CORE_URL + '/api/possible-outcomes/' + this.possibleOutcomeId + '/pdf',
-      '_blank'
-    );
+    window.open(CORE_URL + '/api/possible-outcomes/' + this.possibleOutcomeId + '/pdf', '_blank');
   }
 
   public removeThumbnail(): void {
     this.thumbnail = new File([], '');
-    this.possibleOutcomeFormGroup.setControl(
-      'thumbnail',
-      new FormControl(this.thumbnail)
-    );
+    this.possibleOutcomeFormGroup.setControl('thumbnail', new FormControl(this.thumbnail));
   }
 
   public removePdf(): void {
@@ -106,16 +95,10 @@ export class PossibleOutcomeDetailComponent implements OnInit {
   public showPossibleOutcomeDeletionDialog(): void {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       data: {
-        title: this.translateService.instant(
-          'POSSIBLE_OUTCOMES.DELETION_DIALOG.TITLE'
-        ),
+        title: this.translateService.instant('POSSIBLE_OUTCOMES.DELETION_DIALOG.TITLE'),
         message: '',
-        buttonTextCancel: this.translateService.instant(
-          'POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        buttonTextCancel: this.translateService.instant('POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('POSSIBLE_OUTCOMES.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -134,12 +117,11 @@ export class PossibleOutcomeDetailComponent implements OnInit {
       subtitle: this.possibleOutcomeFormGroup.value.subtitle,
       description: this.possibleOutcomeFormGroup.value.description,
       youtubeUrl: this.possibleOutcomeFormGroup.value.youtubeUrl,
-      possibleScores: this.possibleOutcomeFormGroup.value.possibleScores
-        .split(',')
-        .map((score: number) => ({
-          id: -1,
-          score: score,
-        })),
+      backgroundColour: '#' + this.possibleOutcomeFormGroup.value.backgroundColour.hex,
+      possibleScores: this.possibleOutcomeFormGroup.value.possibleScores.split(',').map((score: number) => ({
+        id: -1,
+        score: score,
+      })),
     };
 
     this.possibleOutcomeService
@@ -164,9 +146,7 @@ export class PossibleOutcomeDetailComponent implements OnInit {
           })
           .then(() => {
             this.matSnackBar.open(
-              this.translateService.instant(
-                'POSSIBLE_OUTCOMES.CREATED_MESSAGE'
-              ),
+              this.translateService.instant('POSSIBLE_OUTCOMES.CREATED_MESSAGE'),
               this.translateService.instant('SHARED.CLOSE'),
               {
                 duration: 5000,
@@ -185,12 +165,11 @@ export class PossibleOutcomeDetailComponent implements OnInit {
       subtitle: this.possibleOutcomeFormGroup.value.subtitle,
       description: this.possibleOutcomeFormGroup.value.description,
       youtubeUrl: this.possibleOutcomeFormGroup.value.youtubeUrl,
-      possibleScores: this.possibleOutcomeFormGroup.value.possibleScores
-        .split(',')
-        .map((score: number) => ({
-          id: -1,
-          score: score,
-        })),
+      backgroundColour: '#' + this.possibleOutcomeFormGroup.value.backgroundColour.hex,
+      possibleScores: this.possibleOutcomeFormGroup.value.possibleScores.split(',').map((score: number) => ({
+        id: -1,
+        score: score,
+      })),
     };
 
     this.possibleOutcomeService
@@ -221,22 +200,20 @@ export class PossibleOutcomeDetailComponent implements OnInit {
   }
 
   private deletePossibleOutcome() {
-    this.possibleOutcomeService
-      .deletePossibleOutcomeById(this.possibleOutcomeId)
-      .subscribe(() => {
-        this.matSnackBar.open(
-          this.translateService.instant('POSSIBLE_OUTCOMES.DELETED_MESSAGE'),
-          this.translateService.instant('SHARED.CLOSE'),
-          {
-            duration: 5000,
-          }
-        );
-        this.router
-          .navigate(['../../../edit'], {
-            relativeTo: this.activatedRoute,
-          })
-          .then();
-      });
+    this.possibleOutcomeService.deletePossibleOutcomeById(this.possibleOutcomeId).subscribe(() => {
+      this.matSnackBar.open(
+        this.translateService.instant('POSSIBLE_OUTCOMES.DELETED_MESSAGE'),
+        this.translateService.instant('SHARED.CLOSE'),
+        {
+          duration: 5000,
+        }
+      );
+      this.router
+        .navigate(['../../../edit'], {
+          relativeTo: this.activatedRoute,
+        })
+        .then();
+    });
   }
 
   private loadData(): void {
@@ -248,62 +225,39 @@ export class PossibleOutcomeDetailComponent implements OnInit {
           return possibleOutcomeDTO;
         }),
         mergeMap((possibleOutcomeDTO) => {
-          const thumbnail = this.possibleOutcomeService.getThumbnailByPossibleOutcomeId(
-            possibleOutcomeDTO.id
-          );
-          const pdf = this.possibleOutcomeService.getPdfByPossibleOutcomeId(
-            possibleOutcomeDTO.id
-          );
+          const thumbnail = this.possibleOutcomeService.getThumbnailByPossibleOutcomeId(possibleOutcomeDTO.id);
+          const pdf = this.possibleOutcomeService.getPdfByPossibleOutcomeId(possibleOutcomeDTO.id);
 
           return forkJoin([thumbnail, pdf]);
         })
       )
       .subscribe((result) => {
-        this.thumbnail = FileReaderUtil.convertBlobToFile(
-          result[0],
-          this.possibleOutcomeDTO.title + '.png'
-        );
-        this.pdf = FileReaderUtil.convertBlobToFile(
-          result[1],
-          this.possibleOutcomeDTO.title + '.pdf'
-        );
+        this.thumbnail = FileReaderUtil.convertBlobToFile(result[0], this.possibleOutcomeDTO.title + '.png');
+        this.pdf = FileReaderUtil.convertBlobToFile(result[1], this.possibleOutcomeDTO.title + '.pdf');
         this.createPossibleOutcomeFormGroup();
       });
   }
 
   private createPossibleOutcomeFormGroup(): void {
+    const backgroundColour = ColourUtility.convertHexToColor(
+      this.action === 'edit' ? this.possibleOutcomeDTO.backgroundColour : null
+    );
+
     this.possibleOutcomeFormGroup = new FormGroup({
-      title: new FormControl(
-        this.action === 'edit' ? this.possibleOutcomeDTO.title : '',
-        Validators.required
-      ),
-      subtitle: new FormControl(
-        this.action === 'edit' ? this.possibleOutcomeDTO.subtitle : '',
-        Validators.required
-      ),
+      title: new FormControl(this.action === 'edit' ? this.possibleOutcomeDTO.title : '', Validators.required),
+      subtitle: new FormControl(this.action === 'edit' ? this.possibleOutcomeDTO.subtitle : '', Validators.required),
       description: new FormControl(
         this.action === 'edit' ? this.possibleOutcomeDTO.description : '',
         Validators.required
       ),
       possibleScores: new FormControl(
-        this.action === 'edit'
-          ? this.possibleOutcomeDTO.possibleScores
-              .map((p) => p.score)
-              .join(', ')
-          : '',
+        this.action === 'edit' ? this.possibleOutcomeDTO.possibleScores.map((p) => p.score).join(', ') : '',
         Validators.required
       ),
-      youtubeUrl: new FormControl(
-        this.action === 'edit' ? this.possibleOutcomeDTO.youtubeUrl : ''
-      ),
-      thumbnail: new FormControl(
-        this.thumbnail && this.thumbnail.size > 0
-          ? this.thumbnail
-          : new File([], '')
-      ),
-      pdf: new FormControl(
-        this.pdf && this.pdf.size > 0 ? this.pdf : new File([], '')
-      ),
+      youtubeUrl: new FormControl(this.action === 'edit' ? this.possibleOutcomeDTO.youtubeUrl : ''),
+      backgroundColour: new FormControl(backgroundColour ? backgroundColour : ''),
+      thumbnail: new FormControl(this.thumbnail && this.thumbnail.size > 0 ? this.thumbnail : new File([], '')),
+      pdf: new FormControl(this.pdf && this.pdf.size > 0 ? this.pdf : new File([], '')),
     });
   }
 }
