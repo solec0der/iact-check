@@ -51,7 +51,7 @@ class PossibleOutcomeServiceTest {
 
         val actual =
             possibleOutcomeService!!.createPossibleOutcome(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores)
-git
+
         Assert.assertEquals(PossibleOutcomeTestData.possibleOutcomeDTOWithPossibleScores, actual)
     }
 
