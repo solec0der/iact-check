@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CheckDTO} from '../../../../shared/dtos/check-dto';
-import {QuestionCategoryDTO} from '../../../../shared/dtos/question-category-dto';
-import {ImageQuestionAnswerDTO} from '../../../../shared/dtos/image-question-answer-dto';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SubmissionService} from '../../../../shared/services/submission.service';
-import {CheckStateService} from '../../../check-state.service';
-import {CORE_URL} from '../../../../app.config';
-import {ImageQuestionDTO} from '../../../../shared/dtos/image-question-dto';
-import {SubmissionDTO} from '../../../../shared/dtos/submission-dto';
+import { Component, Input, OnInit } from '@angular/core';
+import { CheckDTO } from '../../../../shared/dtos/check-dto';
+import { QuestionCategoryDTO } from '../../../../shared/dtos/question-category-dto';
+import { ImageQuestionAnswerDTO } from '../../../../shared/dtos/image-question-answer-dto';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SubmissionService } from '../../../../shared/services/submission.service';
+import { CheckStateService } from '../../../check-state.service';
+import { CORE_URL } from '../../../../app.config';
+import { ImageQuestionDTO } from '../../../../shared/dtos/image-question-dto';
+import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
 
 @Component({
   selector: 'app-image-question',
@@ -32,8 +32,7 @@ export class ImageQuestionComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly submissionService: SubmissionService,
     private readonly checkStateService: CheckStateService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.checkStateService.getSubmission().subscribe((submission) => {
@@ -41,7 +40,7 @@ export class ImageQuestionComponent implements OnInit {
 
       if (this.submission.imageQuestionAnswers) {
         this.imageQuestionAnswers = this.submission.imageQuestionAnswers;
-        this.answersAreReadOnly = true;
+        this.answersAreReadOnly = this.submission.imageQuestionAnswers.length > 0;
       }
     });
   }
@@ -82,7 +81,7 @@ export class ImageQuestionComponent implements OnInit {
   public previousStep(): void {
     if (this.currentImageQuestionIndex == 0) {
       if (this.answersAreReadOnly) {
-        this.router.navigate(['../../', 'marketplace'], {relativeTo: this.activatedRoute}).then();
+        this.router.navigate(['../../', 'marketplace'], { relativeTo: this.activatedRoute }).then();
       } else {
         this.checkStateService.previousStep(this.activatedRoute);
       }
