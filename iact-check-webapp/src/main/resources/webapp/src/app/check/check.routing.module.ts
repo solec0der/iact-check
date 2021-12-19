@@ -9,7 +9,8 @@ import { QuestionsFormComponent } from './steps/questions-form/questions-form.co
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
 import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
-import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.component';
+import { DocumentGroupOverviewComponent } from './marketplace/document-group-overview/document-group-overview.component';
+import { DocumentOverviewComponent } from './marketplace/document-group-overview/document-overview/document-overview.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,14 @@ const routes: Routes = [
       {
         path: 'marketplace',
         component: MarketplaceComponent,
+      },
+      {
+        path: 'marketplace/document-groups',
+        component: DocumentGroupOverviewComponent,
+      },
+      {
+        path: 'marketplace/document-groups/:documentGroupId/documents',
+        component: DocumentOverviewComponent,
       },
       {
         path: 'steps',

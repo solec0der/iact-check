@@ -18,6 +18,10 @@ import { RangeQuestionComponent } from './steps/questions-form/range-question/ra
 import { ImageQuestionComponent } from './steps/questions-form/image-question/image-question.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.component';
+import { DocumentGroupOverviewComponent } from './marketplace/document-group-overview/document-group-overview.component';
+import { DocumentOverviewComponent } from './marketplace/document-group-overview/document-overview/document-overview.component';
+import { DocumentDetailComponent } from './marketplace/document-group-overview/document-overview/document-detail/document-detail.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,9 @@ import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.compo
     ImageQuestionComponent,
     MarketplaceComponent,
     FlashCardsComponent,
+    DocumentGroupOverviewComponent,
+    DocumentOverviewComponent,
+    DocumentDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +49,7 @@ import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.compo
     ReactiveFormsModule,
     MatRippleModule,
     SharedTranslateModule,
+    PdfViewerModule,
   ],
 })
 export class CheckModule {}

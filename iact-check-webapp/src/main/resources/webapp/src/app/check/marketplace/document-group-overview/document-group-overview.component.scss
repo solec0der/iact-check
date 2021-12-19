@@ -1,0 +1,24 @@
+@import "src/iact-check-theme";
+
+div.action-container {
+  width: 150px;
+  height: 150px;
+  background-color: var(--theme-primary-A200);
+  text-align: center;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+div.action-container .label {
+  width: 100%;
+  text-align: center;
+  color: black;
+}
+
+div.document-group-container {
+  margin: 0 auto;
+  width: 60%;
+}

@@ -16,11 +16,6 @@ internal class DocumentAdminController(private val documentService: DocumentServ
         return documentService.createDocumentGroup(documentGroup)
     }
 
-    @GetMapping("/document-groups/{documentGroupIdId}")
-    fun getDocumentGroupById(@PathVariable("documentGroupIdId") documentGroupId: Long): DocumentGroupDTO {
-        return documentService.getDocumentGroupById(documentGroupId)
-    }
-
     @PutMapping("/document-groups/{documentGroupIdId}")
     fun updateDocumentGroupById(
         @PathVariable("documentGroupIdId") documentGroupId: Long,

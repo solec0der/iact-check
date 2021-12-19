@@ -31,6 +31,10 @@ export class MarketplaceComponent implements OnInit {
     this.router.navigate(['../', 'steps', Steps.QuestionsForm], { relativeTo: this.activatedRoute }).then();
   }
 
+  public goToDocumentGroups(): void {
+    this.router.navigate(['document-groups'], { relativeTo: this.activatedRoute }).then();
+  }
+
   public openFlashCardsComponent(): void {
     this.matDialog.open(FlashCardsComponent);
   }

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 internal class DocumentController(private val documentService: DocumentService) {
 
+    @GetMapping("/document-groups/{documentGroupIdId}")
+    fun getDocumentGroupById(@PathVariable("documentGroupIdId") documentGroupId: Long): DocumentGroupDTO {
+        return documentService.getDocumentGroupById(documentGroupId)
+    }
+
     @GetMapping("/checks/{checkId}/document-groups")
     fun getDocumentGroupsByCheckId(@PathVariable("checkId") checkId: Long): List<DocumentGroupDTO> {
         return documentService.getDocumentGroupsByCheckId(checkId)

@@ -1,0 +1,31 @@
+@import "src/iact-check-theme";
+
+div.documents-container {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.documents-table-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  cursor: pointer;
+}
+
+.mat-row:hover {
+  background-color: var(--theme-primary-700);
+}
+
+.dark-theme .mat-table {
+  background-color: var(--theme-primary-600);
+}
+
+.light-theme .mat-table {
+  background-color: var(--theme-primary-600);
+}
