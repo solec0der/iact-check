@@ -7,7 +7,9 @@ import { UserRegistrationComponent } from './steps/user-registration/user-regist
 import { QuestionCategorySelectionComponent } from './steps/question-category-selection/question-category-selection.component';
 import { QuestionsFormComponent } from './steps/questions-form/questions-form.component';
 import { PossibleOutcomesComponent } from './steps/possible-outcomes/possible-outcomes.component';
-import {ConfirmationScreenComponent} from "./steps/confirmation-screen/confirmation-screen.component";
+import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,10 @@ const routes: Routes = [
     path: 'customers/:customerId/checks/:checkId',
     component: CheckComponent,
     children: [
+      {
+        path: 'marketplace',
+        component: MarketplaceComponent,
+      },
       {
         path: 'steps',
         component: StepsComponent,

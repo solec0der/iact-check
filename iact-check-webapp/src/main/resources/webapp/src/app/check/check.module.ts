@@ -16,6 +16,8 @@ import { PossibleOutcomeDetailComponent } from './steps/possible-outcomes/possib
 import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirmation-screen.component';
 import { RangeQuestionComponent } from './steps/questions-form/range-question/range-question.component';
 import { ImageQuestionComponent } from './steps/questions-form/image-question/image-question.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { FlashCardsComponent } from './marketplace/flash-cards/flash-cards.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { ImageQuestionComponent } from './steps/questions-form/image-question/im
     ConfirmationScreenComponent,
     RangeQuestionComponent,
     ImageQuestionComponent,
+    MarketplaceComponent,
+    FlashCardsComponent,
   ],
   imports: [
     CommonModule,

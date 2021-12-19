@@ -33,7 +33,7 @@ class FlashCardService(
             FlashCardAnswer(
                 id = -1,
                 answer = it.answer,
-                isCorrectAnswer = it.isCorrectAnswer,
+                isCorrectAnswer = it.correctAnswer,
                 flashCardQuestion = flashCardQuestion
             )
         })
@@ -70,7 +70,7 @@ class FlashCardService(
                 FlashCardAnswer(
                     id = -1,
                     answer = it.answer,
-                    isCorrectAnswer = it.isCorrectAnswer,
+                    isCorrectAnswer = it.correctAnswer,
                     flashCardQuestion = flashCardQuestion
                 )
             }

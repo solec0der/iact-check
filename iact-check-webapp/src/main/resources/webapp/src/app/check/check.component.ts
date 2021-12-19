@@ -6,6 +6,8 @@ import { forkJoin } from 'rxjs';
 import { CheckStateService } from './check-state.service';
 import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { CheckDTO } from '../shared/dtos/check-dto';
+import { CORE_URL } from '../app.config';
+import { ThemeService } from '../shared/services/theme.service';
 
 @Component({
   selector: 'app-check',
@@ -23,6 +25,7 @@ export class CheckComponent implements OnInit {
     private checkService: CheckService,
     private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
+    private themeService: ThemeService,
     private checkStateService: CheckStateService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -32,11 +35,11 @@ export class CheckComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
-      this.customerDTO = customerDTO!;
-    });
-
     this.loadData();
+  }
+
+  public getCustomerLogoUrl(): string {
+    return CORE_URL + '/api/customers/' + this.customerDTO.id + '/branding/logo';
   }
 
   private loadData(): void {
@@ -48,6 +51,29 @@ export class CheckComponent implements OnInit {
     forkJoin(httpRequests).subscribe((response) => {
       this.checkStateService.setActiveCheck(response['check']);
       this.checkStateService.setActiveCustomer(response['customer']);
+      this.customerDTO = response['customer'];
+
+      this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
+        if (customerDTO.customerBranding) {
+          this.themeService.setColors(
+            customerDTO.customerBranding.primaryColour,
+            customerDTO.customerBranding.accentColour,
+            customerDTO.customerBranding.theme
+          );
+        }
+      });
+
+      this.setupResetEventListener();
+    });
+  }
+
+  private setupResetEventListener(): void {
+    setTimeout(() => {
+      document.getElementById('logo-wrapper')?.addEventListener('click', (event) => {
+        if (event.detail === 3) {
+          this.checkStateService.resetCheck();
+        }
+      });
     });
   }
 }

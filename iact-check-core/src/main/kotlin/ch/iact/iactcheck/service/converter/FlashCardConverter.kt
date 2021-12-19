@@ -18,6 +18,6 @@ object FlashCardConverter {
     }
 
     private fun convertFlashCardAnswerToDTO(flashCardAnswer: FlashCardAnswer): FlashCardAnswerDTO {
-        return FlashCardAnswerDTO(flashCardAnswer.answer, flashCardAnswer.isCorrectAnswer)
+        return FlashCardAnswerDTO(flashCardAnswer.id, flashCardAnswer.answer, flashCardAnswer.isCorrectAnswer)
     }
 }

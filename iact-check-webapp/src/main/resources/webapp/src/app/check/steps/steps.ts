@@ -4,5 +4,5 @@ export enum Steps {
   QuestionCategorySelection,
   QuestionsForm,
   PossibleOutcomes,
-  ConfirmationScreen
+  ConfirmationScreen,
 }

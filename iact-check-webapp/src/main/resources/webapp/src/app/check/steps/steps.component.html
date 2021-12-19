@@ -1,8 +1,5 @@
-<div class="full-width-and-height" *ngIf="this.customerDTO">
+<div class="full-width-and-height">
   <div>
-    <div class="logo-wrapper" id="logo-wrapper">
-      <img class="logo" [src]="this.getCustomerLogoUrl()" alt="Customer-Logo"/>
-    </div>
     <router-outlet></router-outlet>
   </div>
   <div class="full-width" style="position: absolute; bottom: 0;">
