@@ -1,0 +1,43 @@
+<div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.submission">
+  <div class="check-container">
+    <div class="align-center margin-bottom-after-title">
+      <h1 class="margin-bottom-after-title">
+        Hey {{this.submission.firstName}}
+      </h1>
+      <p>Hier kannst du nochmals zum Quiz zurückkehren, wenn du sehen willst, welche Antworten du gegeben hast, deine Karteikarten aufrufen und Informationen über die verschiedenen Funktionen im Militär lesen.</p>
+    </div>
+
+    <div class="display-flex-space-between">
+      <div class="action-container" (click)="this.goToQuiz()">
+        <div class="icon">
+          <mat-icon>
+            quiz
+          </mat-icon>
+        </div>
+        <div class="label">
+          <h3>Quiz</h3>
+        </div>
+      </div>
+      <div class="action-container" (click)="this.openFlashCardsComponent()">
+        <div class="icon">
+          <mat-icon>
+            question_answer
+          </mat-icon>
+        </div>
+        <div class="label">
+          <h3>Karteikarten</h3>
+        </div>
+      </div>
+      <div class="action-container">
+        <div class="icon">
+          <mat-icon>
+            document_scanner
+          </mat-icon>
+        </div>
+        <div class="label">
+          <h3>Funktionen</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

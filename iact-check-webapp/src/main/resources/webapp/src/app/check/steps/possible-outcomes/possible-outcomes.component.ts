@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PossibleOutcomeService } from '../../../admin/shared/services/possible-outcome.service';
 import { QuestionCategoryDTO } from '../../../shared/dtos/question-category-dto';
 import { PossibleOutcomeDTO } from '../../../shared/dtos/possible-outcome-dto';
@@ -13,6 +13,7 @@ import { PossibleOutcomeDetailComponent } from './possible-outcome-detail/possib
 import { BookmarkedPossibleOutcomeDTO } from '../../../shared/dtos/bookmarked-possible-outcome-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { SubmissionDTO } from '../../../shared/dtos/submission-dto';
+import { FlashCardsComponent } from '../../marketplace/flash-cards/flash-cards.component';
 
 @Component({
   selector: 'app-possible-outcomes',
@@ -30,6 +31,7 @@ export class PossibleOutcomesComponent implements OnInit {
   private bookmarkedPossibleOutcomes!: BookmarkedPossibleOutcomeDTO[];
 
   constructor(
+    private readonly router: Router,
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
@@ -80,6 +82,12 @@ export class PossibleOutcomesComponent implements OnInit {
         this.checkStateService.setSubmission(submissionDTO);
         this.checkStateService.setStep(Steps.ConfirmationScreen, this.activatedRoute);
       });
+  }
+
+  public goToMarketplace(): void {
+    this.router.navigate(['../../', 'marketplace'], { relativeTo: this.activatedRoute }).then(() => {
+      this.matDialog.open(FlashCardsComponent);
+    });
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {

@@ -6,14 +6,21 @@
     <div class="check-content" *ngIf="this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">
       <div class="full-width align-center" style="margin-bottom: 24px">
         <h1 class="large-title">Hey {{this.submission.firstName}}</h1>
-        <br />
+        <br/>
         <h2>Anhand deiner Antworten passt du am besten in das Profil:</h2>
       </div>
-      <div [style.background-color]="this.possibleOutcomes[0].backgroundColour" style="color: black" class="single-possible-outcome-container">
+      <div [style.background-color]="this.possibleOutcomes[0].backgroundColour" style="color: black; margin-bottom: 24px"
+           class="single-possible-outcome-container">
         <h1>
           {{this.possibleOutcomes[0].title}}
         </h1>
       </div>
+    </div>
+    <div class="full-width align-center">
+      <button mat-stroked-button (click)="this.goToMarketplace()">
+        Weiter
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
     </div>
     <div class="check-content" *ngIf="!this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">
       <div class="align-center full-width" style="margin-bottom: 25px">

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
 import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { SubmissionDTO } from '../../../shared/dtos/submission-dto';
