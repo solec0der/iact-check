@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CheckDTO } from '../../../../shared/dtos/check-dto';
-import { QuestionCategoryDTO } from '../../../../shared/dtos/question-category-dto';
-import { ImageQuestionAnswerDTO } from '../../../../shared/dtos/image-question-answer-dto';
-import { ActivatedRoute } from '@angular/router';
-import { SubmissionService } from '../../../../shared/services/submission.service';
-import { CheckStateService } from '../../../check-state.service';
-import { CORE_URL } from '../../../../app.config';
-import { ImageQuestionDTO } from '../../../../shared/dtos/image-question-dto';
-import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
+import {Component, Input, OnInit} from '@angular/core';
+import {CheckDTO} from '../../../../shared/dtos/check-dto';
+import {QuestionCategoryDTO} from '../../../../shared/dtos/question-category-dto';
+import {ImageQuestionAnswerDTO} from '../../../../shared/dtos/image-question-answer-dto';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SubmissionService} from '../../../../shared/services/submission.service';
+import {CheckStateService} from '../../../check-state.service';
+import {CORE_URL} from '../../../../app.config';
+import {ImageQuestionDTO} from '../../../../shared/dtos/image-question-dto';
+import {SubmissionDTO} from '../../../../shared/dtos/submission-dto';
 
 @Component({
   selector: 'app-image-question',
@@ -25,15 +25,24 @@ export class ImageQuestionComponent implements OnInit {
   private currentImageQuestionIndex = 0;
   private submission!: SubmissionDTO;
 
+  public answersAreReadOnly = false;
+
   constructor(
+    private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly submissionService: SubmissionService,
     private readonly checkStateService: CheckStateService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.checkStateService.getSubmission().subscribe((submission) => {
       this.submission = submission;
+
+      if (this.submission.imageQuestionAnswers) {
+        this.imageQuestionAnswers = this.submission.imageQuestionAnswers;
+        this.answersAreReadOnly = true;
+      }
     });
   }
 
@@ -42,6 +51,10 @@ export class ImageQuestionComponent implements OnInit {
   }
 
   public selectImageAnswer(imageAnswerId: number | undefined): void {
+    if (this.answersAreReadOnly) {
+      return;
+    }
+
     if (imageAnswerId) {
       const index = this.imageQuestionAnswers.findIndex(
         (value) => value.imageQuestionId === this.getCurrentImageQuestion().id
@@ -68,7 +81,11 @@ export class ImageQuestionComponent implements OnInit {
 
   public previousStep(): void {
     if (this.currentImageQuestionIndex == 0) {
-      this.checkStateService.previousStep(this.activatedRoute);
+      if (this.answersAreReadOnly) {
+        this.router.navigate(['../../', 'marketplace'], {relativeTo: this.activatedRoute}).then();
+      } else {
+        this.checkStateService.previousStep(this.activatedRoute);
+      }
     } else {
       this.previousQuestion();
     }
