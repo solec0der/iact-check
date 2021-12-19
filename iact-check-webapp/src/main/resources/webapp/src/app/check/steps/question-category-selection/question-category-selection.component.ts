@@ -14,16 +14,10 @@ import { Steps } from '../steps';
 export class QuestionCategorySelectionComponent implements OnInit {
   public checkDTO!: CheckDTO;
 
-  constructor(
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly checkStateService: CheckStateService
-  ) {}
+  constructor(private readonly activatedRoute: ActivatedRoute, private readonly checkStateService: CheckStateService) {}
 
   ngOnInit(): void {
-    this.checkStateService.setStep(
-      Steps.QuestionCategorySelection,
-      this.activatedRoute
-    );
+    this.checkStateService.setStep(Steps.QuestionCategorySelection, this.activatedRoute);
 
     this.loadData();
   }
@@ -41,9 +35,7 @@ export class QuestionCategorySelectionComponent implements OnInit {
   }
 
   public getQuestionCategoryThumbnailById(questionCategoryId: number): string {
-    return (
-      CORE_URL + '/api/question-categories/' + questionCategoryId + '/thumbnail'
-    );
+    return CORE_URL + '/api/question-categories/' + questionCategoryId + '/thumbnail';
   }
 
   private nextStep(): void {
@@ -53,6 +45,10 @@ export class QuestionCategorySelectionComponent implements OnInit {
   private loadData(): void {
     this.checkStateService.getActiveCheck().subscribe((checkDTO) => {
       this.checkDTO = checkDTO;
+
+      if (this.checkDTO.questionCategories.length === 1) {
+        this.selectQuestionCategory(this.checkDTO.questionCategories[0]);
+      }
     });
   }
 }

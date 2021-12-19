@@ -1,13 +1,13 @@
 <div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.checkDTO">
   <div class="check-container">
-    <mat-form-field>
-      <mat-label>{{'SHARED.LANGUAGE' | translate}}</mat-label>
-      <mat-select (selectionChange)="this.changeLanguage($event.value)">
-        <mat-option *ngFor="let language of this.checkDTO.requiredLanguages" [value]="language.locale">
-          {{'CHECKS.' + language.language | translate}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<!--    <mat-form-field>-->
+<!--      <mat-label>{{'SHARED.LANGUAGE' | translate}}</mat-label>-->
+<!--      <mat-select (selectionChange)="this.changeLanguage($event.value)">-->
+<!--        <mat-option *ngFor="let language of this.checkDTO.requiredLanguages" [value]="language.locale">-->
+<!--          {{'CHECKS.' + language.language | translate}}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
 
     <div class="align-center">
       <h1>{{this.checkDTO.title[this.getCurrentLanguage().locale]}}</h1>

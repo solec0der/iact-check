@@ -8,6 +8,7 @@ import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { CheckDTO } from '../shared/dtos/check-dto';
 import { CORE_URL } from '../app.config';
 import { ThemeService } from '../shared/services/theme.service';
+import {FlashCardsStateService} from "./marketplace/flash-cards/flash-cards-state.service";
 
 @Component({
   selector: 'app-check',
@@ -26,7 +27,8 @@ export class CheckComponent implements OnInit {
     private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
     private themeService: ThemeService,
-    private checkStateService: CheckStateService
+    private checkStateService: CheckStateService,
+    private flashCardsStateService: FlashCardsStateService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.customerId = Number(params.get('customerId'));
@@ -72,6 +74,7 @@ export class CheckComponent implements OnInit {
       document.getElementById('logo-wrapper')?.addEventListener('click', (event) => {
         if (event.detail === 3) {
           this.checkStateService.resetCheck();
+          this.flashCardsStateService.resetFlashCards();
         }
       });
     });

@@ -66,4 +66,10 @@ export class FlashCardsStateService {
 
     return selectedFlashCardQuestions;
   }
+
+  public resetFlashCards(): void {
+    localStorage.removeItem('flashCardQuestionAnswers');
+    localStorage.removeItem('answerRevealedMap');
+    localStorage.removeItem('activeFlashCardQuestions');
+  }
 }

@@ -70,6 +70,17 @@ export class ImageQuestionComponent implements OnInit {
     }
   }
 
+  public isCurrentImageAnswered(): boolean {
+    const imageQuestion = this.getCurrentImageQuestion();
+
+    if (imageQuestion) {
+      return imageQuestion.imageAnswers.some((imageAnswer) =>
+        this.imageQuestionAnswers.some((value) => value.imageAnswerId === imageAnswer.id)
+      );
+    }
+    return false;
+  }
+
   public isAnswerSelected(imageAnswerId: number | undefined): boolean {
     return this.imageQuestionAnswers.some((value) => value.imageAnswerId === imageAnswerId);
   }

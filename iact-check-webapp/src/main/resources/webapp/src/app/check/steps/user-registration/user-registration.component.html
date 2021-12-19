@@ -67,7 +67,7 @@
                    required/>
           </label>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 48.5%;" *ngIf="this.userRegistrationFormGroup.get('email')">
+        <mat-form-field appearance="outline" style="width: 100%;" *ngIf="this.userRegistrationFormGroup.get('email')">
           <mat-label>{{'USER_REGISTRATION_FIELDS.EMAIL' | translate}}</mat-label>
           <mat-error>
             {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_EMAIL' | translate}}
@@ -96,12 +96,12 @@
           <div>
             <button mat-stroked-button (click)="this.previousStep()">
               <mat-icon>arrow_back_ios</mat-icon>
-              Back
+              {{'SHARED.BACK' | translate}}
             </button>
           </div>
           <div>
             <button mat-stroked-button (click)="this.nextStep()" [disabled]="this.userRegistrationFormGroup.invalid">
-              Forward
+              {{'SHARED.NEXT' | translate}}
               <mat-icon>arrow_forward_ios</mat-icon>
             </button>
           </div>

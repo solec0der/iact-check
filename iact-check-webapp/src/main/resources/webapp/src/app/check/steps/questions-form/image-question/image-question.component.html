@@ -23,7 +23,7 @@
     </button>
   </div>
   <div>
-    <button mat-stroked-button (click)="this.nextStep()">
+    <button mat-stroked-button (click)="this.nextStep()" [disabled]="!this.isCurrentImageAnswered()">
       {{'SHARED.NEXT' | translate}}
       <mat-icon>navigate_next</mat-icon>
     </button>
