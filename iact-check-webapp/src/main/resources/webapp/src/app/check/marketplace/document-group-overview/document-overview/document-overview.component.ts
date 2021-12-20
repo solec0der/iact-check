@@ -34,7 +34,7 @@ export class DocumentOverviewComponent implements OnInit {
 
   public openDocument(document: DocumentDTO): void {
     this.matDialog.open(DocumentDetailComponent, {
-      width: '85%',
+      width: '90%',
       data: document,
     });
   }
