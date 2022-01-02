@@ -9,6 +9,8 @@ import { USER_REGISTRATION_FIELD_MAPPING } from '../../../shared/model/user-regi
 import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { Steps } from '../steps';
+import { MatDialog } from '@angular/material/dialog';
+import { PrivacyPolicyDialogComponent } from './privacy-policy-dialog/privacy-policy-dialog.component';
 
 @Component({
   selector: 'app-user-registration',
@@ -22,6 +24,7 @@ export class UserRegistrationComponent implements OnInit {
   private userRegistrationFields!: UserRegistrationFieldsDTO;
 
   constructor(
+    private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
     private readonly submissionService: SubmissionService,
@@ -39,6 +42,10 @@ export class UserRegistrationComponent implements OnInit {
 
   public nextStep(): void {
     this.saveUserRegistration();
+  }
+
+  public showPrivacyPolicy(): void {
+    this.matDialog.open(PrivacyPolicyDialogComponent);
   }
 
   private saveUserRegistration(): void {
