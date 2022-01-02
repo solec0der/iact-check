@@ -175,17 +175,20 @@
     "LANGUAGE": "Sprache",
     "THUMBNAIL": "Thumbnail",
     "THUMBNAIL_HINT": "Dieses Bild wird zusammen mit dem Titel der Fragekategorie angezeigt.",
+    "NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW": "Anzahl möglicher Ergebnisse, die angezeigt werden sollen",
     "CREATED_MESSAGE": "Die Fragekategorie wurde erfolgreich erstellt.",
     "UPDATED_MESSAGE": "Die Fragekategorie wurde erfolgreich modifiziert.",
     "DELETED_MESSAGE": "Die Fragekategorie wurde erfolgreich gelöscht.",
     "SHOW_ONLY_BEST_MATCHING_POSSIBLE_OUTCOME": "Nur ein mögliches Ergebnis anzeigen (Das Ergebnis mit dem besten Match wird angezeigt)",
     "PLACEHOLDER": {
-      "TITLE": "Bitte Titel des Checks eingeben"
+      "TITLE": "Bitte Titel des Checks eingeben",
+      "NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW": "Bitte Anzahl möglicher Ergebnisse, die angezeigt werden sollen"
     },
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",
       "MISSING_THUMBNAIL": "Bitte gültiges Thumbnail hochladen",
-      "MISSING_LANGUAGE": "Bitte gültige Sprache eingeben"
+      "MISSING_LANGUAGE": "Bitte gültige Sprache eingeben",
+      "MISSING_NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW": "Bitte gültige Anzahl möglicher Ergebnisse, die angezeigt werden sollen eingeben"
     },
     "DELETION_DIALOG": {
       "TITLE": "Sind Sie sicher, dass Sie diese Fragekategorie löschen möchten?",

@@ -8,7 +8,7 @@ export interface QuestionCategoryDTO {
   checkId: number;
   title: string;
   language: LanguageDTO;
-  showOnlyBestMatchingPossibleOutcome: boolean;
+  numberOfPossibleOutcomesToShow: number;
   rangeQuestions: RangeQuestionDTO[];
   imageQuestions: ImageQuestionDTO[];
   possibleOutcomes: PossibleOutcomeDTO[];

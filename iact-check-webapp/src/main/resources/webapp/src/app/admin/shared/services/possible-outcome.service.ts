@@ -28,11 +28,11 @@ export class PossibleOutcomeService {
     );
   }
 
-  public getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(
+  public getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(
     submissionId: number,
     questionCategoryId: number
-  ): Observable<PossibleOutcomeDTO> {
-    return this.httpClient.get<PossibleOutcomeDTO>(
+  ): Observable<PossibleOutcomeDTO[]> {
+    return this.httpClient.get<PossibleOutcomeDTO[]>(
       CORE_URL + '/api/submissions/' + submissionId + '/possible-outcomes?question-category-id=' + questionCategoryId
     );
   }

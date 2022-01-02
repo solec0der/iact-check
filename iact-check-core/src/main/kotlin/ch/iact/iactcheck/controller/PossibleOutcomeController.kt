@@ -20,11 +20,11 @@ internal class PossibleOutcomeController(
     }
 
     @GetMapping("/submissions/{submissionId}/possible-outcomes")
-    fun getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(
+    fun getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(
         @PathVariable("submissionId") submissionId: Long,
         @RequestParam("question-category-id") questionCategoryId: Long
-    ): PossibleOutcomeDTO {
-        return possibleOutcomeService.getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(submissionId, questionCategoryId)
+    ): List<PossibleOutcomeDTO> {
+        return possibleOutcomeService.getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(submissionId, questionCategoryId)
     }
 
     @GetMapping("/possible-outcomes/{possibleOutcomeId}/thumbnail", produces = [MediaType.IMAGE_PNG_VALUE])

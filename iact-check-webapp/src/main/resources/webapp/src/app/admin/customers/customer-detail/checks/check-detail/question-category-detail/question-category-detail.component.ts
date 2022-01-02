@@ -115,7 +115,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       checkId: this.checkId,
       language: getLanguageByLocale(this.questionCategoryFromGroup.value.language)!,
       title: this.questionCategoryFromGroup.value.title,
-      showOnlyBestMatchingPossibleOutcome: this.questionCategoryFromGroup.value.showOnlyBestMatchingPossibleOutcome,
+      numberOfPossibleOutcomesToShow: this.questionCategoryFromGroup.value.numberOfPossibleOutcomesToShow,
       rangeQuestions: [],
       imageQuestions: [],
       possibleOutcomes: [],
@@ -147,7 +147,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       checkId: this.checkId,
       title: this.questionCategoryFromGroup.value.title,
       language: getLanguageByLocale(this.questionCategoryFromGroup.value.language)!,
-      showOnlyBestMatchingPossibleOutcome: this.questionCategoryFromGroup.value.showOnlyBestMatchingPossibleOutcome,
+      numberOfPossibleOutcomesToShow: this.questionCategoryFromGroup.value.numberOfPossibleOutcomesToShow,
       rangeQuestions: [],
       imageQuestions: [],
       possibleOutcomes: [],
@@ -200,8 +200,8 @@ export class QuestionCategoryDetailComponent implements OnInit {
         this.action === 'edit' ? this.questionCategoryDTO.language.locale : '',
         Validators.required
       ),
-      showOnlyBestMatchingPossibleOutcome: new FormControl(
-        this.action === 'edit' ? this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome : '',
+      numberOfPossibleOutcomesToShow: new FormControl(
+        this.action === 'edit' ? this.questionCategoryDTO.numberOfPossibleOutcomesToShow : '',
         Validators.required
       ),
       thumbnail: new FormControl(this.thumbnail, Validators.required),

@@ -49,14 +49,14 @@ export class PossibleOutcomesComponent implements OnInit {
     });
   }
 
-  public getBackgroundColorOfPossibleOutcome(possibleOutcome: PossibleOutcomeDTO): string {
-    const accentColour = <string>this.customerDTO.customerBranding?.accentColour;
-    if (this.isScoreInPossibleScores(possibleOutcome.possibleScores)) {
-      return accentColour;
-    } else {
-      return ColourUtility.adjustColour(accentColour, '80');
-    }
-  }
+  // public getBackgroundColorOfPossibleOutcome(possibleOutcome: PossibleOutcomeDTO): string {
+  //   const accentColour = <string>this.customerDTO.customerBranding?.accentColour;
+  //   if (this.isScoreInPossibleScores(possibleOutcome.possibleScores)) {
+  //     return accentColour;
+  //   } else {
+  //     return ColourUtility.adjustColour(accentColour, '80');
+  //   }
+  // }
 
   public goBackToQuestionCategories(): void {
     this.checkStateService.setStep(Steps.QuestionCategorySelection, this.activatedRoute);
@@ -106,34 +106,12 @@ export class PossibleOutcomesComponent implements OnInit {
         this.submission &&
         (this.submission.rangeQuestionAnswers.length > 0 || this.submission.imageQuestionAnswers.length > 0)
       ) {
-        if (questionCategoryDTO.showOnlyBestMatchingPossibleOutcome) {
-          this.loadBestMatchingPossibleOutcome(this.submission);
-        } else {
-          this.loadMultiplePossibleOutcomes();
-        }
+        this.possibleOutcomeService
+          .getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(<number>this.submission.id, this.questionCategoryDTO.id)
+          .subscribe((possibleOutcomes) => {
+            this.possibleOutcomes = possibleOutcomes;
+          });
       }
     });
-  }
-
-  private loadMultiplePossibleOutcomes(): void {
-    // TODO: Here, we should also directly get the possible outcomes according to the submission.id and questionCategoryId
-    // TODO: Or simply use the method: loadPossibleOutcome and handle the if/else in the backend, that way it will be easiest.
-    this.submissionService.getScoresGroupedByQuestionCategoryId(<number>this.submission.id).subscribe((scores) => {
-      this.score = <number>scores.find((score) => score.questionCategoryId === this.questionCategoryDTO.id)?.score;
-
-      this.possibleOutcomeService
-        .getPossibleOutcomesByScoreAndQuestionCategoryId(this.score, this.questionCategoryDTO.id)
-        .subscribe((possibleOutcomes) => {
-          this.possibleOutcomes = possibleOutcomes;
-        });
-    });
-  }
-
-  private loadBestMatchingPossibleOutcome(submission: SubmissionDTO): void {
-    this.possibleOutcomeService
-      .getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(<number>submission.id, this.questionCategoryDTO.id)
-      .subscribe((possibleOutcome) => {
-        this.possibleOutcomes = [possibleOutcome];
-      });
   }
 }

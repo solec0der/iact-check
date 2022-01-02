@@ -3,20 +3,24 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
 import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.controller.exception.SubmissionNotFoundException
+import ch.iact.iactcheck.domain.model.ImageQuestionAnswer
 import ch.iact.iactcheck.domain.model.PossibleOutcome
 import ch.iact.iactcheck.domain.model.PossibleScore
+import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.domain.repository.SubmissionRepository
 import ch.iact.iactcheck.dto.PossibleOutcomeDTO
 import ch.iact.iactcheck.service.converter.PossibleOutcomeConverter
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class PossibleOutcomeService(
     private val possibleOutcomeRepository: PossibleOutcomeRepository,
     private val questionCategoryRepository: QuestionCategoryRepository,
-    private val submissionRepository: SubmissionRepository
+    private val submissionRepository: SubmissionRepository,
+    private val questionCategoryService: QuestionCategoryService
 ) {
 
     fun createPossibleOutcome(possibleOutcomeDTO: PossibleOutcomeDTO): PossibleOutcomeDTO {
@@ -50,28 +54,67 @@ class PossibleOutcomeService(
         )
     }
 
-    fun getPossibleOutcomeBySubmissionIdAndQuestionCategoryId(submissionId: Long, questionCategoryId: Long): PossibleOutcomeDTO {
-        // TODO: Create proper handling, whether occurences or actual scores should be counted.
+    fun getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(
+        submissionId: Long,
+        questionCategoryId: Long
+    ): List<PossibleOutcomeDTO> {
         // TODO: Add handling for rangeQuestions
         val submission = submissionRepository.findById(submissionId).orElseThrow { throw SubmissionNotFoundException() }
-        val scoreByPossibleOutcome = HashMap<Long, Int>()
+        val questionCategory = questionCategoryService.getQuestionCategoryById(questionCategoryId)
 
-        submission.imageQuestionAnswers.forEach {
+        if (submission.imageQuestionAnswers.isNotEmpty()) {
+            return getPossibleOutcomesByImageQuestionAnswers(
+                submission.imageQuestionAnswers,
+                questionCategory.numberOfPossibleOutcomesToShow
+            )
+        }
+        if (submission.rangeQuestionAnswers.isNotEmpty()) {
+            return getPossibleOutcomesByRangeQuestionAnswers(submission.rangeQuestionAnswers)
+        }
+        return emptyList()
+    }
+
+    private fun getPossibleOutcomesByImageQuestionAnswers(
+        imageQuestionAnswers: List<ImageQuestionAnswer>,
+        numberOfPossibleOutcomesToShow: Int
+    ): List<PossibleOutcomeDTO> {
+        val scoreByPossibleOutcome = ArrayList<Pair<Long, Int>>()
+
+        imageQuestionAnswers.forEach {
             val possibleOutcomeId = it.imageAnswer.possibleOutcome.id
-            val previousScore = scoreByPossibleOutcome.getOrDefault(possibleOutcomeId, 0)
+            var previousScoreIndex = scoreByPossibleOutcome.indexOfFirst { pair -> pair.first == possibleOutcomeId }
 
-            scoreByPossibleOutcome[possibleOutcomeId] = previousScore + 1
-        }
-
-        var maxEntry: Map.Entry<Long, Int>? = null
-
-        scoreByPossibleOutcome.entries.forEach {
-            if (maxEntry == null || it.value > maxEntry!!.value) {
-                maxEntry = it
+            if (previousScoreIndex == -1) {
+                scoreByPossibleOutcome.add(Pair(possibleOutcomeId, 0))
+                previousScoreIndex = scoreByPossibleOutcome.size - 1;
             }
+
+            val previousScore = scoreByPossibleOutcome[previousScoreIndex]
+            scoreByPossibleOutcome[previousScoreIndex] = previousScore.copy(second = previousScore.second + 1)
         }
 
-        return getPossibleOutcomeById(maxEntry!!.key)
+        val sortedScoresByPossibleOutcome = scoreByPossibleOutcome
+            .sortedByDescending { pair -> pair.second }
+            .take(numberOfPossibleOutcomesToShow)
+
+
+        val possibleOutcomeIds = sortedScoresByPossibleOutcome.map(Pair<Long, Int>::first)
+
+        val possibleOutcomes = ArrayList<PossibleOutcome>()
+
+        possibleOutcomeIds.forEach {
+            possibleOutcomes.add(
+                possibleOutcomeRepository.findById(it).orElseThrow { throw PossibleOutcomeNotFoundException() })
+        }
+
+        return possibleOutcomes
+            .map(PossibleOutcomeConverter::convertPossibleOutcomeToDTO)
+            .toList()
+    }
+
+    private fun getPossibleOutcomesByRangeQuestionAnswers(rangeQuestionAnswers: List<RangeQuestionAnswer>): List<PossibleOutcomeDTO> {
+        // TODO: Handle the case for range question answers
+        return emptyList()
     }
 
     fun getPossibleOutcomesByScoreAndQuestionCategoryId(
