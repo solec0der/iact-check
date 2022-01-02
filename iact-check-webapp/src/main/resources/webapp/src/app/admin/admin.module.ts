@@ -28,6 +28,8 @@ import { CustomerGeneralComponent } from './customers/customer-detail/customer-g
 import { CustomerUserRegistrationFieldsComponent } from './customers/customer-detail/customer-user-registration-fields/customer-user-registration-fields.component';
 import { ImageQuestionListComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-list/image-question-list.component';
 import { ImageQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component';
+import { FlashCardQuestionListComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-list/flash-card-question-list.component';
+import { FlashCardQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { ImageQuestionDetailComponent } from './customers/customer-detail/checks
     CustomerUserRegistrationFieldsComponent,
     ImageQuestionListComponent,
     ImageQuestionDetailComponent,
+    FlashCardQuestionListComponent,
+    FlashCardQuestionDetailComponent,
   ],
   imports: [
     CommonModule,

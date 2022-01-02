@@ -14,6 +14,9 @@ import { EmailSettingsComponent } from './customers/customer-detail/customer-set
 import { TextSettingsComponent } from './customers/customer-detail/customer-settings/text-settings/text-settings.component';
 import { CustomerSettingsComponent } from './customers/customer-detail/customer-settings/customer-settings.component';
 import {ImageQuestionDetailComponent} from "./customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component";
+import {
+  FlashCardQuestionDetailComponent
+} from "./customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component";
 
 const routes: Routes = [
   {
@@ -40,6 +43,10 @@ const routes: Routes = [
       {
         path: 'customers/:customerId/checks/:checkId/question-categories/:questionCategoryId/:action',
         component: QuestionCategoryDetailComponent,
+      },
+      {
+        path: 'customers/:customerId/checks/:checkId/flash-card-questions/:flashCardQuestionId/:action',
+        component: FlashCardQuestionDetailComponent,
       },
       {
         path:

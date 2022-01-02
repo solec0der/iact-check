@@ -133,3 +133,10 @@
     <app-question-category-list [check]="this.checkDTO"></app-question-category-list>
   </mat-card-content>
 </mat-card>
+<br/>
+
+<mat-card *ngIf="this.action === 'edit'">
+  <mat-card-content>
+    <app-flash-card-question-list></app-flash-card-question-list>
+  </mat-card-content>
+</mat-card>

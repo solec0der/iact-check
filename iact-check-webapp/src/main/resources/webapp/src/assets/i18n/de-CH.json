@@ -281,6 +281,30 @@
       "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
     }
   },
+  "FLASH_CARDS": {
+    "FLASH_CARDS": "Karteikarten",
+    "CREATE_FLASH_CARD": "Karteikarte erstellen",
+    "EDIT_FLASH_CARD": "Karteikarte bearbeiten",
+    "BACK_TO_CHECK": "Zurück zum Check",
+    "QUESTION": "Frage",
+    "REQUIRED_QUESTION": "Must-Frage",
+    "ANSWER": "Antwort",
+    "ADD_ANSWER": "Antwort hinzufügen",
+    "CORRECT_ANSWER": "Korrekte Antwort",
+    "ALLOW_MULTIPLE_ANSWERS": "Mehrfachauswahl möglich",
+    "CREATED_MESSAGE": "Die Karteikarte wurde erfolgreich erstellt.",
+    "UPDATED_MESSAGE": "Die Karteikarte wurde erfolgreich modifiziert.",
+    "DELETED_MESSAGE": "Die Karteikarte wurde erfolgreich gelöscht.",
+    "PLACEHOLDER": {
+      "ANSWER": "Bitte Antwort eingeben"
+    },
+    "DELETION_DIALOG": {
+      "TITLE": "Sind Sie sicher, dass Sie diese Karteikarte löschen möchten?",
+      "MESSAGE": "Diese Aktion ist nicht umkehrbar",
+      "BUTTON_TEXT_CANCEL": "Nein, nicht löschen.",
+      "BUTTON_TEXT_CONFIRM": "Ja, ich bin sicher!"
+    }
+  },
   "SHARED": {
     "RELOAD": "Neu laden",
     "ACTIONS": "Aktionen",

@@ -1,0 +1,57 @@
+<div class="display-flex-space-between margin-bottom-after-title">
+  <div>
+    <mat-card-title>{{'FLASH_CARDS.FLASH_CARDS' | translate}}</mat-card-title>
+  </div>
+  <div>
+    <button mat-stroked-button [routerLink]="['..', 'question-categories', '-1', 'create']">
+      <mat-icon>create</mat-icon>
+      {{'FLASH_CARDS.CREATE_FLASH_CARD' | translate}}
+    </button>
+  </div>
+</div>
+<table mat-table *ngIf="this.flashCardQuestions" [dataSource]="this.flashCardQuestions" class="full-width"
+       #questionCategoriesTable>
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="question">
+    <th mat-header-cell *matHeaderCellDef>
+      {{'FLASH_CARDS.QUESTION' | translate}}
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.question}} </td>
+  </ng-container>
+  <ng-container matColumnDef="requiredQuestion">
+    <th mat-header-cell *matHeaderCellDef>
+      {{'FLASH_CARDS.REQUIRED_QUESTION' | translate}}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.requiredQuestion ? 'Ja' : 'Nein' }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="allowMultipleAnswers">
+    <th mat-header-cell *matHeaderCellDef>
+      {{'FLASH_CARDS.ALLOW_MULTIPLE_ANSWERS' | translate}}
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.allowMultipleAnswers ? 'Ja' : 'Nein' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: right">
+      {{'SHARED.ACTIONS' | translate}}
+    </th>
+    <td mat-cell *matCellDef="let element" style="text-align: right">
+      <button mat-icon-button [routerLink]="['..', 'flash-card-questions', element.id, 'edit']">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="this.showFlashCardQuestionDeletionDialog(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="this.displayedColumnsQuestionCategories"></tr>
+  <tr mat-row *matRowDef="let row; columns: this.displayedColumnsQuestionCategories;"></tr>
+</table>
