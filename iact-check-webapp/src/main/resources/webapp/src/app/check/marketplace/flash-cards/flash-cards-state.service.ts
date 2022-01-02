@@ -89,6 +89,7 @@ export class FlashCardsStateService {
     const requiredQuestion = this.getSingleRequiredQuestion(availableFlashCardQuestions);
 
     if (requiredQuestion) {
+      selectedFlashCardQuestions.push(requiredQuestion);
       const index = availableFlashCardQuestions.findIndex((question) => question.id === requiredQuestion.id);
       availableFlashCardQuestions.splice(index, 1);
       amount--;
