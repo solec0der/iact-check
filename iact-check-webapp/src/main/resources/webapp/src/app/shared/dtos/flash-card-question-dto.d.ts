@@ -5,5 +5,6 @@ export interface FlashCardQuestionDTO {
   checkId: number;
   question: string;
   allowMultipleAnswers: boolean;
+  requiredQuestion: boolean;
   answers: FlashCardAnswerDTO[];
 }

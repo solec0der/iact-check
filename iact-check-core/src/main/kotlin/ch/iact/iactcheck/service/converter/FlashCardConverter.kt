@@ -13,6 +13,7 @@ object FlashCardConverter {
             checkId = flashCardQuestion.check.id,
             question = flashCardQuestion.question,
             allowMultipleAnswers = flashCardQuestion.allowMultipleAnswers,
+            requiredQuestion = flashCardQuestion.requiredQuestion,
             answers = flashCardQuestion.answers.map(this::convertFlashCardAnswerToDTO).toList()
         )
     }

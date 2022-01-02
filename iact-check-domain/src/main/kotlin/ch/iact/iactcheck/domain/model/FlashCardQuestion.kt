@@ -10,6 +10,7 @@ data class FlashCardQuestion(
     val id: Long,
     val question: String,
     val allowMultipleAnswers: Boolean,
+    val requiredQuestion: Boolean,
 
     @OneToMany(
         targetEntity = FlashCardAnswer::class,

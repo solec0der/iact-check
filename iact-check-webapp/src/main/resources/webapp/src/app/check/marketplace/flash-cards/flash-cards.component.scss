@@ -6,6 +6,7 @@
 
 .radio-button {
   margin: 5px;
+  height: 24px;
 }
 
 .checkbox-container {
@@ -16,6 +17,7 @@
 
 .checkbox {
   margin: 5px;
+  height: 24px;
 }
 
 .spacing {
@@ -23,3 +25,24 @@
   margin-bottom: 15px;
 }
 
+.mat-radio-label-content {
+  display: flex !important;
+  align-items: center;
+}
+
+.mat-checkbox-label {
+  display: flex !important;
+  align-items: center;
+}
+
+.icon {
+  margin-left: 10px;
+}
+
+.icon .correct {
+  color: greenyellow;
+}
+
+.icon .wrong {
+  color: red;
+}

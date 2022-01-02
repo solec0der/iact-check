@@ -25,6 +25,7 @@ class FlashCardService(
             id = -1,
             question = flashCardQuestionDTO.question,
             allowMultipleAnswers = flashCardQuestionDTO.allowMultipleAnswers,
+            requiredQuestion = flashCardQuestionDTO.requiredQuestion,
             check = check,
             answers = ArrayList()
         )
@@ -66,6 +67,7 @@ class FlashCardService(
         flashCardQuestion = flashCardQuestion.copy(
             question = flashCardQuestionDTO.question,
             allowMultipleAnswers = flashCardQuestionDTO.allowMultipleAnswers,
+            requiredQuestion = flashCardQuestionDTO.requiredQuestion,
             answers = flashCardQuestionDTO.answers.map {
                 FlashCardAnswer(
                     id = -1,
