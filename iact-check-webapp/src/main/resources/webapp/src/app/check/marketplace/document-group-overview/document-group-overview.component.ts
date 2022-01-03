@@ -19,7 +19,7 @@ export class DocumentGroupOverviewComponent implements OnInit {
 
   public displayedColumnsDocumentGroups = ['name'];
 
-  private displayedDocumentGroups!: string[];
+  private displayedDocumentGroups!: number[];
 
   constructor(
     private readonly router: Router,
@@ -31,7 +31,7 @@ export class DocumentGroupOverviewComponent implements OnInit {
       this.title = String(queryParamsMap.get('title'));
       this.subtitle = String(queryParamsMap.get('subtitle'));
       this.displayType = String(queryParamsMap.get('displayType'));
-      this.displayedDocumentGroups = String(queryParamsMap.get('displayedDocumentGroups')).split(',');
+      this.displayedDocumentGroups = String(queryParamsMap.get('displayedDocumentGroups')).split(',').map(value => Number(value));
     });
   }
 
@@ -51,7 +51,7 @@ export class DocumentGroupOverviewComponent implements OnInit {
     this.checkStateService.getActiveCheck().subscribe((check) => {
       this.documentGroupService.getDocumentGroupsByCheckId(<number>check.id).subscribe((documentGroups) => {
         this.documentGroups = documentGroups.filter((documentGroup) =>
-          this.displayedDocumentGroups.includes(documentGroup.name)
+          this.displayedDocumentGroups.includes(documentGroup.id)
         );
       });
     });

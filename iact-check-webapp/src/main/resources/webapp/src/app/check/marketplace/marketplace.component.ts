@@ -39,7 +39,7 @@ export class MarketplaceComponent implements OnInit {
           title: 'Profile',
           subtitle: 'Hier findest du Informationen über alle Funktionen im Militär',
           displayType: 'tiles',
-          displayedDocumentGroups: 'Helfer,Kämpfer,Techniker,Unterstützer,Zivilschutz',
+          displayedDocumentGroups: '2,3,4,5,6',
         },
       })
       .then();
@@ -53,7 +53,7 @@ export class MarketplaceComponent implements OnInit {
           title: 'Allgemeine Informationen',
           subtitle: 'Hier findest du Informationen rund um das Militär',
           displayType: 'table',
-          displayedDocumentGroups: 'Apps,Einkommen,Fahrer-Ausbildung',
+          displayedDocumentGroups: '7,8,9,10,11,12,13,14,15,16,17,18,19,20',
         },
       })
       .then();  }

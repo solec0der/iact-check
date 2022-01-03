@@ -4,7 +4,15 @@
   </h1>
 
   <mat-dialog-content>
-    <pdf-viewer [src]="this.getFileUrl()" [render-text]="true"[fit-to-page]="true" style="width: 100%; height: 600px;"></pdf-viewer>
+    <pdf-viewer *ngIf="this.document.mediaType === 'application/pdf'" [src]="this.getFileUrl()" [render-text]="true"
+                [fit-to-page]="true" style="width: 100%; height: 600px;"></pdf-viewer>
+
+    <video *ngIf="this.document.mediaType.startsWith('video/')" style="width: 100%;" controls>
+      <source [src]="this.getFileUrl()" [type]="this.document.mediaType">
+    </video>
+
+    <img *ngIf="this.document.mediaType.startsWith('image/')" style="width: 100%" [src]="this.getFileUrl()">
+
   </mat-dialog-content>
 
   <mat-dialog-actions>
