@@ -31,9 +31,32 @@ export class MarketplaceComponent implements OnInit {
     this.router.navigate(['../', 'steps', Steps.QuestionsForm], { relativeTo: this.activatedRoute }).then();
   }
 
-  public goToDocumentGroups(): void {
-    this.router.navigate(['document-groups'], { relativeTo: this.activatedRoute }).then();
+  public goToProfiles(): void {
+    this.router
+      .navigate(['document-groups'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          title: 'Profile',
+          subtitle: 'Hier findest du Informationen über alle Funktionen im Militär',
+          displayType: 'tiles',
+          displayedDocumentGroups: 'Helfer,Kämpfer,Techniker,Unterstützer,Zivilschutz',
+        },
+      })
+      .then();
   }
+
+  public goToGeneralInformationList(): void {
+    this.router
+      .navigate(['document-groups'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          title: 'Allgemeine Informationen',
+          subtitle: 'Hier findest du Informationen rund um das Militär',
+          displayType: 'table',
+          displayedDocumentGroups: 'Apps,Einkommen,Fahrer-Ausbildung',
+        },
+      })
+      .then();  }
 
   public openFlashCardsComponent(): void {
     this.matDialog.open(FlashCardsComponent);

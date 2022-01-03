@@ -5,6 +5,7 @@ import { DocumentGroupDTO } from '../../../../shared/dtos/document-group-dto';
 import { DocumentDTO } from '../../../../shared/dtos/document-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentDetailComponent } from './document-detail/document-detail.component';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-document-overview',
@@ -19,7 +20,7 @@ export class DocumentOverviewComponent implements OnInit {
   public displayedColumnsDocuments = ['title'];
 
   constructor(
-    private readonly router: Router,
+    private readonly location: Location,
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly documentGroupService: DocumentGroupService
@@ -40,7 +41,7 @@ export class DocumentOverviewComponent implements OnInit {
   }
 
   public goBack(): void {
-    this.router.navigate(['../../'], { relativeTo: this.activatedRoute }).then();
+    this.location.back();
   }
 
   private loadData(): void {

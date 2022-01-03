@@ -1,6 +1,6 @@
 @import "src/iact-check-theme";
 
-div.action-container {
+div.document-group {
   width: 150px;
   height: 150px;
   background-color: var(--theme-primary-A200);
@@ -12,7 +12,7 @@ div.action-container {
   cursor: pointer;
 }
 
-div.action-container .label {
+div.document-group .label {
   width: 100%;
   text-align: center;
   color: black;
@@ -20,5 +20,30 @@ div.action-container .label {
 
 div.document-group-container {
   margin: 0 auto;
-  width: 60%;
+  width: 75%;
+}
+
+table {
+  width: 100%;
+  cursor: pointer;
+}
+
+.mat-row:hover {
+  background-color: var(--theme-primary-700);
+}
+
+.dark-theme .mat-table {
+  background-color: var(--theme-primary-600);
+}
+
+.light-theme .mat-table {
+  background-color: var(--theme-primary-600);
+}
+
+.document-group-table-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
