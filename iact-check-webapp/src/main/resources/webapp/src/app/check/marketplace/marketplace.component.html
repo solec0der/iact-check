@@ -4,10 +4,11 @@
       <h1 class="margin-bottom-after-title">
         Hey {{this.submission.firstName}}
       </h1>
-      <p>Hier kannst du nochmals zum Quiz zurückkehren, wenn du sehen willst, welche Antworten du gegeben hast, deine Karteikarten aufrufen und Informationen über die verschiedenen Funktionen im Militär lesen.</p>
+      <p>Hier kannst du nochmals zum Quiz zurückkehren, wenn du sehen willst, welche Antworten du gegeben hast, deine
+        Karteikarten aufrufen und Informationen über die verschiedenen Funktionen im Militär lesen.</p>
     </div>
 
-    <div class="display-flex-space-between">
+    <div class="display-flex-space-between" style="margin-bottom: 25px">
       <div class="action-container" (click)="this.goToQuiz()">
         <div class="icon">
           <mat-icon>
@@ -47,6 +48,19 @@
         <div class="label">
           <h3>Allgemeine Infos</h3>
         </div>
+      </div>
+    </div>
+
+    <div class="shopping-cart-container">
+      <div class="shopping-cart">
+        <mat-icon>shopping_cart</mat-icon>
+        <p>{{ this.submission?.bookmarkedDocuments?.length }} Dokumente gemerkt</p>
+      </div>
+      <div class="full-width align-center">
+        <button mat-stroked-button (click)="this.requestDocuments()">
+          <mat-icon>send</mat-icon>
+          Dokumente senden
+        </button>
       </div>
     </div>
   </div>

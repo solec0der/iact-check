@@ -5,6 +5,7 @@ import { SubmissionDTO } from '../../shared/dtos/submission-dto';
 import { FlashCardsComponent } from './flash-cards/flash-cards.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Steps } from '../steps/steps';
+import { SubmissionService } from '../../shared/services/submission.service';
 
 @Component({
   selector: 'app-marketplace',
@@ -18,6 +19,7 @@ export class MarketplaceComponent implements OnInit {
     private readonly router: Router,
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly submissionService: SubmissionService,
     private readonly checkStateService: CheckStateService
   ) {}
 
@@ -56,9 +58,16 @@ export class MarketplaceComponent implements OnInit {
           displayedDocumentGroups: '7,8,9,10,11,12,13,14,15,16,17,18,19,20',
         },
       })
-      .then();  }
+      .then();
+  }
 
   public openFlashCardsComponent(): void {
     this.matDialog.open(FlashCardsComponent);
+  }
+
+  public requestDocuments(): void {
+    this.submissionService.requestBookmarkedItemsBySubmissionId(<number>this.submission.id).subscribe(() => {
+      console.log('it works');
+    });
   }
 }

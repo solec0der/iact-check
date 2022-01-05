@@ -42,5 +42,13 @@ data class Submission(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList()
+    val bookmarkedPossibleOutcomes: List<BookmarkedPossibleOutcome> = emptyList(),
+
+    @OneToMany(
+        targetEntity = BookmarkedDocument::class,
+        mappedBy = "submission",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
+    val bookmarkedDocuments: List<BookmarkedDocument> = emptyList()
 )

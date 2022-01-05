@@ -1,13 +1,7 @@
 package ch.iact.iactcheck.service.converter
 
-import ch.iact.iactcheck.domain.model.BookmarkedPossibleOutcome
-import ch.iact.iactcheck.domain.model.ImageQuestionAnswer
-import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
-import ch.iact.iactcheck.domain.model.Submission
-import ch.iact.iactcheck.dto.BookmarkedPossibleOutcomeDTO
-import ch.iact.iactcheck.dto.ImageQuestionAnswerDTO
-import ch.iact.iactcheck.dto.RangeQuestionAnswerDTO
-import ch.iact.iactcheck.dto.SubmissionDTO
+import ch.iact.iactcheck.domain.model.*
+import ch.iact.iactcheck.dto.*
 
 object SubmissionConverter {
 
@@ -22,11 +16,10 @@ object SubmissionConverter {
             city = submission.city,
             phoneNumber = submission.phoneNumber,
             email = submission.email,
-            rangeQuestionAnswers = submission.rangeQuestionAnswers.map { convertRangeQuestionAnswerToDTO(it) },
-            imageQuestionAnswers = submission.imageQuestionAnswers.map { convertImageQuestionAnswerToDTO(it) },
-            bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes.map {
-                convertBookmarkedPossibleOutcomeToDTO(it)
-            }
+            rangeQuestionAnswers = submission.rangeQuestionAnswers.map(this::convertRangeQuestionAnswerToDTO),
+            imageQuestionAnswers = submission.imageQuestionAnswers.map(this::convertImageQuestionAnswerToDTO),
+            bookmarkedPossibleOutcomes = submission.bookmarkedPossibleOutcomes.map(this::convertBookmarkedPossibleOutcomeToDTO),
+            bookmarkedDocuments = submission.bookmarkedDocuments.map(this::convertBookmarkedDocumentsToDTO)
         )
     }
 
@@ -48,13 +41,21 @@ object SubmissionConverter {
         )
     }
 
-
     private fun convertBookmarkedPossibleOutcomeToDTO(
         bookmarkedPossibleOutcome: BookmarkedPossibleOutcome
     ): BookmarkedPossibleOutcomeDTO {
         return BookmarkedPossibleOutcomeDTO(
             id = bookmarkedPossibleOutcome.id,
             possibleOutcomeId = bookmarkedPossibleOutcome.possibleOutcome.id
+        )
+    }
+
+    private fun convertBookmarkedDocumentsToDTO(
+        bookmarkedDocuments: BookmarkedDocument
+    ): BookmarkedDocumentDTO {
+        return BookmarkedDocumentDTO(
+            id = bookmarkedDocuments.id,
+            documentId = bookmarkedDocuments.document.id
         )
     }
 }

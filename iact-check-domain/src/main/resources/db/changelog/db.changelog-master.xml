@@ -1,0 +1,26 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <include file="db/changelog/changes/v1_initial_setup_20201005.sql"/>
+    <include file="db/changelog/changes/v2_added_email_settings_20210112.sql"/>
+    <include file="db/changelog/changes/v3_added_text_message_settings_20210218.sql"/>
+    <include file="db/changelog/changes/v4_user_registration_field_20210218.sql"/>
+    <include file="db/changelog/changes/v5_submission_20210425.sql"/>
+    <include file="db/changelog/changes/v6_range_question_answers_20210426.sql"/>
+    <include file="db/changelog/changes/v7_bookmarked_possible_outcomes_20210426.sql"/>
+    <include file="db/changelog/changes/v8_add_theme_to_customer_branding_20211101.sql"/>
+    <include file="db/changelog/changes/v9_add_image_questions_20211101.sql"/>
+    <include file="db/changelog/changes/v10_add_column_in_question_category_20211212.sql"/>
+    <include file="db/changelog/changes/v11_add_column_in_possible_outcome_20211218.sql"/>
+    <include file="db/changelog/changes/v12_add_flash_card_questions_20211218.sql"/>
+    <include file="db/changelog/changes/v13_add_documents_and_document_groups_20211219.sql"/>
+    <include
+            file="db/changelog/changes/v14_replace_show_best_matching_outcome_with_number_of_outcomes_to_show_20220102.sql"/>
+    <include file="db/changelog/changes/v15_add_required_question_column_to_flash_card_questions_20220102.sql"/>
+    <include file="db/changelog/changes/v16_add_bookmarked_documents_20220104.sql"/>
+
+</databaseChangeLog>

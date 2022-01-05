@@ -37,8 +37,21 @@ internal class SubmissionController(private val submissionService: SubmissionSer
         return submissionService.addBookmarkedPossibleOutcomesToSubmission(submissionId, bookmarkedPossibleOutcomes)
     }
 
+    @PutMapping("/{submissionId}/bookmarked-documents")
+    fun addBookmarkedDocumentsToSubmission(
+        @PathVariable("submissionId") submissionId: Long,
+        @RequestBody bookmarkedDocuments: List<BookmarkedDocumentDTO>
+    ): SubmissionDTO {
+        return submissionService.addBookmarkedDocumentsToSubmission(submissionId, bookmarkedDocuments)
+    }
+
     @GetMapping("/{submissionId}/scores")
     fun getScoresGroupedByQuestionCategoryId(@PathVariable("submissionId") submissionId: Long): List<ScoreDTO> {
         return submissionService.getScoresGroupedByQuestionCategoryId(submissionId)
+    }
+
+    @GetMapping("/{submissionId}/bookmarked-items")
+    fun requestBookmarkedItemsBySubmissionId(@PathVariable("submissionId") submissionId: Long) {
+        submissionService.requestBookmarkedItemsBySubmissionId(submissionId)
     }
 }

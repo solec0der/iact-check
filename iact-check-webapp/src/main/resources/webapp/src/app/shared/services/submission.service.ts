@@ -7,6 +7,7 @@ import { RangeQuestionAnswerDTO } from '../dtos/range-question-answer-dto';
 import { BookmarkedPossibleOutcomeDTO } from '../dtos/bookmarked-possible-outcome-dto';
 import { ImageQuestionAnswerDTO } from '../dtos/image-question-answer-dto';
 import { ScoreDTO } from '../dtos/score-dto';
+import { BookmarkedDocumentDTO } from '../dtos/bookmarked-document-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,21 @@ export class SubmissionService {
       CORE_URL + '/api/submissions/' + submissionId + '/bookmarked-possible-outcomes',
       body
     );
+  }
+
+  public addBookmarkedDocumentsToSubmission(
+    submissionId: number,
+    bookmarkedDocuments: BookmarkedDocumentDTO[]
+  ): Observable<SubmissionDTO> {
+    const body = JSON.stringify(bookmarkedDocuments);
+    return this.httpClient.put<SubmissionDTO>(
+      CORE_URL + '/api/submissions/' + submissionId + '/bookmarked-documents',
+      body
+    );
+  }
+
+  public requestBookmarkedItemsBySubmissionId(submissionId: number): Observable<void> {
+    return this.httpClient.get<void>(`${CORE_URL}/api/submissions/${submissionId}/bookmarked-items`);
   }
 
   public getScoresGroupedByQuestionCategoryId(submissionId: number): Observable<ScoreDTO[]> {

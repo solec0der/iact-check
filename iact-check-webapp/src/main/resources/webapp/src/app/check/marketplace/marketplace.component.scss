@@ -32,3 +32,22 @@ div.marketplace-container {
   margin: 0 auto;
   width: 60%;
 }
+
+div.shopping-cart-container {
+  display: flex;
+  row-gap: 25px;
+  flex-wrap: wrap;
+}
+
+div.shopping-cart {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+div.request-document-button-container {
+  width: fit-content;
+  margin: 0 auto;
+}

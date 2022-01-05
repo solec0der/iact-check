@@ -60,6 +60,7 @@ export class UserRegistrationComponent implements OnInit {
       email: this.userRegistrationFormGroup.value.email || '',
       rangeQuestionAnswers: [],
       bookmarkedPossibleOutcomes: [],
+      bookmarkedDocuments: [],
       imageQuestionAnswers: [],
     };
 

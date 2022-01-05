@@ -4,9 +4,14 @@ import ch.iact.iactcheck.controller.exception.*
 import ch.iact.iactcheck.domain.model.*
 import ch.iact.iactcheck.domain.repository.*
 import ch.iact.iactcheck.dto.*
+import ch.iact.iactcheck.messaging.Message
+import ch.iact.iactcheck.messaging.email.EmailMessageService
+import ch.iact.iactcheck.messaging.email.EmailRecipient
+import ch.iact.iactcheck.service.converter.EmailSettingsConverter
 import ch.iact.iactcheck.service.converter.SubmissionConverter
 import ch.iact.iactcheck.util.PhoneNumberUtil
 import org.apache.commons.validator.routines.EmailValidator
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -16,7 +21,10 @@ class SubmissionService(
     private val submissionRepository: SubmissionRepository,
     private val rangeQuestionRepository: RangeQuestionRepository,
     private val imageAnswerRepository: ImageAnswerRepository,
-    private val possibleOutcomeRepository: PossibleOutcomeRepository
+    private val possibleOutcomeRepository: PossibleOutcomeRepository,
+    private val documentRepository: DocumentRepository,
+    private val emailMessageService: EmailMessageService,
+    @Value("\${coreUrl}") private val coreUrl: String
 ) {
 
     fun createSubmission(submissionDTO: SubmissionDTO): SubmissionDTO {
@@ -118,6 +126,31 @@ class SubmissionService(
         return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
     }
 
+    fun addBookmarkedDocumentsToSubmission(
+        submissionId: Long,
+        bookmarkedDocuments: List<BookmarkedDocumentDTO>
+    ): SubmissionDTO {
+        var submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val convertedBookmarkedDocuments = bookmarkedDocuments.map {
+            BookmarkedDocument(
+                id = -1,
+                document = documentRepository
+                    .findById(it.documentId)
+                    .orElseThrow { throw DocumentNotFoundException() },
+                submission = submission
+            )
+        }
+
+        submission = submission.copy(
+            bookmarkedDocuments = convertedBookmarkedDocuments
+        )
+
+        return SubmissionConverter.convertSubmissionToDTO(submissionRepository.save(submission))
+    }
+
     fun getScoresGroupedByQuestionCategoryId(submissionId: Long): List<ScoreDTO> {
         val submission = submissionRepository
             .findById(submissionId)
@@ -136,6 +169,41 @@ class SubmissionService(
         }
 
         return scoresByQuestionCategory.map { ScoreDTO(it.key, it.value) }
+    }
+
+    fun requestBookmarkedItemsBySubmissionId(submissionId: Long) {
+        val submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+
+        val customer = submission.check.customer
+
+        val subject = "Vielen Dank für deine Teilnahme!"
+        var body =
+            "Hey ${submission.firstName},<br><br> vielen Dank, dass du am Orientierungstag teilgenommen hast. <br><br>" +
+                    "Anbei findest du Links zu den Dokumenten, die du dir während dem Orientierungstag auf dem iPad gemerkt hast. <br><br>"
+
+        submission.bookmarkedDocuments.forEach {
+            body += "${it.document.title} (${getLinkToDocument(it.document.id)})<br>"
+        }
+
+        val message = Message(subject, body)
+
+        print(message)
+
+        if (customer.emailSettings != null) {
+            val emailSettings = EmailSettingsConverter.convertEmailSettingsToBusinessObject(customer.emailSettings!!)
+            val emailRecipient = EmailRecipient(
+                firstName = submission.firstName,
+                lastName = submission.lastName,
+                emailAddress = submission.email
+            )
+            emailMessageService.sendMessage(emailSettings, emailRecipient, message)
+        }
+    }
+
+    private fun getLinkToDocument(documentId: Long): String {
+        return "${coreUrl}/api/documents/${documentId}/file"
     }
 
     private fun validateSubmission(
