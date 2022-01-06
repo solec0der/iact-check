@@ -1,6 +1,6 @@
-@import "~@angular/material/theming";
+@use '~@angular/material' as mat;
 
-@include mat-core();
+@include mat.core();
 
 $mat-primary: (
   50 : var(--theme-primary-50),
@@ -68,11 +68,11 @@ $mat-accent: (
   )
 );
 
-$iact-check-primary: mat-palette($mat-primary, A200, A100, A400);
-$iact-check-accent: mat-palette($mat-accent, A200, A100, A400);
+$iact-check-primary: mat.define-palette($mat-primary, A200, A100, A400);
+$iact-check-accent: mat.define-palette($mat-accent, A200, A100, A400);
 
 .light-theme {
-  $iact-check-theme: mat-light-theme(
+  $iact-check-theme: mat.define-light-theme(
       (
         color: (
           primary: $iact-check-primary,
@@ -80,11 +80,11 @@ $iact-check-accent: mat-palette($mat-accent, A200, A100, A400);
         )
       )
   );
-  @include angular-material-theme($iact-check-theme);
+  @include mat.all-component-themes($iact-check-theme);
 }
 
 .dark-theme {
-  $iact-check-theme: mat-dark-theme(
+  $iact-check-theme: mat.define-dark-theme(
       (
         color: (
           primary: $iact-check-primary,
@@ -92,5 +92,5 @@ $iact-check-accent: mat-palette($mat-accent, A200, A100, A400);
         )
       )
   );
-  @include angular-material-theme($iact-check-theme);
+  @include mat.all-component-themes($iact-check-theme);
 }
