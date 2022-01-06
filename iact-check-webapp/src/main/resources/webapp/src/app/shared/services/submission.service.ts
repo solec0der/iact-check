@@ -68,6 +68,10 @@ export class SubmissionService {
     return this.httpClient.get<void>(`${CORE_URL}/api/submissions/${submissionId}/bookmarked-items`);
   }
 
+  public deleteSubmissionById(submissionId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${CORE_URL}/api/submissions/${submissionId}`);
+  }
+
   public getScoresGroupedByQuestionCategoryId(submissionId: number): Observable<ScoreDTO[]> {
     return this.httpClient.get<ScoreDTO[]>(CORE_URL + '/api/submissions/' + submissionId + '/scores');
   }

@@ -119,5 +119,6 @@ export class FlashCardsStateService {
     localStorage.removeItem('flashCardQuestionAnswers');
     localStorage.removeItem('answerRevealedMap');
     localStorage.removeItem('activeFlashCardQuestions');
+    localStorage.removeItem('previouslyUsedFlashCardQuestions');
   }
 }

@@ -6,6 +6,8 @@ import { FlashCardsComponent } from './flash-cards/flash-cards.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Steps } from '../steps/steps';
 import { SubmissionService } from '../../shared/services/submission.service';
+import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { FlashCardsStateService } from './flash-cards/flash-cards-state.service';
 
 @Component({
   selector: 'app-marketplace',
@@ -20,7 +22,8 @@ export class MarketplaceComponent implements OnInit {
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly submissionService: SubmissionService,
-    private readonly checkStateService: CheckStateService
+    private readonly checkStateService: CheckStateService,
+    private readonly flashCardsStateService: FlashCardsStateService
   ) {}
 
   ngOnInit(): void {
@@ -66,8 +69,25 @@ export class MarketplaceComponent implements OnInit {
   }
 
   public requestDocuments(): void {
-    this.submissionService.requestBookmarkedItemsBySubmissionId(<number>this.submission.id).subscribe(() => {
-      console.log('it works');
-    });
+    this.matDialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: 'Achtung',
+          message:
+            'Wenn du dir die Dokumende zugesendet hast, werden all deine Daten gelöscht. Mach das nur, wenn du ganz sicher bist, dass du ' +
+            'am Ende angelangt bist. ',
+          buttonTextCancel: 'Nein, nicht versenden',
+          buttonTextConfirm: 'Ja, zusenden und Daten löschen',
+        },
+      })
+      .afterClosed()
+      .subscribe((hasConfirmed) => {
+        if (hasConfirmed) {
+          this.submissionService.requestBookmarkedItemsBySubmissionId(<number>this.submission.id).subscribe(() => {
+            this.checkStateService.resetCheck();
+            this.flashCardsStateService.resetFlashCards();
+          });
+        }
+      });
   }
 }

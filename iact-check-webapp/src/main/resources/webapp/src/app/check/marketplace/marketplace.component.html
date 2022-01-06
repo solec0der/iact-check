@@ -57,7 +57,7 @@
         <p>{{ this.submission?.bookmarkedDocuments?.length }} Dokumente gemerkt</p>
       </div>
       <div class="full-width align-center">
-        <button mat-stroked-button (click)="this.requestDocuments()">
+        <button mat-stroked-button (click)="this.requestDocuments()" [disabled]="this.submission?.bookmarkedDocuments?.length === 0">
           <mat-icon>send</mat-icon>
           Dokumente senden
         </button>

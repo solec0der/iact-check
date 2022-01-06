@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionCategoryDTO } from '../shared/dtos/question-category-dto';
 import { SubmissionDTO } from '../shared/dtos/submission-dto';
 import { CheckService } from '../shared/services/check.service';
+import { SubmissionService } from '../shared/services/submission.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,19 +22,24 @@ export class CheckStateService {
   private currentStep = 1;
   private readonly numberOfSteps = 5;
 
-  constructor(private readonly router: Router, private readonly checkService: CheckService) {
+  // TODO: Add a property on the check to configure this behaviour
+  private readonly deleteSubmissionFromDatabase = true;
+
+  constructor(private readonly router: Router, private readonly submissionService: SubmissionService) {
     this.calculateProgressBarPercentage();
     this.loadCheckDataFromLocalStorageIfPresent();
     this.saveChangesToActiveCheckToLocalStorage();
-
-    // TEST
-    // this.checkService.getCheckById(1).subscribe((check) => {
-    //   this.activeCheck.next(check);
-    //   this.activeQuestionCategory.next(check.questionCategories[0]);
-    // });
   }
 
   public resetCheck(): void {
+    this.submission
+      .subscribe((submission) => {
+        if (submission && this.deleteSubmissionFromDatabase) {
+          this.submissionService.deleteSubmissionById(<number>submission.id).subscribe(() => {});
+        }
+      })
+      .unsubscribe();
+
     this.activeCheck
       .subscribe((check) => {
         if (check) {
@@ -42,9 +48,8 @@ export class CheckStateService {
       })
       .unsubscribe();
 
-    this.activeQuestionCategory.next(undefined);
     this.submission.next(undefined);
-
+    this.activeQuestionCategory.next(undefined);
     localStorage.removeItem('check');
     localStorage.removeItem('questionCategory');
     localStorage.removeItem('submission');

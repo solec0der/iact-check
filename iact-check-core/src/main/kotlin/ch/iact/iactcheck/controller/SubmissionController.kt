@@ -2,6 +2,7 @@ package ch.iact.iactcheck.controller
 
 import ch.iact.iactcheck.dto.*
 import ch.iact.iactcheck.service.SubmissionService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -53,5 +54,11 @@ internal class SubmissionController(private val submissionService: SubmissionSer
     @GetMapping("/{submissionId}/bookmarked-items")
     fun requestBookmarkedItemsBySubmissionId(@PathVariable("submissionId") submissionId: Long) {
         submissionService.requestBookmarkedItemsBySubmissionId(submissionId)
+    }
+
+    @DeleteMapping("/{submissionId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteSubmissionById(@PathVariable("submissionId") submissionId: Long) {
+        submissionService.deleteSubmissionById(submissionId)
     }
 }

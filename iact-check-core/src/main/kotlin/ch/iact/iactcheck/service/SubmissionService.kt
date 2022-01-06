@@ -202,6 +202,10 @@ class SubmissionService(
         }
     }
 
+    fun deleteSubmissionById(submissionId: Long) {
+        submissionRepository.deleteById(submissionId)
+    }
+
     private fun getLinkToDocument(documentId: Long): String {
         return "${coreUrl}/api/documents/${documentId}/file"
     }
