@@ -7,9 +7,9 @@
       </p>
     </div>
     <div *ngIf="this.displayType === 'tiles'">
-      <div class="display-flex-space-between margin-bottom-after-title">
+      <div class="grid-3-cols margin-bottom-after-title">
         <div class="document-group" *ngFor="let documentGroup of this.documentGroups"
-             [style.background-color]="documentGroup.backgroundColour"
+             [style.background-color]="documentGroup.backgroundColour ? documentGroup.backgroundColour : 'var(--theme-primary-A200)'"
              (click)="this.goToDocumentOverview(documentGroup.id)">
           <div class="label">
             <h3>{{documentGroup.name}}</h3>

@@ -20,7 +20,7 @@ div.document-group .label {
 
 div.document-group-container {
   margin: 0 auto;
-  width: 75%;
+  width: 60%;
 }
 
 table {
@@ -46,4 +46,14 @@ table {
   position: relative;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+
+.grid-3-cols {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  width: fit-content;
+  margin-bottom: 20px;
 }
