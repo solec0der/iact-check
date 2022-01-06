@@ -24,8 +24,8 @@
           Du hast
         </h1>
         <br>
-        <h1 style="font-size: 3em">{{ this.getNumberOfCorrectlyAnsweredQuestions() }} <span
-          class="normal"> von </span> {{ this.getNumberOfQuestions() }}</h1>
+        <h1 style="font-size: 3em">{{ this.flashCardUtil.getNumberOfCorrectlyAnsweredQuestions() }} <span
+          class="normal"> von </span> {{ this.flashCardUtil.getNumberOfQuestions() }}</h1>
         <br>
 
         <h1 style="font-weight: normal">
@@ -39,9 +39,11 @@
           Los geht's!
         </button>
 
+      </div>
+      <div>
         <button mat-stroked-button mat-dialog-close="false">
           <mat-icon>home</mat-icon>
-          Hauptmenü
+          Zurück zum Hauptmenü
         </button>
       </div>
     </div>
@@ -56,7 +58,7 @@
       <p>{{flashCardQuestion.question}} {{flashCardQuestion.allowMultipleAnswers ? '(Mehrfachauswahl möglich)' : ''}}</p>
 
       <mat-radio-group class="radio-group" *ngIf="!flashCardQuestion.allowMultipleAnswers"
-                       (change)="this.changeFlashCardQuestionAnswer(flashCardQuestion.id, $event.value, false)"
+                       (change)="this.submitAnswer(flashCardQuestion.id, $event.value, false)"
                        [value]="this.getSingleFlashCardQuestionAnswer(flashCardQuestion.id)">
         <mat-radio-button class="radio-button" *ngFor="let flashCardAnswer of flashCardQuestion.answers"
                           [disabled]="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id)"
@@ -64,12 +66,12 @@
           {{flashCardAnswer.answer}}
 
           <mat-icon
-            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && this.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
+            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && this.flashCardUtil.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
             class="icon correct">
             check
           </mat-icon>
           <mat-icon
-            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && !this.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
+            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && !this.flashCardUtil.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
             class="icon wrong">
             close
           </mat-icon>
@@ -80,16 +82,16 @@
       <div *ngIf="flashCardQuestion.allowMultipleAnswers" class="checkbox-container">
         <mat-checkbox class="checkbox" *ngFor="let flashCardAnswer of flashCardQuestion.answers"
                       [disabled]="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id)"
-                      (change)="this.changeFlashCardQuestionAnswer(flashCardQuestion.id, flashCardAnswer.id, true)"
+                      (change)="this.submitAnswer(flashCardQuestion.id, flashCardAnswer.id, true)"
                       [checked]="this.isAnswerInFlashCardQuestionAnswers(flashCardQuestion.id, flashCardAnswer.id)">
           {{flashCardAnswer.answer}}
           <mat-icon
-            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && this.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
+            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && this.flashCardUtil.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
             class="icon correct">
             check
           </mat-icon>
           <mat-icon
-            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && !this.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
+            *ngIf="this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id) && !this.flashCardUtil.isAnswerCorrect(flashCardQuestion, flashCardAnswer.id)"
             class="icon wrong">
             close
           </mat-icon>
@@ -102,12 +104,9 @@
           <mat-icon>arrow_back_ios</mat-icon>
           Zurück
         </button>
-        <button mat-stroked-button style="margin-right: 8px" (click)="this.revealIfAnswersAreCorrect(flashCardQuestion)"
-                [disabled]="this.isSubmitAnswerButtonDisabled(flashCardQuestion)">
-          Antwort prüfen
-        </button>
-        <button mat-stroked-button matStepperNext
-                [disabled]="this.stepper.steps.length - 1 === this.stepper.selectedIndex">
+        <button mat-stroked-button
+                (click)="this.verifyOrSkipQuestion(flashCardQuestion, i)"
+                [disabled]="this.stepper.steps.length - 1 === this.stepper.selectedIndex && this.isSubmitAnswerButtonDisabled(flashCardQuestion)">
           Weiter
           <mat-icon>arrow_forward_ios</mat-icon>
         </button>

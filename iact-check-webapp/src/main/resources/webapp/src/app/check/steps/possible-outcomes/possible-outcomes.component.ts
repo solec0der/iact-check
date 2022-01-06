@@ -85,9 +85,7 @@ export class PossibleOutcomesComponent implements OnInit {
   }
 
   public goToMarketplace(): void {
-    this.router.navigate(['../../', 'marketplace'], { relativeTo: this.activatedRoute }).then(() => {
-      // this.matDialog.open(FlashCardsComponent);
-    });
+    this.router.navigate(['../../', 'marketplace'], { relativeTo: this.activatedRoute }).then(() => {});
   }
 
   private isScoreInPossibleScores(possibleScores: PossibleScoreDTO[]): boolean {
@@ -107,7 +105,10 @@ export class PossibleOutcomesComponent implements OnInit {
         (this.submission.rangeQuestionAnswers.length > 0 || this.submission.imageQuestionAnswers.length > 0)
       ) {
         this.possibleOutcomeService
-          .getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(<number>this.submission.id, this.questionCategoryDTO.id)
+          .getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(
+            <number>this.submission.id,
+            this.questionCategoryDTO.id
+          )
           .subscribe((possibleOutcomes) => {
             this.possibleOutcomes = possibleOutcomes;
           });

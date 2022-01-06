@@ -5,8 +5,8 @@ import { SubmissionDTO } from '../../../shared/dtos/submission-dto';
 import { FlashCardService } from '../../../shared/services/flash-card.service';
 import { FlashCardQuestionDTO } from '../../../shared/dtos/flash-card-question-dto';
 import { FlashCardsStateService } from './flash-cards-state.service';
-import { FlashCardAnswerDTO } from '../../../shared/dtos/flash-card-answer-dto';
-import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
+import { MatStepper } from '@angular/material/stepper';
+import { FlashCardsUtil } from './flash-cards.util';
 
 @Component({
   selector: 'app-flash-cards',
@@ -32,49 +32,87 @@ export class FlashCardsComponent implements OnInit {
 
   @ViewChild('stepper') stepper!: MatStepper;
 
+  private readonly _flashCardUtil: FlashCardsUtil;
+
+  private readonly maxAmountOfRounds = 3; // TODO: Make configurable
+  private readonly numberOfQuestionsPerRound = 5; // TODO: Make configurable
+  private questionSkipTimeout!: any;
+
   constructor(
     private readonly checkStateService: CheckStateService,
     private readonly flashCardService: FlashCardService,
     private readonly flashCardsStateService: FlashCardsStateService
-  ) {}
+  ) {
+    this._flashCardUtil = new FlashCardsUtil(flashCardsStateService);
+  }
 
   ngOnInit(): void {
     this.loadData();
   }
 
-  public getNumberOfQuestions(): number {
-    return this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length;
+  public loadNewQuestions(): void {
+    this.flashCardQuestions = undefined;
+    this.flashCardService.getFlashCardQuestionsByCheckId(<number>this.check.id).subscribe((flashCardQuestions) => {
+      this.flashCardQuestions = this.flashCardsStateService.selectRandomFlashCardQuestions(
+        flashCardQuestions,
+        this.numberOfQuestionsPerRound
+      );
+      this.flashCardsStateService.setActiveFlashCardsQuestions(this.flashCardQuestions);
+      setTimeout(() => {
+        this.stepper.selectedIndex = 1;
+      });
+    });
   }
 
-  public getNumberOfCorrectlyAnsweredQuestions(): number {
-    const flashCardQuestions = this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions();
-    if (flashCardQuestions) {
-      let numberOfCorrectlyAnsweredQuestions = 0;
+  public canNewQuestionsBeLoaded(): boolean {
+    const numberOfRounds =
+      this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length / this.numberOfQuestionsPerRound;
 
-      flashCardQuestions.forEach((flashCardQuestion) => {
-        const flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
-
-        if (flashCardQuestionAnswers) {
-          if (flashCardQuestion.allowMultipleAnswers) {
-            if (
-              flashCardQuestionAnswers &&
-              flashCardQuestionAnswers.every((answer) => this.isAnswerCorrect(flashCardQuestion, answer))
-            ) {
-              numberOfCorrectlyAnsweredQuestions++;
-            }
-          } else {
-            if (
-              flashCardQuestionAnswers.length === 1 &&
-              this.isAnswerCorrect(flashCardQuestion, flashCardQuestionAnswers[0])
-            ) {
-              numberOfCorrectlyAnsweredQuestions++;
-            }
-          }
-        }
-      });
-      return numberOfCorrectlyAnsweredQuestions;
+    if (numberOfRounds === this.maxAmountOfRounds) {
+      return false;
     }
-    return 0;
+    if (this.flashCardQuestions) {
+      return this.flashCardQuestions.every((flashCardQuestion) => {
+        const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+        const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
+        return answers && answers.length > 0 && isRevealed;
+      });
+    }
+    return false;
+  }
+
+  public isLastRoundFinished(): boolean {
+    const numberOfRounds =
+      this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length / this.numberOfQuestionsPerRound;
+
+    if (this.flashCardQuestions) {
+      return (
+        numberOfRounds === this.maxAmountOfRounds &&
+        this.flashCardQuestions.every((flashCardQuestion) => {
+          const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+          const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
+          return answers && answers.length > 0 && isRevealed;
+        })
+      );
+    }
+    return false;
+  }
+
+  public verifyOrSkipQuestion(flashCardQuestion: FlashCardQuestionDTO, index: number): void {
+    clearTimeout(this.questionSkipTimeout);
+    const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+
+    if (answers && !this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id)) {
+      this.revealIfAnswersAreCorrect(flashCardQuestion);
+
+      if (this.flashCardQuestions && index < this.flashCardQuestions?.length - 1) {
+        this.questionSkipTimeout = setTimeout(() => {
+          this.stepper.next();
+        }, 1500);
+      }
+    } else {
+      this.stepper.next();
+    }
   }
 
   public getFlashCardQuestionAnswerState(flashCardQuestion: FlashCardQuestionDTO): string {
@@ -82,35 +120,25 @@ export class FlashCardsComponent implements OnInit {
       return 'edit';
     }
 
-    const correctAnswers = FlashCardsComponent.getCorrectAnswers(flashCardQuestion.answers);
+    const correctAnswers = FlashCardsUtil.getCorrectAnswers(flashCardQuestion.answers);
     const flashCardQuestionAnswers = this.getFlashCardQuestionAnswersByFlashCardQuestionId(flashCardQuestion.id);
 
-    return correctAnswers.every((correctAnswer) => flashCardQuestionAnswers.includes(correctAnswer.id)) ? 'done' : 'error';
+    return correctAnswers.every((correctAnswer) => flashCardQuestionAnswers.includes(correctAnswer.id))
+      ? 'done'
+      : 'error';
   }
 
   public getSingleFlashCardQuestionAnswer(flashCardQuestionId: number): number {
     const flashCardQuestionAnswers = this.getFlashCardQuestionAnswersByFlashCardQuestionId(flashCardQuestionId);
-
-    if (flashCardQuestionAnswers.length === 1) {
-      return flashCardQuestionAnswers[0];
-    }
-    return -1;
+    return flashCardQuestionAnswers.length === 1 ? flashCardQuestionAnswers[0] : -1;
   }
 
   public isAnswerInFlashCardQuestionAnswers(flashCardQuestionId: number, flashCardAnswerId: number): boolean {
     const flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestionId);
-
-    if (flashCardQuestionAnswers) {
-      return flashCardQuestionAnswers.includes(flashCardAnswerId);
-    }
-    return false;
+    return flashCardQuestionAnswers ? flashCardQuestionAnswers.includes(flashCardAnswerId) : false;
   }
 
-  public changeFlashCardQuestionAnswer(
-    flashCardQuestionId: number,
-    flashCardAnswerId: number,
-    allowMultipleAnswers: boolean
-  ): void {
+  public submitAnswer(flashCardQuestionId: number, flashCardAnswerId: number, allowMultipleAnswers: boolean): void {
     let flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestionId);
     if (!flashCardQuestionAnswers || !allowMultipleAnswers) {
       flashCardQuestionAnswers = [];
@@ -137,14 +165,8 @@ export class FlashCardsComponent implements OnInit {
     return answersRevealed ? answersRevealed : false;
   }
 
-  public isAnswerCorrect(flashCardQuestion: FlashCardQuestionDTO, flashCardAnswerId: number): boolean {
-    const correctAnswers = FlashCardsComponent.getCorrectAnswers(flashCardQuestion.answers);
-    return correctAnswers.some((correctAnswer) => correctAnswer.id === flashCardAnswerId);
-  }
-
   public isSubmitAnswerButtonDisabled(flashCardQuestion: FlashCardQuestionDTO): boolean {
     const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
-
     return !answers || this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
   }
 
@@ -165,7 +187,10 @@ export class FlashCardsComponent implements OnInit {
   private loadFlashCardQuestions(): void {
     if (this.flashCardsStateService.getActiveFlashCardQuestions().length === 0) {
       this.flashCardService.getFlashCardQuestionsByCheckId(<number>this.check.id).subscribe((flashCardQuestions) => {
-        this.flashCardQuestions = this.flashCardsStateService.selectRandomFlashCardQuestions(flashCardQuestions, 5);
+        this.flashCardQuestions = this.flashCardsStateService.selectRandomFlashCardQuestions(
+          flashCardQuestions,
+          this.numberOfQuestionsPerRound
+        );
         this.flashCardsStateService.setActiveFlashCardsQuestions(this.flashCardQuestions);
       });
     } else {
@@ -173,55 +198,12 @@ export class FlashCardsComponent implements OnInit {
     }
   }
 
-  public loadNewQuestions(): void {
-    this.flashCardQuestions = undefined;
-    this.flashCardService.getFlashCardQuestionsByCheckId(<number>this.check.id).subscribe((flashCardQuestions) => {
-      this.flashCardQuestions = this.flashCardsStateService.selectRandomFlashCardQuestions(flashCardQuestions, 5);
-      this.flashCardsStateService.setActiveFlashCardsQuestions(this.flashCardQuestions);
-      setTimeout(() => {
-        this.stepper.selectedIndex = 1;
-      });
-    });
-  }
-
-  public canNewQuestionsBeLoaded(): boolean {
-    const numberOfRounds = this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length / 5;
-
-    if (numberOfRounds === 3) {
-      return false;
-    }
-    if (this.flashCardQuestions) {
-      return this.flashCardQuestions.every((flashCardQuestion) => {
-        const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
-        const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
-        return answers && answers.length > 0 && isRevealed;
-      });
-    }
-    return false;
-  }
-
-  public isLastRoundFinished(): boolean {
-    const numberOfRounds = this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length / 5;
-
-    if (this.flashCardQuestions) {
-      return numberOfRounds === 3 && this.flashCardQuestions.every((flashCardQuestion) => {
-        const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
-        const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
-        return answers && answers.length > 0 && isRevealed;
-      });
-    }
-    return false;
-  }
-
   private getFlashCardQuestionAnswersByFlashCardQuestionId(flashCardQuestionId: number): number[] {
     const flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestionId);
-    if (flashCardQuestionAnswers) {
-      return flashCardQuestionAnswers;
-    }
-    return [];
+    return flashCardQuestionAnswers ? flashCardQuestionAnswers : [];
   }
 
-  private static getCorrectAnswers(flashCardAnswers: FlashCardAnswerDTO[]): FlashCardAnswerDTO[] {
-    return flashCardAnswers.filter((flashCardAnswer) => flashCardAnswer.correctAnswer);
+  get flashCardUtil(): FlashCardsUtil {
+    return this._flashCardUtil;
   }
 }

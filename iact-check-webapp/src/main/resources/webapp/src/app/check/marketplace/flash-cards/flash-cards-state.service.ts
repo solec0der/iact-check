@@ -86,7 +86,7 @@ export class FlashCardsStateService {
     );
 
     const selectedFlashCardQuestions = [];
-    const requiredQuestion = this.getSingleRequiredQuestion(availableFlashCardQuestions);
+    const requiredQuestion = FlashCardsStateService.getSingleRequiredQuestion(availableFlashCardQuestions);
 
     if (requiredQuestion) {
       selectedFlashCardQuestions.push(requiredQuestion);
@@ -110,7 +110,7 @@ export class FlashCardsStateService {
     return selectedFlashCardQuestions;
   }
 
-  private getSingleRequiredQuestion(flashCardQuestions: FlashCardQuestionDTO[]): FlashCardQuestionDTO | undefined {
+  private static getSingleRequiredQuestion(flashCardQuestions: FlashCardQuestionDTO[]): FlashCardQuestionDTO | undefined {
     const requiredQuestions = flashCardQuestions.filter((flashCardQuestion) => flashCardQuestion.requiredQuestion);
     const randomIndex = RandomUtility.getRandomInt(0, requiredQuestions.length);
     return requiredQuestions[randomIndex];

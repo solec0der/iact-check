@@ -8,6 +8,7 @@ import { Steps } from '../steps/steps';
 import { SubmissionService } from '../../shared/services/submission.service';
 import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { FlashCardsStateService } from './flash-cards/flash-cards-state.service';
+import { FlashCardsUtil } from './flash-cards/flash-cards.util';
 
 @Component({
   selector: 'app-marketplace',
