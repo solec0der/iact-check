@@ -13,12 +13,6 @@
     <name>iact-check-messaging</name>
     <description>Iact-Check Messaging</description>
 
-    <properties>
-        <java.version>11</java.version>
-        <kotlin.version>1.5.31</kotlin.version>
-        <spring-version>2.1.7.RELEASE</spring-version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,7 +42,7 @@
         <dependency>
             <groupId>org.simplejavamail</groupId>
             <artifactId>simple-java-mail</artifactId>
-            <version>6.4.4</version>
+            <version>6.7.5</version>
         </dependency>
         <dependency>
             <groupId>org.simplejavamail</groupId>
@@ -63,7 +57,7 @@
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
-            <version>8.6.1</version>
+            <version>8.23.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

@@ -8,6 +8,13 @@
     <version>1.1.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <java.version>11</java.version>
+        <kotlin.version>1.6.0</kotlin.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-version>2.1.7.RELEASE</spring-version>
+    </properties>
+
     <modules>
         <module>iact-check-core</module>
         <module>iact-check-domain</module>

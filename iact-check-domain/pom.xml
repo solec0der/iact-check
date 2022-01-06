@@ -13,12 +13,6 @@
     <name>iact-check-domain</name>
     <description>Iact-Check Domain</description>
 
-    <properties>
-        <java.version>11</java.version>
-        <kotlin.version>1.5.31</kotlin.version>
-        <spring-version>2.1.7.RELEASE</spring-version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

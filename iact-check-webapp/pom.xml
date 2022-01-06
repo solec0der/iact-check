@@ -15,11 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>11</java.version>
-        <kotlin.version>1.5.31</kotlin.version>
         <sonar.sources>src/main/resources/webapp/src</sonar.sources>
-        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-        <spring-version>2.1.7.RELEASE</spring-version>
     </properties>
 
     <dependencies>

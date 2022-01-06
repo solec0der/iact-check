@@ -14,13 +14,10 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>11</java.version>
-        <kotlin.version>1.5.31</kotlin.version>
         <resteasy.version>3.9.1.Final</resteasy.version>
         <keycloak.version>8.0.2</keycloak.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <restdocs-project-version>2.0.4.RELEASE</restdocs-project-version>
-        <spring-version>2.1.7.RELEASE</spring-version>
 
         <sonar.coverage.exclusions>
             **/*Application.*,
