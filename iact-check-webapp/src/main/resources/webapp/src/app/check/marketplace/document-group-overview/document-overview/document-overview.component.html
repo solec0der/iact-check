@@ -25,10 +25,16 @@
       </table>
     </div>
     <div class="align-center full-width">
-      <button mat-stroked-button (click)="this.goBack()">
+      <button mat-stroked-button (click)="this.goBack()" style="margin-right: 8px">
         <mat-icon>navigate_before</mat-icon>
         {{'SHARED.BACK' | translate}}
       </button>
+
+      <button mat-stroked-button (click)="this.goBackToMarketplace()">
+        <mat-icon>home</mat-icon>
+        Zurück zum Hauptmenü
+      </button>
+
     </div>
   </div>
 </div>

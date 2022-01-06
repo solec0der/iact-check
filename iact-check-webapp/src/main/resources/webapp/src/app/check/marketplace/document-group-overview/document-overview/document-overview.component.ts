@@ -23,6 +23,7 @@ export class DocumentOverviewComponent implements OnInit {
   public displayedColumnsDocuments = ['title', 'bookmarked'];
 
   constructor(
+    private readonly router: Router,
     private readonly location: Location,
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
@@ -46,6 +47,10 @@ export class DocumentOverviewComponent implements OnInit {
 
   public goBack(): void {
     this.location.back();
+  }
+
+  public goBackToMarketplace(): void {
+    this.router.navigate(['../../../'], { relativeTo: this.activatedRoute }).then();
   }
 
   public isDocumentBookmarked(documentId: number): boolean {

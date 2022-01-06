@@ -1,36 +1,62 @@
-<mat-horizontal-stepper linear="false"
-                        *ngIf="this.flashCardQuestions && this.flashCardQuestionAnswers && this.answerRevealedMap">
-  <mat-step>
+<mat-stepper linear="false" orientation="horizontal"
+             *ngIf="this.flashCardQuestions && this.flashCardQuestionAnswers && this.answerRevealedMap" #stepper>
+  <mat-step state="introduction" completed="false">
     <ng-template matStepLabel>Einführung</ng-template>
 
     <div class="spacing">
-      <h2>
-        Willkommen bei den Karteikarten!
-      </h2>
-      <br/>
-      <p>
-        Es wurden für dich 5 zufällige Fragen ausgewählt, die dich über die nächsten Stunden begleiten werden.
-        Schau dir die Fragen an und immer wenn du das Gefühl hast, die Antwort zu wissen, kannst du sie beantworten.
-      </p>
-      <br/>
-      <p>
-        Du musst die Fragen übrigens nicht nacheinander lösen, du kannst auch einfach zwischen den Fragen springen,
-        indem du auf eine der 5 Fragen klickst.
-      </p>
-      <br>
-      <p>
-        Du hast {{ this.getNumberOfCorrectlyAnsweredQuestions() }} von {{ this.getNumberOfQuestions() }} Fragen richtig
-        beantwortet.
-      </p>
+      <div *ngIf="!this.isLastRoundFinished()">
+        <h2>
+          Willkommen bei den Karteikarten!
+        </h2>
+        <br />
+        <p>
+          Es wurden für dich 5 zufällige Fragen ausgewählt, die dich über die nächsten Stunden begleiten werden.
+          Schau dir die Fragen an und immer wenn du das Gefühl hast, die Antwort zu wissen, kannst du sie beantworten.
+        </p>
+        <br />
+        <p>
+          Du musst die Fragen übrigens nicht nacheinander lösen, du kannst auch einfach zwischen den Fragen springen,
+          indem du auf eine der 5 Fragen klickst.
+        </p>
+        <br>
+        <p>
+          Du hast {{ this.getNumberOfCorrectlyAnsweredQuestions() }} von {{ this.getNumberOfQuestions() }} Fragen
+          richtig
+          beantwortet.
+        </p>
+      </div>
+      <div *ngIf="this.isLastRoundFinished()" class="align-center">
+        <h1 style="font-weight: normal">
+          Du hast
+        </h1>
+        <br>
+        <h1 style="font-size: 3em">{{ this.getNumberOfCorrectlyAnsweredQuestions() }} <span
+          class="normal"> von </span> {{ this.getNumberOfQuestions() }}</h1>
+        <br>
+
+        <h1 style="font-weight: normal">
+          Punkten erreicht.
+        </h1>
+      </div>
     </div>
-    <div>
-      <button mat-stroked-button matStepperNext style="margin-right: 8px">Los geht's!</button>
-      <button mat-stroked-button (click)="this.loadNewQuestions()" [disabled]="!this.canNewQuestionsBeLoaded()">Neue Fragen laden</button>
+    <div class="display-flex-space-between">
+      <div>
+        <button mat-stroked-button matStepperNext style="margin-right: 8px" *ngIf="!this.isLastRoundFinished()">
+          Los geht's!
+        </button>
+
+        <button mat-stroked-button mat-dialog-close="false">
+          <mat-icon>home</mat-icon>
+          Hauptmenü
+        </button>
+      </div>
     </div>
 
   </mat-step>
   <mat-step *ngFor="let flashCardQuestion of this.flashCardQuestions; let i = index"
-            [completed]="this.getFlashCardQuestionAnswerState(flashCardQuestion)">
+            [state]="this.getFlashCardQuestionAnswerState(flashCardQuestion)"
+            [hasError]="this.getFlashCardQuestionAnswerState(flashCardQuestion) === 'error'"
+            [completed]="this.getFlashCardQuestionAnswerState(flashCardQuestion) === 'unanswered'">
     <div class="spacing">
       <ng-template matStepLabel>Frage {{i + 1}}</ng-template>
       <p>{{flashCardQuestion.question}} {{flashCardQuestion.allowMultipleAnswers ? '(Mehrfachauswahl möglich)' : ''}}</p>
@@ -76,13 +102,50 @@
         </mat-checkbox>
       </div>
     </div>
-    <div>
-      <button mat-stroked-button matStepperPrevious style="margin-right: 8px">Zurück</button>
-      <button mat-stroked-button style="margin-right: 8px" (click)="this.revealIfAnswersAreCorrect(flashCardQuestion)"
-              [disabled]="this.isSubmitAnswerButtonDisabled(flashCardQuestion)">
-        Antwort prüfen
-      </button>
-      <button mat-stroked-button matStepperNext>Weiter</button>
+    <div class="display-flex-space-between">
+      <div>
+        <button mat-stroked-button matStepperPrevious style="margin-right: 8px">
+          <mat-icon>arrow_back_ios</mat-icon>
+          Zurück
+        </button>
+        <button mat-stroked-button style="margin-right: 8px" (click)="this.revealIfAnswersAreCorrect(flashCardQuestion)"
+                [disabled]="this.isSubmitAnswerButtonDisabled(flashCardQuestion)">
+          Antwort prüfen
+        </button>
+        <button mat-stroked-button matStepperNext
+                [disabled]="this.stepper.steps.length - 1 === this.stepper.selectedIndex">
+          Weiter
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-stroked-button (click)="this.loadNewQuestions()"
+                *ngIf="this.canNewQuestionsBeLoaded()" style="margin-right: 8px">Neue
+          Fragen laden
+        </button>
+        <button mat-stroked-button (click)="this.stepper.selectedIndex = 0" *ngIf="this.isLastRoundFinished()"
+                style="margin-right: 8px">
+          Zur Auswertung
+        </button>
+        <button mat-stroked-button mat-dialog-close="false">
+          <mat-icon>home</mat-icon>
+          Zurück zum Hauptmenü
+        </button>
+      </div>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+
+  <ng-template matStepperIcon="edit">
+  </ng-template>
+  <ng-template matStepperIcon="done">
+    <mat-icon style="font-size: 24px; width: 24px; height: 24px; font-weight: bold; color: green;">done</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="error">
+    <mat-icon>close</mat-icon>
+  </ng-template>
+
+  <ng-template matStepperIcon="introduction">
+    <mat-icon>info</mat-icon>
+  </ng-template>
+
+</mat-stepper>

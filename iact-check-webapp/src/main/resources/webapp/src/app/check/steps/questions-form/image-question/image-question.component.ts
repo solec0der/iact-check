@@ -49,6 +49,10 @@ export class ImageQuestionComponent implements OnInit {
     return CORE_URL + '/api/image-questions/image-answers/' + imageAnswerId + '/image';
   }
 
+  public goBackToMarketplace(): void {
+    this.router.navigate(['../../marketplace'], { relativeTo: this.activatedRoute }).then();
+  }
+
   public selectImageAnswer(imageAnswerId: number | undefined): void {
     if (this.answersAreReadOnly) {
       return;

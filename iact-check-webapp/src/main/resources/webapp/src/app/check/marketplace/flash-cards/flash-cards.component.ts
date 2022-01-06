@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CheckStateService } from '../../check-state.service';
 import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { SubmissionDTO } from '../../../shared/dtos/submission-dto';
@@ -6,6 +6,7 @@ import { FlashCardService } from '../../../shared/services/flash-card.service';
 import { FlashCardQuestionDTO } from '../../../shared/dtos/flash-card-question-dto';
 import { FlashCardsStateService } from './flash-cards-state.service';
 import { FlashCardAnswerDTO } from '../../../shared/dtos/flash-card-answer-dto';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-flash-cards',
@@ -16,7 +17,7 @@ import { FlashCardAnswerDTO } from '../../../shared/dtos/flash-card-answer-dto';
 export class FlashCardsComponent implements OnInit {
   public check!: CheckDTO;
   public submission!: SubmissionDTO;
-  public flashCardQuestions: FlashCardQuestionDTO[] = [];
+  public flashCardQuestions: FlashCardQuestionDTO[] | undefined = [];
   /**
    * Key: FlashCardQuestion.id
    * Value: FlashCardAnswer.id
@@ -28,6 +29,8 @@ export class FlashCardsComponent implements OnInit {
    * Value: Boolean Flag, which indicates, whether it was revealed, if the answer is correct or not
    */
   public answerRevealedMap!: Map<number, boolean>;
+
+  @ViewChild('stepper') stepper!: MatStepper;
 
   constructor(
     private readonly checkStateService: CheckStateService,
@@ -45,42 +48,44 @@ export class FlashCardsComponent implements OnInit {
 
   public getNumberOfCorrectlyAnsweredQuestions(): number {
     const flashCardQuestions = this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions();
-    let numberOfCorrectlyAnsweredQuestions = 0;
+    if (flashCardQuestions) {
+      let numberOfCorrectlyAnsweredQuestions = 0;
 
-    flashCardQuestions.forEach((flashCardQuestion) => {
-      const flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+      flashCardQuestions.forEach((flashCardQuestion) => {
+        const flashCardQuestionAnswers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
 
-      if (flashCardQuestionAnswers) {
-        if (flashCardQuestion.allowMultipleAnswers) {
-          if (
-            flashCardQuestionAnswers &&
-            flashCardQuestionAnswers.every((answer) => this.isAnswerCorrect(flashCardQuestion, answer))
-          ) {
-            numberOfCorrectlyAnsweredQuestions++;
-          }
-        } else {
-          if (
-            flashCardQuestionAnswers.length === 1 &&
-            this.isAnswerCorrect(flashCardQuestion, flashCardQuestionAnswers[0])
-          ) {
-            numberOfCorrectlyAnsweredQuestions++;
+        if (flashCardQuestionAnswers) {
+          if (flashCardQuestion.allowMultipleAnswers) {
+            if (
+              flashCardQuestionAnswers &&
+              flashCardQuestionAnswers.every((answer) => this.isAnswerCorrect(flashCardQuestion, answer))
+            ) {
+              numberOfCorrectlyAnsweredQuestions++;
+            }
+          } else {
+            if (
+              flashCardQuestionAnswers.length === 1 &&
+              this.isAnswerCorrect(flashCardQuestion, flashCardQuestionAnswers[0])
+            ) {
+              numberOfCorrectlyAnsweredQuestions++;
+            }
           }
         }
-      }
-    });
-
-    return numberOfCorrectlyAnsweredQuestions;
+      });
+      return numberOfCorrectlyAnsweredQuestions;
+    }
+    return 0;
   }
 
-  public getFlashCardQuestionAnswerState(flashCardQuestion: FlashCardQuestionDTO): boolean {
+  public getFlashCardQuestionAnswerState(flashCardQuestion: FlashCardQuestionDTO): string {
     if (!this.answerRevealedMap.get(flashCardQuestion.id)) {
-      return false;
+      return 'edit';
     }
 
     const correctAnswers = FlashCardsComponent.getCorrectAnswers(flashCardQuestion.answers);
     const flashCardQuestionAnswers = this.getFlashCardQuestionAnswersByFlashCardQuestionId(flashCardQuestion.id);
 
-    return correctAnswers.every((correctAnswer) => flashCardQuestionAnswers.includes(correctAnswer.id));
+    return correctAnswers.every((correctAnswer) => flashCardQuestionAnswers.includes(correctAnswer.id)) ? 'done' : 'error';
   }
 
   public getSingleFlashCardQuestionAnswer(flashCardQuestionId: number): number {
@@ -169,9 +174,13 @@ export class FlashCardsComponent implements OnInit {
   }
 
   public loadNewQuestions(): void {
+    this.flashCardQuestions = undefined;
     this.flashCardService.getFlashCardQuestionsByCheckId(<number>this.check.id).subscribe((flashCardQuestions) => {
       this.flashCardQuestions = this.flashCardsStateService.selectRandomFlashCardQuestions(flashCardQuestions, 5);
       this.flashCardsStateService.setActiveFlashCardsQuestions(this.flashCardQuestions);
+      setTimeout(() => {
+        this.stepper.selectedIndex = 1;
+      });
     });
   }
 
@@ -181,11 +190,27 @@ export class FlashCardsComponent implements OnInit {
     if (numberOfRounds === 3) {
       return false;
     }
+    if (this.flashCardQuestions) {
+      return this.flashCardQuestions.every((flashCardQuestion) => {
+        const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+        const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
+        return answers && answers.length > 0 && isRevealed;
+      });
+    }
+    return false;
+  }
 
-    return this.flashCardQuestions.every((flashCardQuestion) => {
-      const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
-      return answers && answers.length > 0;
-    });
+  public isLastRoundFinished(): boolean {
+    const numberOfRounds = this.flashCardsStateService.getPreviouslyUsedFlashCardQuestions().length / 5;
+
+    if (this.flashCardQuestions) {
+      return numberOfRounds === 3 && this.flashCardQuestions.every((flashCardQuestion) => {
+        const answers = this.flashCardQuestionAnswers.get(flashCardQuestion.id);
+        const isRevealed = this.isRevealedIfAnswersAreCorrect(flashCardQuestion.id);
+        return answers && answers.length > 0 && isRevealed;
+      });
+    }
+    return false;
   }
 
   private getFlashCardQuestionAnswersByFlashCardQuestionId(flashCardQuestionId: number): number[] {

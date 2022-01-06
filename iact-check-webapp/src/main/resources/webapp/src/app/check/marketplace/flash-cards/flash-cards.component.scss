@@ -1,3 +1,5 @@
+@import "src/iact-check-theme";
+
 .radio-group {
   display: flex;
   flex-direction: column;
@@ -46,3 +48,42 @@
 .icon .wrong {
   color: red;
 }
+
+
+//.mat-step-header .mat-step-icon-selected,
+//.mat-step-header .mat-step-icon-state-edit {
+//  background-color: var(--theme-primary-A200) !important;
+//}
+
+
+.mat-step-header .mat-step-icon-state-done {
+  background-color: transparent !important;
+  color: green;
+  +.mat-step-label{
+    color: #35A255 !important;
+  }
+}
+
+.mat-step-header .mat-step-icon-state-error {
+  background-color: transparent !important;
+  color: red;
+  +.mat-step-label{
+    color: red !important;
+  }
+}
+
+.mat-step-header .mat-step-icon-state-edit {
+  color: white;
+  +.mat-step-label{
+    color: white !important;
+  }
+}
+
+//.mat-step-header .mat-step-icon-correct {
+//  background-color: green !important;
+//}
+//.mat-step-header .mat-step-icon-incorrect {
+//  background-color: green !important;
+//}
+
+

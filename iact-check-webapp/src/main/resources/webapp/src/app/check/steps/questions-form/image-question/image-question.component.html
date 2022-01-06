@@ -22,6 +22,15 @@
       {{'SHARED.BACK' | translate}}
     </button>
   </div>
+
+  <div *ngIf="this.answersAreReadOnly">
+    <button mat-stroked-button (click)="this.goBackToMarketplace()">
+      <mat-icon>home</mat-icon>
+      Zurück zum Hauptmenü
+    </button>
+  </div>
+
+
   <div>
     <button mat-stroked-button (click)="this.nextStep()" [disabled]="!this.isCurrentImageAnswered()">
       {{'SHARED.NEXT' | translate}}

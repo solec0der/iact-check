@@ -100,7 +100,8 @@ export class FlashCardsStateService {
     }
 
     for (let i = 0; i < amount; i++) {
-      const randomIndex = RandomUtility.getRandomInt(0, flashCardQuestionsWithoutRequiredQuestions.length);
+      const randomIndex = RandomUtility.getRandomInt(0, flashCardQuestionsWithoutRequiredQuestions.length - 1);
+
       selectedFlashCardQuestions.push(flashCardQuestionsWithoutRequiredQuestions[randomIndex]);
       flashCardQuestionsWithoutRequiredQuestions.splice(randomIndex, 1);
     }

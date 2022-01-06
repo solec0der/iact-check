@@ -21,6 +21,7 @@ import { GlobalHttpInterceptor } from './shared/interceptors/global-http.interce
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { KeycloakInfoService } from './shared/services/keycloak-info.service';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent, HttpExceptionDialogComponent],
@@ -69,6 +70,10 @@ import { KeycloakInfoService } from './shared/services/keycloak-info.service';
       useValue: NGX_MAT_COLOR_FORMATS,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'de-CH' },
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
   ],
   bootstrap: [AppComponent],
 })
