@@ -2,8 +2,8 @@ import { KeycloakService } from 'keycloak-angular';
 import { KeycloakInfoService } from '../services/keycloak-info.service';
 import { isDevMode } from '@angular/core';
 
-export function initializer(keycloak: KeycloakService, keycloakInfoService: KeycloakInfoService): () => Promise<any> {
-  return (): Promise<any> => {
+export function initializer(keycloak: KeycloakService, keycloakInfoService: KeycloakInfoService): () => Promise<void> {
+  return (): Promise<void> => {
     return new Promise(async (resolve, reject) => {
       try {
         if (isDevMode()) {
