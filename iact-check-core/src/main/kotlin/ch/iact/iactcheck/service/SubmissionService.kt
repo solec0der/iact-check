@@ -219,12 +219,10 @@ class SubmissionService(
 
         if (isUserRegistrationFieldActive("EMAIL", activeUserRegistrationFields)) {
             if (!EmailValidator.getInstance().isValid(normalizedEmail)) throw InvalidEmailException()
-            if (submissionRepository.existsByEmail(normalizedEmail)) throw SubmissionAlreadyExistsException()
         }
 
         if (isUserRegistrationFieldActive("PHONE_NUMBER", activeUserRegistrationFields)) {
             if (!PhoneNumberUtil.isValidPhoneNumber(normalizedPhoneNumber)) throw InvalidPhoneNumberException()
-            if (submissionRepository.existsByPhoneNumber(normalizedPhoneNumber)) throw SubmissionAlreadyExistsException()
         }
     }
 

@@ -86,7 +86,7 @@ export class PossibleOutcomesComponent implements OnInit {
 
   public goToMarketplace(): void {
     this.router.navigate(['../../', 'marketplace'], { relativeTo: this.activatedRoute }).then(() => {
-      this.matDialog.open(FlashCardsComponent);
+      // this.matDialog.open(FlashCardsComponent);
     });
   }
 
