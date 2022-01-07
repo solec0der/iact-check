@@ -1,11 +1,14 @@
 package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.controller.exception.CheckNotFoundException
+import ch.iact.iactcheck.controller.exception.DocumentFileNotFoundException
 import ch.iact.iactcheck.controller.exception.DocumentGroupNotFoundException
 import ch.iact.iactcheck.controller.exception.DocumentNotFoundException
 import ch.iact.iactcheck.domain.model.Document
+import ch.iact.iactcheck.domain.model.DocumentFile
 import ch.iact.iactcheck.domain.model.DocumentGroup
 import ch.iact.iactcheck.domain.repository.CheckRepository
+import ch.iact.iactcheck.domain.repository.DocumentFileRepository
 import ch.iact.iactcheck.domain.repository.DocumentGroupRepository
 import ch.iact.iactcheck.domain.repository.DocumentRepository
 import ch.iact.iactcheck.dto.DocumentDTO
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service
 @Service
 class DocumentService(
     private val documentGroupRepository: DocumentGroupRepository,
+    private val documentFileRepository: DocumentFileRepository,
     private val documentRepository: DocumentRepository,
     private val checkRepository: CheckRepository
 ) {
@@ -36,7 +40,12 @@ class DocumentService(
         documentGroup = documentGroupRepository.save(documentGroup)
         documentGroup = documentGroup.copy(
             documents = documentGroupDTO.documents.map {
-                Document(id = -1, title = it.title, mediaType = it.mediaType, documentGroup = documentGroup)
+                Document(
+                    id = -1,
+                    title = it.title,
+                    mediaType = it.mediaType,
+                    documentGroup = documentGroup
+                )
             }
         )
 
@@ -52,11 +61,11 @@ class DocumentService(
     }
 
     fun getFileByDocumentId(documentId: Long): Pair<MediaType, ByteArray> {
-        val document = documentRepository
+        val documentFile = documentFileRepository
             .findById(documentId)
-            .orElseThrow { DocumentNotFoundException() }
+            .orElseThrow { throw DocumentFileNotFoundException() }
 
-        return Pair(MediaType.valueOf(document.mediaType), document.file)
+        return Pair(MediaType.valueOf(documentFile.document.mediaType), documentFile.file)
     }
 
     fun getDocumentGroupsByCheckId(checkId: Long): List<DocumentGroupDTO> {
@@ -68,10 +77,10 @@ class DocumentService(
     fun uploadFileForDocument(documentId: Long, file: ByteArray) {
         val document = documentRepository
             .findById(documentId)
-            .orElseThrow { DocumentNotFoundException() }
-            .copy(file = file)
+            .orElseThrow { throw DocumentNotFoundException() }
 
-        documentRepository.save(document)
+        val documentFile = DocumentFile(documentId, file, document)
+        documentFileRepository.save(documentFile)
     }
 
     fun updateDocumentGroupById(documentGroupId: Long, documentGroupDTO: DocumentGroupDTO): DocumentGroupDTO {
