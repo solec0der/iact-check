@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Store Version in Variable
-        run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        run: VERSION=${GITHUB_REF##*/}
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
         with:
