@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set output
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
         with:
@@ -29,7 +27,7 @@ jobs:
           with:
             java-version: 11
         - name: Set Version
-          run: mvn versions:set -DnewVersion=${{ steps.vars.outputs.tag }}
+          run: mvn versions:set -DnewVersion=$GIT_TAG_NAME
         - name: Build and Test with Maven
           run: mvn -B clean verify
         - name: Login to Docker Hub
@@ -40,16 +38,16 @@ jobs:
         - name: Build and push Iact-Check-Core
           run: |
             cd iact-check-core
-            docker build -t mortimercold/iact-check-core:${{ steps.vars.outputs.tag }} .
-            docker push mortimercold/iact-check-core:${{ steps.vars.outputs.tag }}
+            docker build -t mortimercold/iact-check-core:$GIT_TAG_NAME .
+            docker push mortimercold/iact-check-core:$GIT_TAG_NAME
         - name: Build and push Iact-Check-Webapp
           run: |
             cd iact-check-webapp
-            docker build -t mortimercold/iact-check-webapp:${{ steps.vars.outputs.tag }} .
-            docker push mortimercold/iact-check-webapp:${{ steps.vars.outputs.tag }}
+            docker build -t mortimercold/iact-check-webapp:$GIT_TAG_NAME .
+            docker push mortimercold/iact-check-webapp:$GIT_TAG_NAME
         - name: Commit Version
             run: |
               git config --global user.name 'Github'
               git config --global user.email 'yannick.huggler@users.noreply.github.com'
-              git commit -am "Set version to ${{ steps.vars.outputs.tag }}"
+              git commit -am "Set version to $GIT_TAG_NAME"
               git push
