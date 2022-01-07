@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Store Version in Variable
-        run: VERSION=${GITHUB_REF##*/}
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.4
@@ -28,7 +29,7 @@ jobs:
           with:
             java-version: 11
         - name: Set Version
-          run: mvn versions:set -DnewVersion=$VERSION
+          run: mvn versions:set -DnewVersion=${{ steps.vars.outputs.tag }}
         - name: Build and Test with Maven
           run: mvn -B clean verify
         - name: Login to Docker Hub
@@ -39,16 +40,16 @@ jobs:
         - name: Build and push Iact-Check-Core
           run: |
             cd iact-check-core
-            docker build -t mortimercold/iact-check-core:$VERSION .
-            docker push mortimercold/iact-check-core:$VERSION
+            docker build -t mortimercold/iact-check-core:${{ steps.vars.outputs.tag }} .
+            docker push mortimercold/iact-check-core:${{ steps.vars.outputs.tag }}
         - name: Build and push Iact-Check-Webapp
           run: |
             cd iact-check-webapp
-            docker build -t mortimercold/iact-check-webapp:$VERSION .
-            docker push mortimercold/iact-check-webapp:$VERSION  
+            docker build -t mortimercold/iact-check-webapp:${{ steps.vars.outputs.tag }} .
+            docker push mortimercold/iact-check-webapp:${{ steps.vars.outputs.tag }}
         - name: Commit Version
             run: |
               git config --global user.name 'Github'
               git config --global user.email 'yannick.huggler@users.noreply.github.com'
-              git commit -am "Set version to $VERSION"
+              git commit -am "Set version to ${{ steps.vars.outputs.tag }}"
               git push
