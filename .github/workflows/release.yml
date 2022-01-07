@@ -52,4 +52,4 @@ jobs:
           git config --global user.name 'Github'
           git config --global user.email 'yannick.huggler@users.noreply.github.com'
           git commit -am "Set version to $GIT_TAG_NAME"
-          git push
+          git push origin HEAD:master
