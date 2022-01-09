@@ -80,6 +80,13 @@ span.color-preview-dot {
   align-items: center;
 }
 
+.display-flex-justify-content-right {
+  display: flex;
+  justify-content: right;
+  align-content: center;
+  align-items: center;
+}
+
 .display-flex-wrap {
   display: flex;
   flex-wrap: wrap;

@@ -17,4 +17,8 @@ export class DocumentGroupService {
   public getDocumentGroupsByCheckId(checkId: number): Observable<DocumentGroupDTO[]> {
     return this.httpClient.get<DocumentGroupDTO[]>(`${CORE_URL}/api/checks/${checkId}/document-groups`);
   }
+
+  public deleteDocumentGroupById(documentGroupId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${CORE_URL}/api/admin/document-groups/${documentGroupId}`);
+  }
 }

@@ -10,6 +10,11 @@ import { CORE_URL } from '../../app.config';
 export class FlashCardService {
   constructor(private readonly httpClient: HttpClient) {}
 
+  public createFlashCardQuestion(flashCardQuestion: FlashCardQuestionDTO): Observable<FlashCardQuestionDTO> {
+    const body = JSON.stringify(flashCardQuestion);
+    return this.httpClient.post<FlashCardQuestionDTO>(`${CORE_URL}/api/admin/flash-card-questions`, body);
+  }
+
   public getFlashCardQuestionById(flashCardQuestionId: number): Observable<FlashCardQuestionDTO> {
     return this.httpClient.get<FlashCardQuestionDTO>(
       `${CORE_URL}/api/admin/flash-card-questions/${flashCardQuestionId}`

@@ -34,7 +34,7 @@
               </mat-error>
               <label>
                 <input matInput [placeholder]="'CHECKS.PLACEHOLDER.TITLE' | translate" formControlName="translation"
-                       required/>
+                       required>
               </label>
             </mat-form-field>
           </div>
@@ -57,7 +57,7 @@
               </mat-error>
               <label>
                 <input matInput [placeholder]="'CHECKS.PLACEHOLDER.SUBTITLE' | translate" formControlName="translation"
-                       required/>
+                       required>
               </label>
             </mat-form-field>
           </div>
@@ -104,7 +104,7 @@
         <label>
           <input matInput [ngxMatDatetimePicker]="pickerActiveFrom"
                  [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_FROM' | translate"
-                 formControlName="activeFrom" required/>
+                 formControlName="activeFrom" required>
         </label>
         <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveFrom)"></mat-datepicker-toggle>
         <ngx-mat-datetime-picker #pickerActiveFrom [showSeconds]="true"></ngx-mat-datetime-picker>
@@ -118,7 +118,7 @@
         <label>
           <input matInput [ngxMatDatetimePicker]="pickerActiveTo"
                  [placeholder]="'CHECKS.PLACEHOLDER.ACTIVE_TO' | translate"
-                 formControlName="activeTo" required/>
+                 formControlName="activeTo" required>
         </label>
         <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveTo)"></mat-datepicker-toggle>
         <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
@@ -126,17 +126,30 @@
     </form>
   </mat-card-content>
 </mat-card>
-<br/>
-
-<mat-card *ngIf="this.action === 'edit'">
-  <mat-card-content>
+<br>
+<mat-accordion *ngIf="this.action === 'edit'">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>Fragekategorien</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
     <app-question-category-list [check]="this.checkDTO"></app-question-category-list>
-  </mat-card-content>
-</mat-card>
-<br/>
-
-<mat-card *ngIf="this.action === 'edit'">
-  <mat-card-content>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>Karteikarten</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
     <app-flash-card-question-list></app-flash-card-question-list>
-  </mat-card-content>
-</mat-card>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>Dokumente</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-document-group-list></app-document-group-list>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -30,6 +30,7 @@ import { ImageQuestionListComponent } from './customers/customer-detail/checks/c
 import { ImageQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component';
 import { FlashCardQuestionListComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-list/flash-card-question-list.component';
 import { FlashCardQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component';
+import { DocumentGroupListComponent } from './customers/customer-detail/checks/check-detail/document-group-list/document-group-list.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { FlashCardQuestionDetailComponent } from './customers/customer-detail/ch
     ImageQuestionDetailComponent,
     FlashCardQuestionListComponent,
     FlashCardQuestionDetailComponent,
+    DocumentGroupListComponent,
   ],
   imports: [
     CommonModule,

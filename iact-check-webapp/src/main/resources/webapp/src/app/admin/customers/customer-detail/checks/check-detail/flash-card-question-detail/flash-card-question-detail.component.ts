@@ -46,7 +46,8 @@ export class FlashCardQuestionDetailComponent implements OnInit {
     if (this.action === 'edit') {
       this.loadData();
     } else if (this.action === 'create') {
-      // this.createQuestionCategoryFormGroup();
+      this.createFlashCardQuestionFormGroup();
+      this.createEmptyFlashCardAnswerFormArray();
     }
   }
 
@@ -73,7 +74,18 @@ export class FlashCardQuestionDetailComponent implements OnInit {
     this.flashCardAnswersFormArray.removeAt(index);
   }
 
-  private createFlashCardQuestion(): void {}
+  private createFlashCardQuestion(): void {
+    const flashCardQuestion = this.createDTOFromFormGroup();
+
+    this.flashCardService
+      .createFlashCardQuestion(flashCardQuestion)
+      .subscribe((createdFlashCardQuestion) => {
+        this._flashCardQuestion = createdFlashCardQuestion;
+        this.router.navigate(['../../' + createdFlashCardQuestion.id, 'edit'], {relativeTo: this.activatedRoute}).then(() => {
+          this.loadData();
+        })
+      });
+  }
 
   private updateFlashCardQuestion(): void {
     const flashCardQuestion = this.createDTOFromFormGroup();
@@ -116,14 +128,20 @@ export class FlashCardQuestionDetailComponent implements OnInit {
     this._flashCardQuestionFormGroup = new FormGroup({
       question: new FormControl(this.action === 'edit' ? this._flashCardQuestion.question : '', Validators.required),
       requiredQuestion: new FormControl(
-        this.action === 'edit' ? this._flashCardQuestion.requiredQuestion : '',
+        this.action === 'edit' ? this._flashCardQuestion.requiredQuestion : false,
         Validators.required
       ),
       allowMultipleAnswers: new FormControl(
-        this.action === 'edit' ? this._flashCardQuestion.allowMultipleAnswers : '',
+        this.action === 'edit' ? this._flashCardQuestion.allowMultipleAnswers : false,
         Validators.required
       ),
     });
+  }
+
+  private createEmptyFlashCardAnswerFormArray(): void {
+    const formGroups: FormGroup[] = [];
+    formGroups.push(this.createEmptyFlashCardAnswerFormGroup());
+    this._flashCardAnswersFormArray = new FormArray(formGroups);
   }
 
   private createFlashCardAnswerFormArray(): void {
