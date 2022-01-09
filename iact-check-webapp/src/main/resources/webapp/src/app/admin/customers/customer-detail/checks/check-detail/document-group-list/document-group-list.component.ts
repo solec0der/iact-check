@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentGroupService } from '../../../../../../shared/services/document-group.service';
+import { DocumentService } from '../../../../../../shared/services/document.service';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentGroupDTO } from '../../../../../../shared/dtos/document-group-dto';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ export class DocumentGroupListComponent implements OnInit {
     private readonly snackBarService: SnackBarService,
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly documentGroupService: DocumentGroupService
+    private readonly documentService: DocumentService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.checkId = Number(params.get('checkId'));
@@ -45,7 +45,7 @@ export class DocumentGroupListComponent implements OnInit {
       .afterClosed()
       .subscribe((hasConfirmed) => {
         if (hasConfirmed) {
-          this.documentGroupService.deleteDocumentGroupById(documentGroupId).subscribe(() => {
+          this.documentService.deleteDocumentGroupById(documentGroupId).subscribe(() => {
             this.snackBarService.open('Die Dokumentensammlung wurde erfolgreich gelöscht.');
             this.loadData();
           });
@@ -54,7 +54,7 @@ export class DocumentGroupListComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.documentGroupService.getDocumentGroupsByCheckId(this.checkId).subscribe((documentGroups) => {
+    this.documentService.getDocumentGroupsByCheckId(this.checkId).subscribe((documentGroups) => {
       this._documentGroups = documentGroups;
     });
   }

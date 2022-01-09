@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { DocumentGroupService } from '../../../shared/services/document-group.service';
+import { DocumentService } from '../../../shared/services/document.service';
 import { CheckStateService } from '../../check-state.service';
 import { DocumentGroupDTO } from '../../../shared/dtos/document-group-dto';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class DocumentGroupOverviewComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly documentGroupService: DocumentGroupService,
+    private readonly documentGroupService: DocumentService,
     private readonly checkStateService: CheckStateService
   ) {
     this.activatedRoute.queryParamMap.subscribe((queryParamsMap) => {

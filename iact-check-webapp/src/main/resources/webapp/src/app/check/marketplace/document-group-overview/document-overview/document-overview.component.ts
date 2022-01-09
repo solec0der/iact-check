@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DocumentGroupService } from '../../../../shared/services/document-group.service';
+import { DocumentService } from '../../../../shared/services/document.service';
 import { DocumentGroupDTO } from '../../../../shared/dtos/document-group-dto';
 import { DocumentDTO } from '../../../../shared/dtos/document-dto';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,7 +28,7 @@ export class DocumentOverviewComponent implements OnInit {
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
-    private readonly documentGroupService: DocumentGroupService
+    private readonly documentGroupService: DocumentService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.documentGroupId = Number(params.get('documentGroupId'));

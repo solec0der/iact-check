@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerService } from '../../../../../../shared/services/customer.service';
-import { DocumentGroupService } from '../../../../../../shared/services/document-group.service';
+import { DocumentService } from '../../../../../../shared/services/document.service';
 import { ColourUtility } from '../../../../../../shared/utils/colour.utility';
 import { SnackBarService } from '../../../../../../shared/services/snack-bar.service';
 import { ConfirmDialogComponent } from '../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
@@ -20,7 +20,7 @@ export class DocumentGroupDetailComponent implements OnInit {
   private customerId = -1;
   private documentGroupId = -1;
 
-  private documentGroup!: DocumentGroupDTO;
+  private _documentGroup!: DocumentGroupDTO;
   private _documentGroupFormGroup!: FormGroup;
 
   constructor(
@@ -29,7 +29,7 @@ export class DocumentGroupDetailComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly snackBarService: SnackBarService,
     private readonly customerService: CustomerService,
-    private readonly documentGroupService: DocumentGroupService
+    private readonly documentGroupService: DocumentService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.action = String(params.get('action'));
@@ -93,18 +93,18 @@ export class DocumentGroupDetailComponent implements OnInit {
 
   private loadData(): void {
     this.documentGroupService.getDocumentGroupById(this.documentGroupId).subscribe((documentGroup) => {
-      this.documentGroup = documentGroup;
+      this._documentGroup = documentGroup;
       this.createDocumentGroupFormGroup();
     });
   }
 
   private createDocumentGroupFormGroup(): void {
     const backgroundColour = ColourUtility.convertHexToColor(
-      this.isEditMode() ? this.documentGroup.backgroundColour : null
+      this.isEditMode() ? this._documentGroup.backgroundColour : null
     );
 
     this._documentGroupFormGroup = new FormGroup({
-      name: new FormControl(this.isEditMode() ? this.documentGroup.name : '', Validators.required),
+      name: new FormControl(this.isEditMode() ? this._documentGroup.name : '', Validators.required),
       backgroundColour: new FormControl(backgroundColour ? backgroundColour : ''),
     });
   }
@@ -127,7 +127,7 @@ export class DocumentGroupDetailComponent implements OnInit {
     this.documentGroupService
       .updateDocumentGroupById(this.documentGroupId, documentGroupDTO)
       .subscribe((updateDocumentGroup) => {
-        this.documentGroup = updateDocumentGroup;
+        this._documentGroup = updateDocumentGroup;
         this.createDocumentGroupFormGroup();
       });
   }
@@ -146,5 +146,9 @@ export class DocumentGroupDetailComponent implements OnInit {
 
   get documentGroupFormGroup(): FormGroup {
     return this._documentGroupFormGroup;
+  }
+
+  get documentGroup(): DocumentGroupDTO {
+    return this._documentGroup;
   }
 }

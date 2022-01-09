@@ -32,6 +32,8 @@ import { FlashCardQuestionListComponent } from './customers/customer-detail/chec
 import { FlashCardQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component';
 import { DocumentGroupListComponent } from './customers/customer-detail/checks/check-detail/document-group-list/document-group-list.component';
 import { DocumentGroupDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component';
+import { DocumentDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component';
+import { DocumentListComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-list/document-list.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { DocumentGroupDetailComponent } from './customers/customer-detail/checks
     FlashCardQuestionDetailComponent,
     DocumentGroupListComponent,
     DocumentGroupDetailComponent,
+    DocumentDetailComponent,
+    DocumentListComponent,
   ],
   imports: [
     CommonModule,

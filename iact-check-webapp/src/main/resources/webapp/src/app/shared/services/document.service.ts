@@ -8,7 +8,7 @@ import { DocumentDTO } from '../dtos/document-dto';
 @Injectable({
   providedIn: 'root',
 })
-export class DocumentGroupService {
+export class DocumentService {
   constructor(private readonly httpClient: HttpClient) {}
 
   public createDocumentGroup(documentGroupDTO: DocumentGroupDTO): Observable<DocumentGroupDTO> {
