@@ -14,5 +14,6 @@ data class CheckDTO(
     val activeFrom: Instant,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     val activeTo: Instant,
-    val questionCategories: List<QuestionCategoryDTO>
+    val questionCategories: List<QuestionCategoryDTO>,
+    val marketplaceConfig: MarketplaceConfigDTO
 )

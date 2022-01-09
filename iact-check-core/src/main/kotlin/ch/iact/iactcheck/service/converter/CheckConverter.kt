@@ -18,7 +18,8 @@ object CheckConverter {
             activeTo = check.activeTo,
             questionCategories = check.questionCategories.map {
                 QuestionCategoryConverter.convertQuestionCategoryToDTO(it)
-            }.toList()
+            }.toList(),
+            marketplaceConfig = MarketplaceConfigMapper.map(check.marketplaceConfig!!)
         )
     }
 }

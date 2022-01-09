@@ -5,6 +5,7 @@ import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
 import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.domain.model.Check
 import ch.iact.iactcheck.domain.model.Language
+import ch.iact.iactcheck.domain.model.MarketplaceConfig
 import ch.iact.iactcheck.domain.model.common.Translations
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
@@ -27,7 +28,7 @@ class CheckService(
             .findById(checkDTO.customerId)
             .orElseThrow { throw CustomerNotFoundException() }
 
-        val check = Check(
+        var check = Check(
             id = -1,
             customer = customer,
             title = Translations.fromMap(checkDTO.title),
@@ -39,7 +40,16 @@ class CheckService(
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
             questionCategories = emptyList(),
-            submissions = emptyList()
+            submissions = emptyList(),
+            marketplaceConfig = null
+        )
+        check = check.copy(
+            marketplaceConfig = MarketplaceConfig(
+                id = -1,
+                marketplaceEnabled = false,
+                marketplaceTileConfigs = emptyList(),
+                check = check
+            )
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))

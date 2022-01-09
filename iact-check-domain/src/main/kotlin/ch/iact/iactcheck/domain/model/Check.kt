@@ -35,6 +35,9 @@ data class Check(
     @OneToMany(targetEntity = QuestionCategory::class, mappedBy = "check", cascade = [CascadeType.ALL])
     val questionCategories: List<QuestionCategory>,
 
+    @OneToOne(mappedBy = "check", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val marketplaceConfig: MarketplaceConfig?,
+
     @OneToMany(
         targetEntity = Submission::class,
         mappedBy = "check",
