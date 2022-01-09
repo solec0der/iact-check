@@ -29,7 +29,7 @@ export class DocumentGroupDetailComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly snackBarService: SnackBarService,
     private readonly customerService: CustomerService,
-    private readonly documentGroupService: DocumentService
+    private readonly documentService: DocumentService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.action = String(params.get('action'));
@@ -83,7 +83,7 @@ export class DocumentGroupDetailComponent implements OnInit {
       .afterClosed()
       .subscribe((hasConfirmed) => {
         if (hasConfirmed) {
-          this.documentGroupService.deleteDocumentGroupById(this.documentGroupId).subscribe(() => {
+          this.documentService.deleteDocumentGroupById(this.documentGroupId).subscribe(() => {
             this.snackBarService.open('Die Dokumentensammlung wurde erfolgreich gelöscht.');
             this.goBackToCheck();
           });
@@ -92,7 +92,7 @@ export class DocumentGroupDetailComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.documentGroupService.getDocumentGroupById(this.documentGroupId).subscribe((documentGroup) => {
+    this.documentService.getDocumentGroupById(this.documentGroupId).subscribe((documentGroup) => {
       this._documentGroup = documentGroup;
       this.createDocumentGroupFormGroup();
     });
@@ -112,7 +112,7 @@ export class DocumentGroupDetailComponent implements OnInit {
   private createDocumentGroup(): void {
     const documentGroupDTO = this.createDocumentGroupDTOFromFormGroup();
 
-    this.documentGroupService.createDocumentGroup(documentGroupDTO).subscribe((createdDocumentGroup) => {
+    this.documentService.createDocumentGroup(documentGroupDTO).subscribe((createdDocumentGroup) => {
       this.router
         .navigate(['../../', createdDocumentGroup.id, 'edit'], { relativeTo: this.activatedRoute })
         .then(() => {
@@ -124,7 +124,7 @@ export class DocumentGroupDetailComponent implements OnInit {
   private updateDocumentGroup(): void {
     const documentGroupDTO = this.createDocumentGroupDTOFromFormGroup();
 
-    this.documentGroupService
+    this.documentService
       .updateDocumentGroupById(this.documentGroupId, documentGroupDTO)
       .subscribe((updateDocumentGroup) => {
         this._documentGroup = updateDocumentGroup;

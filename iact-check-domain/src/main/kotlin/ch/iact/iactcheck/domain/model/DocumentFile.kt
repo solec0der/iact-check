@@ -8,13 +8,13 @@ data class DocumentFile(
 
     @Id
     @Column(name = "document_id")
-    val id: Long,
+    val id: Long? = null,
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     val file: ByteArray,
 
-    @OneToOne
+    @OneToOne(optional = false)
     @MapsId
     @JoinColumn(name = "document_id")
     val document: Document

@@ -26,6 +26,11 @@ internal class DocumentAdminController(private val documentService: DocumentServ
         return documentService.createDocumentForDocumentGroup(documentGroupId, documentDTO)
     }
 
+    @GetMapping("/document-groups/documents/{documentId}")
+    fun getDocumentById(@PathVariable("documentId") documentId: Long): DocumentDTO {
+        return documentService.getDocumentById(documentId)
+    }
+
     @PutMapping("/document-groups/{documentGroupIdId}")
     fun updateDocumentGroupById(
         @PathVariable("documentGroupIdId") documentGroupId: Long,
@@ -42,8 +47,8 @@ internal class DocumentAdminController(private val documentService: DocumentServ
         return documentService.updateDocumentById(documentId, documentDTO)
     }
 
-    @PutMapping("/documents/{documentId}/assets")
-    fun uploadImageForImageAnswer(
+    @PutMapping("/document-groups/documents/{documentId}/assets")
+    fun uploadFileForDocument(
         @PathVariable("documentId") documentId: Long,
         @RequestParam("file") file: MultipartFile
     ) {

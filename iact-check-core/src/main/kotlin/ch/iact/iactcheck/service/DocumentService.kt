@@ -63,6 +63,14 @@ class DocumentService(
         )
     }
 
+    fun getDocumentById(documentId: Long): DocumentDTO {
+        return DocumentConverter.map(
+            documentRepository
+                .findById(documentId)
+                .orElseThrow { throw DocumentNotFoundException() }
+        )
+    }
+
     fun getFileByDocumentId(documentId: Long): Pair<MediaType, ByteArray> {
         val documentFile = documentFileRepository
             .findById(documentId)
@@ -78,11 +86,19 @@ class DocumentService(
     }
 
     fun uploadFileForDocument(documentId: Long, file: ByteArray) {
-        val document = documentRepository
-            .findById(documentId)
-            .orElseThrow { throw DocumentNotFoundException() }
+        val documentFile = if (documentFileRepository.existsById(documentId)) {
+            documentFileRepository
+                .findById(documentId)
+                .orElseThrow { throw DocumentFileNotFoundException() }
+                .copy(file = file)
+        } else {
+            val document = documentRepository
+                .findById(documentId)
+                .orElseThrow { throw DocumentNotFoundException() }
 
-        val documentFile = DocumentFile(documentId, file, document)
+            DocumentFile(file = file, document = document)
+        }
+
         documentFileRepository.save(documentFile)
     }
 
@@ -116,7 +132,7 @@ class DocumentService(
     }
 
     fun deleteDocumentById(documentId: Long) {
+        documentFileRepository.deleteById(documentId)
         documentRepository.deleteById(documentId)
     }
-
 }

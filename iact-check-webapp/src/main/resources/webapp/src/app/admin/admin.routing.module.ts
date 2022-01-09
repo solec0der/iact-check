@@ -20,6 +20,9 @@ import {
 import {
   DocumentGroupDetailComponent
 } from "./customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component";
+import {
+  DocumentDetailComponent
+} from "./customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component";
 
 const routes: Routes = [
   {
@@ -54,6 +57,10 @@ const routes: Routes = [
       {
         path: 'customers/:customerId/checks/:checkId/document-groups/:documentGroupId/:action',
         component: DocumentGroupDetailComponent,
+      },
+      {
+        path: 'customers/:customerId/checks/:checkId/document-groups/:documentGroupId/documents/:documentId/:action',
+        component: DocumentDetailComponent,
       },
       {
         path:

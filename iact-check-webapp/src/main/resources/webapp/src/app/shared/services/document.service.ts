@@ -16,7 +16,7 @@ export class DocumentService {
     return this.httpClient.post<DocumentGroupDTO>(`${CORE_URL}/api/admin/document-groups`, body);
   }
 
-  public createDocumentForDocumentGroup(documentGroupId: number, documentDTO: Document): Observable<DocumentDTO> {
+  public createDocumentForDocumentGroup(documentGroupId: number, documentDTO: DocumentDTO): Observable<DocumentDTO> {
     const body = JSON.stringify(documentDTO);
     return this.httpClient.post<DocumentDTO>(
       `${CORE_URL}/api/admin/document-groups/${documentGroupId}/documents`,
@@ -26,6 +26,16 @@ export class DocumentService {
 
   public getDocumentGroupById(documentGroupId: number): Observable<DocumentGroupDTO> {
     return this.httpClient.get<DocumentGroupDTO>(`${CORE_URL}/api/document-groups/${documentGroupId}`);
+  }
+
+  public getDocumentById(documentId: number): Observable<DocumentDTO> {
+    return this.httpClient.get<DocumentDTO>(`${CORE_URL}/api/admin/document-groups/documents/${documentId}`);
+  }
+
+  public getFileByDocumentId(documentId: number): Observable<Blob> {
+    return this.httpClient.get(CORE_URL + '/api/documents/' + documentId + '/file', {
+      responseType: 'blob',
+    });
   }
 
   public getDocumentGroupsByCheckId(checkId: number): Observable<DocumentGroupDTO[]> {
@@ -40,9 +50,15 @@ export class DocumentService {
     return this.httpClient.put<DocumentGroupDTO>(`${CORE_URL}/api/admin/document-groups/${documentGroupId}`, body);
   }
 
-  public updateDocumentById(documentId: number, documentDTO: Document): Observable<DocumentDTO> {
+  public updateDocumentById(documentId: number, documentDTO: DocumentDTO): Observable<DocumentDTO> {
     const body = JSON.stringify(documentDTO);
     return this.httpClient.put<DocumentDTO>(`${CORE_URL}/api/admin/document-groups/documents/${documentId}`, body);
+  }
+
+  public uploadFileForDocument(documentId: number, file: File): Observable<void> {
+    const body: FormData = new FormData();
+    body.append('file', file, file.name);
+    return this.httpClient.put<void>(CORE_URL + '/api/admin/document-groups/documents/' + documentId + '/assets', body);
   }
 
   public deleteDocumentGroupById(documentGroupId: number): Observable<void> {
