@@ -17,7 +17,7 @@ object DocumentConverter {
         )
     }
 
-    private fun map(document: Document): DocumentDTO {
+    public fun map(document: Document): DocumentDTO {
         return DocumentDTO(id = document.id, title = document.title, mediaType = document.mediaType)
     }
 }

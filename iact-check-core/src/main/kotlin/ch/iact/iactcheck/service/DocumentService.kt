@@ -30,26 +30,29 @@ class DocumentService(
             .findById(documentGroupDTO.checkId)
             .orElseThrow { throw CheckNotFoundException() }
 
-        var documentGroup = DocumentGroup(
+        val documentGroup = DocumentGroup(
             id = -1,
             name = documentGroupDTO.name,
             backgroundColour = documentGroupDTO.backgroundColour,
             check = check,
             documents = ArrayList()
         )
-        documentGroup = documentGroupRepository.save(documentGroup)
-        documentGroup = documentGroup.copy(
-            documents = documentGroupDTO.documents.map {
-                Document(
-                    id = -1,
-                    title = it.title,
-                    mediaType = it.mediaType,
-                    documentGroup = documentGroup
-                )
-            }
+        return DocumentConverter.map(documentGroupRepository.save(documentGroup))
+    }
+
+    fun createDocumentForDocumentGroup(documentGroupId: Long, documentDTO: DocumentDTO): DocumentDTO {
+        val documentGroup = documentGroupRepository
+            .findById(documentGroupId)
+            .orElseThrow { throw DocumentGroupNotFoundException() }
+
+        val document = Document(
+            id = -1,
+            title = documentDTO.title,
+            mediaType = documentDTO.mediaType,
+            documentGroup = documentGroup
         )
 
-        return DocumentConverter.map(documentGroupRepository.save(documentGroup))
+        return DocumentConverter.map(documentRepository.save(document))
     }
 
     fun getDocumentGroupById(documentGroupId: Long): DocumentGroupDTO {
@@ -91,31 +94,29 @@ class DocumentService(
         documentGroup = documentGroup.copy(
             name = documentGroupDTO.name,
             backgroundColour = documentGroupDTO.backgroundColour,
-            documents = updateDocuments(documentGroup, documentGroupDTO.documents)
         )
 
         return DocumentConverter.map(documentGroupRepository.save(documentGroup))
     }
 
-    private fun updateDocuments(
-        documentGroup: DocumentGroup,
-        documentsDTO: List<DocumentDTO>
-    ): List<Document> {
-        return documentsDTO.map {
-            documentGroup.documents.find { document -> document.id == it.id }?.copy(
-                title = it.title,
-                mediaType = it.mediaType
+    fun updateDocumentById(documentId: Long, documentDTO: DocumentDTO): DocumentDTO {
+        val document = documentRepository
+            .findById(documentId)
+            .orElseThrow { throw DocumentNotFoundException() }
+            .copy(
+                title = documentDTO.title,
+                mediaType = documentDTO.mediaType,
             )
-                ?: Document(
-                    id = -1,
-                    title = it.title,
-                    mediaType = it.mediaType,
-                    documentGroup = documentGroup
-                )
-        }
+
+        return DocumentConverter.map(documentRepository.save(document))
     }
 
     fun deleteDocumentGroupById(documentGroupId: Long) {
         documentGroupRepository.deleteById(documentGroupId)
     }
+
+    fun deleteDocumentById(documentId: Long) {
+        documentRepository.deleteById(documentId)
+    }
+
 }

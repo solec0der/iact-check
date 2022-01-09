@@ -1,5 +1,6 @@
 package ch.iact.iactcheck.controller.admin
 
+import ch.iact.iactcheck.dto.DocumentDTO
 import ch.iact.iactcheck.dto.DocumentGroupDTO
 import ch.iact.iactcheck.service.DocumentService
 import org.springframework.http.HttpStatus
@@ -16,12 +17,29 @@ internal class DocumentAdminController(private val documentService: DocumentServ
         return documentService.createDocumentGroup(documentGroup)
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/document-groups/{documentGroupId}/documents")
+    fun createDocumentForDocumentGroup(
+        @PathVariable("documentGroupId") documentGroupId: Long,
+        @RequestBody documentDTO: DocumentDTO
+    ): DocumentDTO {
+        return documentService.createDocumentForDocumentGroup(documentGroupId, documentDTO)
+    }
+
     @PutMapping("/document-groups/{documentGroupIdId}")
     fun updateDocumentGroupById(
         @PathVariable("documentGroupIdId") documentGroupId: Long,
         @RequestBody documentGroup: DocumentGroupDTO
     ): DocumentGroupDTO {
         return documentService.updateDocumentGroupById(documentGroupId, documentGroup)
+    }
+
+    @PutMapping("/document-groups/documents/{documentId}")
+    fun updateDocumentById(
+        @PathVariable("documentId") documentId: Long,
+        @RequestBody documentDTO: DocumentDTO
+    ): DocumentDTO {
+        return documentService.updateDocumentById(documentId, documentDTO)
     }
 
     @PutMapping("/documents/{documentId}/assets")
@@ -36,5 +54,11 @@ internal class DocumentAdminController(private val documentService: DocumentServ
     @DeleteMapping("/document-groups/{documentGroupIdId}")
     fun deleteDocumentGroupById(@PathVariable("documentGroupIdId") documentGroupId: Long) {
         documentService.deleteDocumentGroupById(documentGroupId)
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/document-groups/documents/{documentId}")
+    fun deleteDocumentById(@PathVariable("documentId") documentId: Long) {
+        documentService.deleteDocumentById(documentId)
     }
 }

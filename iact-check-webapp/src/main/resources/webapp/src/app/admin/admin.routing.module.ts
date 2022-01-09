@@ -17,6 +17,9 @@ import {ImageQuestionDetailComponent} from "./customers/customer-detail/checks/c
 import {
   FlashCardQuestionDetailComponent
 } from "./customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component";
+import {
+  DocumentGroupDetailComponent
+} from "./customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component";
 
 const routes: Routes = [
   {
@@ -47,6 +50,10 @@ const routes: Routes = [
       {
         path: 'customers/:customerId/checks/:checkId/flash-card-questions/:flashCardQuestionId/:action',
         component: FlashCardQuestionDetailComponent,
+      },
+      {
+        path: 'customers/:customerId/checks/:checkId/document-groups/:documentGroupId/:action',
+        component: DocumentGroupDetailComponent,
       },
       {
         path:
