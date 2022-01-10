@@ -1,7 +1,8 @@
 import { DocumentGroupsDisplayType } from './document-groups-display-type';
+import { DisplayedDocumentGroupDTO } from './displayed-document-group-dto';
 
 export interface MarketplaceTileConfigDTO {
-  displayedDocumentGroups: number[];
+  displayedDocumentGroups: DisplayedDocumentGroupDTO[];
   tileTitle: string;
   tileIcon: string;
   documentGroupListTitle: string;

@@ -30,4 +30,8 @@ data class QuestionCategory(
 
     @OneToMany(targetEntity = PossibleOutcome::class, mappedBy = "questionCategory")
     val possibleOutcomes: List<PossibleOutcome>
-)
+) {
+    override fun toString(): String {
+        return "QuestionCategory(id=$id, title='$title', thumbnail=${thumbnail.contentToString()}, language=$language, numberOfPossibleOutcomesToShow=$numberOfPossibleOutcomesToShow)"
+    }
+}

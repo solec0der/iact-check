@@ -7,15 +7,15 @@ import javax.persistence.*
 data class MarketplaceTileConfig(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = -1,
+    val id: Long? = null,
 
-    @ManyToMany
-    @JoinTable(
-        name = "displayed_document_group",
-        joinColumns = [JoinColumn(name = "marketplace_tile_config_id")],
-        inverseJoinColumns = [JoinColumn(name = "document_group_id")]
+    @OneToMany(
+        targetEntity = DisplayedDocumentGroup::class,
+        mappedBy = "marketplaceTileConfig",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
     )
-    val displayedDocumentGroups: Set<DocumentGroup>,
+    val displayedDocumentGroups: List<DisplayedDocumentGroup>,
 
     val tileTitle: String,
     val tileIcon: String,

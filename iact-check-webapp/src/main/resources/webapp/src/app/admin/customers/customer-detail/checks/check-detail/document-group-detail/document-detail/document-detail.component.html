@@ -38,7 +38,8 @@
       <br>
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>Datei</mat-label>
-        <ngx-mat-file-input color="accent" formControlName="file">
+        <mat-error>Die Datei ist grösser als 30 MB. Bitte eine kleinere Datei hochladen.</mat-error>
+        <ngx-mat-file-input color="accent" formControlName="file" >
         </ngx-mat-file-input>
         <span matSuffix class="display-flex-space-between">
       <button mat-icon-button matSuffix (click)="this.showFile()"

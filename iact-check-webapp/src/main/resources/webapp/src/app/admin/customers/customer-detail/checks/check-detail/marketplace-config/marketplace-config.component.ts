@@ -6,6 +6,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MarketplaceConfigService } from '../../../../../shared/services/marketplace-config.service';
 import { MarketplaceConfigDTO } from '../../../../../../shared/dtos/marketplace-config-dto';
 import { SnackBarService } from '../../../../../../shared/services/snack-bar.service';
+import { DisplayedDocumentGroupDTO } from '../../../../../../shared/dtos/displayed-document-group-dto';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-marketplace-config',
@@ -35,9 +37,9 @@ export class MarketplaceConfigComponent implements OnInit {
       greetingText: this.marketplaceConfigFormGroup.value.greetingText,
       marketplaceTitle: this.marketplaceConfigFormGroup.value.marketplaceTitle,
       marketplaceSubtitle: this.marketplaceConfigFormGroup.value.marketplaceSubtitle,
-      marketplaceTileConfigs: this.marketplaceTileConfigsFormArray.controls.map((marketplaceTileConfigFormGroup) => {
+      marketplaceTileConfigs: this.marketplaceTileConfigsFormArray.controls.map((marketplaceTileConfigFormGroup, index) => {
         return {
-          displayedDocumentGroups: marketplaceTileConfigFormGroup.value.displayedDocumentGroups,
+          displayedDocumentGroups: this.getDisplayedDocumentGroupsByFormArrayIndex(index),
           tileTitle: marketplaceTileConfigFormGroup.value.tileTitle,
           tileIcon: marketplaceTileConfigFormGroup.value.tileIcon,
           documentGroupListTitle: marketplaceTileConfigFormGroup.value.documentGroupListTitle,
@@ -71,6 +73,77 @@ export class MarketplaceConfigComponent implements OnInit {
     );
   }
 
+  public getDocumentGroupById(documentGroupId: number): DocumentGroupDTO | undefined {
+    return this._availableDocumentGroups.find((documentGroup) => documentGroup.id === documentGroupId);
+  }
+
+  public getDisplayedDocumentGroupsByFormArrayIndex(index: number): DisplayedDocumentGroupDTO[] {
+    if (this.marketplaceConfig) {
+      return this.marketplaceConfig?.marketplaceTileConfigs[index].displayedDocumentGroups.sort(
+        (a, b) => a.position - b.position
+      );
+    }
+    return [];
+  }
+
+  public moveDisplayedDocumentGroupUp(
+    displayedDocumentGroups: DisplayedDocumentGroupDTO[],
+    indexOfDocumentGroup: number
+  ): void {
+    if (indexOfDocumentGroup > 0) {
+      const previousPosition = displayedDocumentGroups[indexOfDocumentGroup - 1].position;
+      const currentPosition = displayedDocumentGroups[indexOfDocumentGroup].position;
+
+      displayedDocumentGroups[indexOfDocumentGroup - 1].position = currentPosition;
+      displayedDocumentGroups[indexOfDocumentGroup].position = previousPosition;
+    }
+  }
+
+  public moveDisplayedDocumentGroupDown(
+    displayedDocumentGroups: DisplayedDocumentGroupDTO[],
+    indexOfDocumentGroup: number
+  ): void {
+    if (indexOfDocumentGroup < displayedDocumentGroups.length - 1) {
+      const nextPosition = displayedDocumentGroups[indexOfDocumentGroup + 1].position;
+      const currentPosition = displayedDocumentGroups[indexOfDocumentGroup].position;
+
+      displayedDocumentGroups[indexOfDocumentGroup + 1].position = currentPosition;
+      displayedDocumentGroups[indexOfDocumentGroup].position = nextPosition;
+    }
+  }
+
+  public addDisplayedDocumentGroup(
+    displayedDocumentGroups: DisplayedDocumentGroupDTO[],
+    documentGroupId: number,
+    source: MatOption
+  ): void {
+    if (documentGroupId) {
+      const currentPosition =
+        displayedDocumentGroups.length === 0 ? 0 : displayedDocumentGroups[displayedDocumentGroups.length - 1].position;
+
+      displayedDocumentGroups.push({
+        documentGroupId: documentGroupId,
+        position: currentPosition + 1,
+      });
+      source.value = undefined;
+    }
+  }
+
+  public removeDisplayedDocumentGroup(
+    displayedDocumentGroups: DisplayedDocumentGroupDTO[],
+    indexOfDocumentGroup: number
+  ) {
+    displayedDocumentGroups.splice(indexOfDocumentGroup, 1);
+  }
+
+  public getAvailableDocumentGroups(displayedDocumentGroups: DisplayedDocumentGroupDTO[]): DocumentGroupDTO[] {
+    return this._availableDocumentGroups.filter((availableDocumentGroup) => {
+      return !displayedDocumentGroups.some(
+        (displayedDocumentGroup) => displayedDocumentGroup.documentGroupId === availableDocumentGroup.id
+      );
+    });
+  }
+
   private loadData(): void {
     this.documentService.getDocumentGroupsByCheckId(<number>this.check.id).subscribe((documentGroups) => {
       this._availableDocumentGroups = documentGroups;
@@ -93,7 +166,7 @@ export class MarketplaceConfigComponent implements OnInit {
     marketplaceConfig?.marketplaceTileConfigs.forEach((marketplaceTileConfig) => {
       formGroups.push(
         new FormGroup({
-          displayedDocumentGroups: new FormControl(marketplaceTileConfig.displayedDocumentGroups, Validators.required),
+          marketplaceTileConfig: new FormControl(marketplaceTileConfig),
           tileTitle: new FormControl(marketplaceTileConfig.tileTitle, Validators.required),
           tileIcon: new FormControl(marketplaceTileConfig.tileIcon, Validators.required),
           documentGroupListTitle: new FormControl(marketplaceTileConfig.documentGroupListTitle, Validators.required),
@@ -117,15 +190,15 @@ export class MarketplaceConfigComponent implements OnInit {
     this._marketplaceTileConfigsFormArray = new FormArray(formGroups);
   }
 
-  get availableDocumentGroups(): DocumentGroupDTO[] {
-    return this._availableDocumentGroups;
-  }
-
   get marketplaceConfigFormGroup(): FormGroup {
     return this._marketplaceConfigFormGroup;
   }
 
   get marketplaceTileConfigsFormArray(): FormArray {
     return this._marketplaceTileConfigsFormArray;
+  }
+
+  get marketplaceConfig(): MarketplaceConfigDTO | undefined {
+    return this.check.marketplaceConfig;
   }
 }

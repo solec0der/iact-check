@@ -55,6 +55,11 @@ export class DocumentService {
     return this.httpClient.put<DocumentDTO>(`${CORE_URL}/api/admin/document-groups/documents/${documentId}`, body);
   }
 
+  public updateDocuments(documents: DocumentDTO[]): Observable<DocumentDTO[]> {
+    const body = JSON.stringify(documents);
+    return this.httpClient.put<DocumentDTO[]>(`${CORE_URL}/api/admin/document-groups/documents`, body);
+  }
+
   public uploadFileForDocument(documentId: number, file: File): Observable<void> {
     const body: FormData = new FormData();
     body.append('file', file, file.name);

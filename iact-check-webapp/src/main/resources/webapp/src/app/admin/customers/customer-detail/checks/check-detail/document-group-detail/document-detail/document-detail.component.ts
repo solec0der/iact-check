@@ -11,6 +11,7 @@ import { FileReaderUtil } from '../../../../../../shared/util/file-reader.util';
 import { mimeTypes } from 'mime-wrapper';
 import { CORE_URL } from '../../../../../../../app.config';
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { FileValidator } from "../../../../../../../shared/validators/file-validator";
 
 @Component({
   selector: 'app-document-detail',
@@ -123,7 +124,7 @@ export class DocumentDetailComponent implements OnInit {
   private createDocumentFormGroup(): void {
     this._documentFormGroup = new FormGroup({
       title: new FormControl(this.isEditMode() ? this._document.title : '', Validators.required),
-      file: new FormControl(this._file && this._file.size > 0 ? this._file : new File([], ''), Validators.required),
+      file: new FormControl(this._file && this._file.size > 0 ? this._file : new File([], ''), [Validators.required, FileValidator.maxFileSize(30)]),
     });
   }
 
@@ -172,6 +173,7 @@ export class DocumentDetailComponent implements OnInit {
     return {
       id: -1,
       title: this.documentFormGroup.value.title,
+      position: this._document ? this._document.position : -1,
       mediaType: this.documentFormGroup.value.file.type,
     };
   }

@@ -47,6 +47,11 @@ internal class DocumentAdminController(private val documentService: DocumentServ
         return documentService.updateDocumentById(documentId, documentDTO)
     }
 
+    @PutMapping("/document-groups/documents")
+    fun updateDocuments(@RequestBody documents: List<DocumentDTO>): List<DocumentDTO> {
+        return documentService.updateDocuments(documents)
+    }
+
     @PutMapping("/document-groups/documents/{documentId}/assets")
     fun uploadFileForDocument(
         @PathVariable("documentId") documentId: Long,

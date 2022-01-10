@@ -24,24 +24,4 @@ data class MarketplaceConfig(
     @OneToOne
     @JoinColumn(name = "check_id")
     val check: Check
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as MarketplaceConfig
-
-        if (id != other.id) return false
-        if (marketplaceEnabled != other.marketplaceEnabled) return false
-        if (marketplaceTileConfigs != other.marketplaceTileConfigs) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + marketplaceEnabled.hashCode()
-        result = 31 * result + marketplaceTileConfigs.hashCode()
-        return result
-    }
-}
+)

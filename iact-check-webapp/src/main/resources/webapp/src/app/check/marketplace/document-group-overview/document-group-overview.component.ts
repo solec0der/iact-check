@@ -61,9 +61,14 @@ export class DocumentGroupOverviewComponent implements OnInit {
   private loadData(): void {
     this.checkStateService.getActiveCheck().subscribe((check) => {
       this.documentGroupService.getDocumentGroupsByCheckId(<number>check.id).subscribe((documentGroups) => {
-        this.documentGroups = documentGroups.filter((documentGroup) =>
-          this.displayedDocumentGroups.includes(documentGroup.id)
-        );
+        this.documentGroups = [];
+
+        this.displayedDocumentGroups.forEach((documentGroupId) => {
+          const documentGroup = documentGroups.find((documentGroup) => documentGroup.id === documentGroupId);
+          if (documentGroup) {
+            this.documentGroups.push(documentGroup);
+          }
+        });
       });
     });
   }

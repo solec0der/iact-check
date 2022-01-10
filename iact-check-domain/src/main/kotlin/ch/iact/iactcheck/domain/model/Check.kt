@@ -45,4 +45,34 @@ data class Check(
         orphanRemoval = true
     )
     val submissions: List<Submission>
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Check
+
+        if (id != other.id) return false
+        if (title != other.title) return false
+        if (subtitle != other.subtitle) return false
+        if (defaultLanguage != other.defaultLanguage) return false
+        if (activeFrom != other.activeFrom) return false
+        if (activeTo != other.activeTo) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + title.hashCode()
+        result = 31 * result + subtitle.hashCode()
+        result = 31 * result + defaultLanguage.hashCode()
+        result = 31 * result + activeFrom.hashCode()
+        result = 31 * result + activeTo.hashCode()
+        return result
+    }
+
+    override fun toString(): String {
+        return "Check(id=$id, title=$title, subtitle=$subtitle, defaultLanguage=$defaultLanguage, activeFrom=$activeFrom, activeTo=$activeTo)"
+    }
+}

@@ -51,7 +51,9 @@ export class MarketplaceComponent implements OnInit {
           documentGroupListTitle: marketplaceTileConfig.documentGroupListTitle,
           documentGroupListSubtitle: marketplaceTileConfig.documentGroupListSubtitle,
           documentGroupsDisplayType: marketplaceTileConfig.documentGroupsDisplayType,
-          displayedDocumentGroups: marketplaceTileConfig.displayedDocumentGroups.join(','),
+          displayedDocumentGroups: marketplaceTileConfig.displayedDocumentGroups.sort(
+            (a, b) => a.position - b.position
+          ).map(_ => _.documentGroupId).join(','),
           documentsTableColumnName: marketplaceTileConfig.documentsTableColumnName,
           documentGroupsTilesPerRow: marketplaceTileConfig.documentGroupsTilesPerRow,
         },

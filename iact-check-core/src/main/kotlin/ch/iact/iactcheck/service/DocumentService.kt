@@ -48,6 +48,7 @@ class DocumentService(
         val document = Document(
             id = -1,
             title = documentDTO.title,
+            position = documentGroup.documents.size,
             mediaType = documentDTO.mediaType,
             documentGroup = documentGroup
         )
@@ -115,6 +116,10 @@ class DocumentService(
         return DocumentConverter.map(documentGroupRepository.save(documentGroup))
     }
 
+    fun updateDocuments(documents: List<DocumentDTO>): List<DocumentDTO> {
+        return documents.map { updateDocumentById(it.id, it) }
+    }
+
     fun updateDocumentById(documentId: Long, documentDTO: DocumentDTO): DocumentDTO {
         val document = documentRepository
             .findById(documentId)
@@ -122,12 +127,15 @@ class DocumentService(
             .copy(
                 title = documentDTO.title,
                 mediaType = documentDTO.mediaType,
+                position = documentDTO.position
             )
 
         return DocumentConverter.map(documentRepository.save(document))
     }
 
     fun deleteDocumentGroupById(documentGroupId: Long) {
+        val documentsGroup = getDocumentGroupById(documentGroupId)
+        documentsGroup.documents.map(DocumentDTO::id).forEach(this::deleteDocumentById)
         documentGroupRepository.deleteById(documentGroupId)
     }
 

@@ -7,6 +7,7 @@ import { DocumentService } from '../../../../../../../shared/services/document.s
 import { ConfirmDialogComponent } from '../../../../../../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { MatTable } from '@angular/material/table';
 import { DocumentDTO } from '../../../../../../../shared/dtos/document-dto';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-document-list',
@@ -27,6 +28,51 @@ export class DocumentListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  public getSortedDocuments(): DocumentDTO[] {
+    return this.documentGroup.documents.sort((a, b) => a.position - b.position);
+  }
+
+  public moveDocumentUp(document: DocumentDTO): void {
+    const sortedDocuments = this.getSortedDocuments();
+    const documentIndex = sortedDocuments.indexOf(document);
+
+    if (documentIndex > 0) {
+      const previousPosition = sortedDocuments[documentIndex - 1].position;
+      const currentPosition = sortedDocuments[documentIndex].position;
+
+      sortedDocuments[documentIndex].position = previousPosition;
+      sortedDocuments[documentIndex - 1].position = currentPosition;
+
+      setTimeout(() => {
+        this.documentsTable.renderRows();
+      });
+    }
+  }
+
+  public moveDocumentDown(document: DocumentDTO): void {
+    const sortedDocuments = this.getSortedDocuments();
+    const documentIndex = sortedDocuments.indexOf(document);
+
+    if (documentIndex < sortedDocuments.length - 1) {
+      const nextPosition = sortedDocuments[documentIndex + 1].position;
+      const currentPosition = sortedDocuments[documentIndex].position;
+
+      sortedDocuments[documentIndex].position = nextPosition;
+      sortedDocuments[documentIndex + 1].position = currentPosition;
+
+      setTimeout(() => {
+        this.documentsTable.renderRows();
+      });
+    }
+  }
+
+  public saveDocuments(): void {
+    this.documentService.updateDocuments(this.getSortedDocuments()).subscribe((updatedDocuments) => {
+      this.documentGroup.documents = updatedDocuments;
+      this.documentsTable.renderRows();
+    });
+  }
 
   public deleteDocument(documentId: number): void {
     this.matDialog

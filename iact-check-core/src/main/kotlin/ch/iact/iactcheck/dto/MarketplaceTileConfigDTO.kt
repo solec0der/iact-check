@@ -1,7 +1,7 @@
 package ch.iact.iactcheck.dto
 
 data class MarketplaceTileConfigDTO(
-    val displayedDocumentGroups: Set<Long>,
+    val displayedDocumentGroups: Set<DisplayedDocumentGroupDTO>,
     val tileTitle: String,
     val tileIcon: String,
     val documentGroupListTitle: String,

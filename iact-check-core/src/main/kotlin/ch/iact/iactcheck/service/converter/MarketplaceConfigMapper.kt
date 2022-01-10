@@ -1,8 +1,8 @@
 package ch.iact.iactcheck.service.converter
 
-import ch.iact.iactcheck.domain.model.DocumentGroup
 import ch.iact.iactcheck.domain.model.MarketplaceConfig
 import ch.iact.iactcheck.domain.model.MarketplaceTileConfig
+import ch.iact.iactcheck.dto.DisplayedDocumentGroupDTO
 import ch.iact.iactcheck.dto.MarketplaceConfigDTO
 import ch.iact.iactcheck.dto.MarketplaceTileConfigDTO
 
@@ -26,7 +26,9 @@ object MarketplaceConfigMapper {
             documentGroupsDisplayType = marketplaceTileConfig.documentGroupsDisplayType.name,
             documentGroupsTilesPerRow = marketplaceTileConfig.documentGroupsTilesPerRow,
             documentsTableColumnName = marketplaceTileConfig.documentsTableColumnName,
-            displayedDocumentGroups = marketplaceTileConfig.displayedDocumentGroups.map(DocumentGroup::id).toSet()
+            displayedDocumentGroups = marketplaceTileConfig.displayedDocumentGroups.map {
+                DisplayedDocumentGroupDTO(it.documentGroup.id, it.position)
+            }.sortedBy(DisplayedDocumentGroupDTO::position).toSet()
         )
     }
 }

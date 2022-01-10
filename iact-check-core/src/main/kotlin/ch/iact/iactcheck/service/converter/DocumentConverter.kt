@@ -18,6 +18,6 @@ object DocumentConverter {
     }
 
     public fun map(document: Document): DocumentDTO {
-        return DocumentDTO(id = document.id, title = document.title, mediaType = document.mediaType)
+        return DocumentDTO(id = document.id, title = document.title, position = document.position, mediaType = document.mediaType)
     }
 }

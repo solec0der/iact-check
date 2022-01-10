@@ -21,5 +21,4 @@ data class DocumentGroup(
 
     @ManyToOne
     val check: Check
-) {
-}
+)
