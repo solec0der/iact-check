@@ -3,4 +3,4 @@ WORKDIR /opt
 ENV PORT 9090
 EXPOSE 9090
 COPY target/*.jar /opt/app.jar
-ENTRYPOINT exec java $JAVA_OPTS -Djdk.tls.client.protocols=TLSv1.2 -Xmx1.5G -jar app.jar
+ENTRYPOINT exec java $JAVA_OPTS -Djdk.tls.client.protocols=TLSv1.2 -Xmx1500m -jar app.jar
