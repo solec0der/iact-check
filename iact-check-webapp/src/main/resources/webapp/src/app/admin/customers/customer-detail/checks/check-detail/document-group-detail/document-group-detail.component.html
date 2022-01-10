@@ -53,6 +53,6 @@
   </mat-card-content>
 </mat-card>
 <br>
-<mat-card *ngIf="this.isEditMode">
+<mat-card *ngIf="this.isEditMode()">
   <app-document-list [documentGroup]="this.documentGroup"></app-document-list>
 </mat-card>
