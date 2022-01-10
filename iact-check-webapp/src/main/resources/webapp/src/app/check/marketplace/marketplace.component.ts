@@ -85,4 +85,22 @@ export class MarketplaceComponent implements OnInit {
         }
       });
   }
+
+  public getTextWithReplacedPlaceholders(text: string | undefined): string {
+    if (text) {
+      const replacements = [
+        { placeholder: '{{ firstName }}', replacement: this.submission.firstName },
+        { placeholder: '{{ lastName }}', replacement: this.submission.lastName },
+      ];
+
+      let textWithReplacements = text;
+
+      replacements.forEach((replacement) => {
+        textWithReplacements = textWithReplacements.replace(replacement.placeholder, replacement.replacement);
+      });
+
+      return textWithReplacements;
+    }
+    return '';
+  }
 }

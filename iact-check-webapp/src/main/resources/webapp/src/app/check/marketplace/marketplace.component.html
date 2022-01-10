@@ -2,17 +2,14 @@
   <div class="marketplace-container">
     <div class="align-center margin-bottom-after-title">
       <h1 class="margin-bottom-after-title">
-        Hey {{this.submission.firstName}}
+        {{ this.getTextWithReplacedPlaceholders(this.check.marketplaceConfig?.greetingText) }}
       </h1>
-      <p class="subtitle">Willkommen im virtuellen Marktplatz</p>
+      <p class="subtitle" style="white-space: pre-wrap;">
+        {{ this.getTextWithReplacedPlaceholders(this.check.marketplaceConfig?.marketplaceTitle) }}
+      </p>
       <br>
-      <p>
-        Nach Beendigung des Quizes kannst du dich nun frei bewegen. Während du den Marktplatz mit all seinen Infos
-        geniesst, kannst du immer wieder auf deinem iPad die Fragen unter der Rubrik Karteikarten lösen, alle Funktionen
-        in den 4 Profilen erkunden sowie jegliche Infos zur Armee entdecken.
-        <br><br>
-        Zum Schluss schicke dir doch alle
-        markierten Dokumente, Videos oder Bilder ganz einfach nach Hause.
+      <p style="white-space: pre-wrap;">
+        {{ this.getTextWithReplacedPlaceholders(this.check.marketplaceConfig?.marketplaceSubtitle) }}
       </p>
     </div>
 
@@ -37,7 +34,9 @@
           <h3>Karteikarten</h3>
         </div>
       </div>
-      <div class="action-container" *ngFor="let marketplaceTileConfig of this.check.marketplaceConfig?.marketplaceTileConfigs" (click)="this.goToDocumentViewer(marketplaceTileConfig)">
+      <div class="action-container"
+           *ngFor="let marketplaceTileConfig of this.check.marketplaceConfig?.marketplaceTileConfigs"
+           (click)="this.goToDocumentViewer(marketplaceTileConfig)">
         <div class="icon">
           <mat-icon>
             {{ marketplaceTileConfig.tileIcon }}
