@@ -6,6 +6,7 @@ data class MarketplaceTileConfigDTO(
     val tileIcon: String,
     val documentGroupListTitle: String,
     val documentGroupListSubtitle: String,
+    val documentGroupsTilesPerRow: Int,
     val documentGroupsDisplayType: String,
     val documentsTableColumnName: String
 )

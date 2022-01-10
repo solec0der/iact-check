@@ -13,14 +13,15 @@ create table marketplace_config
 
 create table marketplace_tile_config
 (
-    id                           bigint auto_increment primary key,
-    marketplace_config_id        bigint       not null,
-    tile_title                   varchar(255) not null,
-    tile_icon                    varchar(32)  not null,
-    document_group_list_title    varchar(255) not null,
-    document_group_list_subtitle varchar(255) not null,
-    document_groups_display_type varchar(32)  not null,
-    documents_table_column_name  varchar(64)  not null,
+    id                               bigint auto_increment primary key,
+    marketplace_config_id            bigint       not null,
+    tile_title                       varchar(255) not null,
+    tile_icon                        varchar(32)  not null,
+    document_group_list_title        varchar(255) not null,
+    document_group_list_subtitle     varchar(255) not null,
+    document_groups_display_type     varchar(32)  not null,
+    documents_table_column_name      varchar(64)  not null,
+    document_groups_tiles_per_row int,
     constraint marketplace_config_marketplace_tile_config_ibfk_1
         foreign key (marketplace_config_id) references marketplace_config (id)
 );

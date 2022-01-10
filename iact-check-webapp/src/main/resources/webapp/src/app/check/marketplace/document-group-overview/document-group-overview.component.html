@@ -1,13 +1,13 @@
 <div class="full-width-and-height-absolute display-flex-align-center">
   <div class="document-group-container">
     <div class="align-center margin-bottom-after-title">
-      <h1>{{ this.title }}</h1>
+      <h1>{{ this.documentGroupListTitle }}</h1>
       <p>
-        {{ this.subtitle }}
+        {{ this.documentGroupListSubtitle }}
       </p>
     </div>
-    <div *ngIf="this.displayType === 'tiles'">
-      <div class="grid-3-cols margin-bottom-after-title">
+    <div *ngIf="this.documentGroupsDisplayType === 'TILES'">
+      <div class="flex-4-cols margin-bottom-after-title">
         <div class="document-group" *ngFor="let documentGroup of this.documentGroups"
              [style.background-color]="documentGroup.backgroundColour ? documentGroup.backgroundColour : 'var(--theme-primary-A200)'"
              (click)="this.goToDocumentOverview(documentGroup.id)">
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div *ngIf="this.displayType === 'table'" class="document-group-table-container">
+    <div *ngIf="this.documentGroupsDisplayType === 'TABLE'" class="document-group-table-container">
       <table mat-table [dataSource]="this.documentGroups">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Titel</th>

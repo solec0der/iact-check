@@ -1,4 +1,5 @@
-<div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.documentGroup && this.documentGroup.documents">
+<div class="full-width-and-height-absolute display-flex-align-center"
+     *ngIf="this.documentGroup && this.documentGroup.documents">
   <div class="documents-container">
     <div class="align-center margin-bottom-after-title">
       <h1>{{ this.documentGroup.name }}</h1>
@@ -7,7 +8,7 @@
     <div class="documents-table-container margin-bottom-after-title">
       <table mat-table [dataSource]="this.documentGroup.documents">
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef> Funktion</th>
+          <th mat-header-cell *matHeaderCellDef> {{this.documentsTableColumnName}} </th>
           <td mat-cell *matCellDef="let element"> {{element.title}} </td>
         </ng-container>
 

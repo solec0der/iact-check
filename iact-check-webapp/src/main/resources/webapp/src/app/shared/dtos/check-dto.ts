@@ -1,5 +1,6 @@
 import { QuestionCategoryDTO } from './question-category-dto';
 import { LanguageDTO } from './language-dto';
+import { MarketplaceConfigDTO } from './marketplace-config-dto';
 
 export interface CheckDTO {
   id?: number;
@@ -11,4 +12,5 @@ export interface CheckDTO {
   activeFrom: Date;
   activeTo: Date;
   questionCategories: QuestionCategoryDTO[];
+  marketplaceConfig?: MarketplaceConfigDTO;
 }

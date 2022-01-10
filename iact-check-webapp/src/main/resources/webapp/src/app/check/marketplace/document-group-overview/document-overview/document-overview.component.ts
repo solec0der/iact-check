@@ -17,6 +17,7 @@ import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
 })
 export class DocumentOverviewComponent implements OnInit {
   public documentGroup!: DocumentGroupDTO;
+  public documentsTableColumnName!: string;
   private documentGroupId!: number;
   private _submission!: SubmissionDTO;
 
@@ -33,6 +34,10 @@ export class DocumentOverviewComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.documentGroupId = Number(params.get('documentGroupId'));
       this.loadData();
+    });
+
+    this.activatedRoute.queryParamMap.subscribe((queryParamsMap) => {
+      this.documentsTableColumnName = String(queryParamsMap.get('documentsTableColumnName'));
     });
   }
 

@@ -127,7 +127,7 @@
   </mat-card-content>
 </mat-card>
 <br>
-<mat-accordion *ngIf="this.action === 'edit'">
+<mat-accordion *ngIf="this.action === 'edit' && this.checkDTO">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -151,5 +151,13 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <app-document-group-list></app-document-group-list>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>Marktplatz Konfiguration</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-marketplace-config [check]="this.checkDTO"></app-marketplace-config>
   </mat-expansion-panel>
 </mat-accordion>

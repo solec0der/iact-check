@@ -27,13 +27,13 @@ class MarketplaceConfigService(
             marketplaceEnabled = marketplaceConfigDTO.marketplaceEnabled,
             marketplaceTileConfigs = marketplaceConfigDTO.marketplaceTileConfigs.map {
                 MarketplaceTileConfig(
-                    id = -1,
                     tileTitle = it.tileTitle,
                     tileIcon = it.tileIcon,
                     documentGroupListTitle = it.documentGroupListTitle,
                     documentGroupListSubtitle = it.documentGroupListSubtitle,
                     documentGroupsDisplayType = DocumentGroupsDisplayType.valueOf(it.documentGroupsDisplayType),
                     documentsTableColumnName = it.documentsTableColumnName,
+                    documentGroupsTilesPerRow = it.documentGroupsTilesPerRow,
                     displayedDocumentGroups = it.displayedDocumentGroups.map { documentGroupId ->
                         documentGroupRepository.findById(documentGroupId)
                             .orElseThrow { throw DocumentGroupNotFoundException() }

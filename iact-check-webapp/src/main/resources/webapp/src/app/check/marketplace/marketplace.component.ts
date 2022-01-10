@@ -8,7 +8,8 @@ import { Steps } from '../steps/steps';
 import { SubmissionService } from '../../shared/services/submission.service';
 import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { FlashCardsStateService } from './flash-cards/flash-cards-state.service';
-import { FlashCardsUtil } from './flash-cards/flash-cards.util';
+import { CheckDTO } from '../../shared/dtos/check-dto';
+import { MarketplaceTileConfigDTO } from '../../shared/dtos/marketplace-tile-config-dto';
 
 @Component({
   selector: 'app-marketplace',
@@ -17,6 +18,7 @@ import { FlashCardsUtil } from './flash-cards/flash-cards.util';
 })
 export class MarketplaceComponent implements OnInit {
   public submission!: SubmissionDTO;
+  public check!: CheckDTO;
 
   constructor(
     private readonly router: Router,
@@ -31,35 +33,27 @@ export class MarketplaceComponent implements OnInit {
     this.checkStateService.getSubmission().subscribe((submission) => {
       this.submission = submission;
     });
+
+    this.checkStateService.getActiveCheck().subscribe((check) => {
+      this.check = check;
+    });
   }
 
   public goToQuiz(): void {
     this.router.navigate(['../', 'steps', Steps.QuestionsForm], { relativeTo: this.activatedRoute }).then();
   }
 
-  public goToProfiles(): void {
+  public goToDocumentViewer(marketplaceTileConfig: MarketplaceTileConfigDTO): void {
     this.router
       .navigate(['document-groups'], {
         relativeTo: this.activatedRoute,
         queryParams: {
-          title: 'Profile',
-          subtitle: 'Hier findest du Informationen über alle Funktionen im Militär',
-          displayType: 'tiles',
-          displayedDocumentGroups: '2,3,4,5,6,22',
-        },
-      })
-      .then();
-  }
-
-  public goToGeneralInformationList(): void {
-    this.router
-      .navigate(['document-groups'], {
-        relativeTo: this.activatedRoute,
-        queryParams: {
-          title: 'Allgemeine Informationen',
-          subtitle: 'Hier findest du Informationen rund um das Militär',
-          displayType: 'table',
-          displayedDocumentGroups: '7,8,9,10,11,12,13,14,15,16,17,18,19,20,21',
+          documentGroupListTitle: marketplaceTileConfig.documentGroupListTitle,
+          documentGroupListSubtitle: marketplaceTileConfig.documentGroupListSubtitle,
+          documentGroupsDisplayType: marketplaceTileConfig.documentGroupsDisplayType,
+          displayedDocumentGroups: marketplaceTileConfig.displayedDocumentGroups.join(','),
+          documentsTableColumnName: marketplaceTileConfig.documentsTableColumnName,
+          documentGroupsTilesPerRow: marketplaceTileConfig.documentGroupsTilesPerRow,
         },
       })
       .then();

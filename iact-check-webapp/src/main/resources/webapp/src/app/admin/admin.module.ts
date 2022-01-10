@@ -34,6 +34,7 @@ import { DocumentGroupListComponent } from './customers/customer-detail/checks/c
 import { DocumentGroupDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component';
 import { DocumentDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component';
 import { DocumentListComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-list/document-list.component';
+import { MarketplaceConfigComponent } from './customers/customer-detail/checks/check-detail/marketplace-config/marketplace-config.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { DocumentListComponent } from './customers/customer-detail/checks/check-
     DocumentGroupDetailComponent,
     DocumentDetailComponent,
     DocumentListComponent,
+    MarketplaceConfigComponent,
   ],
   imports: [
     CommonModule,

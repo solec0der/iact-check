@@ -37,24 +37,14 @@
           <h3>Karteikarten</h3>
         </div>
       </div>
-      <div class="action-container" (click)="this.goToProfiles()">
+      <div class="action-container" *ngFor="let marketplaceTileConfig of this.check.marketplaceConfig?.marketplaceTileConfigs" (click)="this.goToDocumentViewer(marketplaceTileConfig)">
         <div class="icon">
           <mat-icon>
-            document_scanner
+            {{ marketplaceTileConfig.tileIcon }}
           </mat-icon>
         </div>
         <div class="label">
-          <h3>Funktionen</h3>
-        </div>
-      </div>
-      <div class="action-container" (click)="this.goToGeneralInformationList()">
-        <div class="icon">
-          <mat-icon>
-            info
-          </mat-icon>
-        </div>
-        <div class="label">
-          <h3>Allgemeine Infos</h3>
+          <h3>{{ marketplaceTileConfig.tileTitle }}</h3>
         </div>
       </div>
     </div>

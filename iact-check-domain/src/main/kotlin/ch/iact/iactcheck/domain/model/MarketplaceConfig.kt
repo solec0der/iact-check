@@ -10,7 +10,12 @@ data class MarketplaceConfig(
     val id: Long,
     val marketplaceEnabled: Boolean,
 
-    @OneToMany(targetEntity = MarketplaceTileConfig::class, mappedBy = "marketplaceConfig")
+    @OneToMany(
+        targetEntity = MarketplaceTileConfig::class,
+        mappedBy = "marketplaceConfig",
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true
+    )
     val marketplaceTileConfigs: List<MarketplaceTileConfig>,
 
     @OneToOne

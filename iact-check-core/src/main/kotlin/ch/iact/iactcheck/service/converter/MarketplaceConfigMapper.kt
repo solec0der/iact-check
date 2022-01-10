@@ -21,6 +21,7 @@ object MarketplaceConfigMapper {
             documentGroupListTitle = marketplaceTileConfig.documentGroupListTitle,
             documentGroupListSubtitle = marketplaceTileConfig.documentGroupListSubtitle,
             documentGroupsDisplayType = marketplaceTileConfig.documentGroupsDisplayType.name,
+            documentGroupsTilesPerRow = marketplaceTileConfig.documentGroupsTilesPerRow,
             documentsTableColumnName = marketplaceTileConfig.documentsTableColumnName,
             displayedDocumentGroups = marketplaceTileConfig.displayedDocumentGroups.map(DocumentGroup::id).toSet()
         )

@@ -7,9 +7,9 @@ import javax.persistence.*
 data class MarketplaceTileConfig(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long = -1,
 
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany
     @JoinTable(
         name = "displayed_document_group",
         joinColumns = [JoinColumn(name = "marketplace_tile_config_id")],
@@ -21,6 +21,7 @@ data class MarketplaceTileConfig(
     val tileIcon: String,
     val documentGroupListTitle: String,
     val documentGroupListSubtitle: String,
+    val documentGroupsTilesPerRow: Int,
 
     @Enumerated(EnumType.STRING)
     val documentGroupsDisplayType: DocumentGroupsDisplayType,

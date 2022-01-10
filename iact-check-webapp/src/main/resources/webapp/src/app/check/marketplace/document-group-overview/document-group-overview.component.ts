@@ -13,9 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DocumentGroupOverviewComponent implements OnInit {
   public documentGroups!: DocumentGroupDTO[];
 
-  public title!: string;
-  public subtitle!: string;
-  public displayType!: string;
+  public documentGroupListTitle!: string;
+  public documentGroupListSubtitle!: string;
+  public documentGroupsDisplayType!: string;
+  private documentsTableColumnName!: string;
 
   public displayedColumnsDocumentGroups = ['name'];
 
@@ -28,10 +29,13 @@ export class DocumentGroupOverviewComponent implements OnInit {
     private readonly checkStateService: CheckStateService
   ) {
     this.activatedRoute.queryParamMap.subscribe((queryParamsMap) => {
-      this.title = String(queryParamsMap.get('title'));
-      this.subtitle = String(queryParamsMap.get('subtitle'));
-      this.displayType = String(queryParamsMap.get('displayType'));
-      this.displayedDocumentGroups = String(queryParamsMap.get('displayedDocumentGroups')).split(',').map(value => Number(value));
+      this.documentGroupListTitle = String(queryParamsMap.get('documentGroupListTitle'));
+      this.documentGroupListSubtitle = String(queryParamsMap.get('documentGroupListSubtitle'));
+      this.documentGroupsDisplayType = String(queryParamsMap.get('documentGroupsDisplayType'));
+      this.documentsTableColumnName = String(queryParamsMap.get('documentsTableColumnName'));
+      this.displayedDocumentGroups = String(queryParamsMap.get('displayedDocumentGroups'))
+        .split(',')
+        .map((value) => Number(value));
     });
   }
 
@@ -40,7 +44,14 @@ export class DocumentGroupOverviewComponent implements OnInit {
   }
 
   public goToDocumentOverview(documentGroupId: number): void {
-    this.router.navigate([documentGroupId, 'documents'], { relativeTo: this.activatedRoute }).then();
+    this.router
+      .navigate([documentGroupId, 'documents'], {
+        relativeTo: this.activatedRoute,
+        queryParams: {
+          documentsTableColumnName: this.documentsTableColumnName,
+        },
+      })
+      .then();
   }
 
   public goBack(): void {

@@ -1,0 +1,135 @@
+<div class="display-flex-justify-content-right margin-bottom-after-title">
+  <div>
+    <button mat-stroked-button (click)="this.save()">
+      <mat-icon>save</mat-icon>
+      Speichern
+    </button>
+  </div>
+</div>
+<div *ngIf="this.marketplaceConfigFormGroup">
+  <form [formGroup]="this.marketplaceConfigFormGroup">
+    <mat-checkbox formControlName="marketplaceEnabled">Marktplatz für diesen Check aktivieren</mat-checkbox>
+  </form>
+  <br>
+  <div class="display-flex-space-between">
+    <div>
+      <h2 class="subtitle">Kacheln</h2>
+      <p>Hier kann konfiguriert werden, wie die Kacheln im Marktplatz Hauptmenü aussehen</p>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.addNewMarketplaceTileConfigFormGroup()">Neue Kachel hinzufügen</button>
+    </div>
+  </div>
+  <br>
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let marketplaceTileConfigFormGroup of this.marketplaceTileConfigsFormArray.controls; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>{{ marketplaceTileConfigFormGroup.value.tileTitle ? marketplaceTileConfigFormGroup.value.tileTitle : 'Neue Kachel' }}</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="$any(marketplaceTileConfigFormGroup)">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Dokumenten Sammlungen, die in Kachel angezeigt werden</mat-label>
+          <mat-error>
+            Mindestens eine Dokumenten Sammlung muss ausgewählt sein
+          </mat-error>
+          <mat-select formControlName="displayedDocumentGroups" multiple>
+            <mat-option *ngFor="let documentGroup of this.availableDocumentGroups" [value]="documentGroup.id">
+              {{documentGroup.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Titel der Kachel</mat-label>
+          <mat-error>Bitte einen gültigen Titel der Kachel eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte einen Titel der Kachel eingeben" formControlName="tileTitle">
+          </label>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Icon der Kachel</mat-label>
+          <mat-error>Bitte ein gültiges Icon eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte eine Icon eingeben" formControlName="tileIcon">
+          </label>
+          <mat-icon matSuffix>
+            {{this.marketplaceTileConfigFormGroup.value.tileIcon}}
+          </mat-icon>
+          <mat-hint>
+            Eine Liste aller möglichen Icons findet man hier: <a
+            href="https://fonts.google.com/icons?selected=Material+Icons">Material Icons</a>
+          </mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Dokumenten-Sammlung Liste (Titel)</mat-label>
+          <mat-error>Bitte einen gültigen Titel eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte einen Titel eingeben" formControlName="documentGroupListTitle">
+          </label>
+          <mat-hint>
+            Bei diesem Titel handelt es sich um den Titel, der über der Liste von Dokumenten-Sammlungen angezeigt wird.
+          </mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Dokumenten-Sammlung Liste (Untertitel)</mat-label>
+          <mat-error>Bitte einen gültigen Untertitel eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte einen Untertitel eingeben" formControlName="documentGroupListSubtitle">
+          </label>
+          <mat-hint>
+            Bei diesem Titel handelt es sich um den Untertitel, der über der Liste von Dokumenten-Sammlungen angezeigt
+            wird.
+          </mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Darstellungsart für die Dokumenten-Sammlungen</mat-label>
+          <mat-error>Bitte einen Darstellungsart auswählen</mat-error>
+
+          <mat-select formControlName="documentGroupsDisplayType">
+            <mat-option value="TILES">
+              Kacheln
+            </mat-option>
+            <mat-option value="TABLE">
+              Tabelle
+            </mat-option>
+          </mat-select>
+
+          <mat-hint>
+            Art, wie die Dokumenten Sammlungen dargestellt werden
+          </mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Anzahl Kacheln pro Reihe</mat-label>
+          <mat-error>Bitte einen Zahl über 0 eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte Anzahl Kacheln pro Reihe eingeben"
+                   formControlName="documentGroupsTilesPerRow">
+          </label>
+          <mat-hint>
+            Definiert, wie viele Kacheln (Dokumenten-Sammlungen) in einer Reihe angezeigt werden
+          </mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Spalten-Name in der Dokumenten-Liste</mat-label>
+          <mat-error>Bitte einen gültigen Spaltennamen eingeben</mat-error>
+          <label>
+            <input matInput placeholder="Bitte einen Spaltennamen eingeben" formControlName="documentsTableColumnName">
+          </label>
+          <mat-hint>
+            Bei dieser Spalte handelt es sich um die Titel Spalte in der Liste von Dokumenten
+          </mat-hint>
+        </mat-form-field>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>

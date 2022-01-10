@@ -49,11 +49,12 @@ table {
 }
 
 
-.grid-3-cols {
+.flex-4-cols {
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  justify-content: center;
   gap: 10px;
-  width: fit-content;
+  width: 100%;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
