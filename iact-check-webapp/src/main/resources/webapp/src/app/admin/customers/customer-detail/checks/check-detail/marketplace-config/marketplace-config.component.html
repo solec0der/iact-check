@@ -9,6 +9,30 @@
 <div *ngIf="this.marketplaceConfigFormGroup">
   <form [formGroup]="this.marketplaceConfigFormGroup">
     <mat-checkbox formControlName="marketplaceEnabled">Marktplatz für diesen Check aktivieren</mat-checkbox>
+    <br><br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Begrüssungstext im Hauptmenü</mat-label>
+      <mat-error>Bitte eine gültige Begrüssung eingeben</mat-error>
+      <label>
+        <input matInput placeholder="Bitte eine Begrüssung eingeben" formControlName="greetingText">
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Titel im Hauptmenü</mat-label>
+      <mat-error>Bitte einen gültigen Titel eingeben</mat-error>
+      <label>
+        <input matInput placeholder="Bitte einen Titel eingeben" formControlName="marketplaceTitle">
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Untertitel im Hauptmenü</mat-label>
+      <mat-error>Bitte einen gültigen Untertitel eingeben</mat-error>
+      <label>
+        <textarea matInput placeholder="Bitte einen Untertitel eingeben" formControlName="marketplaceSubtitle"></textarea>
+      </label>
+    </mat-form-field>
   </form>
   <br>
   <div class="display-flex-space-between">

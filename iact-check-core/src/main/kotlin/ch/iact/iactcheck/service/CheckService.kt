@@ -48,6 +48,9 @@ class CheckService(
                 id = -1,
                 marketplaceEnabled = false,
                 marketplaceTileConfigs = emptyList(),
+                greetingText = "<greeting_text>",
+                marketplaceTitle = "<marketplace_title>",
+                marketplaceSubtitle = "<marketplace_subtitle>",
                 check = check
             )
         )

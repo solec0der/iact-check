@@ -10,6 +10,9 @@ object MarketplaceConfigMapper {
     fun map(marketplaceConfig: MarketplaceConfig): MarketplaceConfigDTO {
         return MarketplaceConfigDTO(
             marketplaceEnabled = marketplaceConfig.marketplaceEnabled,
+            greetingText = marketplaceConfig.greetingText,
+            marketplaceTitle = marketplaceConfig.marketplaceTitle,
+            marketplaceSubtitle = marketplaceConfig.marketplaceSubtitle,
             marketplaceTileConfigs = marketplaceConfig.marketplaceTileConfigs.map(this::map)
         )
     }

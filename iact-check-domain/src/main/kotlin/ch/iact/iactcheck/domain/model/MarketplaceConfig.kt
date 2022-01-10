@@ -9,6 +9,9 @@ data class MarketplaceConfig(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val marketplaceEnabled: Boolean,
+    val greetingText: String,
+    val marketplaceTitle: String,
+    val marketplaceSubtitle: String,
 
     @OneToMany(
         targetEntity = MarketplaceTileConfig::class,

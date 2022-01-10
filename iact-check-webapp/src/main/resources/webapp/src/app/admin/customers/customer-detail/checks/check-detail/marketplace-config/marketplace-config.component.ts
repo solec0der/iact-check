@@ -32,6 +32,9 @@ export class MarketplaceConfigComponent implements OnInit {
   public save(): void {
     const marketplaceConfig: MarketplaceConfigDTO = {
       marketplaceEnabled: this.marketplaceConfigFormGroup.value.marketplaceEnabled,
+      greetingText: this.marketplaceConfigFormGroup.value.greetingText,
+      marketplaceTitle: this.marketplaceConfigFormGroup.value.marketplaceTitle,
+      marketplaceSubtitle: this.marketplaceConfigFormGroup.value.marketplaceSubtitle,
       marketplaceTileConfigs: this.marketplaceTileConfigsFormArray.controls.map((marketplaceTileConfigFormGroup) => {
         return {
           displayedDocumentGroups: marketplaceTileConfigFormGroup.value.displayedDocumentGroups,
@@ -80,6 +83,9 @@ export class MarketplaceConfigComponent implements OnInit {
 
     this._marketplaceConfigFormGroup = new FormGroup({
       marketplaceEnabled: new FormControl(marketplaceConfig?.marketplaceEnabled),
+      greetingText: new FormControl(marketplaceConfig?.greetingText),
+      marketplaceTitle: new FormControl(marketplaceConfig?.marketplaceTitle),
+      marketplaceSubtitle: new FormControl(marketplaceConfig?.marketplaceSubtitle),
     });
 
     const formGroups: FormGroup[] = [];

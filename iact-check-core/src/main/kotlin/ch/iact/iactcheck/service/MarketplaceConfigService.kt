@@ -25,6 +25,9 @@ class MarketplaceConfigService(
 
         marketplaceConfig = marketplaceConfig.copy(
             marketplaceEnabled = marketplaceConfigDTO.marketplaceEnabled,
+            greetingText = marketplaceConfigDTO.greetingText,
+            marketplaceTitle = marketplaceConfigDTO.marketplaceTitle,
+            marketplaceSubtitle = marketplaceConfigDTO.marketplaceSubtitle,
             marketplaceTileConfigs = marketplaceConfigDTO.marketplaceTileConfigs.map {
                 MarketplaceTileConfig(
                     tileTitle = it.tileTitle,
