@@ -70,6 +70,17 @@ export class UserRegistrationComponent implements OnInit {
     });
   }
 
+  public isFieldRequired(fieldName: string): boolean {
+    const userRegistrationField = this.userRegistrationFields.userRegistrationFields.find(field => field.fieldName === fieldName);
+    if (userRegistrationField) {
+      const activeUserRegistrationField = this.customerDTO.activeUserRegistrationFields.find(
+        (field) => field.userRegistrationFieldId === userRegistrationField.id
+      );
+      return activeUserRegistrationField?.required || false;
+    }
+    return false;
+  }
+
   private loadData(): void {
     this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
       this.customerDTO = customerDTO;
@@ -98,7 +109,10 @@ export class UserRegistrationComponent implements OnInit {
       if (activeUserRegistrationField) {
         this.userRegistrationFormGroup.addControl(
           formControlName,
-          new FormControl('', Validators.pattern(activeUserRegistrationField.validationRegex))
+          new FormControl(
+            '',
+            activeUserRegistrationField.required ? Validators.pattern(activeUserRegistrationField.validationRegex) : []
+          )
         );
       }
     });

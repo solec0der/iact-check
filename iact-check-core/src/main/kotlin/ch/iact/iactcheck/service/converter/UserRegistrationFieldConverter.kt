@@ -19,7 +19,8 @@ object UserRegistrationFieldConverter {
         return ActiveUserRegistrationFieldDTO(
             id = activeUserRegistrationField.id,
             userRegistrationFieldId = activeUserRegistrationField.userRegistrationField.id,
-            validationRegex = activeUserRegistrationField.validationRegex
+            validationRegex = activeUserRegistrationField.validationRegex,
+            required = activeUserRegistrationField.required
         )
     }
 
@@ -32,7 +33,8 @@ object UserRegistrationFieldConverter {
             id = -1,
             userRegistrationField = userRegistrationField,
             customer = customer,
-            validationRegex = activeUserRegistrationFieldDTO.validationRegex
+            validationRegex = activeUserRegistrationFieldDTO.validationRegex,
+            required = activeUserRegistrationFieldDTO.required
         )
     }
 }

@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <div class="shopping-cart-container">
+    <div class="shopping-cart-container" *ngIf="this.submission.email || this.submission.phoneNumber">
       <div class="shopping-cart">
         <mat-icon>shopping_cart</mat-icon>
         <p>{{ this.submission?.bookmarkedDocuments?.length }} Dokumente gemerkt</p>

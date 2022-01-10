@@ -18,57 +18,44 @@ export class CustomerUserRegistrationFieldsComponent implements OnInit {
 
   public userRegistrationFields!: UserRegistrationFieldsDTO;
 
-  constructor(
-    private userRegistrationFieldService: UserRegistrationFieldService
-  ) {}
+  constructor(private userRegistrationFieldService: UserRegistrationFieldService) {}
 
   ngOnInit(): void {
-    this.userRegistrationFieldService
-      .getUserRegistrationFields()
-      .subscribe((userRegistrationFields) => {
-        this.userRegistrationFields = userRegistrationFields;
-        this.createUserRegistrationFieldFormGroups();
-      });
+    this.userRegistrationFieldService.getUserRegistrationFields().subscribe((userRegistrationFields) => {
+      this.userRegistrationFields = userRegistrationFields;
+      this.createUserRegistrationFieldFormGroups();
+    });
   }
 
   public toggleFormGroup(event: MatSlideToggleChange, index: number): void {
     if (event.checked) {
-      this.customerUserRegistrationFieldFormArray
-        .at(index)
-        .get('validationRegex')
-        ?.enable();
+      this.customerUserRegistrationFieldFormArray.at(index).get('validationRegex')?.enable();
     } else {
-      this.customerUserRegistrationFieldFormArray
-        .at(index)
-        .get('validationRegex')
-        ?.disable();
+      this.customerUserRegistrationFieldFormArray.at(index).get('validationRegex')?.disable();
     }
   }
 
   private createUserRegistrationFieldFormGroups(): void {
-    this.userRegistrationFields.userRegistrationFields.forEach(
-      (userRegistrationField) => {
-        const activeUserRegistrationField = this.getActiveUserRegistrationFieldByUserRegistrationFieldId(
-          userRegistrationField.id
-        );
+    this.userRegistrationFields.userRegistrationFields.forEach((userRegistrationField) => {
+      const activeUserRegistrationField = this.getActiveUserRegistrationFieldByUserRegistrationFieldId(
+        userRegistrationField.id
+      );
 
-        const formGroup = new FormGroup({
-          validationRegex: new FormControl(
-            {
-              value: activeUserRegistrationField
-                ? activeUserRegistrationField.validationRegex
-                : '.*',
-              disabled: !activeUserRegistrationField,
-            },
-            Validators.required
-          ),
-          userRegistrationFieldId: new FormControl(userRegistrationField.id),
-          active: new FormControl(!!activeUserRegistrationField),
-        });
+      const formGroup = new FormGroup({
+        validationRegex: new FormControl(
+          {
+            value: activeUserRegistrationField ? activeUserRegistrationField.validationRegex : '.*',
+            disabled: !activeUserRegistrationField,
+          },
+          Validators.required
+        ),
+        userRegistrationFieldId: new FormControl(userRegistrationField.id),
+        required: new FormControl(activeUserRegistrationField ? activeUserRegistrationField.required : true),
+        active: new FormControl(!!activeUserRegistrationField),
+      });
 
-        this.customerUserRegistrationFieldFormArray.push(formGroup);
-      }
-    );
+      this.customerUserRegistrationFieldFormArray.push(formGroup);
+    });
   }
 
   private getActiveUserRegistrationFieldByUserRegistrationFieldId(

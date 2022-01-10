@@ -194,6 +194,7 @@ export class CustomerDetailComponent implements OnInit {
           id: -1,
           userRegistrationFieldId: formGroup.value.userRegistrationFieldId,
           position: 1,
+          required: formGroup.value.required,
           validationRegex: formGroup.value.validationRegex,
         });
       }

@@ -9,4 +9,5 @@
     <include file="db/changelog/changes/v2_migrate_document_file_to_separate_table_20220107.sql"/>
     <include file="db/changelog/changes/v3_marketplace_config_20220109.sql"/>
     <include file="db/changelog/changes/v4_add_additional_columns_to_marketplace_config_20220110.sql"/>
+    <include file="db/changelog/changes/v5_add_new_field_to_active_user_registration_field_20220110.sql"/>
 </databaseChangeLog>

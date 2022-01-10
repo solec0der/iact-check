@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Steps } from '../steps';
 import { TranslateService } from '@ngx-translate/core';
 import { DEFAULT_LANGUAGE, getLanguageByLocale, LanguageDTO } from '../../../shared/dtos/language-dto';
+import { FlashCardsStateService } from "../../marketplace/flash-cards/flash-cards-state.service";
 
 @Component({
   selector: 'app-welcome-screen',
@@ -19,11 +20,14 @@ export class WelcomeScreenComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly checkStateService: CheckStateService,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly flashCardsStateService: FlashCardsStateService
   ) {}
 
   ngOnInit(): void {
     this.checkStateService.setStep(Steps.WelcomeScreen, this.activatedRoute);
+    this.checkStateService.resetCheck();
+    this.flashCardsStateService.resetFlashCards();
     this.loadData();
   }
 

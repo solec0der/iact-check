@@ -214,11 +214,20 @@ class SubmissionService(
         submissionDTO: SubmissionDTO,
         activeUserRegistrationFields: Set<ActiveUserRegistrationField>
     ) {
+        // TODO: Rework validation (make it more dynamic)
         val normalizedPhoneNumber = submissionDTO.phoneNumber.trim()
         val normalizedEmail = submissionDTO.email.trim().toLowerCase()
 
         if (isUserRegistrationFieldActive("EMAIL", activeUserRegistrationFields)) {
-            if (!EmailValidator.getInstance().isValid(normalizedEmail)) throw InvalidEmailException()
+            val emailField = activeUserRegistrationFields.find { it.userRegistrationField.fieldName === "EMAIL" }
+            if (emailField != null) {
+                if (normalizedEmail.isEmpty() && emailField.required) {
+                    throw InvalidEmailException();
+                } else if (normalizedEmail.isNotEmpty() && !EmailValidator.getInstance().isValid(normalizedEmail)) {
+                    throw InvalidEmailException()
+                }
+            }
+
         }
 
         if (isUserRegistrationFieldActive("PHONE_NUMBER", activeUserRegistrationFields)) {

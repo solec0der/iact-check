@@ -4,94 +4,96 @@
       <h1>Registrieren</h1>
     </div>
     <form [formGroup]="this.userRegistrationFormGroup">
-      <div class="check-content">
-        <mat-form-field appearance="outline" style="width: 48.5%;"
-                        *ngIf="this.userRegistrationFormGroup.get('firstName')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.FIRST_NAME' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_FIRST_NAME' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.FIRST_NAME' | translate"
-                   formControlName="firstName"
-                   required/>
-          </label>
-        </mat-form-field>
+      <div class="user-registration-form-container">
+        <div class="form-controls">
+          <mat-form-field appearance="outline" style="width: 100%"
+                          *ngIf="this.userRegistrationFormGroup.get('firstName')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.FIRST_NAME' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_FIRST_NAME' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.FIRST_NAME' | translate"
+                     formControlName="firstName"
+                     [required]="this.isFieldRequired('FIRST_NAME')">
+            </label>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width: 48.5%"
-                        *ngIf="this.userRegistrationFormGroup.get('lastName')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.LAST_NAME' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_LAST_NAME' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.LAST_NAME' | translate"
-                   formControlName="lastName"
-                   required/>
-          </label>
-        </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100%"
+                          *ngIf="this.userRegistrationFormGroup.get('lastName')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.LAST_NAME' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_LAST_NAME' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.LAST_NAME' | translate"
+                     formControlName="lastName"
+                     required/>
+            </label>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width: 100%" *ngIf="this.userRegistrationFormGroup.get('street')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.STREET' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_STREET' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.STREET' | translate"
-                   formControlName="street"
-                   required/>
-          </label>
-        </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100%" *ngIf="this.userRegistrationFormGroup.get('street')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.STREET' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_STREET' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.STREET' | translate"
+                     formControlName="street"
+                     required/>
+            </label>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width: 27%" *ngIf="this.userRegistrationFormGroup.get('zipCode')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.ZIP_CODE' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_ZIP_CODE' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.ZIP_CODE' | translate"
-                   formControlName="zipCode"
-                   autocomplete="postal-code"
-                   required/>
-          </label>
-        </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 27%" *ngIf="this.userRegistrationFormGroup.get('zipCode')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.ZIP_CODE' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_ZIP_CODE' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.ZIP_CODE' | translate"
+                     formControlName="zipCode"
+                     autocomplete="postal-code"
+                     required/>
+            </label>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width: 70%" *ngIf="this.userRegistrationFormGroup.get('city')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.CITY' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_CITY' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.CITY' | translate"
-                   formControlName="city"
-                   required/>
-          </label>
-        </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 100%;" *ngIf="this.userRegistrationFormGroup.get('email')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.EMAIL' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_EMAIL' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.EMAIL' | translate"
-                   formControlName="email"
-                   required/>
-          </label>
-        </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 70%" *ngIf="this.userRegistrationFormGroup.get('city')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.CITY' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_CITY' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.CITY' | translate"
+                     formControlName="city"
+                     required/>
+            </label>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 100%;" *ngIf="this.userRegistrationFormGroup.get('email')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.EMAIL' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_EMAIL' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.EMAIL' | translate"
+                     formControlName="email"
+                     [required]="this.isFieldRequired('EMAIL')">
+            </label>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" style="width: 48.5%"
-                        *ngIf="this.userRegistrationFormGroup.get('phoneNumber')">
-          <mat-label>{{'USER_REGISTRATION_FIELDS.PHONE_NUMBER' | translate}}</mat-label>
-          <mat-error>
-            {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_PHONE_NUMBER' | translate}}
-          </mat-error>
-          <label>
-            <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.PHONE_NUMBER' | translate"
-                   formControlName="phoneNumber"
-                   required/>
-          </label>
-        </mat-form-field>
-        <br>
+          <mat-form-field appearance="outline" style="width: 48.5%"
+                          *ngIf="this.userRegistrationFormGroup.get('phoneNumber')">
+            <mat-label>{{'USER_REGISTRATION_FIELDS.PHONE_NUMBER' | translate}}</mat-label>
+            <mat-error>
+              {{'USER_REGISTRATION_FIELDS.ERRORS.INVALID_PHONE_NUMBER' | translate}}
+            </mat-error>
+            <label>
+              <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.PHONE_NUMBER' | translate"
+                     formControlName="phoneNumber"
+                     required>
+            </label>
+          </mat-form-field>
+
+        </div>
         <mat-checkbox style="margin-bottom: 10px">
           Ich habe die <span (click)="this.showPrivacyPolicy()">Datenschutzrichtlinien</span> gelesen und bin damit
           einverstanden.

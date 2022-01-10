@@ -16,12 +16,17 @@
         <label>
           <input matInput [placeholder]="'USER_REGISTRATION_FIELDS.PLACEHOLDER.VALIDATION_REGEX' | translate"
                  formControlName="validationRegex"
-                 required/>
+                 required>
         </label>
       </mat-form-field>
     </div>
-    <div style="width: 17%">
-      <mat-slide-toggle formControlName="active" (change)="this.toggleFormGroup($event, i)"></mat-slide-toggle>
+    <div style="display: grid; column-gap: 10px; grid-template-columns: 1fr 1fr; margin-left: 10px">
+      <div>
+        <mat-slide-toggle formControlName="active" (change)="this.toggleFormGroup($event, i)">Aktiv</mat-slide-toggle>
+      </div>
+      <div>
+        <mat-slide-toggle formControlName="required">Pflichtfeld</mat-slide-toggle>
+      </div>
     </div>
   </div>
 </ng-container>

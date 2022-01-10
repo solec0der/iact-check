@@ -98,19 +98,6 @@ export class CheckStateService {
     this.navigateToCurrentStep(currentRoute);
   }
 
-  // public getScoreByQuestionCategoryId(questionCategoryId: number): number {
-  //   if (this.submission) {
-  //     const scores = this.submission.rangeQuestionAnswers
-  //       .filter((rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === questionCategoryId)
-  //       .map((value) => value.value);
-  //
-  //     if (scores.length > 0) {
-  //       return scores.reduce((previousValue, currentValue) => previousValue + currentValue);
-  //     }
-  //   }
-  //   return 0;
-  // }
-
   public getSubmission(): Observable<SubmissionDTO> {
     return this.submission;
   }
