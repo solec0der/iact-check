@@ -8,5 +8,4 @@ Table of content
 ----------------
 
 * Prerequisites
-* change to check if gpg key is working
 Test
