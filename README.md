@@ -8,5 +8,5 @@ Table of content
 ----------------
 
 * Prerequisites
-* tbd
+* change to check if gpg key is working
 Test
