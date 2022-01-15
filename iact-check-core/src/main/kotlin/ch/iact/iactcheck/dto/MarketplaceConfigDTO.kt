@@ -5,5 +5,6 @@ data class MarketplaceConfigDTO(
     val greetingText: String,
     val marketplaceTitle: String,
     val marketplaceSubtitle: String,
-    val marketplaceTileConfigs: List<MarketplaceTileConfigDTO>
+    val marketplaceTileConfigs: List<MarketplaceTileConfigDTO>,
+    val finalMarketplaceSlideConfiguration: FinalMarketplaceSlideConfigurationDTO
 )

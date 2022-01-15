@@ -9,3 +9,13 @@ Table of content
 
 * Prerequisites
 Test
+
+
+
+## MySQL
+
+`docker run --name mysql -e MYSQL_ROOT_PASSWORD=root  -p 3306:3306 -d mariadb:latest --max_allowed_packet=100M`
+
+## Keycloak
+
+`docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -d -p 8080:8080 jboss/keycloak:latest`

@@ -9,8 +9,8 @@ export function initializer(keycloak: KeycloakService, keycloakInfoService: Keyc
         if (isDevMode()) {
           await keycloak.init({
             config: {
-              url: 'http://localhost:8080/auth',
-              realm: 'iact-realm',
+              url: 'https://iam.yhu.ch/auth',
+              realm: 'ct-iact-realm',
               clientId: 'iact-check-webapp',
             },
             loadUserProfileAtStartUp: true,

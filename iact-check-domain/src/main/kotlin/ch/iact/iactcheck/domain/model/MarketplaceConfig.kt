@@ -21,6 +21,9 @@ data class MarketplaceConfig(
     )
     val marketplaceTileConfigs: List<MarketplaceTileConfig>,
 
+    @OneToOne(mappedBy = "marketplaceConfig", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val finalMarketplaceSlideConfiguration: FinalMarketplaceSlideConfiguration?,
+
     @OneToOne
     @JoinColumn(name = "check_id")
     val check: Check

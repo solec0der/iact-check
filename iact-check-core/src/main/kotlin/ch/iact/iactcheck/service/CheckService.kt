@@ -3,9 +3,7 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.controller.exception.CheckNotFoundException
 import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
 import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
-import ch.iact.iactcheck.domain.model.Check
-import ch.iact.iactcheck.domain.model.Language
-import ch.iact.iactcheck.domain.model.MarketplaceConfig
+import ch.iact.iactcheck.domain.model.*
 import ch.iact.iactcheck.domain.model.common.Translations
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
@@ -41,16 +39,32 @@ class CheckService(
             activeTo = checkDTO.activeTo,
             questionCategories = emptyList(),
             submissions = emptyList(),
-            marketplaceConfig = null
+            marketplaceConfig = null,
+            introductionSlideConfiguration = null
         )
+
+        val marketplaceConfig = MarketplaceConfig(
+            id = -1,
+            marketplaceEnabled = false,
+            marketplaceTileConfigs = emptyList(),
+            greetingText = "<greeting_text>",
+            marketplaceTitle = "<marketplace_title>",
+            marketplaceSubtitle = "<marketplace_subtitle>",
+            check = check,
+            finalMarketplaceSlideConfiguration = null
+        )
+
         check = check.copy(
-            marketplaceConfig = MarketplaceConfig(
+            marketplaceConfig = marketplaceConfig.copy(
+                finalMarketplaceSlideConfiguration = FinalMarketplaceSlideConfiguration(
+                    id = -1,
+                    showFinalSlide = false,
+                    marketplaceConfig = marketplaceConfig
+                )
+            ),
+            introductionSlideConfiguration = IntroductionSlideConfiguration(
                 id = -1,
-                marketplaceEnabled = false,
-                marketplaceTileConfigs = emptyList(),
-                greetingText = "<greeting_text>",
-                marketplaceTitle = "<marketplace_title>",
-                marketplaceSubtitle = "<marketplace_subtitle>",
+                showIntroductionSlide = false,
                 check = check
             )
         )
@@ -79,6 +93,15 @@ class CheckService(
 
         var check = checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
 
+        val introductionSlideConfiguration = IntroductionSlideConfiguration(
+            id = -1,
+            showIntroductionSlide = checkDTO.introductionSlideConfiguration.showIntroductionSlide,
+            title = checkDTO.introductionSlideConfiguration.title,
+            subtitle = checkDTO.introductionSlideConfiguration.subtitle,
+            text = checkDTO.introductionSlideConfiguration.text,
+            check = check
+        )
+
         check = check.copy(
             title = Translations.fromMap(checkDTO.title),
             subtitle = Translations.fromMap(checkDTO.subtitle),
@@ -87,7 +110,8 @@ class CheckService(
             }.toSet(),
             defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
             activeFrom = checkDTO.activeFrom,
-            activeTo = checkDTO.activeTo
+            activeTo = checkDTO.activeTo,
+            introductionSlideConfiguration = introductionSlideConfiguration
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))

@@ -1,8 +1,10 @@
 package ch.iact.iactcheck.service.converter
 
+import ch.iact.iactcheck.domain.model.FinalMarketplaceSlideConfiguration
 import ch.iact.iactcheck.domain.model.MarketplaceConfig
 import ch.iact.iactcheck.domain.model.MarketplaceTileConfig
 import ch.iact.iactcheck.dto.DisplayedDocumentGroupDTO
+import ch.iact.iactcheck.dto.FinalMarketplaceSlideConfigurationDTO
 import ch.iact.iactcheck.dto.MarketplaceConfigDTO
 import ch.iact.iactcheck.dto.MarketplaceTileConfigDTO
 
@@ -13,7 +15,8 @@ object MarketplaceConfigMapper {
             greetingText = marketplaceConfig.greetingText,
             marketplaceTitle = marketplaceConfig.marketplaceTitle,
             marketplaceSubtitle = marketplaceConfig.marketplaceSubtitle,
-            marketplaceTileConfigs = marketplaceConfig.marketplaceTileConfigs.map(this::map)
+            marketplaceTileConfigs = marketplaceConfig.marketplaceTileConfigs.map(this::map),
+            map(marketplaceConfig.finalMarketplaceSlideConfiguration!!)
         )
     }
 
@@ -29,6 +32,15 @@ object MarketplaceConfigMapper {
             displayedDocumentGroups = marketplaceTileConfig.displayedDocumentGroups.map {
                 DisplayedDocumentGroupDTO(it.documentGroup.id, it.position)
             }.sortedBy(DisplayedDocumentGroupDTO::position).toSet()
+        )
+    }
+
+    private fun map(finalMarketplaceSlideConfiguration: FinalMarketplaceSlideConfiguration): FinalMarketplaceSlideConfigurationDTO {
+        return FinalMarketplaceSlideConfigurationDTO(
+            showFinalSlide = finalMarketplaceSlideConfiguration.showFinalSlide,
+            title = finalMarketplaceSlideConfiguration.title,
+            subtitle = finalMarketplaceSlideConfiguration.subtitle,
+            text = finalMarketplaceSlideConfiguration.text
         )
     }
 }

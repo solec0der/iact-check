@@ -4,10 +4,12 @@ import ch.iact.iactcheck.controller.exception.DocumentGroupNotFoundException
 import ch.iact.iactcheck.controller.exception.MarketplaceConfigNotFoundException
 import ch.iact.iactcheck.domain.model.DisplayedDocumentGroup
 import ch.iact.iactcheck.domain.model.DocumentGroupsDisplayType
+import ch.iact.iactcheck.domain.model.FinalMarketplaceSlideConfiguration
 import ch.iact.iactcheck.domain.model.MarketplaceTileConfig
 import ch.iact.iactcheck.domain.repository.DocumentGroupRepository
 import ch.iact.iactcheck.domain.repository.MarketplaceConfigRepository
 import ch.iact.iactcheck.domain.repository.MarketplaceTileConfigRepository
+import ch.iact.iactcheck.dto.FinalMarketplaceSlideConfigurationDTO
 import ch.iact.iactcheck.dto.MarketplaceConfigDTO
 import ch.iact.iactcheck.service.converter.MarketplaceConfigMapper
 import org.springframework.stereotype.Service
@@ -26,11 +28,21 @@ class MarketplaceConfigService(
         var marketplaceConfig = marketplaceConfigRepository.findByCheckId(checkId)
             .orElseThrow { throw MarketplaceConfigNotFoundException() }
 
+        val finalMarketplaceSlideConfiguration = FinalMarketplaceSlideConfiguration(
+            id = -1,
+            showFinalSlide = marketplaceConfigDTO.finalMarketplaceSlideConfiguration.showFinalSlide,
+            title = marketplaceConfigDTO.finalMarketplaceSlideConfiguration.title,
+            subtitle = marketplaceConfigDTO.finalMarketplaceSlideConfiguration.subtitle,
+            text = marketplaceConfigDTO.finalMarketplaceSlideConfiguration.text,
+            marketplaceConfig = marketplaceConfig
+        )
+
         marketplaceConfig = marketplaceConfig.copy(
             marketplaceEnabled = marketplaceConfigDTO.marketplaceEnabled,
             greetingText = marketplaceConfigDTO.greetingText,
             marketplaceTitle = marketplaceConfigDTO.marketplaceTitle,
             marketplaceSubtitle = marketplaceConfigDTO.marketplaceSubtitle,
+            finalMarketplaceSlideConfiguration = finalMarketplaceSlideConfiguration,
             marketplaceTileConfigs = marketplaceConfigDTO.marketplaceTileConfigs.map {
                 var marketplaceTileConfig = marketplaceTileConfigRepository.save(
                     MarketplaceTileConfig(

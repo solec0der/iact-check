@@ -8,7 +8,7 @@ ALTER TABLE marketplace_config
     ADD COLUMN marketplace_subtitle text;
 
 UPDATE marketplace_config
-SET marketplaceSubtitle = '<marketplace_subtitle>';
+SET marketplace_subtitle = '<marketplace_subtitle>';
 
 ALTER TABLE marketplace_config
-    MODIFY COLUMN marketplaceSubtitle text not null;
+    MODIFY COLUMN marketplace_subtitle text not null;

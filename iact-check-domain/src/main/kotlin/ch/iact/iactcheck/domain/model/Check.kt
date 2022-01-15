@@ -38,6 +38,9 @@ data class Check(
     @OneToOne(mappedBy = "check", cascade = [CascadeType.ALL], orphanRemoval = true)
     val marketplaceConfig: MarketplaceConfig?,
 
+    @OneToOne(mappedBy = "check", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val introductionSlideConfiguration: IntroductionSlideConfiguration?,
+
     @OneToMany(
         targetEntity = Submission::class,
         mappedBy = "check",
