@@ -11,7 +11,6 @@ import { DEFAULT_LANGUAGE, getLanguageByLocale, LanguageDTO } from '../../../../
 import { AVAILABLE_LANGUAGES } from '../../../../../shared/model/available-languages';
 import { TranslationUtil } from '../../../../shared/util/translation.util';
 import { SnackBarService } from '../../../../../shared/services/snack-bar.service';
-import {CORE_URL} from "../../../../../app.config";
 
 @Component({
   selector: 'app-check-detail',
@@ -149,6 +148,12 @@ export class CheckDetailComponent implements OnInit {
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
+      introductionSlideConfiguration: {
+        showIntroductionSlide: this.checkFormGroup.value.showIntroductionSlide,
+        title: this.checkFormGroup.value.introductionSlideTitle,
+        subtitle: this.checkFormGroup.value.introductionSlideSubtitle,
+        text: this.checkFormGroup.value.introductionSlideText,
+      },
     };
 
     this.checkService.createCheck(checkDTO).subscribe((createdCheckDTO) => {
@@ -176,6 +181,12 @@ export class CheckDetailComponent implements OnInit {
       activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
       activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
+      introductionSlideConfiguration: {
+        showIntroductionSlide: this.checkFormGroup.value.showIntroductionSlide,
+        title: this.checkFormGroup.value.introductionSlideTitle,
+        subtitle: this.checkFormGroup.value.introductionSlideSubtitle,
+        text: this.checkFormGroup.value.introductionSlideText,
+      },
     };
 
     this.checkService.updateCheckById(this.checkId, checkDTO).subscribe((updatedCheckDTO) => {
@@ -199,6 +210,18 @@ export class CheckDetailComponent implements OnInit {
         Validators.required
       ),
       activeTo: new FormControl(this.action === 'edit' ? new Date(this.checkDTO.activeTo) : '', Validators.required),
+      showIntroductionSlide: new FormControl(
+        this.action === 'edit' ? this.checkDTO.introductionSlideConfiguration.showIntroductionSlide : false
+      ),
+      introductionSlideTitle: new FormControl(
+        this.action === 'edit' ? this.checkDTO.introductionSlideConfiguration.title : ''
+      ),
+      introductionSlideSubtitle: new FormControl(
+        this.action === 'edit' ? this.checkDTO.introductionSlideConfiguration.subtitle : ''
+      ),
+      introductionSlideText: new FormControl(
+        this.action === 'edit' ? this.checkDTO.introductionSlideConfiguration.text : ''
+      ),
     });
 
     this.titleTranslationsFormArray.clear();
@@ -230,6 +253,9 @@ export class CheckDetailComponent implements OnInit {
       activeFrom: new Date(),
       activeTo: new Date(),
       questionCategories: [],
+      introductionSlideConfiguration: {
+        showIntroductionSlide: false,
+      },
     };
   }
 }

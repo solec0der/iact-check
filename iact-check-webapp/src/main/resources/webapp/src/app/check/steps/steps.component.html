@@ -4,7 +4,7 @@
   </div>
   <div class="full-width" style="position: absolute; bottom: 0;">
     <mat-progress-bar style="height: 10px;" mode="determinate" color="primary"
-                      [value]="this.currentProgressPercentage"></mat-progress-bar>
+                      [value]="this.currentProgressPercentage$ | async"></mat-progress-bar>
   </div>
 </div>
 

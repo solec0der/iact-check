@@ -9,7 +9,7 @@ create table introduction_slide_configuration
     show_introduction_slide tinyint not null default 0,
     title                 varchar(255),
     subtitle              varchar(255),
-    text                  varchar(255),
+    text                  text,
     constraint check_introduction_slide_configuration_ibfk_1
         foreign key (check_id) references `check` (id)
 );
@@ -25,7 +25,7 @@ create table final_marketplace_slide_configuration
     show_final_slide        tinyint not null default 0,
     title                 varchar(255),
     subtitle              varchar(255),
-    text                  varchar(255),
+    text                  text,
     constraint marketplace_config_final_slide_configuration_ibfk_1
         foreign key (marketplace_config_id) references marketplace_config (id)
 );

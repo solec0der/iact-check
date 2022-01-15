@@ -37,18 +37,26 @@ export class MarketplaceConfigComponent implements OnInit {
       greetingText: this.marketplaceConfigFormGroup.value.greetingText,
       marketplaceTitle: this.marketplaceConfigFormGroup.value.marketplaceTitle,
       marketplaceSubtitle: this.marketplaceConfigFormGroup.value.marketplaceSubtitle,
-      marketplaceTileConfigs: this.marketplaceTileConfigsFormArray.controls.map((marketplaceTileConfigFormGroup, index) => {
-        return {
-          displayedDocumentGroups: this.getDisplayedDocumentGroupsByFormArrayIndex(index),
-          tileTitle: marketplaceTileConfigFormGroup.value.tileTitle,
-          tileIcon: marketplaceTileConfigFormGroup.value.tileIcon,
-          documentGroupListTitle: marketplaceTileConfigFormGroup.value.documentGroupListTitle,
-          documentGroupListSubtitle: marketplaceTileConfigFormGroup.value.documentGroupListSubtitle,
-          documentGroupsTilesPerRow: marketplaceTileConfigFormGroup.value.documentGroupsTilesPerRow,
-          documentGroupsDisplayType: marketplaceTileConfigFormGroup.value.documentGroupsDisplayType,
-          documentsTableColumnName: marketplaceTileConfigFormGroup.value.documentsTableColumnName,
-        };
-      }),
+      marketplaceTileConfigs: this.marketplaceTileConfigsFormArray.controls.map(
+        (marketplaceTileConfigFormGroup, index) => {
+          return {
+            displayedDocumentGroups: this.getDisplayedDocumentGroupsByFormArrayIndex(index),
+            tileTitle: marketplaceTileConfigFormGroup.value.tileTitle,
+            tileIcon: marketplaceTileConfigFormGroup.value.tileIcon,
+            documentGroupListTitle: marketplaceTileConfigFormGroup.value.documentGroupListTitle,
+            documentGroupListSubtitle: marketplaceTileConfigFormGroup.value.documentGroupListSubtitle,
+            documentGroupsTilesPerRow: marketplaceTileConfigFormGroup.value.documentGroupsTilesPerRow,
+            documentGroupsDisplayType: marketplaceTileConfigFormGroup.value.documentGroupsDisplayType,
+            documentsTableColumnName: marketplaceTileConfigFormGroup.value.documentsTableColumnName,
+          };
+        }
+      ),
+      finalMarketplaceSlideConfiguration: {
+        showFinalSlide: this.marketplaceConfigFormGroup.value.showFinalSlide,
+        title: this.marketplaceConfigFormGroup.value.finalSlideTitle,
+        subtitle: this.marketplaceConfigFormGroup.value.finalSlideSubtitle,
+        text: this.marketplaceConfigFormGroup.value.finalSlideText,
+      },
     };
     this.marketplaceConfigService
       .updateMarketplaceConfigForCheck(<number>this.check.id, marketplaceConfig)
@@ -159,6 +167,10 @@ export class MarketplaceConfigComponent implements OnInit {
       greetingText: new FormControl(marketplaceConfig?.greetingText),
       marketplaceTitle: new FormControl(marketplaceConfig?.marketplaceTitle),
       marketplaceSubtitle: new FormControl(marketplaceConfig?.marketplaceSubtitle),
+      showFinalSlide: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.showFinalSlide),
+      finalSlideTitle: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.text),
+      finalSlideSubtitle: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.subtitle),
+      finalSlideText: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.text),
     });
 
     const formGroups: FormGroup[] = [];

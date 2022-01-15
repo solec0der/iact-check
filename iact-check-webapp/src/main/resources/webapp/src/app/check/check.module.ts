@@ -23,6 +23,7 @@ import { DocumentOverviewComponent } from './marketplace/document-group-overview
 import { DocumentDetailComponent } from './marketplace/document-group-overview/document-overview/document-detail/document-detail.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PrivacyPolicyDialogComponent } from './steps/user-registration/privacy-policy-dialog/privacy-policy-dialog.component';
+import { IntroductionScreenComponent } from './steps/introduction-screen/introduction-screen.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PrivacyPolicyDialogComponent } from './steps/user-registration/privacy-
     DocumentOverviewComponent,
     DocumentDetailComponent,
     PrivacyPolicyDialogComponent,
+    IntroductionScreenComponent,
   ],
   imports: [
     CommonModule,

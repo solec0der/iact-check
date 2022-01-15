@@ -1,10 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CheckStateService } from '../check-state.service';
-import { CustomerService } from '../../shared/services/customer.service';
-import { CORE_URL } from '../../app.config';
-import { CustomerDTO } from '../../shared/dtos/customer-dto';
-import { ThemeService } from '../../shared/services/theme.service';
-import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-steps',
@@ -12,18 +8,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./steps.component.scss'],
 })
 export class StepsComponent implements OnInit {
-  public currentProgressPercentage = 0.0;
+  public currentProgressPercentage$: Observable<number>;
 
-  constructor(
-    private readonly themeService: ThemeService,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly customerService: CustomerService,
-    private readonly checkStateService: CheckStateService
-  ) {}
-
-  ngOnInit(): void {
-    this.checkStateService.getCurrentProgressPercentage().subscribe((currentProgressPercentage) => {
-      this.currentProgressPercentage = currentProgressPercentage;
-    });
+  constructor(private readonly checkStateService: CheckStateService) {
+    this.currentProgressPercentage$ = this.checkStateService.getCurrentProgressPercentage();
   }
+
+  ngOnInit(): void {}
 }

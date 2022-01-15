@@ -20,7 +20,7 @@ export class CheckStateService {
   private submission = new ReplaySubject<SubmissionDTO>(1);
 
   private currentStep = 1;
-  private readonly numberOfSteps = 5;
+  private readonly numberOfSteps = 6;
 
   // TODO: Add a property on the check to configure this behaviour
   private readonly deleteSubmissionFromDatabase = true;

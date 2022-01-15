@@ -123,6 +123,35 @@
         <mat-datepicker-toggle matSuffix [for]="$any(pickerActiveTo)"></mat-datepicker-toggle>
         <ngx-mat-datetime-picker #pickerActiveTo [showSeconds]="true"></ngx-mat-datetime-picker>
       </mat-form-field>
+
+      <br>
+      <h2 class="subtitle">Einführungs-Slide</h2>
+
+      <mat-checkbox formControlName="showIntroductionSlide">
+        Soll eine Einführungs-Slide nach der Registrierung angezeigt werden?
+      </mat-checkbox>
+
+      <br><br>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Titel</mat-label>
+        <label>
+          <input matInput placeholder="Bitte einen Titel eingeben" formControlName="introductionSlideTitle">
+        </label>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Untertitel</mat-label>
+        <label>
+          <input matInput placeholder="Bitte einen Untertitel eingeben" formControlName="introductionSlideSubtitle">
+        </label>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Text</mat-label>
+        <textarea matInput placeholder="Bitte einen Text eingeben" formControlName="introductionSlideText"></textarea>
+      </mat-form-field>
     </form>
   </mat-card-content>
 </mat-card>

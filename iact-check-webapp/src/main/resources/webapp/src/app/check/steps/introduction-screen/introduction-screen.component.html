@@ -1,0 +1,25 @@
+<div
+  class="full-width-and-height-absolute display-flex-align-center"
+  *ngIf="this.check"
+>
+  <div class="check-container" style="width: 65%">
+    <div class="check-content">
+      <div class="full-width align-center" style="margin-bottom: 24px">
+        <h1 class="large-title">{{this.check.introductionSlideConfiguration.title}}</h1>
+        <br/>
+        <h2>{{this.check.introductionSlideConfiguration.subtitle}}</h2>
+        <br>
+
+        <p>
+          {{this.check.introductionSlideConfiguration.text}}
+        </p>
+      </div>
+    </div>
+    <div class="full-width align-center">
+      <button mat-stroked-button (click)="this.nextStep()">
+        Weiter
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

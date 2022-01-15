@@ -11,6 +11,7 @@ import { ConfirmationScreenComponent } from './steps/confirmation-screen/confirm
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { DocumentGroupOverviewComponent } from './marketplace/document-group-overview/document-group-overview.component';
 import { DocumentOverviewComponent } from './marketplace/document-group-overview/document-overview/document-overview.component';
+import { IntroductionScreenComponent } from './steps/introduction-screen/introduction-screen.component';
 
 const routes: Routes = [
   {
@@ -47,18 +48,22 @@ const routes: Routes = [
           },
           {
             path: '3',
-            component: QuestionCategorySelectionComponent,
+            component: IntroductionScreenComponent,
           },
           {
             path: '4',
-            component: QuestionsFormComponent,
+            component: QuestionCategorySelectionComponent,
           },
           {
             path: '5',
-            component: PossibleOutcomesComponent,
+            component: QuestionsFormComponent,
           },
           {
             path: '6',
+            component: PossibleOutcomesComponent,
+          },
+          {
+            path: '7',
             component: ConfirmationScreenComponent,
           },
         ],

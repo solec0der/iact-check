@@ -40,7 +40,8 @@ export class ImageQuestionComponent implements OnInit {
 
       if (this.submission.imageQuestionAnswers) {
         this.imageQuestionAnswers = this.submission.imageQuestionAnswers;
-        this.answersAreReadOnly = this.submission.imageQuestionAnswers.length > 0;
+        this.answersAreReadOnly =
+          this.submission.imageQuestionAnswers.length === this.questionCategoryDTO.imageQuestions.length;
       }
     });
   }

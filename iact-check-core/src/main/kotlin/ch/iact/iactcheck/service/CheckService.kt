@@ -64,7 +64,10 @@ class CheckService(
             ),
             introductionSlideConfiguration = IntroductionSlideConfiguration(
                 id = -1,
-                showIntroductionSlide = false,
+                showIntroductionSlide = checkDTO.introductionSlideConfiguration.showIntroductionSlide,
+                title = checkDTO.introductionSlideConfiguration.title,
+                subtitle = checkDTO.introductionSlideConfiguration.subtitle,
+                text = checkDTO.introductionSlideConfiguration.text,
                 check = check
             )
         )

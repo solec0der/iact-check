@@ -34,6 +34,40 @@
                   formControlName="marketplaceSubtitle"></textarea>
       </label>
     </mat-form-field>
+
+    <br>
+    <h2 class="subtitle">Abschluss-Slide</h2>
+
+    <mat-checkbox formControlName="showFinalSlide">Soll eine Abschluss-Slide nach dem Anfragen der Dokumente angezeigt werden?</mat-checkbox>
+
+    <br><br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Titel</mat-label>
+      <mat-error>Bitte einen gültigen Titel eingeben</mat-error>
+      <label>
+        <input matInput placeholder="Bitte einen Titel eingeben"
+                  formControlName="finalSlideTitle">
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Untertitel</mat-label>
+      <mat-error>Bitte einen gültigen Untertitel eingeben</mat-error>
+      <label>
+        <input matInput placeholder="Bitte einen Untertitel eingeben"
+               formControlName="finalSlideSubtitle">
+      </label>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Text</mat-label>
+      <mat-error>Bitte einen gültigen Text eingeben</mat-error>
+      <label>
+        <textarea matInput placeholder="Bitte einen Text eingeben"
+                  formControlName="finalSlideText"></textarea>
+      </label>
+    </mat-form-field>
+
   </form>
   <br>
   <div class="display-flex-space-between">
