@@ -56,6 +56,11 @@ internal class SubmissionController(private val submissionService: SubmissionSer
         submissionService.requestBookmarkedItemsBySubmissionId(submissionId)
     }
 
+    @PutMapping("/{submissionId}")
+    fun updateSubmissionById(@PathVariable("submissionId") submissionId: Long, @RequestBody submission: SubmissionDTO): SubmissionDTO {
+        return submissionService.updateSubmissionById(submissionId, submission)
+    }
+
     @DeleteMapping("/{submissionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteSubmissionById(@PathVariable("submissionId") submissionId: Long) {

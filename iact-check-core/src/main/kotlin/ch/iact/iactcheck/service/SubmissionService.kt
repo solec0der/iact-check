@@ -202,6 +202,25 @@ class SubmissionService(
         }
     }
 
+    fun updateSubmissionById(submissionId: Long, submissionDTO: SubmissionDTO): SubmissionDTO {
+        val submission = submissionRepository
+            .findById(submissionId)
+            .orElseThrow { throw SubmissionNotFoundException() }
+            .copy(
+                firstName = submissionDTO.firstName,
+                lastName = submissionDTO.lastName,
+                street = submissionDTO.street,
+                zipCode = submissionDTO.zipCode,
+                city = submissionDTO.city,
+                phoneNumber = submissionDTO.phoneNumber,
+                email = submissionDTO.email
+            )
+
+        return SubmissionConverter.convertSubmissionToDTO(
+            submissionRepository.save(submission)
+        )
+    }
+
     fun deleteSubmissionById(submissionId: Long) {
         submissionRepository.deleteById(submissionId)
     }

@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Bitte prüfe deine E-Mail</h1>
+
+<div mat-dialog-content>
+  <p>
+    Ist die E-Mail, die du am Anfang eingegeben hast korrekt? Wenn nein, kannst du sie immer noch ändern.
+  </p>
+  <br>
+  <form [formGroup]="this.emailFormGroup">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>E-Mail</mat-label>
+      <mat-error>Bitte eine gültige E-Mail eingeben</mat-error>
+      <input matInput formControlName="email" placeholder="Bitte E-Mail eingeben">
+    </mat-form-field>
+  </form>
+
+  <p>Wenn du dir die Dokumente zugesendet hast kannst du nicht mehr zurück in den Marktplatz. Tu das also erst, wenn du
+    mit allem fertig bist. </p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="this.saveEmailAndConfirm()">Dokumente senden</button>
+  <button mat-stroked-button [mat-dialog-close]="false">Ich möchte mich noch weiter umsehen</button>
+</div>

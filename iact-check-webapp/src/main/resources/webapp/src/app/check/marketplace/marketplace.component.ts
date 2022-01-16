@@ -9,6 +9,7 @@ import { SubmissionService } from '../../shared/services/submission.service';
 import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { CheckDTO } from '../../shared/dtos/check-dto';
 import { MarketplaceTileConfigDTO } from '../../shared/dtos/marketplace-tile-config-dto';
+import { ShoppingCartConfirmDialogComponent } from './shopping-cart-confirm-dialog/shopping-cart-confirm-dialog.component';
 
 @Component({
   selector: 'app-marketplace',
@@ -86,15 +87,8 @@ export class MarketplaceComponent implements OnInit {
 
   public requestDocuments(): void {
     this.matDialog
-      .open(ConfirmDialogComponent, {
-        data: {
-          title: 'Achtung',
-          message:
-            'Wenn du dir die Dokumende zugesendet hast, werden all deine Daten gelöscht. Mach das nur, wenn du ganz sicher bist, dass du ' +
-            'am Ende angelangt bist. ',
-          buttonTextCancel: 'Nein, nicht versenden',
-          buttonTextConfirm: 'Ja, zusenden und Daten löschen',
-        },
+      .open(ShoppingCartConfirmDialogComponent, {
+        data: this.submission,
       })
       .afterClosed()
       .subscribe((hasConfirmed) => {

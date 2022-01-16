@@ -25,6 +25,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PrivacyPolicyDialogComponent } from './steps/user-registration/privacy-policy-dialog/privacy-policy-dialog.component';
 import { IntroductionScreenComponent } from './steps/introduction-screen/introduction-screen.component';
 import { FinalMarketplaceSlideComponent } from './marketplace/final-marketplace-slide/final-marketplace-slide.component';
+import { ShoppingCartConfirmDialogComponent } from './marketplace/shopping-cart-confirm-dialog/shopping-cart-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FinalMarketplaceSlideComponent } from './marketplace/final-marketplace-
     PrivacyPolicyDialogComponent,
     IntroductionScreenComponent,
     FinalMarketplaceSlideComponent,
+    ShoppingCartConfirmDialogComponent,
   ],
   imports: [
     CommonModule,

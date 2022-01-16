@@ -68,6 +68,11 @@ export class SubmissionService {
     return this.httpClient.get<void>(`${CORE_URL}/api/submissions/${submissionId}/bookmarked-items`);
   }
 
+  public updateSubmissionById(submissionId: number, submission: SubmissionDTO): Observable<SubmissionDTO> {
+    const body = JSON.stringify(submission);
+    return this.httpClient.put<SubmissionDTO>(CORE_URL + '/api/submissions/' + submissionId, body);
+  }
+
   public deleteSubmissionById(submissionId: number): Observable<void> {
     return this.httpClient.delete<void>(`${CORE_URL}/api/submissions/${submissionId}`);
   }
