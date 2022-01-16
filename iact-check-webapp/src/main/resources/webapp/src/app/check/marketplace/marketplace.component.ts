@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Steps } from '../steps/steps';
 import { SubmissionService } from '../../shared/services/submission.service';
 import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/confirm-dialog.component';
-import { FlashCardsStateService } from './flash-cards/flash-cards-state.service';
 import { CheckDTO } from '../../shared/dtos/check-dto';
 import { MarketplaceTileConfigDTO } from '../../shared/dtos/marketplace-tile-config-dto';
 
@@ -25,8 +24,7 @@ export class MarketplaceComponent implements OnInit {
     private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly submissionService: SubmissionService,
-    private readonly checkStateService: CheckStateService,
-    private readonly flashCardsStateService: FlashCardsStateService
+    private readonly checkStateService: CheckStateService
   ) {}
 
   ngOnInit(): void {
@@ -51,9 +49,10 @@ export class MarketplaceComponent implements OnInit {
           documentGroupListTitle: marketplaceTileConfig.documentGroupListTitle,
           documentGroupListSubtitle: marketplaceTileConfig.documentGroupListSubtitle,
           documentGroupsDisplayType: marketplaceTileConfig.documentGroupsDisplayType,
-          displayedDocumentGroups: marketplaceTileConfig.displayedDocumentGroups.sort(
-            (a, b) => a.position - b.position
-          ).map(_ => _.documentGroupId).join(','),
+          displayedDocumentGroups: marketplaceTileConfig.displayedDocumentGroups
+            .sort((a, b) => a.position - b.position)
+            .map((_) => _.documentGroupId)
+            .join(','),
           documentsTableColumnName: marketplaceTileConfig.documentsTableColumnName,
           documentGroupsTilesPerRow: marketplaceTileConfig.documentGroupsTilesPerRow,
         },
@@ -63,6 +62,26 @@ export class MarketplaceComponent implements OnInit {
 
   public openFlashCardsComponent(): void {
     this.matDialog.open(FlashCardsComponent);
+  }
+
+  public goToFinalSlide(): void {
+    this.matDialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: 'Achtung',
+          message:
+            'Wenn du den Check abschliesst, werden all deine Daten gelöscht. Mach das nur, wenn du ganz sicher bist, ' +
+            'dass du am Ende angelangt bist',
+          buttonTextCancel: 'Nein, nicht abschliessen',
+          buttonTextConfirm: 'Ja, abschliessen und Daten löschen',
+        },
+      })
+      .afterClosed()
+      .subscribe((hasConfirmed) => {
+        if (hasConfirmed) {
+          this.router.navigate(['final-slide'], { relativeTo: this.activatedRoute }).then();
+        }
+      });
   }
 
   public requestDocuments(): void {
@@ -81,8 +100,7 @@ export class MarketplaceComponent implements OnInit {
       .subscribe((hasConfirmed) => {
         if (hasConfirmed) {
           this.submissionService.requestBookmarkedItemsBySubmissionId(<number>this.submission.id).subscribe(() => {
-            this.checkStateService.resetCheck();
-            this.flashCardsStateService.resetFlashCards();
+            this.router.navigate(['final-slide'], { relativeTo: this.activatedRoute }).then();
           });
         }
       });

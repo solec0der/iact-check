@@ -1,0 +1,25 @@
+<div
+  class="full-width-and-height-absolute display-flex-align-center"
+  *ngIf="this.finalMarketplaceSlideConfiguration"
+>
+  <div class="check-container" style="width: 65%">
+    <div class="check-content">
+      <div class="full-width align-center" style="margin-bottom: 24px">
+        <h1 class="large-title">{{this.finalMarketplaceSlideConfiguration.title}}</h1>
+        <br/>
+        <h2>{{this.finalMarketplaceSlideConfiguration.subtitle}}</h2>
+        <br>
+
+        <p>
+          {{this.finalMarketplaceSlideConfiguration.text}}
+        </p>
+      </div>
+    </div>
+    <div class="full-width align-center">
+      <button mat-stroked-button (click)="this.resetData()">
+        Zurück zum Start
+        <mat-icon>keyboard_return</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

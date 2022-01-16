@@ -12,6 +12,7 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { DocumentGroupOverviewComponent } from './marketplace/document-group-overview/document-group-overview.component';
 import { DocumentOverviewComponent } from './marketplace/document-group-overview/document-overview/document-overview.component';
 import { IntroductionScreenComponent } from './steps/introduction-screen/introduction-screen.component';
+import { FinalMarketplaceSlideComponent } from './marketplace/final-marketplace-slide/final-marketplace-slide.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'marketplace',
         component: MarketplaceComponent,
+      },
+      {
+        path: 'marketplace/final-slide',
+        component: FinalMarketplaceSlideComponent,
       },
       {
         path: 'marketplace/document-groups',

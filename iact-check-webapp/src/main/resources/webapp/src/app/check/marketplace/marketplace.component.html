@@ -61,5 +61,13 @@
         </button>
       </div>
     </div>
+
+    <div *ngIf="!this.submission.email && !this.submission.phoneNumber" class="full-width align-center">
+      <button mat-stroked-button (click)="this.goToFinalSlide()">
+        <mat-icon>check_outline</mat-icon>
+        Abschliessen
+      </button>
+
+    </div>
   </div>
 </div>
