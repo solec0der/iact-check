@@ -168,7 +168,7 @@ export class MarketplaceConfigComponent implements OnInit {
       marketplaceTitle: new FormControl(marketplaceConfig?.marketplaceTitle),
       marketplaceSubtitle: new FormControl(marketplaceConfig?.marketplaceSubtitle),
       showFinalSlide: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.showFinalSlide),
-      finalSlideTitle: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.text),
+      finalSlideTitle: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.title),
       finalSlideSubtitle: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.subtitle),
       finalSlideText: new FormControl(marketplaceConfig?.finalMarketplaceSlideConfiguration?.text),
     });
