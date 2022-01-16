@@ -62,6 +62,19 @@ export class DocumentOverviewComponent implements OnInit {
     return this.submission.bookmarkedDocuments.some((document) => document.documentId === documentId);
   }
 
+  public getIconByFileType(document: DocumentDTO): string {
+    if (document.mediaType.includes('image')) {
+      return 'image';
+    }
+    if (document.mediaType.includes('pdf')) {
+      return 'description';
+    }
+    if (document.mediaType.includes('video')) {
+      return 'smart_display';
+    }
+    return '';
+  }
+
   private loadData(): void {
     this.documentGroupService.getDocumentGroupById(this.documentGroupId).subscribe((documentGroup) => {
       this.documentGroup = documentGroup;
