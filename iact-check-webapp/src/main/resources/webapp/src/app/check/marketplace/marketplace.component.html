@@ -54,7 +54,7 @@
         <p>{{ this.submission?.bookmarkedDocuments?.length }} Dokumente gemerkt</p>
       </div>
       <div class="full-width align-center">
-        <button mat-stroked-button (click)="this.requestDocuments()"
+        <button mat-raised-button color="primary" (click)="this.requestDocuments()"
                 [disabled]="this.submission?.bookmarkedDocuments?.length === 0">
           <mat-icon>send</mat-icon>
           Dokumente senden
@@ -63,7 +63,7 @@
     </div>
 
     <div *ngIf="!this.submission.email && !this.submission.phoneNumber" class="full-width align-center">
-      <button mat-stroked-button (click)="this.goToFinalSlide()">
+      <button mat-raised-button color="primary" (click)="this.goToFinalSlide()">
         <mat-icon>check_outline</mat-icon>
         Abschliessen
       </button>

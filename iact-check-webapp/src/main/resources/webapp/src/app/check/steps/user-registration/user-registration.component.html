@@ -94,19 +94,19 @@
           </mat-form-field>
 
         </div>
-        <mat-checkbox style="margin-bottom: 10px">
+        <mat-checkbox style="margin-bottom: 10px" color="accent">
           Ich habe die <span (click)="this.showPrivacyPolicy()">Datenschutzrichtlinien</span> gelesen und bin damit
           einverstanden.
         </mat-checkbox>
         <div class="controls">
           <div>
-            <button mat-stroked-button (click)="this.previousStep()">
+            <button mat-raised-button color="primary" (click)="this.previousStep()">
               <mat-icon>arrow_back_ios</mat-icon>
               {{'SHARED.BACK' | translate}}
             </button>
           </div>
           <div>
-            <button mat-stroked-button (click)="this.nextStep()" [disabled]="this.userRegistrationFormGroup.invalid">
+            <button mat-raised-button color="primary" (click)="this.nextStep()" [disabled]="this.userRegistrationFormGroup.invalid">
               {{'SHARED.NEXT' | translate}}
               <mat-icon>arrow_forward_ios</mat-icon>
             </button>

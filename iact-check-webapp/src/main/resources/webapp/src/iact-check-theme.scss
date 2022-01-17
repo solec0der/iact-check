@@ -68,7 +68,7 @@ $mat-accent: (
   )
 );
 
-$iact-check-primary: mat.define-palette($mat-primary, A200, A100, A400);
+$iact-check-primary: mat.define-palette($mat-primary, 500, A100, A400);
 $iact-check-accent: mat.define-palette($mat-accent, A200, A100, A400);
 
 .light-theme {

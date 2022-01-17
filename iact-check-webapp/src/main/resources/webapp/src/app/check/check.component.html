@@ -2,7 +2,9 @@
      *ngIf="this.customerDTO"
      [style.background-color]="this.customerDTO?.customerBranding?.backgroundColour"
      [style.color]="this.customerDTO?.customerBranding?.textColour"
-     [style.font-family]="this.customerDTO?.customerBranding?.font">
+     [style.font-family]="this.customerDTO?.customerBranding?.font"
+     class="background"
+>
   <div class="logo-wrapper" id="logo-wrapper">
     <img class="logo" [src]="this.getCustomerLogoUrl()" alt="Customer-Logo"/>
   </div>

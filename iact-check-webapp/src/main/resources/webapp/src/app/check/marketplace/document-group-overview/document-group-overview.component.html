@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div *ngIf="this.documentGroupsDisplayType === 'TABLE'" class="document-group-table-container">
+    <div *ngIf="this.documentGroupsDisplayType === 'TABLE'" class="document-group-table-container margin-bottom-after-title">
       <table mat-table [dataSource]="this.documentGroups">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Titel</th>
@@ -31,7 +31,7 @@
       </table>
     </div>
     <div class="align-center full-width">
-      <button mat-stroked-button (click)="this.goBack()">
+      <button mat-raised-button color="primary" (click)="this.goBack()">
         <mat-icon>navigate_before</mat-icon>
         {{'SHARED.BACK' | translate}}
       </button>
