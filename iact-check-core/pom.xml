@@ -5,10 +5,10 @@
     <parent>
         <groupId>ch.iact</groupId>
         <artifactId>iact-check</artifactId>
-        <version>1.4.3</version>
+        <version>1.4.4</version>
     </parent>
     <artifactId>iact-check-core</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <name>iact-check-core</name>
     <description>Iact Check Core</description>
     <packaging>jar</packaging>
