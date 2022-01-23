@@ -13,11 +13,16 @@ object DocumentConverter {
             checkId = documentGroup.check.id,
             name = documentGroup.name,
             backgroundColour = documentGroup.backgroundColour,
-            documents = documentGroup.documents.map(DocumentConverter::map)
+            documents = documentGroup.documents.map(DocumentConverter::map).sortedBy { it.position }
         )
     }
 
-    public fun map(document: Document): DocumentDTO {
-        return DocumentDTO(id = document.id, title = document.title, position = document.position, mediaType = document.mediaType)
+    fun map(document: Document): DocumentDTO {
+        return DocumentDTO(
+            id = document.id,
+            title = document.title,
+            position = document.position,
+            mediaType = document.mediaType
+        )
     }
 }
