@@ -6,10 +6,10 @@
     <parent>
         <groupId>ch.iact</groupId>
         <artifactId>iact-check</artifactId>
-        <version>1.4.3</version>
+        <version>1.4.4</version>
     </parent>
     <artifactId>iact-check-domain</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <name>iact-check-domain</name>
     <description>Iact-Check Domain</description>
 
