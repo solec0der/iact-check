@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Suche</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="this.filterFormGroup">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{this.documentsTableColumnName}}</mat-label>
+      <input type="text"
+             matInput
+             formControlName="filterString"
+             required
+             [matAutocomplete]="autoGroup">
+      <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-optgroup *ngFor="let documentGroup of this.filteredDocumentGroups | async" [label]="documentGroup.name">
+          <mat-option *ngFor="let document of documentGroup.documents" [value]="document.title" [id]="document.id.toString()" (onSelectionChange)="this.setSelectedDocument($event.source.id)">
+            {{document.title}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!this.selectedDocument" (click)="this.openSelectedDocument()">Öffnen</button>
+  <button mat-raised-button color="primary">Schliessen</button>
+</mat-dialog-actions>
+

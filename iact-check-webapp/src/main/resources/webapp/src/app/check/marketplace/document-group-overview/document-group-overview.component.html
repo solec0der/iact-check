@@ -31,9 +31,14 @@
       </table>
     </div>
     <div class="align-center full-width">
-      <button mat-raised-button color="primary" (click)="this.goBack()">
+      <button mat-raised-button color="primary" (click)="this.goBack()" style="margin-right: 8px">
         <mat-icon>navigate_before</mat-icon>
         {{'SHARED.BACK' | translate}}
+      </button>
+
+      <button mat-raised-button color="primary" (click)="this.openSearchDialog()">
+        <mat-icon>search</mat-icon>
+        Suchen
       </button>
     </div>
   </div>

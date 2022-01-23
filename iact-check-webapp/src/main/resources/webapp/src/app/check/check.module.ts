@@ -26,6 +26,7 @@ import { PrivacyPolicyDialogComponent } from './steps/user-registration/privacy-
 import { IntroductionScreenComponent } from './steps/introduction-screen/introduction-screen.component';
 import { FinalMarketplaceSlideComponent } from './marketplace/final-marketplace-slide/final-marketplace-slide.component';
 import { ShoppingCartConfirmDialogComponent } from './marketplace/shopping-cart-confirm-dialog/shopping-cart-confirm-dialog.component';
+import { DocumentSearchDialogComponent } from './marketplace/document-group-overview/document-search-dialog/document-search-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ShoppingCartConfirmDialogComponent } from './marketplace/shopping-cart-
     IntroductionScreenComponent,
     FinalMarketplaceSlideComponent,
     ShoppingCartConfirmDialogComponent,
+    DocumentSearchDialogComponent,
   ],
   imports: [
     CommonModule,

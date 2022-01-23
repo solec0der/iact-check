@@ -58,6 +58,11 @@ h2.subtitle {
   row-gap: 8px;
 }
 
+.display-flex-column-gap {
+  display: flex;
+  column-gap: 8px;
+}
+
 .quarter-width-with-gap {
   width: calc(25% - 8px);
 }

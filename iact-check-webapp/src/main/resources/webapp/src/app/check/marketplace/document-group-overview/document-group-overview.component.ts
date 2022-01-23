@@ -3,6 +3,9 @@ import { DocumentService } from '../../../shared/services/document.service';
 import { CheckStateService } from '../../check-state.service';
 import { DocumentGroupDTO } from '../../../shared/dtos/document-group-dto';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DocumentSearchDialogComponent } from './document-search-dialog/document-search-dialog.component';
+import { DocumentDetailComponent } from './document-overview/document-detail/document-detail.component';
 
 @Component({
   selector: 'app-document-group-overview',
@@ -24,6 +27,7 @@ export class DocumentGroupOverviewComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
+    private readonly matDialog: MatDialog,
     private readonly activatedRoute: ActivatedRoute,
     private readonly documentGroupService: DocumentService,
     private readonly checkStateService: CheckStateService
@@ -56,6 +60,29 @@ export class DocumentGroupOverviewComponent implements OnInit {
 
   public goBack(): void {
     this.router.navigate(['../'], { relativeTo: this.activatedRoute }).then();
+  }
+
+  public openSearchDialog(): void {
+    this.matDialog
+      .open(DocumentSearchDialogComponent, {
+        data: this.documentGroups,
+        width: '60%',
+      })
+      .afterClosed()
+      .subscribe((selectedDocument) => {
+        const documentGroup = this.documentGroups.find((documentGroup) =>
+          documentGroup.documents.some((document) => document.id === selectedDocument.id)
+        );
+
+        if (documentGroup) {
+          this.goToDocumentOverview(documentGroup.id);
+
+          this.matDialog.open(DocumentDetailComponent, {
+            width: '90%',
+            data: selectedDocument,
+          });
+        }
+      });
   }
 
   private loadData(): void {
