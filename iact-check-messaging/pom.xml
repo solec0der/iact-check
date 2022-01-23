@@ -6,10 +6,10 @@
     <parent>
         <groupId>ch.iact</groupId>
         <artifactId>iact-check</artifactId>
-        <version>1.4.4</version>
+        <version>1.4.5</version>
     </parent>
     <artifactId>iact-check-messaging</artifactId>
-    <version>1.4.4</version>
+    <version>1.4.5</version>
     <name>iact-check-messaging</name>
     <description>Iact-Check Messaging</description>
 
