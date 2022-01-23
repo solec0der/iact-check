@@ -1,7 +1,7 @@
 <div class="full-width-and-height-absolute display-flex-align-center" *ngIf="this.userRegistrationFormGroup">
   <div class="check-container">
     <div class="align-center">
-      <h1>Registrieren</h1>
+      <h1>Let's Go!</h1>
     </div>
     <form [formGroup]="this.userRegistrationFormGroup">
       <div class="user-registration-form-container">
@@ -95,8 +95,10 @@
 
         </div>
         <mat-checkbox style="margin-bottom: 10px" color="accent">
-          Ich habe die <span (click)="this.showPrivacyPolicy()">Datenschutzrichtlinien</span> gelesen und bin damit
-          einverstanden.
+          Deine Daten werden nich gespeichert. <br>Deine Email benötigst du, um dir Informationen nach Hause zu senden.
+
+<!--          Ich habe die <span (click)="this.showPrivacyPolicy()">Datenschutzrichtlinien</span> gelesen und bin damit-->
+<!--          einverstanden.-->
         </mat-checkbox>
         <div class="controls">
           <div>

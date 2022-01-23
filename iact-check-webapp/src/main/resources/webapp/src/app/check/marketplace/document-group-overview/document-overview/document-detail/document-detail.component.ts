@@ -13,6 +13,7 @@ import { SubmissionDTO } from '../../../../../shared/dtos/submission-dto';
 })
 export class DocumentDetailComponent implements OnInit {
   private _submission!: SubmissionDTO;
+  private _pdfScale = 1;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public document: DocumentDTO,
@@ -52,6 +53,14 @@ export class DocumentDetailComponent implements OnInit {
       });
   }
 
+  public zoomInPdf(): void {
+    this._pdfScale += 0.2;
+  }
+
+  public zoomOutPdf(): void {
+    this._pdfScale -= 0.2;
+  }
+
   private loadData(): void {
     this.checkStateService.getSubmission().subscribe((submission) => {
       this._submission = submission;
@@ -60,5 +69,9 @@ export class DocumentDetailComponent implements OnInit {
 
   get submission(): SubmissionDTO {
     return this._submission;
+  }
+
+  get pdfScale(): number {
+    return this._pdfScale;
   }
 }

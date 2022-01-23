@@ -178,14 +178,24 @@ class SubmissionService(
 
         val customer = submission.check.customer
 
-        val subject = "Vielen Dank für deine Teilnahme!"
-        var body =
-            "Hey ${submission.firstName},<br><br> vielen Dank, dass du am Orientierungstag teilgenommen hast. <br><br>" +
-                    "Anbei findest du Links zu den Dokumenten, die du dir während dem Orientierungstag auf dem iPad gemerkt hast. <br><br>"
+        val subject = "noreply Deine Informationen zur Armee, Zivilschutz, Zivildienst"
+        var body = "Hey ${submission.firstName}, well done! <br><br>" +
+                "Mit deiner Merkliste kannst du dich jetzt optimal auf deine Rekrutierung vorbereiten. <br>" +
+                "<ul>"
+
 
         submission.bookmarkedDocuments.forEach {
-            body += "${it.document.title} (${getLinkToDocument(it.document.id)})<br>"
+            body += "<li>${it.document.title} (${getLinkToDocument(it.document.id)})</li>"
         }
+
+        body += "</ul>" +
+                "Unsere Tipps: <br>" +
+                "<ul>" +
+                "<li>Besprich deine Planung nochmals mit deinem Arbeitgeber, Schule, Familie.</li>" +
+                "<li>Ändert sich deine persönliche Planung: <a href=\"https://services.zh.ch\">services.zh.ch</a></li>" +
+                "<li>Bereite dich auf die Rekrutierung vor: treibe Sport und informier dich nochmals kurz.</li></ul> <br>" +
+                "Bei Fragen stehen wir die gern zurt Verfügung.<br><br>" +
+                "Deine Militärverwaltung Kanton Zürich"
 
         val message = Message(subject, body)
 

@@ -5,7 +5,7 @@
 
   <mat-dialog-content>
     <pdf-viewer *ngIf="this.document.mediaType === 'application/pdf'" [src]="this.getFileUrl()" [render-text]="true"
-                [fit-to-page]="true" style="width: 100%; height: 600px;"></pdf-viewer>
+                [fit-to-page]="true"  style="width: 100%; height: 600px;" [zoom]="this.pdfScale"></pdf-viewer>
 
     <video *ngIf="this.document.mediaType.startsWith('video/')" style="width: 100%;" controls>
       <source [src]="this.getFileUrl()" [type]="this.document.mediaType">
@@ -15,13 +15,24 @@
 
   </mat-dialog-content>
 
-  <mat-dialog-actions>
-    <button mat-stroked-button mat-dialog-close>Schliessen</button>
-    <button mat-stroked-button (click)="this.toggleBookmarkOnDocument()" *ngIf="this.submission.email || this.submission.phoneNumber">
-      <mat-icon>
-        {{ this.isDocumentBookmarked() ? 'bookmark' : 'bookmark_border' }}
-      </mat-icon>
-      {{ this.isDocumentBookmarked() ? 'Vergessen' : 'Merken' }}
-    </button>
+  <mat-dialog-actions class="display-flex-space-between">
+    <div>
+      <button mat-stroked-button mat-dialog-close>Schliessen</button>
+      <button mat-stroked-button (click)="this.toggleBookmarkOnDocument()" *ngIf="this.submission.email || this.submission.phoneNumber">
+        <mat-icon>
+          {{ this.isDocumentBookmarked() ? 'bookmark' : 'bookmark_border' }}
+        </mat-icon>
+        {{ this.isDocumentBookmarked() ? 'Vergessen' : 'Merken' }}
+      </button>
+    </div>
+    <div *ngIf="this.document.mediaType === 'application/pdf'">
+      <button mat-stroked-button (click)="this.zoomOutPdf()">
+        <mat-icon>zoom_out</mat-icon>
+      </button>
+
+      <button mat-stroked-button (click)="this.zoomInPdf()">
+        <mat-icon>zoom_in</mat-icon>
+      </button>
+    </div>
   </mat-dialog-actions>
 </div>

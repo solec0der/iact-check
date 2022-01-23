@@ -70,17 +70,19 @@ export class DocumentGroupOverviewComponent implements OnInit {
       })
       .afterClosed()
       .subscribe((selectedDocument) => {
-        const documentGroup = this.documentGroups.find((documentGroup) =>
-          documentGroup.documents.some((document) => document.id === selectedDocument.id)
-        );
+        if (selectedDocument) {
+          const documentGroup = this.documentGroups.find((documentGroup) =>
+            documentGroup.documents.some((document) => document.id === selectedDocument.id)
+          );
 
-        if (documentGroup) {
-          this.goToDocumentOverview(documentGroup.id);
+          if (documentGroup) {
+            this.goToDocumentOverview(documentGroup.id);
 
-          this.matDialog.open(DocumentDetailComponent, {
-            width: '90%',
-            data: selectedDocument,
-          });
+            this.matDialog.open(DocumentDetailComponent, {
+              width: '90%',
+              data: selectedDocument,
+            });
+          }
         }
       });
   }
