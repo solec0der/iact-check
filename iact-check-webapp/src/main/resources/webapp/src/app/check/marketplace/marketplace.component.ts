@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog/conf
 import { CheckDTO } from '../../shared/dtos/check-dto';
 import { MarketplaceTileConfigDTO } from '../../shared/dtos/marketplace-tile-config-dto';
 import { ShoppingCartConfirmDialogComponent } from './shopping-cart-confirm-dialog/shopping-cart-confirm-dialog.component';
+import { EmailEnterDialogComponent } from './email-enter-dialog/email-enter-dialog.component';
 
 @Component({
   selector: 'app-marketplace',
@@ -98,6 +99,12 @@ export class MarketplaceComponent implements OnInit {
           });
         }
       });
+  }
+
+  public openEmailEnterDialog(): void {
+    this.matDialog.open(EmailEnterDialogComponent, {
+      data: this.submission,
+    });
   }
 
   public getTextWithReplacedPlaceholders(text: string | undefined): string {

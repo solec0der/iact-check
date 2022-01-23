@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Email nachträglich eingeben</h1>
+
+<div mat-dialog-content>
+  <p>Falls du dich umentschieden hast, kannst du hier doch noch eine Email eingeben.
+    <br>Damit kannst du dir dann deine
+    gemerkten Dokumente nach Hause schicken.</p>
+
+  <br>
+  <form [formGroup]="this.emailFormGroup">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>E-Mail</mat-label>
+      <mat-error>Bitte eine gültige E-Mail eingeben</mat-error>
+      <input matInput formControlName="email" placeholder="Bitte E-Mail eingeben">
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="this.saveEmail()">Speichern</button>
+  <button mat-stroked-button [mat-dialog-close]="false">Schliessen</button>
+</div>

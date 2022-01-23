@@ -63,11 +63,15 @@
     </div>
 
     <div *ngIf="!this.submission.email && !this.submission.phoneNumber" class="full-width align-center">
-      <button mat-raised-button color="primary" (click)="this.goToFinalSlide()">
+      <button mat-raised-button color="primary" (click)="this.goToFinalSlide()" style="margin-right: 8px;">
         <mat-icon>check_outline</mat-icon>
         Abschliessen
       </button>
 
+      <button mat-raised-button color="primary" (click)="this.openEmailEnterDialog()">
+        <mat-icon>email</mat-icon>
+        Email eingeben
+      </button>
     </div>
   </div>
 </div>

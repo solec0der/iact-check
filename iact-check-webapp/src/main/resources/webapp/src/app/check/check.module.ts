@@ -27,6 +27,7 @@ import { IntroductionScreenComponent } from './steps/introduction-screen/introdu
 import { FinalMarketplaceSlideComponent } from './marketplace/final-marketplace-slide/final-marketplace-slide.component';
 import { ShoppingCartConfirmDialogComponent } from './marketplace/shopping-cart-confirm-dialog/shopping-cart-confirm-dialog.component';
 import { DocumentSearchDialogComponent } from './marketplace/document-group-overview/document-search-dialog/document-search-dialog.component';
+import { EmailEnterDialogComponent } from './marketplace/email-enter-dialog/email-enter-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { DocumentSearchDialogComponent } from './marketplace/document-group-over
     FinalMarketplaceSlideComponent,
     ShoppingCartConfirmDialogComponent,
     DocumentSearchDialogComponent,
+    EmailEnterDialogComponent,
   ],
   imports: [
     CommonModule,
