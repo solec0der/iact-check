@@ -3,13 +3,9 @@ import { CheckDTO } from '../../../shared/dtos/check-dto';
 import { ActivatedRoute } from '@angular/router';
 import { CheckStateService } from '../../check-state.service';
 import { QuestionCategoryDTO } from '../../../shared/dtos/question-category-dto';
-import { CORE_URL } from '../../../app.config';
-import { MatSliderChange } from '@angular/material/slider';
-import { RangeQuestionDTO } from '../../../shared/dtos/range-question-dto';
-import { RangeQuestionAnswerDTO } from '../../../shared/dtos/range-question-answer-dto';
-import { RangeStepDTO } from '../../../shared/dtos/range-step-dto';
 import { SubmissionService } from '../../../shared/services/submission.service';
 import { Steps } from '../steps';
+import { RandomUtility } from '../../../shared/utils/random.utility';
 
 @Component({
   selector: 'app-questions-form',
@@ -38,6 +34,10 @@ export class QuestionsFormComponent implements OnInit {
 
     this.checkStateService.getActiveQuestionCategory().subscribe((questionCategoryDTO) => {
       this.questionCategoryDTO = questionCategoryDTO;
+
+      this.questionCategoryDTO.imageQuestions.forEach((imageQuestion) => {
+        imageQuestion.imageAnswers = RandomUtility.shuffle(imageQuestion.imageAnswers);
+      });
     });
   }
 }
