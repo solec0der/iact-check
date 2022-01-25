@@ -193,8 +193,8 @@ class SubmissionService(
                 "<ul>" +
                 "<li>Besprich deine Planung nochmals mit deinem Arbeitgeber, Schule, Familie.</li>" +
                 "<li>Ändert sich deine persönliche Planung: <a href=\"https://services.zh.ch\">services.zh.ch</a></li>" +
-                "<li>Bereite dich auf die Rekrutierung vor: treibe Sport und informier dich nochmals kurz.</li></ul> <br>" +
-                "Bei Fragen stehen wir die gern zurt Verfügung.<br><br>" +
+                "<li>Bereite dich auf die Rekrutierung vor: Treibe Sport und informiere dich nochmals kurz.</li></ul> <br>" +
+                "Bei Fragen stehen wir die gerne zur Verfügung.<br><br>" +
                 "Deine Militärverwaltung Kanton Zürich"
 
         val message = Message(subject, body)
