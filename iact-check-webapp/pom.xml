@@ -6,10 +6,10 @@
     <parent>
         <groupId>ch.iact</groupId>
         <artifactId>iact-check</artifactId>
-        <version>1.4.6</version>
+        <version>1.4.7</version>
     </parent>
     <artifactId>iact-check-webapp</artifactId>
-    <version>1.4.6</version>
+    <version>1.4.7</version>
     <name>iact-check-webapp</name>
     <description>Iact Check Webapp</description>
     <packaging>jar</packaging>
