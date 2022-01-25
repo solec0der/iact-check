@@ -94,21 +94,15 @@
           </mat-form-field>
 
         </div>
-        <p>Deine Daten werden nicht gespeichert. Deine Email benötigst du, <br>um dir Informationen nach Hause zu senden.</p>
+        <p>Deine Daten werden nicht gespeichert. Deine Email benötigst du, <br>um dir Informationen nach Hause zu
+          senden.</p>
         <br>
-        <div class="controls">
-          <div>
-            <button mat-raised-button color="primary" (click)="this.previousStep()">
-              <mat-icon>arrow_back_ios</mat-icon>
-              {{'SHARED.BACK' | translate}}
-            </button>
-          </div>
-          <div>
-            <button mat-raised-button color="primary" (click)="this.nextStep()" [disabled]="this.userRegistrationFormGroup.invalid">
-              {{'SHARED.NEXT' | translate}}
-              <mat-icon>arrow_forward_ios</mat-icon>
-            </button>
-          </div>
+        <div class="align-center">
+          <button mat-raised-button color="primary" (click)="this.nextStep()"
+                  [disabled]="this.userRegistrationFormGroup.invalid">
+            {{'SHARED.NEXT' | translate}}
+            <mat-icon>arrow_forward_ios</mat-icon>
+          </button>
         </div>
       </div>
     </form>
