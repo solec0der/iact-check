@@ -35,7 +35,12 @@ import { DocumentGroupDetailComponent } from './customers/customer-detail/checks
 import { DocumentDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component';
 import { DocumentListComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-list/document-list.component';
 import { MarketplaceConfigComponent } from './customers/customer-detail/checks/check-detail/marketplace-config/marketplace-config.component';
-import { MatTreeModule } from "@angular/material/tree";
+import { MatTreeModule } from '@angular/material/tree';
+import { LogsComponent } from './logs/logs.component';
+import { ClientLogsListComponent } from './logs/client-logs-list/client-logs-list.component';
+import { AppModule } from '../app.module';
+import { TruncatePipe } from '../shared/pipes/truncate.pipe';
+import { ClientLogsDetailComponent } from './logs/client-logs-detail/client-logs-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +73,10 @@ import { MatTreeModule } from "@angular/material/tree";
     DocumentDetailComponent,
     DocumentListComponent,
     MarketplaceConfigComponent,
+    LogsComponent,
+    ClientLogsListComponent,
+    TruncatePipe,
+    ClientLogsDetailComponent,
   ],
   imports: [
     CommonModule,

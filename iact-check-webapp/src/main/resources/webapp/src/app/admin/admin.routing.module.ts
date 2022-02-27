@@ -13,16 +13,11 @@ import { GeneralSettingsComponent } from './customers/customer-detail/customer-s
 import { EmailSettingsComponent } from './customers/customer-detail/customer-settings/email-settings/email-settings.component';
 import { TextSettingsComponent } from './customers/customer-detail/customer-settings/text-settings/text-settings.component';
 import { CustomerSettingsComponent } from './customers/customer-detail/customer-settings/customer-settings.component';
-import {ImageQuestionDetailComponent} from "./customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component";
-import {
-  FlashCardQuestionDetailComponent
-} from "./customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component";
-import {
-  DocumentGroupDetailComponent
-} from "./customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component";
-import {
-  DocumentDetailComponent
-} from "./customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component";
+import { ImageQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/question-category-detail/image-question-detail/image-question-detail.component';
+import { FlashCardQuestionDetailComponent } from './customers/customer-detail/checks/check-detail/flash-card-question-detail/flash-card-question-detail.component';
+import { DocumentGroupDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-group-detail.component';
+import { DocumentDetailComponent } from './customers/customer-detail/checks/check-detail/document-group-detail/document-detail/document-detail.component';
+import { LogsComponent } from './logs/logs.component';
 
 const routes: Routes = [
   {
@@ -107,6 +102,10 @@ const routes: Routes = [
       {
         path: 'customers/:customerId/:action',
         component: CustomerDetailComponent,
+      },
+      {
+        path: 'logs',
+        component: LogsComponent,
       },
     ],
   },

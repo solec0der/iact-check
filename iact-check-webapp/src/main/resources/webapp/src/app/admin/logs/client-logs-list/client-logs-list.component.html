@@ -1,0 +1,56 @@
+<mat-card>
+  <div class="display-flex-space-between margin-bottom-after-title">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Log Levels</mat-label>
+        <mat-select multiple [(value)]="this.logLevels" (selectionChange)="this.changeLogLevels()">
+          <mat-option *ngFor="let logLevel of this.logLevelKeys" [value]="logLevel">
+            {{ logLevel }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="this.loadData()">
+        <mat-icon>refresh</mat-icon>
+        {{'SHARED.RELOAD' | translate}}
+      </button>
+    </div>
+  </div>
+  <mat-card-content>
+    <table mat-table [dataSource]="this.clientLogEntries" class="full-width">
+      <ng-container matColumnDef="logLevel">
+        <th mat-header-cell *matHeaderCellDef>Log Level</th>
+        <td mat-cell *matCellDef="let element"> {{element.logLevel}} </td>
+      </ng-container>
+      <ng-container matColumnDef="remoteIpAddress">
+        <th mat-header-cell *matHeaderCellDef>IP Address</th>
+        <td mat-cell *matCellDef="let element"> {{element.remoteIpAddress}} </td>
+      </ng-container>
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let element" style="width: 50%"> {{element.message | truncate:[200, '...']}} </td>
+      </ng-container>
+      <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef>Timestamp</th>
+        <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="text-align: right">
+          {{'SHARED.ACTIONS' | translate}}
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: right">
+          <button mat-icon-button (click)="this.showClientErrorLogsDetailComponent(element)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="this.displayedColumnsClientLogs"></tr>
+      <tr mat-row *matRowDef="let row; columns: this.displayedColumnsClientLogs;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="this.page" [pageSize]="this.pageSize"
+                   [length]="this.numberOfClientLogs" aria-label="Select page of logs" (page)="this.changePage($event)"></mat-paginator>
+  </mat-card-content>
+</mat-card>
+

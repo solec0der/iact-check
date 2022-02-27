@@ -2,6 +2,7 @@ package ch.iact.iactcheck.controller
 
 import ch.iact.iactcheck.dto.ClientLogEntryDTO
 import ch.iact.iactcheck.service.LogService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
@@ -11,12 +12,13 @@ class LogController(
     private val logService: LogService
 ) {
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/logs/client-logs")
     fun createLogEntry(
         @RequestBody clientLogEntryDTO: ClientLogEntryDTO,
         httpServletRequest: HttpServletRequest
-    ): ClientLogEntryDTO {
-        return logService.createClientLogEntry(clientLogEntryDTO, httpServletRequest)
+    ) {
+        logService.createClientLogEntry(clientLogEntryDTO, httpServletRequest)
     }
 
     @GetMapping("/admin/logs/client-logs")
@@ -26,5 +28,10 @@ class LogController(
         @RequestParam("log-levels", required = false, defaultValue = "") logLevels: Set<String>
     ): List<ClientLogEntryDTO> {
         return logService.getClientLogs(page, pageSize, logLevels)
+    }
+
+    @GetMapping("/admin/logs/client-logs/count")
+    fun getNumberOfClientLogs(@RequestParam("log-levels", required = false, defaultValue = "") logLevels: Set<String>): Long {
+        return logService.getNumberOfClientLogs(logLevels)
     }
 }

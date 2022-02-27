@@ -15,7 +15,8 @@
     "CREATE_CHECK": "Check erstellen",
     "CUSTOMER_BRANDING": "Branding",
     "EMAIL": "E-Mail",
-    "TEXT": "SMS"
+    "TEXT": "SMS",
+    "LOGS": "Logs"
   },
   "CUSTOMERS": {
     "CUSTOMERS": "Kunden",
@@ -354,6 +355,9 @@
       "INVALID_PHONE_NUMBER": "Bitte gültige Telefon-Nummer eingeben",
       "INVALID_EMAIL": "Bitte gültige E-Mail eingeben"
     }
+  },
+  "LOGS": {
+    "LOGS": "Logs"
   },
   "ERROR_MESSAGES": {
     "BAD_REQUEST": "Fehler 400 | Ungültige Anfrage",

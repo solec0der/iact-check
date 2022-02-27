@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ClientLogRepository : PagingAndSortingRepository<ClientLogEntry, Long> {
     fun findAllByLogLevelIn(logLevels: Set<LogLevel>, pageable: Pageable): Page<ClientLogEntry>
+
+    fun countAllByLogLevelIn(logLevels: Set<LogLevel>): Long
 }

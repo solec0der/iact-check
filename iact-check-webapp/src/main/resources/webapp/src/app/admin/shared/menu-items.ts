@@ -14,6 +14,13 @@ export const GENERAL_MENU_ITEMS: MenuItem[] = [
     isSubMenuItem: true,
     rolesNeededToAccess: ['ORGANIZATION_ADMINISTRATOR', 'SUPERUSER'],
   },
+  {
+    displayValue: 'SIDEBAR.LOGS',
+    routerLink: 'logs',
+    icon: 'monitor_heart',
+    isSubMenuItem: false,
+    rolesNeededToAccess: ['SUPERUSER'],
+  },
 ];
 
 export const CUSTOMER_MENU_ITEMS: MenuItem[] = [

@@ -1,0 +1,33 @@
+<h1 mat-card-title>{{this.data.logLevel | titlecase}}</h1>
+
+<div class="display-flex-row-gap display-flex-wrap">
+  <div class="display-flex-space-between">
+    <strong><p>Timestamp</p></strong>
+    <p>{{this.data.timestamp}}</p>
+  </div>
+
+  <div class="display-flex-space-between full-width">
+    <strong><p>Log Level</p></strong>
+    <p>{{this.data.logLevel | titlecase}}</p>
+  </div>
+
+  <div class="display-flex-space-between full-width">
+    <strong><p>Uri</p></strong>
+    <p>{{this.data.path}}</p>
+  </div>
+
+  <div class="display-flex-space-between full-width">
+    <strong><p>User-Agent</p></strong>
+    <p>{{this.data.userAgent}}</p>
+  </div>
+
+  <div class="display-flex-space-between full-width">
+    <strong><p>Remote IP-Address</p></strong>
+    <p>{{this.data.remoteIpAddress}}</p>
+  </div>
+
+  <strong><p>Message</p></strong>
+  <div class="display-flex-wrap display-flex-row-gap full-width">
+    <pre>{{this.data.message}}</pre>
+  </div>
+</div>

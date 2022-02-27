@@ -16,7 +16,7 @@ class LogService(
     private val clientLogRepository: ClientLogRepository
 ) {
 
-    fun createClientLogEntry(clientLogEntryDTO: ClientLogEntryDTO, httpRequest: HttpServletRequest): ClientLogEntryDTO {
+    fun createClientLogEntry(clientLogEntryDTO: ClientLogEntryDTO, httpRequest: HttpServletRequest) {
         val clientLogEntry = ClientLogEntry(
             logLevel = LogLevel.valueOf(clientLogEntryDTO.logLevel),
             message = clientLogEntryDTO.message,
@@ -25,7 +25,7 @@ class LogService(
             remoteIpAddress = httpRequest.remoteAddr
         )
 
-        return LogConverter.map(clientLogRepository.save(clientLogEntry))
+        clientLogRepository.save(clientLogEntry)
     }
 
     fun getClientLogs(page: Int, pageSize: Int, logLevels: Set<String>): List<ClientLogEntryDTO> {
@@ -39,5 +39,15 @@ class LogService(
         return clientLogRepository.findAllByLogLevelIn(logLevelsFilter, pageable)
             .content
             .map(LogConverter::map)
+    }
+
+    fun getNumberOfClientLogs(logLevels: Set<String>): Long {
+        val logLevelsFilter = logLevels.map { LogLevel.valueOf(it) }.toMutableSet()
+
+        if (logLevelsFilter.isEmpty()) {
+            logLevelsFilter.addAll(LogLevel.values())
+        }
+
+        return clientLogRepository.countAllByLogLevelIn(logLevelsFilter)
     }
 }

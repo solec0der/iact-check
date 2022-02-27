@@ -38,7 +38,7 @@ export class ImageQuestionComponent implements OnInit {
     this.checkStateService.getSubmission().subscribe((submission) => {
       this.submission = submission;
 
-      if (this.submission.imageQuestionAnswers) {
+      if (this.submission && this.submission.imageQuestionAnswers) {
         this.imageQuestionAnswers = this.submission.imageQuestionAnswers;
         this.answersAreReadOnly =
           this.submission.imageQuestionAnswers.length === this.questionCategoryDTO.imageQuestions.length;

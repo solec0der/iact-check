@@ -35,9 +35,11 @@ export class QuestionsFormComponent implements OnInit {
     this.checkStateService.getActiveQuestionCategory().subscribe((questionCategoryDTO) => {
       this.questionCategoryDTO = questionCategoryDTO;
 
-      this.questionCategoryDTO.imageQuestions.forEach((imageQuestion) => {
-        imageQuestion.imageAnswers = RandomUtility.shuffle(imageQuestion.imageAnswers);
-      });
+      if (this.questionCategoryDTO) {
+        this.questionCategoryDTO.imageQuestions.forEach((imageQuestion) => {
+          imageQuestion.imageAnswers = RandomUtility.shuffle(imageQuestion.imageAnswers);
+        });
+      }
     });
   }
 }
