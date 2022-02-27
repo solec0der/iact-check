@@ -17,4 +17,9 @@ internal class CheckController(
     fun getChecksByCustomerId(@PathVariable("customerId") customerId: Long): List<CheckDTO> {
         return checkService.getChecksByCustomerId(customerId)
     }
+
+    @GetMapping("/checks/{checkId}")
+    fun getCheckById(@PathVariable("checkId") checkId: Long): CheckDTO {
+        return checkService.getCheckById(checkId)
+    }
 }

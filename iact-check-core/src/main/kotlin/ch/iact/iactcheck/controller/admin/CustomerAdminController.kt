@@ -34,11 +34,6 @@ internal class CustomerAdminController(
         return customerService.getAccessibleCustomers()
     }
 
-    @GetMapping("/{customerId}")
-    fun getCustomerById(@PathVariable("customerId") customerId: Long): CustomerDTO {
-        return customerService.getCustomerById(customerId)
-    }
-
     @PutMapping("/{customerId}")
     fun updateCustomerById(
         @PathVariable("customerId") customerId: Long,

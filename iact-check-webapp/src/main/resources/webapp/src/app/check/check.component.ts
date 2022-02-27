@@ -8,7 +8,7 @@ import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { CheckDTO } from '../shared/dtos/check-dto';
 import { CORE_URL } from '../app.config';
 import { ThemeService } from '../shared/services/theme.service';
-import {FlashCardsStateService} from "./marketplace/flash-cards/flash-cards-state.service";
+import { FlashCardsStateService } from './marketplace/flash-cards/flash-cards-state.service';
 
 @Component({
   selector: 'app-check',

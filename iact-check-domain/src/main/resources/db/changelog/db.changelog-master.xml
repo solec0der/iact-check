@@ -11,4 +11,5 @@
     <include file="db/changelog/changes/v4_add_additional_columns_to_marketplace_config_20220110.sql"/>
     <include file="db/changelog/changes/v5_add_new_field_to_active_user_registration_field_20220110.sql"/>
     <include file="db/changelog/changes/v6_add_slide_configuration_tables_20220115.sql"/>
+    <include file="db/changelog/changes/v7_add_log_tables_20220227.sql"/>
 </databaseChangeLog>

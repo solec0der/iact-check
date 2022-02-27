@@ -58,4 +58,9 @@ internal class CustomerController(
     fun getCustomerLogoByCustomerId(@PathVariable("customerId") customerId: Long): ByteArray {
         return customerService.getCustomerLogoByCustomerId(customerId)
     }
+
+    @GetMapping("/{customerId}")
+    fun getCustomerById(@PathVariable("customerId") customerId: Long): CustomerDTO {
+        return customerService.getCustomerById(customerId)
+    }
 }

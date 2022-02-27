@@ -1,4 +1,4 @@
-package ch.iact.iactcheck.controller.admin
+package ch.iact.iactcheck.controller
 
 import ch.iact.iactcheck.dto.UserRegistrationFieldsDTO
 import ch.iact.iactcheck.service.UserRegistrationFieldService
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/admin/user-registration-fields")
-internal class UserRegistrationFieldAdminController(
+@RequestMapping("/api/user-registration-fields")
+internal class UserRegistrationFieldController(
     private val userRegistrationFieldService: UserRegistrationFieldService
 ) {
 

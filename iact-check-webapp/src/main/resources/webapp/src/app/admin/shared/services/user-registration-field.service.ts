@@ -11,8 +11,6 @@ export class UserRegistrationFieldService {
   constructor(private httpClient: HttpClient) {}
 
   public getUserRegistrationFields(): Observable<UserRegistrationFieldsDTO> {
-    return this.httpClient.get<UserRegistrationFieldsDTO>(
-      CORE_URL + '/api/admin/user-registration-fields'
-    );
+    return this.httpClient.get<UserRegistrationFieldsDTO>(CORE_URL + '/api/user-registration-fields');
   }
 }

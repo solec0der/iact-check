@@ -34,7 +34,7 @@ export class CustomerService {
   }
 
   public getCustomerById(customerId: number): Observable<CustomerDTO> {
-    return this.httpClient.get<CustomerDTO>(CORE_URL + '/api/admin/customers/' + customerId);
+    return this.httpClient.get<CustomerDTO>(CORE_URL + '/api/customers/' + customerId);
   }
 
   public getCustomers(): Observable<CustomerDTO[]> {

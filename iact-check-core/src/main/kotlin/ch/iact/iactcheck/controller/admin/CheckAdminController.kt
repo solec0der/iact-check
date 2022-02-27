@@ -17,10 +17,6 @@ internal class CheckAdminController(
         return checkService.createCheck(checkDTO)
     }
 
-    @GetMapping("/{checkId}")
-    fun getCheckById(@PathVariable("checkId") checkId: Long): CheckDTO {
-        return checkService.getCheckById(checkId)
-    }
 
     @PutMapping("/{checkId}")
     fun updateCheckById(@PathVariable("checkId") checkId: Long, @RequestBody checkDTO: CheckDTO): CheckDTO {

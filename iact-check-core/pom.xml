@@ -15,7 +15,7 @@
 
     <properties>
         <resteasy.version>3.9.1.Final</resteasy.version>
-        <keycloak.version>8.0.2</keycloak.version>
+        <keycloak.version>15.0.2</keycloak.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <restdocs-project-version>2.0.4.RELEASE</restdocs-project-version>
 
@@ -188,7 +188,7 @@
             <dependency>
                 <groupId>org.keycloak.bom</groupId>
                 <artifactId>keycloak-adapter-bom</artifactId>
-                <version>8.0.1</version>
+                <version>15.0.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
