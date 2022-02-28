@@ -194,12 +194,14 @@ class SubmissionService(
                 "<li>Besprich deine Planung nochmals mit deinem Arbeitgeber, Schule, Familie.</li>" +
                 "<li>Ändert sich deine persönliche Planung: <a href=\"https://services.zh.ch\">services.zh.ch</a></li>" +
                 "<li>Bereite dich auf die Rekrutierung vor: Treibe Sport und informiere dich nochmals kurz.</li></ul> <br>" +
-                "Bei Fragen stehen wir die gerne zur Verfügung.<br><br>" +
-                "Deine Militärverwaltung Kanton Zürich"
+                "Bei Fragen stehen wir dir gerne zur Verfügung.<br><br>" +
+                "Deine Militärverwaltung Kanton Zürich<br><br><br>" +
+                "Militärverwaltung Kanton Zürich<br>" +
+                "Uetlibergstrasse 113<br>" +
+                "8090 Zürich<br>" +
+                "Telefonnummer: 043 259 71 10"
 
         val message = Message(subject, body)
-
-        print(message)
 
         if (customer.emailSettings != null) {
             val emailSettings = EmailSettingsConverter.convertEmailSettingsToBusinessObject(customer.emailSettings!!)
