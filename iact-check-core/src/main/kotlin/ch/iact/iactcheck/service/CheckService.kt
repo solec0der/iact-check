@@ -40,7 +40,9 @@ class CheckService(
             questionCategories = emptyList(),
             submissions = emptyList(),
             marketplaceConfig = null,
-            introductionSlideConfiguration = null
+            introductionSlideConfiguration = null,
+            emailMessageTemplate = checkDTO.emailMessageTemplate,
+            textMessageTemplate = checkDTO.textMessageTemplate
         )
 
         val marketplaceConfig = MarketplaceConfig(
@@ -114,7 +116,9 @@ class CheckService(
             defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
-            introductionSlideConfiguration = introductionSlideConfiguration
+            introductionSlideConfiguration = introductionSlideConfiguration,
+            emailMessageTemplate = checkDTO.emailMessageTemplate,
+            textMessageTemplate = checkDTO.textMessageTemplate
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))

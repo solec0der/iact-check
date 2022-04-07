@@ -22,7 +22,9 @@ object CheckConverter {
                 QuestionCategoryConverter.convertQuestionCategoryToDTO(it)
             }.toList(),
             marketplaceConfig = MarketplaceConfigMapper.map(check.marketplaceConfig!!),
-            introductionSlideConfiguration = map(check.introductionSlideConfiguration!!)
+            introductionSlideConfiguration = map(check.introductionSlideConfiguration!!),
+            emailMessageTemplate = check.emailMessageTemplate,
+            textMessageTemplate = check.textMessageTemplate
         )
     }
 

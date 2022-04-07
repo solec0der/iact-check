@@ -41,6 +41,9 @@ data class Check(
     @OneToOne(mappedBy = "check", cascade = [CascadeType.ALL], orphanRemoval = true)
     val introductionSlideConfiguration: IntroductionSlideConfiguration?,
 
+    val emailMessageTemplate: String?,
+    val textMessageTemplate: String?,
+
     @OneToMany(
         targetEntity = Submission::class,
         mappedBy = "check",
