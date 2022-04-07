@@ -145,11 +145,17 @@
     "CREATED_MESSAGE": "Der Check wurde erfolgreich erstellt.",
     "UPDATED_MESSAGE": "Der Check wurde erfolgreich modifiziert.",
     "DELETED_MESSAGE": "Der Check wurde erfolgreich gelöscht.",
+    "EMAIL_SUBJECT_TITLE": "Email Betreff",
+    "EMAIL_TEXT_TITLE": "Email Text",
+    "SMS_TEXT_TITLE": "SMS Text",
     "PLACEHOLDER": {
       "TITLE": "Bitte Titel des Checks eingeben",
       "SUBTITLE": "Bitte Untertitel des Checks eingeben",
       "ACTIVE_FROM": "Bitte Aktiv Von Datum des Checks eingeben",
-      "ACTIVE_TO": "Bitte Aktiv Bis Datum des Checks eingeben"
+      "ACTIVE_TO": "Bitte Aktiv Bis Datum des Checks eingeben",
+      "EMAIL_SUBJECT": "Bitte Email Betreff eingeben",
+      "EMAIL_TEXT": "Bitte Email Text eingeben",
+      "SMS_TEXT": "Bitte SMS Text eingeben"
     },
     "ERRORS": {
       "MISSING_TITLE": "Bitte gültigen Titel eingeben",

@@ -152,6 +152,73 @@
         <mat-label>Text</mat-label>
         <textarea matInput placeholder="Bitte einen Text eingeben" formControlName="introductionSlideText"></textarea>
       </mat-form-field>
+
+      <br>
+      <h2 class="subtitle">{{ 'CHECKS.EMAIL_TEXT_TITLE' | translate}}</h2>
+
+      <div class="tooltip-container half-width">
+        <p>In den Email und SMS Texten können Platzhalter verwendet werden. Alle Plathalter müssen in doppelt
+          geschweiften Klammern stehen.</p>
+        <br>
+        <p>Beispiel: {{ '{{ firstName }}' }}</p>
+        <br>
+        <b><p>Mögliche Platzhalter:</p></b>
+        <ul>
+          <li>{{ '{{ firstName }}' }}</li>
+          <li>{{ '{{ lastName }}' }}</li>
+          <li>{{ '{{ email }}' }}</li>
+          <li>{{ '{{ phoneNumber }}' }}</li>
+          <li>{{ '{{ bookmarkedDocuments }}' }}</li>
+        </ul>
+      </div>
+
+      <ng-container
+        *ngFor="let emailSubjectTranslationFormGroup of this.emailSubjectTranslationsFormArray.controls; let i = index">
+        <div [formGroup]="$any(emailSubjectTranslationFormGroup)" style="width: 49%">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{'CHECKS.EMAIL_SUBJECT_TITLE' | translate}}
+              ({{'CHECKS.' + emailSubjectTranslationFormGroup.value.language.language | translate}})
+            </mat-label>
+            <label>
+              <input matInput [placeholder]="'CHECKS.PLACEHOLDER.EMAIL_SUBJECT' | translate"
+                     formControlName="translation"/>
+            </label>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container
+        *ngFor="let emailMessageTranslationFormGroup of this.emailMessageTranslationsFormArray.controls; let i = index">
+        <div [formGroup]="$any(emailMessageTranslationFormGroup)" style="width: 49%">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{'CHECKS.EMAIL_TEXT_TITLE' | translate}}
+              ({{'CHECKS.' + emailMessageTranslationFormGroup.value.language.language | translate}})
+            </mat-label>
+            <label>
+              <textarea matInput [placeholder]="'CHECKS.PLACEHOLDER.EMAIL_TEXT' | translate"
+                        formControlName="translation" rows="10"></textarea>
+            </label>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <br>
+      <h2 class="subtitle">{{ 'CHECKS.SMS_TEXT_TITLE' | translate}}</h2>
+
+      <ng-container
+        *ngFor="let textMessageTranslationsFormGroup of this.textMessageTranslationsFormArray.controls; let i = index">
+        <div [formGroup]="$any(textMessageTranslationsFormGroup)" style="width: 49%">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>{{'CHECKS.SMS_TEXT_TITLE' | translate}}
+              ({{'CHECKS.' + textMessageTranslationsFormGroup.value.language.language | translate}})
+            </mat-label>
+            <label>
+              <textarea matInput [placeholder]="'CHECKS.PLACEHOLDER.SMS_TEXT' | translate"
+                        formControlName="translation" rows="10"></textarea>
+            </label>
+          </mat-form-field>
+        </div>
+      </ng-container>
     </form>
   </mat-card-content>
 </mat-card>

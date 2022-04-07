@@ -15,4 +15,7 @@ export interface CheckDTO {
   questionCategories: QuestionCategoryDTO[];
   marketplaceConfig?: MarketplaceConfigDTO;
   introductionSlideConfiguration: IntroductionSlideConfigurationDTO;
+  emailSubject: { [key: string]: string };
+  emailMessage: { [key: string]: string };
+  textMessage: { [key: string]: string };
 }

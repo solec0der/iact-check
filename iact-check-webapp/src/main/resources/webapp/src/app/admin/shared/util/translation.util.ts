@@ -2,9 +2,13 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LanguageDTO } from '../../../shared/dtos/language-dto';
 
 export class TranslationUtil {
-  public static createTranslationsFormGroup(language: LanguageDTO, translation: string): FormGroup {
+  public static createTranslationsFormGroup(
+    language: LanguageDTO,
+    translation: string,
+    required: boolean = true
+  ): FormGroup {
     return new FormGroup({
-      translation: new FormControl(translation, Validators.required),
+      translation: new FormControl(translation, required ? Validators.required : []),
       language: new FormControl(language, Validators.required),
     });
   }

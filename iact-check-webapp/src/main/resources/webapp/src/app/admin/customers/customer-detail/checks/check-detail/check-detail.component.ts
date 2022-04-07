@@ -27,6 +27,9 @@ export class CheckDetailComponent implements OnInit {
 
   public titleTranslationsFormArray = new FormArray([]);
   public subtitleTranslationsFormArray = new FormArray([]);
+  public emailSubjectTranslationsFormArray = new FormArray([]);
+  public emailMessageTranslationsFormArray = new FormArray([]);
+  public textMessageTranslationsFormArray = new FormArray([]);
 
   constructor(
     private router: Router,
@@ -94,12 +97,28 @@ export class CheckDetailComponent implements OnInit {
       this.subtitleTranslationsFormArray
     );
 
+    const emailSubjectTranslationsBeforeChange = TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+      this.emailSubjectTranslationsFormArray
+    );
+
+    const emailMessageTranslationsBeforeChange = TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+      this.emailMessageTranslationsFormArray
+    );
+
+    const textMessageTranslationsBeforeChange = TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+      this.textMessageTranslationsFormArray
+    );
+
     if (!requiredLanguages.some((language) => language.locale === this.checkFormGroup.value.defaultLanguage)) {
       this.checkFormGroup.get('defaultLanguage')?.setValue('');
     }
 
     this.titleTranslationsFormArray.clear();
     this.subtitleTranslationsFormArray.clear();
+    this.emailSubjectTranslationsFormArray.clear();
+    this.emailMessageTranslationsFormArray.clear();
+    this.textMessageTranslationsFormArray.clear();
+
     requiredLanguages.sort((a, b) => a.language.localeCompare(b.language));
 
     requiredLanguages.forEach((language) => {
@@ -116,12 +135,42 @@ export class CheckDetailComponent implements OnInit {
           this.checkDTO.subtitle[language.locale] = '';
         }
 
+        if (emailMessageTranslationsBeforeChange[language.locale]) {
+          this.checkDTO.emailMessage[language.locale] = emailMessageTranslationsBeforeChange[language.locale];
+        } else if (!this.checkDTO.emailMessage[language.locale]) {
+          this.checkDTO.emailMessage[language.locale] = '';
+        }
+
+        if (emailSubjectTranslationsBeforeChange[language.locale]) {
+          this.checkDTO.emailSubject[language.locale] = emailSubjectTranslationsBeforeChange[language.locale];
+        } else if (!this.checkDTO.emailSubject[language.locale]) {
+          this.checkDTO.emailSubject[language.locale] = '';
+        }
+
+        if (textMessageTranslationsBeforeChange[language.locale]) {
+          this.checkDTO.textMessage[language.locale] = textMessageTranslationsBeforeChange[language.locale];
+        } else if (!this.checkDTO.textMessage[language.locale]) {
+          this.checkDTO.textMessage[language.locale] = '';
+        }
+
         this.titleTranslationsFormArray.push(
           TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.title[language.locale])
         );
 
         this.subtitleTranslationsFormArray.push(
           TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.subtitle[language.locale])
+        );
+
+        this.emailSubjectTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.emailSubject[language.locale], false)
+        );
+
+        this.emailMessageTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.emailMessage[language.locale], false)
+        );
+
+        this.textMessageTranslationsFormArray.push(
+          TranslationUtil.createTranslationsFormGroup(language, this.checkDTO.textMessage[language.locale], false)
         );
       }
     });
@@ -154,6 +203,9 @@ export class CheckDetailComponent implements OnInit {
         subtitle: this.checkFormGroup.value.introductionSlideSubtitle,
         text: this.checkFormGroup.value.introductionSlideText,
       },
+      emailSubject: {},
+      emailMessage: {},
+      textMessage: {},
     };
 
     this.checkService.createCheck(checkDTO).subscribe((createdCheckDTO) => {
@@ -187,6 +239,13 @@ export class CheckDetailComponent implements OnInit {
         subtitle: this.checkFormGroup.value.introductionSlideSubtitle,
         text: this.checkFormGroup.value.introductionSlideText,
       },
+      emailSubject: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+        this.emailSubjectTranslationsFormArray
+      ),
+      emailMessage: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(
+        this.emailMessageTranslationsFormArray
+      ),
+      textMessage: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.textMessageTranslationsFormArray),
     };
 
     this.checkService.updateCheckById(this.checkId, checkDTO).subscribe((updatedCheckDTO) => {
@@ -226,6 +285,9 @@ export class CheckDetailComponent implements OnInit {
 
     this.titleTranslationsFormArray.clear();
     this.subtitleTranslationsFormArray.clear();
+    this.emailSubjectTranslationsFormArray.clear();
+    this.emailMessageTranslationsFormArray.clear();
+    this.textMessageTranslationsFormArray.clear();
     this.checkDTO.requiredLanguages.sort((a, b) => a.locale.localeCompare(b.locale));
 
     this.checkDTO.requiredLanguages.forEach((value) => {
@@ -235,6 +297,18 @@ export class CheckDetailComponent implements OnInit {
 
       this.subtitleTranslationsFormArray.push(
         TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.subtitle[value.locale])
+      );
+
+      this.emailSubjectTranslationsFormArray.push(
+        TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.emailSubject[value.locale], false)
+      );
+
+      this.emailMessageTranslationsFormArray.push(
+        TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.emailMessage[value.locale], false)
+      );
+
+      this.textMessageTranslationsFormArray.push(
+        TranslationUtil.createTranslationsFormGroup(value, this.checkDTO.textMessage[value.locale], false)
       );
     });
   }
@@ -255,6 +329,15 @@ export class CheckDetailComponent implements OnInit {
       questionCategories: [],
       introductionSlideConfiguration: {
         showIntroductionSlide: false,
+      },
+      emailSubject: {
+        'de-CH': '',
+      },
+      emailMessage: {
+        'de-CH': '',
+      },
+      textMessage: {
+        'de-CH': '',
       },
     };
   }
