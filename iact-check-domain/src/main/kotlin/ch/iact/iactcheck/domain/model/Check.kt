@@ -41,8 +41,14 @@ data class Check(
     @OneToOne(mappedBy = "check", cascade = [CascadeType.ALL], orphanRemoval = true)
     val introductionSlideConfiguration: IntroductionSlideConfiguration?,
 
-    val emailMessageTemplate: String?,
-    val textMessageTemplate: String?,
+    @Convert(converter = TranslationsPersistenceConverter::class)
+    val emailSubject: Translations?,
+
+    @Convert(converter = TranslationsPersistenceConverter::class)
+    val emailMessage: Translations?,
+
+    @Convert(converter = TranslationsPersistenceConverter::class)
+    val textMessage: Translations?,
 
     @OneToMany(
         targetEntity = Submission::class,

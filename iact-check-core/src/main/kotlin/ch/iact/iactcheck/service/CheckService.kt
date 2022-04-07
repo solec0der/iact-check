@@ -41,8 +41,9 @@ class CheckService(
             submissions = emptyList(),
             marketplaceConfig = null,
             introductionSlideConfiguration = null,
-            emailMessageTemplate = checkDTO.emailMessageTemplate,
-            textMessageTemplate = checkDTO.textMessageTemplate
+            emailSubject = Translations.fromMap(checkDTO.emailSubject),
+            emailMessage = Translations.fromMap(checkDTO.emailMessage),
+            textMessage = Translations.fromMap(checkDTO.textMessage)
         )
 
         val marketplaceConfig = MarketplaceConfig(
@@ -117,8 +118,9 @@ class CheckService(
             activeFrom = checkDTO.activeFrom,
             activeTo = checkDTO.activeTo,
             introductionSlideConfiguration = introductionSlideConfiguration,
-            emailMessageTemplate = checkDTO.emailMessageTemplate,
-            textMessageTemplate = checkDTO.textMessageTemplate
+            emailSubject = Translations.fromMap(checkDTO.emailSubject),
+            emailMessage = Translations.fromMap(checkDTO.emailMessage),
+            textMessage = Translations.fromMap(checkDTO.textMessage)
         )
 
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))

@@ -23,8 +23,9 @@ object CheckConverter {
             }.toList(),
             marketplaceConfig = MarketplaceConfigMapper.map(check.marketplaceConfig!!),
             introductionSlideConfiguration = map(check.introductionSlideConfiguration!!),
-            emailMessageTemplate = check.emailMessageTemplate,
-            textMessageTemplate = check.textMessageTemplate
+            emailSubject = check.emailSubject?.toMap() ?: emptyMap(),
+            emailMessage = check.emailMessage?.toMap() ?: emptyMap(),
+            textMessage = check.textMessage?.toMap() ?: emptyMap()
         )
     }
 

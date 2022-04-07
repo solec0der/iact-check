@@ -17,6 +17,7 @@ data class CheckDTO(
     val questionCategories: List<QuestionCategoryDTO>,
     val marketplaceConfig: MarketplaceConfigDTO?,
     val introductionSlideConfiguration: IntroductionSlideConfigurationDTO,
-    val emailMessageTemplate: String?,
-    val textMessageTemplate: String?
+    val emailSubject: Map<String, String>,
+    val emailMessage: Map<String, String>,
+    val textMessage: Map<String, String>
 )

@@ -18,12 +18,8 @@ object TextMessageSettingsConverter {
     }
 
     fun convertTextMessageSettingsToBusinessObject(
-        textMessageSettings: TextMessageSettings?
-    ): ch.iact.iactcheck.messaging.text.TextMessageSettings? {
-        if (textMessageSettings == null) {
-            return null
-        }
-
+        textMessageSettings: TextMessageSettings
+    ): ch.iact.iactcheck.messaging.text.TextMessageSettings {
         return ch.iact.iactcheck.messaging.text.TextMessageSettings(
             accountSid = textMessageSettings.accountSid,
             authToken = textMessageSettings.authToken,

@@ -15,7 +15,7 @@ class TextMessageService : MessageService<TextMessageSettings, TextMessageRecipi
         com.twilio.rest.api.v2010.account.Message.creator(
             PhoneNumber(recipient.phoneNumber),
             PhoneNumber(settings.fromPhoneNumber),
-            message.subject + "\\n\\n" + message.message
+            message.message
         ).create()
     }
 }

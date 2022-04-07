@@ -7,8 +7,11 @@ import ch.iact.iactcheck.dto.*
 import ch.iact.iactcheck.messaging.Message
 import ch.iact.iactcheck.messaging.email.EmailMessageService
 import ch.iact.iactcheck.messaging.email.EmailRecipient
+import ch.iact.iactcheck.messaging.text.TextMessageRecipient
+import ch.iact.iactcheck.messaging.text.TextMessageService
 import ch.iact.iactcheck.service.converter.EmailSettingsConverter
 import ch.iact.iactcheck.service.converter.SubmissionConverter
+import ch.iact.iactcheck.service.converter.TextMessageSettingsConverter
 import ch.iact.iactcheck.util.PhoneNumberUtil
 import org.apache.commons.validator.routines.EmailValidator
 import org.springframework.beans.factory.annotation.Value
@@ -24,6 +27,7 @@ class SubmissionService(
     private val possibleOutcomeRepository: PossibleOutcomeRepository,
     private val documentRepository: DocumentRepository,
     private val emailMessageService: EmailMessageService,
+    private val textMessageService: TextMessageService,
     @Value("\${coreUrl}") private val coreUrl: String
 ) {
 
@@ -176,32 +180,23 @@ class SubmissionService(
             .findById(submissionId)
             .orElseThrow { throw SubmissionNotFoundException() }
 
+        // TODO: Add selected language to submission to use the correct translation
         val customer = submission.check.customer
+        val emailSubject = replacePlaceholders(
+            submission.check.emailSubject?.get(Language.GERMAN) ?: "no email subject defined in the used language",
+            submission, true
+        )
+        val emailMessageText = replacePlaceholders(
+            submission.check.emailMessage?.get(Language.GERMAN) ?: "no email message defined in the used language",
+            submission, true
+        )
+        val textMessageText = replacePlaceholders(
+            submission.check.textMessage?.get(Language.GERMAN) ?: "no text message defined in the used language",
+            submission, false
+        )
 
-        val subject = "noreply Deine Informationen zur Armee, Zivilschutz, Zivildienst"
-        var body = "Hey ${submission.firstName}, well done! <br><br>" +
-                "Mit deiner Merkliste kannst du dich jetzt optimal auf deine Rekrutierung vorbereiten. <br>" +
-                "<ul>"
-
-
-        submission.bookmarkedDocuments.forEach {
-            body += "<li>${it.document.title} (${getLinkToDocument(it.document.id)})</li>"
-        }
-
-        body += "</ul>" +
-                "Unsere Tipps: <br>" +
-                "<ul>" +
-                "<li>Besprich deine Planung nochmals mit deinem Arbeitgeber, Schule, Familie.</li>" +
-                "<li>Ändert sich deine persönliche Planung: <a href=\"https://services.zh.ch\">services.zh.ch</a></li>" +
-                "<li>Bereite dich auf die Rekrutierung vor: Treibe Sport und informiere dich nochmals kurz.</li></ul> <br>" +
-                "Bei Fragen stehen wir dir gerne zur Verfügung.<br><br>" +
-                "Deine Militärverwaltung Kanton Zürich<br><br><br>" +
-                "Militärverwaltung Kanton Zürich<br>" +
-                "Uetlibergstrasse 113<br>" +
-                "8090 Zürich<br>" +
-                "Telefonnummer: 043 259 71 10"
-
-        val message = Message(subject, body)
+        val emailMessage = Message(emailSubject, emailMessageText)
+        val textMessage = Message("", textMessageText)
 
         if (customer.emailSettings != null) {
             val emailSettings = EmailSettingsConverter.convertEmailSettingsToBusinessObject(customer.emailSettings!!)
@@ -210,7 +205,18 @@ class SubmissionService(
                 lastName = submission.lastName,
                 emailAddress = submission.email
             )
-            emailMessageService.sendMessage(emailSettings, emailRecipient, message)
+            emailMessageService.sendMessage(emailSettings, emailRecipient, emailMessage)
+        }
+
+        if (customer.textMessageSettings != null) {
+            val textMessageSettings =
+                TextMessageSettingsConverter.convertTextMessageSettingsToBusinessObject(customer.textMessageSettings!!)
+            val textMessageRecipient = TextMessageRecipient(
+                firstName = submission.firstName,
+                lastName = submission.lastName,
+                phoneNumber = submission.phoneNumber
+            )
+            textMessageService.sendMessage(textMessageSettings, textMessageRecipient, textMessage)
         }
     }
 
@@ -239,6 +245,50 @@ class SubmissionService(
 
     private fun getLinkToDocument(documentId: Long): String {
         return "${coreUrl}/api/documents/${documentId}/file"
+    }
+
+    private fun replacePlaceholders(text: String, submission: Submission, html: Boolean): String {
+        var newText = text
+
+        if (html) {
+            newText = newText
+                .replace("</li>\n", "</li>")
+                .replace("<ul>\n", "<ul>")
+                .replace("<ol>\n", "<ol>")
+                .replace("</ul>\n", "</ul>")
+                .replace("</ol>\n", "</ol>")
+                .replace("\n", "<br>")
+        }
+
+        return newText
+            .replace("{{ firstName }}", submission.firstName)
+            .replace("{{ lastName }}", submission.lastName)
+            .replace("{{ email }}", submission.email)
+            .replace("{{ phoneNumber }}", submission.phoneNumber)
+            .replace("{{ bookmarkedDocuments }}", getBookmarkedDocuments(submission.bookmarkedDocuments, html))
+    }
+
+    private fun getBookmarkedDocuments(bookmarkedDocuments: List<BookmarkedDocument>, html: Boolean): String {
+        return if (html) getBookmarkedDocumentsAsHtmlList(bookmarkedDocuments) else getBookmarkedDocumentsAsLineSeparatedList(
+            bookmarkedDocuments
+        )
+    }
+
+    private fun getBookmarkedDocumentsAsHtmlList(bookmarkedDocuments: List<BookmarkedDocument>): String {
+        var result = "<ul>"
+        bookmarkedDocuments.forEach {
+            result += "<li>${it.document.title} (${getLinkToDocument(it.document.id)})</li>"
+        }
+        result += "</ul>"
+        return result
+    }
+
+    private fun getBookmarkedDocumentsAsLineSeparatedList(bookmarkedDocuments: List<BookmarkedDocument>): String {
+        var result = ""
+        bookmarkedDocuments.forEach {
+            result += "${it.document.title} (${getLinkToDocument(it.document.id)})\n"
+        }
+        return result
     }
 
     private fun validateSubmission(
