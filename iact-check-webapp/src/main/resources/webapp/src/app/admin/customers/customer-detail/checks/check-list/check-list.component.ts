@@ -15,14 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CheckListComponent implements OnInit {
   public checks: CheckDTO[] = [];
-  public displayedColumnsChecks = [
-    'id',
-    'title',
-    'requiredLanguages',
-    'activeFrom',
-    'activeTo',
-    'actions',
-  ];
+  public displayedColumnsChecks = ['id', 'title', 'requiredLanguages', 'actions'];
 
   private customerId: number = -1;
 
@@ -52,15 +45,9 @@ export class CheckListComponent implements OnInit {
     const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       data: {
         title: this.translateService.instant('CHECKS.DELETION_DIALOG.TITLE'),
-        message: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.MESSAGE'
-        ),
-        buttonTextCancel: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'
-        ),
-        buttonTextConfirm: this.translateService.instant(
-          'CHECKS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'
-        ),
+        message: this.translateService.instant('CHECKS.DELETION_DIALOG.MESSAGE'),
+        buttonTextCancel: this.translateService.instant('CHECKS.DELETION_DIALOG.BUTTON_TEXT_CANCEL'),
+        buttonTextConfirm: this.translateService.instant('CHECKS.DELETION_DIALOG.BUTTON_TEXT_CONFIRM'),
       },
     });
 
@@ -87,10 +74,8 @@ export class CheckListComponent implements OnInit {
   private loadData(): void {
     this.checks = [];
 
-    this.checkService
-      .getChecksByCustomerId(this.customerId)
-      .subscribe((checks) => {
-        this.checks = checks;
-      });
+    this.checkService.getChecksByCustomerId(this.customerId).subscribe((checks) => {
+      this.checks = checks;
+    });
   }
 }

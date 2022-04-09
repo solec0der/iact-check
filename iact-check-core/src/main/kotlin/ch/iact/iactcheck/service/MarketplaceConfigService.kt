@@ -9,7 +9,6 @@ import ch.iact.iactcheck.domain.model.MarketplaceTileConfig
 import ch.iact.iactcheck.domain.repository.DocumentGroupRepository
 import ch.iact.iactcheck.domain.repository.MarketplaceConfigRepository
 import ch.iact.iactcheck.domain.repository.MarketplaceTileConfigRepository
-import ch.iact.iactcheck.dto.FinalMarketplaceSlideConfigurationDTO
 import ch.iact.iactcheck.dto.MarketplaceConfigDTO
 import ch.iact.iactcheck.service.converter.MarketplaceConfigMapper
 import org.springframework.stereotype.Service

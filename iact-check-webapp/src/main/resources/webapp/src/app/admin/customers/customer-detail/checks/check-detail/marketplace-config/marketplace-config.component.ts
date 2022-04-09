@@ -87,9 +87,11 @@ export class MarketplaceConfigComponent implements OnInit {
 
   public getDisplayedDocumentGroupsByFormArrayIndex(index: number): DisplayedDocumentGroupDTO[] {
     if (this.marketplaceConfig) {
-      return this.marketplaceConfig?.marketplaceTileConfigs[index].displayedDocumentGroups.sort(
-        (a, b) => a.position - b.position
-      );
+      const marketplaceTileConfig = this.marketplaceConfig?.marketplaceTileConfigs[index];
+
+      if (marketplaceTileConfig) {
+        return marketplaceTileConfig.displayedDocumentGroups.sort((a, b) => a.position - b.position);
+      }
     }
     return [];
   }

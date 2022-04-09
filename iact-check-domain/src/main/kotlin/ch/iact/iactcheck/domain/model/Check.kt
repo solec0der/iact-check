@@ -2,7 +2,6 @@ package ch.iact.iactcheck.domain.model
 
 import ch.iact.iactcheck.domain.converter.TranslationsPersistenceConverter
 import ch.iact.iactcheck.domain.model.common.Translations
-import java.time.Instant
 import javax.persistence.*
 
 @Entity
@@ -28,9 +27,6 @@ data class Check(
 
     @Enumerated(EnumType.STRING)
     val defaultLanguage: Language,
-
-    val activeFrom: Instant,
-    val activeTo: Instant,
 
     @OneToMany(targetEntity = QuestionCategory::class, mappedBy = "check", cascade = [CascadeType.ALL])
     val questionCategories: List<QuestionCategory>,
@@ -68,8 +64,6 @@ data class Check(
         if (title != other.title) return false
         if (subtitle != other.subtitle) return false
         if (defaultLanguage != other.defaultLanguage) return false
-        if (activeFrom != other.activeFrom) return false
-        if (activeTo != other.activeTo) return false
 
         return true
     }
@@ -79,12 +73,10 @@ data class Check(
         result = 31 * result + title.hashCode()
         result = 31 * result + subtitle.hashCode()
         result = 31 * result + defaultLanguage.hashCode()
-        result = 31 * result + activeFrom.hashCode()
-        result = 31 * result + activeTo.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Check(id=$id, title=$title, subtitle=$subtitle, defaultLanguage=$defaultLanguage, activeFrom=$activeFrom, activeTo=$activeTo)"
+        return "Check(id=$id, title=$title, subtitle=$subtitle, defaultLanguage=$defaultLanguage)"
     }
 }

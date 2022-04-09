@@ -194,8 +194,6 @@ export class CheckDetailComponent implements OnInit {
       subtitle: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.subtitleTranslationsFormArray),
       defaultLanguage: getLanguageByLocale(this.checkFormGroup.value.defaultLanguage)!,
       requiredLanguages: this.checkFormGroup.value.requiredLanguages,
-      activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
-      activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
       introductionSlideConfiguration: {
         showIntroductionSlide: this.checkFormGroup.value.showIntroductionSlide,
@@ -230,8 +228,6 @@ export class CheckDetailComponent implements OnInit {
       subtitle: TranslationUtil.convertTranslationsFormArrayToTranslationsMap(this.subtitleTranslationsFormArray),
       defaultLanguage: getLanguageByLocale(this.checkFormGroup.value.defaultLanguage)!,
       requiredLanguages: this.checkFormGroup.value.requiredLanguages,
-      activeFrom: this.checkFormGroup.value.activeFrom.toISOString(),
-      activeTo: this.checkFormGroup.value.activeTo.toISOString(),
       questionCategories: [],
       introductionSlideConfiguration: {
         showIntroductionSlide: this.checkFormGroup.value.showIntroductionSlide,
@@ -264,11 +260,6 @@ export class CheckDetailComponent implements OnInit {
     this.checkFormGroup = new FormGroup({
       defaultLanguage: new FormControl(this.checkDTO.defaultLanguage.locale, Validators.required),
       requiredLanguages: new FormControl(this.checkDTO.requiredLanguages, Validators.required),
-      activeFrom: new FormControl(
-        this.action === 'edit' ? new Date(this.checkDTO.activeFrom) : '',
-        Validators.required
-      ),
-      activeTo: new FormControl(this.action === 'edit' ? new Date(this.checkDTO.activeTo) : '', Validators.required),
       showIntroductionSlide: new FormControl(
         this.action === 'edit' ? this.checkDTO.introductionSlideConfiguration.showIntroductionSlide : false
       ),
@@ -324,8 +315,6 @@ export class CheckDetailComponent implements OnInit {
       },
       defaultLanguage: DEFAULT_LANGUAGE,
       requiredLanguages: [DEFAULT_LANGUAGE],
-      activeFrom: new Date(),
-      activeTo: new Date(),
       questionCategories: [],
       introductionSlideConfiguration: {
         showIntroductionSlide: false,

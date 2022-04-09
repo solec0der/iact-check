@@ -13,4 +13,6 @@
     <include file="db/changelog/changes/v6_add_slide_configuration_tables_20220115.sql"/>
     <include file="db/changelog/changes/v7_add_log_tables_20220227.sql"/>
     <include file="db/changelog/changes/v8_add_email_and_text_message_template_column_20220407.sql"/>
+    <include file="db/changelog/changes/v9_remove_active_from_to_field_from_check_20220409.sql"/>
+    <include file="db/changelog/changes/v10_add_delete_cascade_to_constraints_20220409.sql"/>
 </databaseChangeLog>

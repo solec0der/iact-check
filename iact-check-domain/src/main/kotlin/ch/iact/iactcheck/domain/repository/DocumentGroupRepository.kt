@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 interface DocumentGroupRepository : JpaRepository<DocumentGroup, Long> {
 
     fun findAllByCheckId(checkId: Long): List<DocumentGroup>
+
+    fun deleteAllByCheckId(checkId: Long)
 }

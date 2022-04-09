@@ -297,7 +297,7 @@ class SubmissionService(
     ) {
         // TODO: Rework validation (make it more dynamic)
         val normalizedPhoneNumber = submissionDTO.phoneNumber.trim()
-        val normalizedEmail = submissionDTO.email.trim().toLowerCase()
+        val normalizedEmail = submissionDTO.email.trim().lowercase(Locale.getDefault())
 
         if (isUserRegistrationFieldActive("EMAIL", activeUserRegistrationFields)) {
             val emailField = activeUserRegistrationFields.find { it.userRegistrationField.fieldName === "EMAIL" }

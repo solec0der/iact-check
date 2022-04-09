@@ -2,26 +2,25 @@ package ch.iact.iactcheck.service
 
 import ch.iact.iactcheck.controller.exception.CheckNotFoundException
 import ch.iact.iactcheck.controller.exception.CustomerNotFoundException
-import ch.iact.iactcheck.controller.exception.FromDateAfterToDateException
 import ch.iact.iactcheck.domain.model.*
 import ch.iact.iactcheck.domain.model.common.Translations
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.CustomerRepository
+import ch.iact.iactcheck.domain.repository.MarketplaceConfigRepository
 import ch.iact.iactcheck.dto.CheckDTO
 import ch.iact.iactcheck.service.converter.CheckConverter
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class CheckService(
     private val checkRepository: CheckRepository,
-    private val customerRepository: CustomerRepository
+    private val customerRepository: CustomerRepository,
+    private val marketplaceConfigRepository: MarketplaceConfigRepository
 ) {
 
+    @Transactional
     fun createCheck(checkDTO: CheckDTO): CheckDTO {
-        if (checkDTO.activeFrom.isAfter(checkDTO.activeTo)) {
-            throw FromDateAfterToDateException()
-        }
-
         val customer = customerRepository
             .findById(checkDTO.customerId)
             .orElseThrow { throw CustomerNotFoundException() }
@@ -35,8 +34,6 @@ class CheckService(
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
             defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
-            activeFrom = checkDTO.activeFrom,
-            activeTo = checkDTO.activeTo,
             questionCategories = emptyList(),
             submissions = emptyList(),
             marketplaceConfig = null,
@@ -46,7 +43,9 @@ class CheckService(
             textMessage = Translations.fromMap(checkDTO.textMessage)
         )
 
-        val marketplaceConfig = MarketplaceConfig(
+        check = checkRepository.save(check)
+
+        var marketplaceConfig = MarketplaceConfig(
             id = -1,
             marketplaceEnabled = false,
             marketplaceTileConfigs = emptyList(),
@@ -56,6 +55,8 @@ class CheckService(
             check = check,
             finalMarketplaceSlideConfiguration = null
         )
+
+        marketplaceConfig = marketplaceConfigRepository.save(marketplaceConfig)
 
         check = check.copy(
             marketplaceConfig = marketplaceConfig.copy(
@@ -93,10 +94,6 @@ class CheckService(
     }
 
     fun updateCheckById(checkId: Long, checkDTO: CheckDTO): CheckDTO {
-        if (checkDTO.activeFrom.isAfter(checkDTO.activeTo)) {
-            throw FromDateAfterToDateException()
-        }
-
         var check = checkRepository.findById(checkId).orElseThrow { throw CheckNotFoundException() }
 
         val introductionSlideConfiguration = IntroductionSlideConfiguration(
@@ -115,8 +112,6 @@ class CheckService(
                 Language.findLanguageByLocale(it.locale)
             }.toSet(),
             defaultLanguage = Language.findLanguageByLocale(checkDTO.defaultLanguage.locale),
-            activeFrom = checkDTO.activeFrom,
-            activeTo = checkDTO.activeTo,
             introductionSlideConfiguration = introductionSlideConfiguration,
             emailSubject = Translations.fromMap(checkDTO.emailSubject),
             emailMessage = Translations.fromMap(checkDTO.emailMessage),
@@ -126,6 +121,7 @@ class CheckService(
         return CheckConverter.convertCheckToDTO(checkRepository.save(check))
     }
 
+    @Transactional
     fun deleteCheckById(checkId: Long) {
         checkRepository.deleteById(checkId)
     }

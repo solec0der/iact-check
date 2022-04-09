@@ -16,8 +16,6 @@ object CheckConverter {
             subtitle = check.subtitle.toMap(),
             requiredLanguages = check.requiredLanguages.map { LanguageDTO(it.name, it.locale) }.toSet(),
             defaultLanguage = LanguageDTO(check.defaultLanguage.name, check.defaultLanguage.locale),
-            activeFrom = check.activeFrom,
-            activeTo = check.activeTo,
             questionCategories = check.questionCategories.map {
                 QuestionCategoryConverter.convertQuestionCategoryToDTO(it)
             }.toList(),

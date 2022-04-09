@@ -10,8 +10,6 @@ export interface CheckDTO {
   subtitle: { [key: string]: string };
   requiredLanguages: LanguageDTO[];
   defaultLanguage: LanguageDTO;
-  activeFrom: Date;
-  activeTo: Date;
   questionCategories: QuestionCategoryDTO[];
   marketplaceConfig?: MarketplaceConfigDTO;
   introductionSlideConfiguration: IntroductionSlideConfigurationDTO;
