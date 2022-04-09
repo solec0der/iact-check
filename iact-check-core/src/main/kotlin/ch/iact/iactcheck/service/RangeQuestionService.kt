@@ -31,7 +31,7 @@ class RangeQuestionService(
         rangeQuestion = rangeQuestionRepository.save(rangeQuestion);
         rangeQuestion = rangeQuestion.copy(
             rangeSteps = rangeQuestionDTO.rangeSteps.map {
-                RangeStep(id = it.id, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
+                RangeStep(id = -1, rangeQuestion = rangeQuestion, score = it.score, description = it.description)
             }
         )
 
