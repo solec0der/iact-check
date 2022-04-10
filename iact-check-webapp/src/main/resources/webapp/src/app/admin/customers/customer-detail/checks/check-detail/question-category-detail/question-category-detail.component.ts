@@ -28,6 +28,9 @@ export class QuestionCategoryDetailComponent implements OnInit {
   public questionCategoryFromGroup!: FormGroup;
   public thumbnail!: File;
 
+  public questionTypeDisabledTooltipText =
+    'Dieser Frage-Typ kann nicht mehr verwendet werden, da es bereits Fragen in einem anderen Typ gibt.';
+
   constructor(
     private router: Router,
     private matDialog: MatDialog,
@@ -93,6 +96,10 @@ export class QuestionCategoryDetailComponent implements OnInit {
 
   public get availableLanguages(): LanguageDTO[] {
     return AVAILABLE_LANGUAGES;
+  }
+
+  public hasQuestionsInAnyQuestionType(): boolean {
+    return this.questionCategoryDTO.rangeQuestions.length + this.questionCategoryDTO.imageQuestions.length > 0;
   }
 
   private loadData() {

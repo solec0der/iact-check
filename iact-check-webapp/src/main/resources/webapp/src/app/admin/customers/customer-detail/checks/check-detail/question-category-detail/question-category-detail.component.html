@@ -72,7 +72,8 @@
               {{'QUESTION_CATEGORIES.ERRORS.MISSING_NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW' | translate}}
             </mat-error>
             <label>
-              <input matInput [placeholder]="'QUESTION_CATEGORIES.PLACEHOLDER.NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW' | translate"
+              <input matInput
+                     [placeholder]="'QUESTION_CATEGORIES.PLACEHOLDER.NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW' | translate"
                      formControlName="numberOfPossibleOutcomesToShow"
                      required/>
             </label>
@@ -80,8 +81,21 @@
         </form>
       </mat-tab>
       <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate" *ngIf="this.questionCategoryDTO">
+        <br>
+        <div class="tooltip-container">
+          <b><p>Wichtige Information</p></b>
+          <p>
+            In der momentanen Version ist es nicht möglich verschiedenen Frage Typen zu mischen. Sobald es mindestens
+            eine Frage in einer Frage Art gibt, werden alle anderen Frage Arten ausgegraut.
+          </p>
+        </div>
+
         <mat-accordion>
-          <mat-expansion-panel>
+          <mat-expansion-panel
+            #rangeQuestionsExpansionPanel
+            [disabled]="this.hasQuestionsInAnyQuestionType() && this.questionCategoryDTO.rangeQuestions.length === 0"
+            [matTooltip]="this.questionTypeDisabledTooltipText"
+            [matTooltipDisabled]="!rangeQuestionsExpansionPanel.disabled">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ 'QUESTIONS.RANGE_QUESTIONS' | translate }}
@@ -93,7 +107,10 @@
             </mat-expansion-panel-header>
             <app-range-question-list [questionCategory]="this.questionCategoryDTO"></app-range-question-list>
           </mat-expansion-panel>
-          <mat-expansion-panel>
+          <mat-expansion-panel #imageQuestionsExpansionPanel
+                               [disabled]="this.hasQuestionsInAnyQuestionType() && this.questionCategoryDTO.imageQuestions.length === 0"
+                               [matTooltip]="this.questionTypeDisabledTooltipText"
+                               [matTooltipDisabled]="!imageQuestionsExpansionPanel.disabled">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ 'QUESTIONS.IMAGE_QUESTIONS' | translate }}
