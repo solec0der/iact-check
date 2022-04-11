@@ -27,9 +27,6 @@ alter table document
             on delete cascade;
 
 alter table displayed_document_group
-    drop foreign key displayed_document_group_document_group_id_fk;
-
-alter table displayed_document_group
     add constraint displayed_document_group_document_group_id_fk
         foreign key (document_group_id) references document_group (id)
             on delete cascade;
