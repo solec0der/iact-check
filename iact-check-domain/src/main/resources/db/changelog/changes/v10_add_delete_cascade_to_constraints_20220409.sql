@@ -32,9 +32,6 @@ alter table displayed_document_group
             on delete cascade;
 
 alter table displayed_document_group
-    drop foreign key displayed_document_group_marketplace_tile_config_id_fk;
-
-alter table displayed_document_group
     add constraint displayed_document_group_marketplace_tile_config_id_fk
         foreign key (marketplace_tile_config_id) references marketplace_tile_config (id)
             on delete cascade;
@@ -95,7 +92,3 @@ alter table email_setting
     add constraint email_setting_ibfk_1
         foreign key (customer_id) references customer (id)
             on delete cascade;
-
-
-
-
