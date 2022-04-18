@@ -26,6 +26,10 @@ export class IntroductionScreenComponent implements OnInit {
   private loadData(): void {
     this.checkStateService.getActiveCheck().subscribe((check) => {
       this.check = check;
+
+      if (!this.check.introductionSlideConfiguration.showIntroductionSlide) {
+        this.nextStep();
+      }
     });
   }
 }

@@ -95,7 +95,7 @@ export class PossibleOutcomesComponent implements OnInit {
 
   private loadData(): void {
     this.checkStateService.getActiveCustomer().subscribe((customerDTO) => {
-      this.customerDTO = customerDTO!;
+      this.customerDTO = customerDTO;
     });
 
     this.checkStateService.getActiveQuestionCategory().subscribe((questionCategoryDTO) => {
@@ -107,7 +107,7 @@ export class PossibleOutcomesComponent implements OnInit {
       ) {
         this.possibleOutcomeService
           .getPossibleOutcomesBySubmissionIdAndQuestionCategoryId(
-            <number>this.submission.id,
+            this.submission.id as number,
             this.questionCategoryDTO.id
           )
           .subscribe((possibleOutcomes) => {

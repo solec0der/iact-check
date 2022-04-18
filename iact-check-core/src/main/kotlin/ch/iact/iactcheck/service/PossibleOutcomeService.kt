@@ -3,17 +3,16 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.controller.exception.PossibleOutcomeNotFoundException
 import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.controller.exception.SubmissionNotFoundException
-import ch.iact.iactcheck.domain.model.ImageQuestionAnswer
-import ch.iact.iactcheck.domain.model.PossibleOutcome
-import ch.iact.iactcheck.domain.model.PossibleScore
-import ch.iact.iactcheck.domain.model.RangeQuestionAnswer
+import ch.iact.iactcheck.domain.model.*
 import ch.iact.iactcheck.domain.repository.PossibleOutcomeRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
 import ch.iact.iactcheck.domain.repository.SubmissionRepository
 import ch.iact.iactcheck.dto.PossibleOutcomeDTO
+import ch.iact.iactcheck.dto.QuestionCategoryDTO
 import ch.iact.iactcheck.service.converter.PossibleOutcomeConverter
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.math.min
 
 @Service
 class PossibleOutcomeService(
@@ -69,7 +68,7 @@ class PossibleOutcomeService(
             )
         }
         if (submission.rangeQuestionAnswers.isNotEmpty()) {
-            return getPossibleOutcomesByRangeQuestionAnswers(submission.rangeQuestionAnswers)
+            return getPossibleOutcomesByRangeQuestionAnswers(submission.rangeQuestionAnswers, questionCategory)
         }
         return emptyList()
     }
@@ -112,9 +111,31 @@ class PossibleOutcomeService(
             .toList()
     }
 
-    private fun getPossibleOutcomesByRangeQuestionAnswers(rangeQuestionAnswers: List<RangeQuestionAnswer>): List<PossibleOutcomeDTO> {
-        // TODO: Handle the case for range question answers
-        return emptyList()
+    private fun getPossibleOutcomesByRangeQuestionAnswers(
+        rangeQuestionAnswers: List<RangeQuestionAnswer>,
+        questionCategory: QuestionCategoryDTO
+    ): List<PossibleOutcomeDTO> {
+        val score = rangeQuestionAnswers.sumOf(RangeQuestionAnswer::value)
+
+        val filteredPossibleOutcomes = questionCategory.possibleOutcomes.filter {
+            it.possibleScores.any { possibleScore -> possibleScore.score == score }
+        }.toMutableList()
+
+        if (filteredPossibleOutcomes.size < questionCategory.numberOfPossibleOutcomesToShow) {
+            val possibleOutcomesNotInScore = questionCategory.possibleOutcomes.filter {
+                it.possibleScores.all { possibleScore -> possibleScore.score != score }
+            }
+
+            val remainingPossibleOutcomes = min(
+                questionCategory.numberOfPossibleOutcomesToShow - filteredPossibleOutcomes.size,
+                possibleOutcomesNotInScore.size
+            )
+
+            filteredPossibleOutcomes.addAll(
+                possibleOutcomesNotInScore.take(remainingPossibleOutcomes)
+            )
+        }
+        return filteredPossibleOutcomes
     }
 
     fun getPossibleOutcomesByScoreAndQuestionCategoryId(
