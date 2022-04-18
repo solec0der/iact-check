@@ -9,9 +9,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class HttpExceptionDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: HttpExceptionDialogData) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  public reloadWebapp() {
+  public reloadWebapp(): void {
     location.reload();
   }
 }

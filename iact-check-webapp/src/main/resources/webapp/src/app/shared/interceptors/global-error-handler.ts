@@ -7,7 +7,7 @@ import { LogLevel } from '../model/log-level';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private readonly logService: LogService) {}
 
-  handleError(error: Error) {
+  handleError(error: Error): void {
     const clientLogEntry: ClientLogEntryDTO = {
       logLevel: LogLevel.ERROR,
       message: error.message,

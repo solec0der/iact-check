@@ -5,7 +5,6 @@ import { CustomerDTO } from '../shared/dtos/customer-dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionCategoryDTO } from '../shared/dtos/question-category-dto';
 import { SubmissionDTO } from '../shared/dtos/submission-dto';
-import { CheckService } from '../shared/services/check.service';
 import { SubmissionService } from '../shared/services/submission.service';
 
 @Injectable({

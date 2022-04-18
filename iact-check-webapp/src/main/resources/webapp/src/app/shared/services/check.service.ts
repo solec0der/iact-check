@@ -12,23 +12,23 @@ export class CheckService {
 
   public createCheck(checkDTO: CheckDTO): Observable<CheckDTO> {
     const body = JSON.stringify(checkDTO);
-    return this.httpClient.post<CheckDTO>(CORE_URL + '/api/admin/checks/', body);
+    return this.httpClient.post<CheckDTO>(`${CORE_URL}/api/admin/checks`, body);
   }
 
   public getCheckById(checkId: number): Observable<CheckDTO> {
-    return this.httpClient.get<CheckDTO>(CORE_URL + '/api/checks/' + checkId);
+    return this.httpClient.get<CheckDTO>(`${CORE_URL}/api/checks/${checkId}`);
   }
 
   public getChecksByCustomerId(customerId: number): Observable<CheckDTO[]> {
-    return this.httpClient.get<CheckDTO[]>(CORE_URL + '/api/customers/' + customerId + '/checks');
+    return this.httpClient.get<CheckDTO[]>(`${CORE_URL}/api/customers/${customerId}/checks'`);
   }
 
   public updateCheckById(checkId: number, checkDTO: CheckDTO): Observable<CheckDTO> {
     const body = JSON.stringify(checkDTO);
-    return this.httpClient.put<CheckDTO>(CORE_URL + '/api/admin/checks/' + checkId, body);
+    return this.httpClient.put<CheckDTO>(`${CORE_URL}/api/admin/checks/${checkId}`, body);
   }
 
   public deleteCheckById(checkId: number): Observable<void> {
-    return this.httpClient.delete<void>(CORE_URL + '/api/admin/checks/' + checkId);
+    return this.httpClient.delete<void>(`${CORE_URL}/api/admin/checks/${checkId}`);
   }
 }

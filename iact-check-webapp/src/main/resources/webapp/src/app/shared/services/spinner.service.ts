@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import {NgxSpinnerService} from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpinnerService {
-
   private earliestHideTime = Date.now();
   private readonly minSpinningTime = 250;
 
   private numberOfActiveHttpRequests = 0;
 
-  constructor(private ngxSpinnerService: NgxSpinnerService) { }
+  constructor(private ngxSpinnerService: NgxSpinnerService) {}
 
   public show(): void {
     this.ngxSpinnerService.show('main');

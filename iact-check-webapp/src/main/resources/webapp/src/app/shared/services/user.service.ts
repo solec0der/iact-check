@@ -10,8 +10,4 @@ export class UserService {
   public isSuperUser(): boolean {
     return this.keycloakService.isUserInRole('SUPERUSER');
   }
-
-  public getUsername(): string {
-    return this.keycloakService.getUsername();
-  }
 }

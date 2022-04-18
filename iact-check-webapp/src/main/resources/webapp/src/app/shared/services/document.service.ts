@@ -33,7 +33,7 @@ export class DocumentService {
   }
 
   public getFileByDocumentId(documentId: number): Observable<Blob> {
-    return this.httpClient.get(CORE_URL + '/api/documents/' + documentId + '/file', {
+    return this.httpClient.get(`${CORE_URL}/api/documents/${documentId}/file`, {
       responseType: 'blob',
     });
   }
@@ -63,7 +63,7 @@ export class DocumentService {
   public uploadFileForDocument(documentId: number, file: File): Observable<void> {
     const body: FormData = new FormData();
     body.append('file', file, file.name);
-    return this.httpClient.put<void>(CORE_URL + '/api/admin/document-groups/documents/' + documentId + '/assets', body);
+    return this.httpClient.put<void>(`${CORE_URL}/api/admin/document-groups/documents/${documentId}/assets`, body);
   }
 
   public deleteDocumentGroupById(documentGroupId: number): Observable<void> {

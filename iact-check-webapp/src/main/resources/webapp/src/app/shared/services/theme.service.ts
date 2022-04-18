@@ -61,7 +61,7 @@ export class ThemeService {
   private getColorObject(value: string, name: string): Color {
     const c = tinycolor(value);
     return {
-      name: name,
+      name,
       hex: c.toHexString(),
       darkContrast: c.isLight(),
     };
