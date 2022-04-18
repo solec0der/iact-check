@@ -29,7 +29,10 @@ data class QuestionCategory(
     val imageQuestions: List<ImageQuestion>,
 
     @OneToMany(targetEntity = PossibleOutcome::class, mappedBy = "questionCategory")
-    val possibleOutcomes: List<PossibleOutcome>
+    val possibleOutcomes: List<PossibleOutcome>,
+
+    @Enumerated(EnumType.STRING)
+    val possibleOutcomesDisplayType: PossibleOutcomesDisplayType
 ) {
     override fun toString(): String {
         return "QuestionCategory(id=$id, title='$title', thumbnail=${thumbnail.contentToString()}, language=$language, numberOfPossibleOutcomesToShow=$numberOfPossibleOutcomesToShow)"

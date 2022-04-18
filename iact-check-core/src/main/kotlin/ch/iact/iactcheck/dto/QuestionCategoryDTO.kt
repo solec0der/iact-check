@@ -6,7 +6,8 @@ data class QuestionCategoryDTO(
     val title: String,
     val language: LanguageDTO,
     val numberOfPossibleOutcomesToShow: Int,
-    val rangeQuestions: List<RangeQuestionDTO>, // Only RangeQuestions xor ImageQuestions can be used
+    val rangeQuestions: List<RangeQuestionDTO>,
     val imageQuestions: List<ImageQuestionDTO>,
-    val possibleOutcomes: List<PossibleOutcomeDTO>
+    val possibleOutcomes: List<PossibleOutcomeDTO>,
+    val possibleOutcomesDisplayType: String
 )

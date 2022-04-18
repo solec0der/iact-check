@@ -12,11 +12,4 @@ export class ColourUtility {
     }
     return null;
   }
-
-  public static adjustColour(colour: string, amount: string): string {
-    if (colour) {
-      return amount === '0' ? colour : colour + amount;
-    }
-    return '0';
-  }
 }

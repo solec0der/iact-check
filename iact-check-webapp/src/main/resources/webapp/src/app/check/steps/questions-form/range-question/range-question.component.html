@@ -15,9 +15,9 @@
         <mat-slider
           thumbLabel
           style="width: 100%"
-          [min]="0"
-          [max]="question.rangeSteps.length - 1"
-          [value]="(question.rangeSteps.length - 1) / 2"
+          [min]="this.getSliderBoundsByQuestionId(question.id).min"
+          [max]="this.getSliderBoundsByQuestionId(question.id).max"
+          [value]="this.getSliderValueByQuestionId(question.id)"
           (input)="this.onSliderChange($event, question)"
         ></mat-slider>
       </div>

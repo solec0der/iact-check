@@ -66,6 +66,11 @@
             </button>
           </mat-form-field>
           <br/><br/>
+
+          <h2 class="subtitle">
+            Mögliche Ergebnisse
+          </h2>
+
           <mat-form-field appearance="outline" class="half-width">
             <mat-label>{{'QUESTION_CATEGORIES.NUMBER_OF_POSSIBLE_OUTCOMES_TO_SHOW' | translate}}</mat-label>
             <mat-error>
@@ -78,6 +83,34 @@
                      required/>
             </label>
           </mat-form-field>
+
+          <div class="display-flex-space-between half-width">
+            <div>
+              <p>Darstellung</p>
+              <mat-hint>
+                In der Kachel Darstellung gibt es keine Detail Ansicht
+              </mat-hint>
+            </div>
+            <div>
+              <mat-button-toggle-group formControlName="possibleOutcomesDisplayType">
+                <mat-button-toggle value="TILES">
+                  <mat-icon>
+                    grid_view
+                  </mat-icon>
+                  Kacheln
+                </mat-button-toggle>
+                <mat-button-toggle value="LIST">
+                  <mat-icon>
+                    list
+                  </mat-icon>
+                  Liste
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </div>
+          <br>
+
+
         </form>
       </mat-tab>
       <mat-tab [label]="'QUESTIONS.QUESTIONS' | translate" *ngIf="this.questionCategoryDTO">
@@ -125,6 +158,7 @@
         </mat-accordion>
       </mat-tab>
       <mat-tab [label]="'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate" *ngIf="this.questionCategoryDTO">
+
         <br>
         <app-possible-outcome-list
           [questionCategory]="this.questionCategoryDTO"></app-possible-outcome-list>

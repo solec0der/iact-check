@@ -15,4 +15,5 @@
     <include file="db/changelog/changes/v8_add_email_and_text_message_template_column_20220407.sql"/>
     <include file="db/changelog/changes/v9_remove_active_from_to_field_from_check_20220409.sql"/>
     <include file="db/changelog/changes/v10_add_delete_cascade_to_constraints_20220409.sql"/>
+    <include file="db/changelog/changes/v11_add_possible_outcomes_display_type_20220418.sql"/>
 </databaseChangeLog>

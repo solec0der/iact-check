@@ -3,7 +3,7 @@
   *ngIf="this.possibleOutcomes && this.customerDTO && this.customerDTO.customerBranding"
 >
   <div class="check-container" style="width: 65%">
-    <div class="check-content" *ngIf="this.questionCategoryDTO.numberOfPossibleOutcomesToShow > 0">
+    <div class="check-content" *ngIf="this.questionCategoryDTO.possibleOutcomesDisplayType === 'TILES'">
       <div class="full-width align-center" style="margin-bottom: 24px">
         <h1 class="large-title">Hey {{this.submission.firstName}}</h1>
         <br/>
@@ -11,7 +11,8 @@
       </div>
 
       <div style="margin: 0 auto">
-        <div *ngFor="let possibleOutcome of this.possibleOutcomes" [style.background-color]="possibleOutcome.backgroundColour" style="color: black; margin-bottom: 24px"
+        <div *ngFor="let possibleOutcome of this.possibleOutcomes"
+             [style.background-color]="possibleOutcome.backgroundColour" style="color: black; margin-bottom: 24px"
              class="single-possible-outcome-container">
           <h1>
             {{possibleOutcome.title}}
@@ -25,54 +26,37 @@
         <mat-icon>arrow_forward_ios</mat-icon>
       </button>
     </div>
-<!--    <div class="check-content" *ngIf="!this.questionCategoryDTO.showOnlyBestMatchingPossibleOutcome">-->
-<!--      <div class="align-center full-width" style="margin-bottom: 25px">-->
-<!--        <h1>{{'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate}}</h1>-->
+    <div class="check-content" *ngIf="this.questionCategoryDTO.possibleOutcomesDisplayType === 'LIST'">
+      <div class="align-center full-width" style="margin-bottom: 25px">
+        <h1>{{'POSSIBLE_OUTCOMES.POSSIBLE_OUTCOMES' | translate}}</h1>
+      </div>
 
-<!--        <div class="full-width">-->
-<!--          <div class="color-preview-container">-->
-<!--            <div class="square" [style.background-color]="this.customerDTO.customerBranding.accentColour"></div>-->
-<!--            <div>-->
-<!--              <p>{{'POSSIBLE_OUTCOMES.RECOMMENDED' | translate}}</p>-->
-<!--            </div>-->
-<!--          </div>-->
+      <div class="possible-outcomes-container">
+        <div class="possible-outcome" *ngFor="let possibleOutcome of this.possibleOutcomes"
+             [style.background-color]="possibleOutcome.backgroundColour"
+             (click)="this.showPossibleOutcomeDetail(possibleOutcome)">
+          {{possibleOutcome.title}}
 
-<!--          <div class="color-preview-container">-->
-<!--            <div class="square"-->
-<!--                 [style.background-color]="this.colourAdjuster(this.customerDTO.customerBranding.accentColour, '80')"></div>-->
-<!--            <div>-->
-<!--              <p>{{'POSSIBLE_OUTCOMES.LESS_RECOMMENDED' | translate}}</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="possible-outcomes-container">-->
-<!--        <div class="possible-outcome" *ngFor="let possibleOutcome of this.possibleOutcomes"-->
-<!--             [style.background-color]="this.getBackgroundColorOfPossibleOutcome(possibleOutcome)"-->
-<!--             (click)="this.showPossibleOutcomeDetail(possibleOutcome)">-->
-<!--          {{possibleOutcome.title}}-->
-
-<!--          <span style="float: right; margin-right: 25px"-->
-<!--                *ngIf="this.isPossibleOutcomeInBookmarkedPossibleOutcomes(possibleOutcome.id)">-->
-<!--            <mat-icon>bookmark</mat-icon>-->
-<!--          </span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="display-flex-space-between full-width">-->
-<!--        <div>-->
-<!--          <button mat-stroked-button (click)="this.goBackToQuestionCategories()">-->
-<!--            <mat-icon>navigate_before</mat-icon>-->
-<!--            {{'POSSIBLE_OUTCOMES.BACK_TO_QUESTION_CATEGORIES' | translate}}-->
-<!--          </button>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <button mat-stroked-button (click)="this.submitForm()">-->
-<!--            {{'SHARED.FINISH' | translate}}-->
-<!--            <mat-icon>navigate_next</mat-icon>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+          <span style="float: right; margin-right: 25px"
+                *ngIf="this.isPossibleOutcomeInBookmarkedPossibleOutcomes(possibleOutcome.id)">
+            <mat-icon>bookmark</mat-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="display-flex-space-between full-width">
+      <div>
+        <button mat-stroked-button (click)="this.goBackToQuestionCategories()">
+          <mat-icon>navigate_before</mat-icon>
+          {{'POSSIBLE_OUTCOMES.BACK_TO_QUESTIONS' | translate}}
+        </button>
+      </div>
+      <div>
+        <button mat-stroked-button (click)="this.submitForm()">
+          {{'SHARED.FINISH' | translate}}
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

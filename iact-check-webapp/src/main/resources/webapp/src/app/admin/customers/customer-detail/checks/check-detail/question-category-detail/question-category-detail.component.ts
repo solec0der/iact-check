@@ -126,6 +126,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       rangeQuestions: [],
       imageQuestions: [],
       possibleOutcomes: [],
+      possibleOutcomesDisplayType: this.questionCategoryFromGroup.value.possibleOutcomesDisplayType,
     };
 
     this.questionCategoryService.createQuestionCategory(questionCategoryDTO).subscribe((createdQuestionCategoryDTO) => {
@@ -158,6 +159,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       rangeQuestions: [],
       imageQuestions: [],
       possibleOutcomes: [],
+      possibleOutcomesDisplayType: this.questionCategoryFromGroup.value.possibleOutcomesDisplayType,
     };
 
     this.questionCategoryService
@@ -183,7 +185,7 @@ export class QuestionCategoryDetailComponent implements OnInit {
       });
   }
 
-  private deleteQuestionCategory() {
+  private deleteQuestionCategory(): void {
     this.questionCategoryService.deleteQuestionCategoryById(this.questionCategoryId).subscribe(() => {
       this.matSnackBar.open(
         this.translateService.instant('QUESTION_CATEGORIES.DELETED_MESSAGE'),
@@ -212,6 +214,10 @@ export class QuestionCategoryDetailComponent implements OnInit {
         Validators.required
       ),
       thumbnail: new FormControl(this.thumbnail, Validators.required),
+      possibleOutcomesDisplayType: new FormControl(
+        this.action === 'edit' ? this.questionCategoryDTO.possibleOutcomesDisplayType : '',
+        Validators.required
+      ),
     });
   }
 }

@@ -11,6 +11,7 @@ import { CheckDTO } from '../../../../shared/dtos/check-dto';
 import { QuestionCategoryDTO } from '../../../../shared/dtos/question-category-dto';
 import { RangeQuestionAnswerDTO } from '../../../../shared/dtos/range-question-answer-dto';
 import { SubmissionDTO } from '../../../../shared/dtos/submission-dto';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-range-question',
@@ -47,10 +48,7 @@ export class RangeQuestionComponent implements OnInit {
         (rangeQuestionAnswer) => rangeQuestionAnswer.rangeQuestionId === changedQuestion.id
       );
       if (foundRangeQuestionAnswer) {
-        const rangeStep = changedQuestion.rangeSteps[event.value];
-        event.source.displayWith = (_) => {
-          return rangeStep.score;
-        };
+        const rangeStep = changedQuestion.rangeSteps[event.value - 1];
         foundRangeQuestionAnswer.value = rangeStep.score;
       }
     }
@@ -58,6 +56,33 @@ export class RangeQuestionComponent implements OnInit {
 
   public getMiddleRangeStepOfRangeQuestion(rangeQuestion: RangeQuestionDTO): RangeStepDTO {
     return rangeQuestion.rangeSteps[(rangeQuestion.rangeSteps.length - 1) / 2];
+  }
+
+  public getSliderValueByQuestionId(questionId: number): number {
+    const rangeQuestionAnswer = this.rangeQuestionAnswers.find((answer) => answer.rangeQuestionId === questionId);
+
+    if (rangeQuestionAnswer) {
+      return rangeQuestionAnswer.value;
+    }
+    return 0;
+  }
+
+  public getSliderBoundsByQuestionId(questionId: number) {
+    const rangeQuestion = this.questionCategoryDTO.rangeQuestions.find((question) => question.id === questionId);
+
+    if (rangeQuestion) {
+      const scores = rangeQuestion.rangeSteps.map((rangeStep) => rangeStep.score).sort((a, b) => a - b);
+
+      return {
+        min: scores[0],
+        max: scores[scores.length - 1],
+      };
+    }
+
+    return {
+      min: 0,
+      max: 100,
+    };
   }
 
   public previousStep(): void {
@@ -74,7 +99,11 @@ export class RangeQuestionComponent implements OnInit {
     rangeQuestionAnswers.push(...this.rangeQuestionAnswers);
 
     if (this.submission && this.submission.rangeQuestionAnswers.length > 0) {
-      rangeQuestionAnswers.push(...this.submission.rangeQuestionAnswers);
+      this.submission.rangeQuestionAnswers.forEach((answer) => {
+        if (this.rangeQuestionAnswers.every((_) => _.rangeQuestionId !== answer.rangeQuestionId)) {
+          rangeQuestionAnswers.push(answer);
+        }
+      });
     }
 
     this.submissionService
@@ -96,28 +125,21 @@ export class RangeQuestionComponent implements OnInit {
 
     this.checkStateService.getActiveQuestionCategory().subscribe((questionCategoryDTO) => {
       this.questionCategoryDTO = questionCategoryDTO;
-      this.checkIfQuestionsAreAlreadyAnswered();
       this.setupRangeQuestionAnswers();
     });
   }
 
-  private checkIfQuestionsAreAlreadyAnswered(): void {
-    if (
-      this.submission.rangeQuestionAnswers.find(
-        (rangeQuestionAnswer) => rangeQuestionAnswer.questionCategoryId === this.questionCategoryDTO.id
-      )
-    ) {
-      this.checkStateService.setStep(Steps.PossibleOutcomes, this.activatedRoute);
-    }
-  }
-
   private setupRangeQuestionAnswers(): void {
-    this.rangeQuestionAnswers = [];
-    this.questionCategoryDTO.rangeQuestions.forEach((rangeQuestion) => {
-      this.rangeQuestionAnswers.push({
-        rangeQuestionId: rangeQuestion.id,
-        value: this.getMiddleRangeStepOfRangeQuestion(rangeQuestion).score,
+    if (this.submission.rangeQuestionAnswers && this.submission.rangeQuestionAnswers.length > 0) {
+      this.rangeQuestionAnswers = this.submission.rangeQuestionAnswers;
+    } else {
+      this.rangeQuestionAnswers = [];
+      this.questionCategoryDTO.rangeQuestions.forEach((rangeQuestion) => {
+        this.rangeQuestionAnswers.push({
+          rangeQuestionId: rangeQuestion.id,
+          value: this.getMiddleRangeStepOfRangeQuestion(rangeQuestion).score,
+        });
       });
-    });
+    }
   }
 }

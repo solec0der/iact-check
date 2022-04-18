@@ -3,6 +3,7 @@ package ch.iact.iactcheck.service
 import ch.iact.iactcheck.controller.exception.CheckNotFoundException
 import ch.iact.iactcheck.controller.exception.QuestionCategoryNotFoundException
 import ch.iact.iactcheck.domain.model.Language
+import ch.iact.iactcheck.domain.model.PossibleOutcomesDisplayType
 import ch.iact.iactcheck.domain.model.QuestionCategory
 import ch.iact.iactcheck.domain.repository.CheckRepository
 import ch.iact.iactcheck.domain.repository.QuestionCategoryRepository
@@ -27,7 +28,8 @@ class QuestionCategoryService(
             numberOfPossibleOutcomesToShow = questionCategoryDTO.numberOfPossibleOutcomesToShow,
             rangeQuestions = emptyList(),
             imageQuestions = emptyList(),
-            possibleOutcomes = emptyList()
+            possibleOutcomes = emptyList(),
+            possibleOutcomesDisplayType = PossibleOutcomesDisplayType.valueOf(questionCategoryDTO.possibleOutcomesDisplayType)
         )
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))
@@ -71,7 +73,8 @@ class QuestionCategoryService(
         questionCategory = questionCategory.copy(
             title = questionCategoryDTO.title,
             language = Language.findLanguageByLocale(questionCategoryDTO.language.locale),
-            numberOfPossibleOutcomesToShow = questionCategoryDTO.numberOfPossibleOutcomesToShow
+            numberOfPossibleOutcomesToShow = questionCategoryDTO.numberOfPossibleOutcomesToShow,
+            possibleOutcomesDisplayType = PossibleOutcomesDisplayType.valueOf(questionCategoryDTO.possibleOutcomesDisplayType)
         )
 
         return QuestionCategoryConverter.convertQuestionCategoryToDTO(questionCategoryRepository.save(questionCategory))
