@@ -30,7 +30,7 @@ export class CustomerService {
   }
 
   public getLogoByCustomerId(customerId: number): Observable<Blob> {
-    return this.httpClient.get(`${CORE_URL}/api/customers/${customerId}/branding/logo'`, { responseType: 'blob' });
+    return this.httpClient.get(`${CORE_URL}/api/customers/${customerId}/branding/logo`, { responseType: 'blob' });
   }
 
   public getCustomerById(customerId: number): Observable<CustomerDTO> {

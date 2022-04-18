@@ -20,7 +20,7 @@ export class CheckService {
   }
 
   public getChecksByCustomerId(customerId: number): Observable<CheckDTO[]> {
-    return this.httpClient.get<CheckDTO[]>(`${CORE_URL}/api/customers/${customerId}/checks'`);
+    return this.httpClient.get<CheckDTO[]>(`${CORE_URL}/api/customers/${customerId}/checks`);
   }
 
   public updateCheckById(checkId: number, checkDTO: CheckDTO): Observable<CheckDTO> {
